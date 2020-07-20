@@ -51,4 +51,4 @@ public:
 
 };
 
-#endif //_BASEENEMY_H
+#endif _BASEENEMY_H
