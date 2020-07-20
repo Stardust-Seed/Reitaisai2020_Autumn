@@ -47,7 +47,7 @@ public:
 		float ox, float oy, float ow, float oh) = 0;
 	// m = my ©•ª   o = opnet ‘Šè	//“–‚½‚è”»’èˆ—
 
-	virtual void Draw() = 0;   //•`‰æˆ—
+	virtual void Draw();   //•`‰æˆ—
 
 };
 
