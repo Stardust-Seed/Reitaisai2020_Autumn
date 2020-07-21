@@ -27,9 +27,13 @@ protected:
 	bool isDamage;                  //プレイヤーの被弾フラグ
 
 public:
+	 virtual bool ClisionHit(float mx, float my, float mw, float mh,
+		     float ox, float oy, float ow, float oh) = 0;
+	 //m = my 自分   o = opnet 相手
 
+	 virtual void Update();         //更新処理
+	 virtual void Draw();           //描画処理
 	 virtual void Move();           //移動処理
-
 	 virtual void Attack();         //攻撃処理
 
 };
