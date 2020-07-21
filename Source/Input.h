@@ -3,10 +3,10 @@
 
 #include "Singleton.h"
 
-class Keyboard : public Singleton<Keyboard> {
+class Input : public Singleton<Input> {
 
-	Keyboard();
-	friend Singleton< Keyboard >;
+	Input();
+	friend Singleton< Input >;
 
 public:
 	int UpdateKey();	            //キーの入力状態の更新更新
