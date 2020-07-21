@@ -22,7 +22,13 @@ private:
 
 public:
 
-	void EnemyHit(int _power);    //敵が衝突してきたら実行される関数
+	 virtual bool ClisionHit(float mx, float my, float mw, float mh,
+		     float ox, float oy, float ow, float oh) = 0;
+	 //m = my 自分   o = opnet 相手
+
+	 virtual void Update();                //更新処理
+	 virtual void Draw();                  //描画処理
+	 virtual void EnemyHit(int _power);    //敵が衝突してきたら実行される関数
 
 };
 
