@@ -12,17 +12,12 @@
 詳細説明	  : Objectから継承した、プレイヤーの元となるプレイヤー
 --------------------------------------------------------------*/
 
-class BasePlayer:Object{
+class BasePlayer:public virtual Object {
 
 protected:
 
 	const float	PLAYER_SPOWNPOSX;	//プレイヤーの初期位置_X
 	const float	PLEYER_SPOWNPOSY;	//プレイヤーの初期位置_Y
-
-	int	x;	                        //プレイヤーのx
-	int	y;	                        //プレイヤーのy
-	int	width;  	                //プレイヤーのwidth
-	int	height; 	                //プレイヤーのheight
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
