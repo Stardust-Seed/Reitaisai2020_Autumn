@@ -12,7 +12,7 @@
 詳細説明	  : 拠点
 --------------------------------------------------------------*/
 
-class Castle:Object{
+class Castle:public virtual Object{
 
 private:
 
@@ -28,7 +28,16 @@ public:
 
 	 virtual void Update();                //更新処理
 	 virtual void Draw();                  //描画処理
-	 virtual void EnemyHit(int _power);    //敵が衝突してきたら実行される関数
+
+	 virtual void Set_x(int _x) { x = _x; }                        //セッター
+	 virtual void Set_y(int _y) { y = _y; }                        //セッター
+	 virtual void Set_width(int _width) { width = _width; }        //セッター
+	 virtual void Set_height(int _height) { height = _height; }    //セッター
+
+	 virtual int Get_x() { return x; }                             //ゲッター
+	 virtual int Get_y() { return y; }                             //ゲッター
+	 virtual int Get_width() { return width; }                     //ゲッター
+	 virtual int Get_height() { return height; }                   //ゲッター
 
 };
 
