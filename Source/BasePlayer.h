@@ -12,7 +12,7 @@
 詳細説明	  : Objectから継承した、プレイヤーの元となるプレイヤー
 --------------------------------------------------------------*/
 
-class BasePlayer:Object{
+class BasePlayer:public virtual Object {
 
 protected:
 
@@ -35,6 +35,16 @@ public:
 	 virtual void Draw();           //描画処理
 	 virtual void Move();           //移動処理
 	 virtual void Attack();         //攻撃処理
+
+	 virtual void Set_x(int _x) { x = _x; }                        //セッター
+	 virtual void Set_y(int _y) { y = _y; }                        //セッター
+	 virtual void Set_width(int _width) { width = _width; }        //セッター
+	 virtual void Set_height(int _height) { height = _height; }    //セッター
+
+	 virtual int Get_x() { return x; }                             //ゲッター
+	 virtual int Get_y() { return y; }                             //ゲッター
+	 virtual int Get_width() { return width; }                     //ゲッター
+	 virtual int Get_height() { return height; }                   //ゲッター
 
 };
 
