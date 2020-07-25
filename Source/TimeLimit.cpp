@@ -2,31 +2,28 @@
 #include"TimeLimit.h"
 
 TimeLimit::TimeLimit() {
-	const int MAX_LIMITTIME = 100 * 10;	// 一秒 * 指定した秒数
+	timer = MAX_LIMITTIME;						//制限時間のセット
 
-	timer = MAX_LIMITTIME;					//制限時間のセット
+	color = GetColor(255, 255, 255);			//文字の色　白
 
-	color = GetColor(255, 255, 255);
-
-	finishTime = false;						//初期状態
-
+	finishTime = false;							//初期状態
 }
 
 void TimeLimit::Update() {
-	Draw();				//描画
-	if (timer <= 0) {
-		DrawFormatString(20, 40, color, "Time Up", timer);//
-		finishTime = true;
+	Draw();											//描画
+	if (timer <= 100) {								//残り一秒以下は0になるため、表示タイミングの調整
+		DrawFormatString(20, 40, color, "Time Up");	//タイムアップの文字表示
+		finishTime = true;							//フラグ切替
 	}
-	else {
-		CountDown();	//カウントダウン
+	if(timer >= 0){									//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+		CountDown();								//カウントダウン
 	}
 }
 
 void TimeLimit::Draw() {
-	DrawFormatString(20, 20,color, "制限時間%d",timer);//表示
+	DrawFormatString(20, 20,color, "制限時間%d",timer/100);	//表示
 } 
 
 void TimeLimit::CountDown() {
-	timer -= 1;								//カウントダウン
+	timer -= 1;												//カウントダウン
 }

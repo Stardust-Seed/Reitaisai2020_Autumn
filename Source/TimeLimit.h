@@ -3,22 +3,26 @@
 
 class TimeLimit {
 private:
-	static const int MAX_LIMITTIME;	//制限時間
+	static const int FRAME = 100;							//フレームレート(将来的には60fps)
 
-	int timer;					//制限時間(減少表示)
+	static const int TIME = 10;								//実際の制限時間
 
-	int color;					//テキストカラー
+	static const int MAX_LIMITTIME = FRAME * (TIME + 1)	-1;	// フレームレート * (指定した秒数 +1) - 1 // "+1) - 1"この部分は表示の違和感をなくすため
 
-	bool finishTime;			//終了フラグ
+	int timer;						//制限時間(減少表示)
+	
+	int color;						//テキストカラー
+
+	bool finishTime;				//終了フラグ
 
 public:
-	TimeLimit();				//コンストラクタ
+	TimeLimit();					//コンストラクタ
 
-	void Update();				//更新処理
+	void Update();					//更新処理
 
-	void Draw();				//描画処理
+	void Draw();					//描画処理
 
-	void CountDown();			//カウントダウン
+	void CountDown();				//カウントダウン
 };
 
 #endif //_TIMELIMIT_H
