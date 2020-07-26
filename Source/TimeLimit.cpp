@@ -11,7 +11,7 @@ TimeLimit::TimeLimit() {
 
 void TimeLimit::Update() {
 	Draw();											//描画
-	if (timer <= 100) {								//残り一秒以下は0になるため、表示タイミングの調整
+	if (timer <= FRAME) {								//残り一秒以下は割り算の結果0になるため、表示タイミングの調整
 		DrawFormatString(20, 40, color, "Time Up");	//タイムアップの文字表示
 		finishTime = true;							//フラグ切替
 	}
