@@ -17,15 +17,15 @@ enum eMenutype
 class Menu:public virtual BaseScene
 {
 private:
-	int NowSelect;						//今、選択されてる項目
+	int NowSelect;				//今、選択されてる項目
 	int y = 0;							
 
 public:
-	void SelectMenu();					//メニュー項目の選択
+	void SelectMenu();			//メニュー項目の選択
 
-	virtual void Update();				//更新処理
+	void Update();				//更新処理
 
-	virtual void Draw();				//描画処理
+	void Draw();				//描画処理
 };
 
 #endif
