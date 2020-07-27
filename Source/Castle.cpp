@@ -7,7 +7,7 @@ const int Castle::MAX_DURABILITY = 100;
 //コンストラクタ
 Castle::Castle(){
 
-	Durability = MAX_DURABILITY;
+	durability = MAX_DURABILITY;
 	isActive = true;
 
 }
@@ -31,8 +31,8 @@ void Castle::Draw()
 //拠点が存在しているか判定する処理
 void Castle::JudgeActive()
 {
-	DrawFormatString(10, 100, GetColor(255, 255, 255), "%d",Durability);
-	if (Durability <= 0)
+	DrawFormatString(10, 100, GetColor(255, 255, 255), "%d",durability);
+	if (durability <= 0)
 	{
 		isActive = false;
 	}
@@ -46,7 +46,7 @@ void Castle::JudgeActive()
 //拠点がダメージを受けたときの処理
 void Castle::HitDamage()
 {
-	Durability -= 1;
+	durability -= 1;
 	//エネミー側待ちなので仮の処理
 	//Durability -= Enemy->GetPower();
 }
@@ -58,11 +58,11 @@ bool Castle::ClisionHit(float mx, float my, float mw, float mh,
 	if (mx + mw >= ox && mx <= ox + ow &&
 		my + mh >= oy && my <= oy + oh)
 	{
-		Durability -= 10;    //とりあえずの記述
+		durability -= 10;    //とりあえずの記述
 		//Durability -= Enemy.GetPower();
 	}
 
-	if (Durability <= 0)
+	if (durability <= 0)
 	{
 		return true;
 	}

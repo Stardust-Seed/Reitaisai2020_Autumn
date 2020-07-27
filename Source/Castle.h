@@ -17,7 +17,7 @@ class Castle:public virtual Object{
 private:
 	static const int MAX_DURABILITY;    //Å‘å‘Ï‹v—Í
 
-	int Durability;	                    //‘Ï‹v—Í
+	int durability;	                    //‘Ï‹v—Í
 
 	bool isActive;	                    //‹’“_‚Ì¶‘¶ƒtƒ‰ƒO
 
