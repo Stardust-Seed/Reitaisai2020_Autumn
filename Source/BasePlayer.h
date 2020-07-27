@@ -16,15 +16,25 @@ class BasePlayer:public virtual Object {
 
 protected:
 
-	const float	PLAYER_SPOWNPOSX;	//プレイヤーの初期位置_X
-	const float	PLEYER_SPOWNPOSY;	//プレイヤーの初期位置_Y
+	const float	PLAYER_SPOWNPOSX = 300;	//プレイヤーの初期位置_X
+	const float	PLEYER_SPOWNPOSY = 348;	//プレイヤーの初期位置_Y
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
 	int stanTime;	                //プレイヤーのスタンタイム
 	int attackTime;                 //プレイヤーの攻撃間隔
 
+	int PlayerPos;                  //プレイヤーのいる場所
+	// 0 = 左         1 = 上        2 = 右         3 = 下
+
+	int isMove;                     //プレイヤーの移動方向
+	// 0 = 左へ移動   1 =上へ移動   2 = 右へ移動   3 = 下へ移動   4 = なし
+
 	bool isDamage;                  //プレイヤーの被弾フラグ
+
+	float x2;         //テスト用
+	float y2;         //テスト用
+	int Color;                      //テスト用のカラー
 
 public:
 	 virtual bool ClisionHit(float mx, float my, float mw, float mh,
@@ -34,6 +44,11 @@ public:
 	 virtual void Update();         //更新処理
 	 virtual void Draw();           //描画処理
 	 virtual void Move();           //移動処理
+	 virtual void Move_UP();        //↑移動処理
+	 virtual void Move_DOWN();      //↓移動処理
+	 virtual void Move_LEFT();      //←移動処理
+	 virtual void Move_RIGHT();     //→移動処理
+	 virtual void All();            //プレイヤーの処理
 	 virtual void Attack();         //攻撃処理
 
 	 virtual void Set_x(int _x) { x = _x; }                        //セッター
