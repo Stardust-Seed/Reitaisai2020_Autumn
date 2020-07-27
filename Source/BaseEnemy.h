@@ -31,30 +31,31 @@ protected:
 
 	float speed;		//エネミーの移動速度
 	float power;		//エネミーの攻撃力
-	int dulability;		//エネミーの体力
+	int durability;		//エネミーの体力
 	int direction;		//エネミーの進行方向
 
 	bool isAttack;		//エネミーの攻撃フラグ
 	bool isActive;		//エネミーの生存フラグ
 
 public:
-	BaseEnemy();
+	BaseEnemy() = default;
+	BaseEnemy(float _speed, float _power, int _durability, int _direction);
 	virtual void Update() {}		//更新処理
 	void Move();					//移動処理
-	virtual void Tackle() {}		//拠点やプレイヤーに対する攻撃処理
-	virtual void SearchPlayer() {}	//プレイヤーが攻撃範囲内にいるかサーチ
-	virtual void JudgeActive();		//アクティブかを判断する
+	void SearchCastle(int _ox, int _oy, int _ow, int _oh);	//城の範囲内かサーチ
+	void SearchPlayer(int _px, int _py, int _pw, int _ph);	//プレイヤーが攻撃範囲内にいるかサーチ
+	void JudgeActive();		//アクティブかを判断する
 
-	void Set_X(int _x) { x = _x; }						//x座標を設定する
-	void Set_Y(int _y) { y = _y; }						//y座標を設定する
-	void Set_Width(int _width) { width = _width; }		//widthを設定する
-	void Set_Height(int _height) { height = _height; }	//heightを設定する
+	void Set_X(float _x) { x = _x; }						//x座標を設定する
+	void Set_Y(float _y) { y = _y; }						//y座標を設定する
+	void Set_Width(float _width) { width = _width; }		//widthを設定する
+	void Set_Height(float _height) { height = _height; }	//heightを設定する
 
-	int Get_X() { return x; }				//x座標を取得する
-	int Get_Y() { return y; }				//y座標を取得する
-	int Get_Width() { return width; }		//widthを取得する
-	int Get_Height() { return height; }		//heightを取得する
-	int GetPower() { return power; }		//エネミーの攻撃力を取得する
+	float Get_X() { return x; }				//x座標を取得する
+	float Get_Y() { return y; }				//y座標を取得する
+	float Get_Width() { return width; }		//widthを取得する
+	float Get_Height() { return height; }	//heightを取得する
+	float GetPower() { return power; }		//エネミーの攻撃力を取得する
 	bool GetIsAttack() { return isAttack; }	//アタックフラグを取得する
 	
 
