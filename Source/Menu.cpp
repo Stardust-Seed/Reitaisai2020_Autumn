@@ -1,7 +1,6 @@
 #include <DxLib.h>
 #include "Input.h"
 #include "Menu.h"
-#include "GameMain.h"
 
 //選択されてる画面
 void Menu::SelectMenu()
@@ -35,9 +34,9 @@ void Menu::Update()
 		case eMenutype_Option:
 			DrawString(100, 0, "オプション", GetColor(255, 255, 255));
 			break;
+
 		}
 	}
-	Draw();
 }
 
 //描画
@@ -45,7 +44,7 @@ void Menu::Draw()
 {
 	DrawString(500, GAME_Y, "ゲーム画面", GetColor(255, 255, 255));
 	DrawString(500, CONFIG_Y, "オプション", GetColor(255, 255, 255));
-	int y = 0;
+	
 	switch (NowSelect) {									//現在の選択状態に従って処理を分岐
 	case eMenutype_Game:									//ゲーム選択中なら
 		y = GAME_Y;											//ゲームの座標を格納

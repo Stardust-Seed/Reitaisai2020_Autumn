@@ -17,7 +17,8 @@ enum eMenutype
 class Menu:public virtual BaseScene
 {
 private:
-	int NowSelect; 
+	int NowSelect;						//今、選択されてる項目
+	int y = 0;							
 
 public:
 	void SelectMenu();					//メニュー項目の選択
