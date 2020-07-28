@@ -1,6 +1,7 @@
 #ifndef _BASEENEMY_H
 #define _BASEENEMY_H
 
+#include "Castle.h"
 #include "Object.h"
 
 /*-------------------------------------------------------------
@@ -40,7 +41,7 @@ protected:
 public:
 	BaseEnemy() = default;
 	BaseEnemy(float _speed, float _power, int _durability, int _direction);
-	virtual void Update() {}		//更新処理
+	virtual void Update(Castle* _castle) {}	//更新処理
 	void Move();					//移動処理
 	void SearchCastle(int _ox, int _oy, int _ow, int _oh);	//城の範囲内かサーチ
 	void SearchPlayer(int _px, int _py, int _pw, int _ph);	//プレイヤーが攻撃範囲内にいるかサーチ
