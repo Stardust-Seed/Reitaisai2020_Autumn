@@ -5,9 +5,11 @@
 
 enum Continuity                 //選択させるのに使います
 {
+	//後々、項目が増えてもいいようにmin,maxの項目を設定しておく
+	Continuity_Min,             //最低値
 	Continuity_Yes,             //コンティニューする
     Continuity_No,              //コンティニューしない
-	Continuity_NULL             //無
+	Continuity_Max              //最大値
 };
 
 class GameOver :public virtual BaseScene{
@@ -25,6 +27,7 @@ public:
 
 	void Update();				//更新処理
 	void Draw();				//描画処理
+	void Select();              //選択処理
 };
 
 #endif //GAMEOVER_H_
