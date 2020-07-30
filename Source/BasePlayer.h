@@ -16,8 +16,8 @@ class BasePlayer:public virtual Object {
 
 protected:
 
-	const float	PLAYER_SPOWNPOSX = 300;	//プレイヤーの初期位置_X
-	const float	PLEYER_SPOWNPOSY = 348;	//プレイヤーの初期位置_Y
+	const float	PLAYER_SPOWNPOSX = 392;	//プレイヤーの初期位置_X
+	const float	PLAYER_SPOWNPOSY = 348;	//プレイヤーの初期位置_Y
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
@@ -30,6 +30,13 @@ protected:
 	int isMove;                     //プレイヤーの移動方向
 	// 0 = 左へ移動   1 =上へ移動   2 = 右へ移動   3 = 下へ移動   4 = なし
 
+	bool isMoveKey;                 //キー入力による移動かをチェックするフラグ。反対移動処理との重複を防ぐため
+	bool isOps;                     //反対移動処理を起動するためのフラグ
+	bool isOps_RUN;                 //反対移動処理を実行するためのフラグ
+	bool isOps_UP;                  //上の反対に移動するためのフラグ
+	bool isOps_DOWN;                //下の反対に移動するためのフラグ
+	bool isOps_LEFT;                //左の反対に移動するためのフラグ
+	bool isOps_RIGHT;               //右の反対に移動するためのフラグ
 	bool isDamage;                  //プレイヤーの被弾フラグ
 
 	float x2;         //テスト用
@@ -41,6 +48,8 @@ public:
 		     float ox, float oy, float ow, float oh) = 0;
 	 //m = my 自分   o = opnet 相手
 
+	 BasePlayer();                  //ベースプレイヤーのコンストラクタ
+
 	 virtual void Update();         //更新処理
 	 virtual void Draw();           //描画処理
 	 virtual void Move();           //移動処理
@@ -48,6 +57,8 @@ public:
 	 virtual void Move_DOWN();      //↓移動処理
 	 virtual void Move_LEFT();      //←移動処理
 	 virtual void Move_RIGHT();     //→移動処理
+	 virtual void Move_OPS();       //反対移動処理:起動
+	 virtual void Move_OPSRUN();    //反対移動処理:処理
 	 virtual void All();            //プレイヤーの処理
 	 virtual void Attack();         //攻撃処理
 
