@@ -12,27 +12,9 @@ GameScene::GameScene()
 void GameScene::Update()
 {
 	Input::Instance()->UpdateKey();
+	ChangeScene();
 	//ゲーム画面なのでここでプレイヤーとか動かすのかもしれない
 
-	//何をもってクリアなのかまだ知らん
-	if (Input::Instance()->GetPressCount(KEY_INPUT_1) == 1)			//1が押されたらクリアとしておく
-	{
-		nowScene = CLAER;
-		//SceneChange->onSceneChanged(Scene::CLAER);みたいな感じかもしれないきっと
-	}
-
-	//if(Castle.Get_IsActive()==false)みたいなif文...たぶん
-	if (Input::Instance()->GetPressCount(KEY_INPUT_2) == 1)			//2が押されたらがめおヴぇｒとしておく
-	{
-		nowScene = GAMEOVER;
-		//SceneChange->onSceneChanged(Scene::GAMEOVER);みたいな感じかもしれないきっと
-	}
-
-	if (Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1)    //ESCキーがポーズとしておく
-	{
-		nowScene = PAUSEMENU;
-		//SceneChange->onSceneChanged(Scene::PAUSEMENU);みたいな感じかもしれないきっと
-	}
 }
 
 //描画
@@ -54,5 +36,38 @@ void GameScene::Draw()
 	if (nowScene == PAUSEMENU)
 	{
 		DrawFormatString(10, 150, GetColor(255, 255, 255), "ぽうせ");
+	}
+}
+
+//シーン変更
+void GameScene::ChangeScene()
+{
+	//ゲームクリアなら
+	{
+		//何をもってクリアなのかまだ知らん
+		if (Input::Instance()->GetPressCount(KEY_INPUT_1) == 1)			//1が押されたらクリアとしておく
+		{
+			nowScene = CLAER;
+			//SceneChange->onSceneChanged(Scene::CLAER);みたいな感じかもしれないきっと
+		}
+	}
+	
+	//ゲームオーバーなら
+	{
+		//if(Castle.Get_IsActive()==false)みたいなif文...たぶん
+		if (Input::Instance()->GetPressCount(KEY_INPUT_2) == 1)			//2が押されたらがめおヴぇｒとしておく
+		{
+			nowScene = GAMEOVER;
+			//SceneChange->onSceneChanged(Scene::GAMEOVER);みたいな感じかもしれないきっと
+		}
+	}
+
+	//ESCキー押したら
+	{
+		if (Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1)    //ESCキーがポーズとしておく
+		{
+			nowScene = PAUSEMENU;
+			//SceneChange->onSceneChanged(Scene::PAUSEMENU);みたいな感じかもしれないきっと
+		}
 	}
 }
