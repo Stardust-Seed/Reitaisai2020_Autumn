@@ -8,7 +8,7 @@ private:
 public:
 	Fairy_Endurance() = default;
 	Fairy_Endurance(float _speed, float _power, int _durability, int _direction);
-	void Update();
+	void Update(Castle* _castle);
 	void Draw();
 };
 
