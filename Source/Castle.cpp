@@ -9,7 +9,10 @@ Castle::Castle(){
 
 	durability = MAX_DURABILITY;
 	isActive = true;
-
+	x = 1024 / 2 - 60;
+	y = 768 / 2 - 60;
+	width = x + 60 * 2;
+	height = y + 60 * 2;
 }
 //void Castle::Update(Enemy& enemy)constになる予定
 void Castle::Update()
@@ -23,8 +26,10 @@ void Castle::Update()
 //拠点の描画
 void Castle::Draw()
 {
+	//プレイヤーの移動範囲
+	DrawBox(x-60, y-60, width+60, height+60, GetColor(25, 25, 25), true);
 	//拠点の画像を読み込んで描画させます今は四角を表示
-	DrawBox(1024/2-120, 768/2-120, 1024/2+120, 768/2+120, GetColor(255, 255, 255), true);
+	DrawBox(x, y, width, height, GetColor(255, 255, 255), true);
 }
 
 //ClisionHitが使えるなら必要なし？
