@@ -14,11 +14,14 @@ const int BaseEnemy::DIRECTIONRIGHT = 1;
 const int BaseEnemy::DIRECTIONUP = 2;
 const int BaseEnemy::DIRECTIONDOWN = 3;
 
+//コンストラクタ
 BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction) {
 	speed = _speed;
 	power = _power;
 	durability = _durability;
 	direction = _direction;
+	isActive = true;
+	isAttack = false;
 
 	if (direction == DIRECTIONLEFT) {
 		x = ENEMY_SPAWNXLEFT;
@@ -42,27 +45,28 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction
 
 	width = 48;
 	height = 48;
-
-	isActive = true;
-	isAttack = false;
 }
 
 //移動処理
 void BaseEnemy::Move() {
 
-	if (direction == BaseEnemy::DIRECTIONLEFT) {
+	if (isActive == false) {
+		return;
+	}
+
+	if (direction == DIRECTIONLEFT) {
 		x += speed;
 	}
 
-	if (direction == BaseEnemy::DIRECTIONRIGHT) {
+	if (direction == DIRECTIONRIGHT) {
 		x -= speed;
 	}
 
-	if (direction == BaseEnemy::DIRECTIONUP) {
+	if (direction == DIRECTIONUP) {
 		y += speed;
 	}
 
-	if (direction == BaseEnemy::DIRECTIONDOWN) {
+	if (direction == DIRECTIONDOWN) {
 		y -= speed;
 	}
 
@@ -70,43 +74,69 @@ void BaseEnemy::Move() {
 
 //生存判定処理
 void BaseEnemy::JudgeActive() {
-	if (durability >= 0) {
+	if (durability <= 0) {
 		isActive = false;
 	}
 }
 
+//プレイヤーサーチ処理
 void BaseEnemy::SearchPlayer(int _px, int _py, int _pw, int _ph) {
 
-	if (direction == BaseEnemy::DIRECTIONLEFT) {
+	if (direction == DIRECTIONLEFT) {
 		if (_px + _pw >= x + width && _px <= x + width && _py + _ph >= y && _py <= y + height) {
 			isAttack = true;
 		}
 	}
 
-	if (direction == BaseEnemy::DIRECTIONRIGHT) {
+	if (direction == DIRECTIONRIGHT) {
 		if (_px + _pw >= x - width && _px <= x - width && _py + _ph >= y && _py <= y + height) {
 			isAttack = true;
 		}
 	}
 
-	if (direction == BaseEnemy::DIRECTIONUP) {
+	if (direction == DIRECTIONUP) {
 		if (_px + _pw >= x && _px <= x + width && _py + _ph >= y + height && _py <= y + height) {
 			isAttack = true;
 		}
 	}
 
-	if (direction == BaseEnemy::DIRECTIONDOWN) {
+	if (direction == DIRECTIONDOWN) {
 		if (_px + _pw >= x && _px <= x + width && _py + _ph >= y - height && _py <= y - height) {
 			isAttack = true;
 		}
 	}
 }
 
+//城サーチ処理
 void BaseEnemy::SearchCastle(int _ox, int _oy, int _ow, int _oh) {
-	if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
-		isAttack = true;
+
+	if (direction == DIRECTIONLEFT) {
+		if (x + width >= _ox + width && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
+			isAttack = true;
+			isActive = false;
+		}
 	}
-	isActive = false;
+
+	if (direction == DIRECTIONRIGHT) {
+		if (x + width >= _ox && x <= (_ox + _ow) - width && y + height >= _oy && y <= _oy + _oh) {
+			isAttack = true;
+			isActive = false;
+		}
+	}
+
+	if (direction == DIRECTIONUP) {
+		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy + height && y <= _oy + _oh) {
+			isAttack = true;
+			isActive = false;
+		}
+	}
+
+	if (direction == DIRECTIONDOWN) {
+		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= (_oy + _oh) - height) {
+			isAttack = true;
+			isActive = false;
+		}
+	}
 }
 
 //当たり判定処理
