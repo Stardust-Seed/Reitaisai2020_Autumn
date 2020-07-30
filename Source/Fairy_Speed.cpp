@@ -6,8 +6,10 @@ Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, int _direc
 
 }
 
-void Fairy_Speed::Update() {
+void Fairy_Speed::Update(Castle* _castle) {
 	JudgeActive();
+
+	SearchCastle(392, 264, 240, 240);
 
 	Move();
 }
