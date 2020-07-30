@@ -37,6 +37,7 @@ void Menu::Update()
 
 		case eMenutype_Title:
 			DrawString(100, 0, "ƒ^ƒCƒgƒ‹", GetColor(255, 255, 255));
+			break;
 		}
 	}
 }

@@ -13,12 +13,19 @@ enum ePausetype
 
 class Pausemenu 
 {
-
 private:
 	int NowSelect = 0;				//現在選択されている項目
 	int y;
+
+	bool pauseflg;					//ポーズメニューへ移行するかの判定
+	bool pauseState;				//ポーズメニューに一度でもなったかの判定
+	bool pausereset;				//ポーズメニューを一度でも解除したかの判定
 	
 public:
+	void Pause();					//ゲーム画面の中断
+
+	void All();						//一通りの処理
+
 	void Update();					//更新処理
 
 	void Draw();					//描画処理
