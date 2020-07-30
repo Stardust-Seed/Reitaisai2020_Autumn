@@ -12,6 +12,10 @@ private:
 
 	static const int POPENEMY_HARD = 4;		//4体まで
 
+	static const int ENEMY_NUM = POPENEMY_EASY;
+
+	Fairy_Endurance* Fairy_E[ENEMY_NUM];
+	//体力型エネミーオブジェクト配列
 public:
 	EnemyManager();					//コンストラクタ
 

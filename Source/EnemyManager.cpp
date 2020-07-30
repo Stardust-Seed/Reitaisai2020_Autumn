@@ -2,29 +2,50 @@
 #include "EnemyManager.h"
 
 EnemyManager::EnemyManager() {
-	const int ENEMY_NUM = POPENEMY_EASY;
-	//難易度によって変わる敵の数を代入
-	Fairy_Endurance* Fairy_E[ENEMY_NUM];
-	//体力型エネミーオブジェクト配列
-
 	for (int num = 0; num < ENEMY_NUM; num++) {
-		Fairy_E[num] = NULL;
+		Fairy_E[num] = NULL;		//Fairy_EのポインタにNULL
 	}
 }
 
 EnemyManager::~EnemyManager() {
-
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		delete Fairy_E[num];		//
+	}
 }
 void EnemyManager::SpawnEnemy() {
-
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] == NULL) {
+			Fairy_E[num] = new Fairy_Endurance;
+			break;
+		}
+	}
 }
 
 void EnemyManager::Update(){
+	SpawnEnemy();
 
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {		//NULLでない場合
+			/*
+			Fairy_E[num]->Update();		//更新、引数がわからん
+			
+			if (Fairy_E[num]->JudgeActive() == false) {
+			//BaseEnemyにアクティブ状態を返す関数が欲しい
+
+			delete Fairy_E[num];
+			Fairy_E[num] = NULL;
+			}
+			*/
+		}
+	}
 }
 
 void EnemyManager::Draw() {
-
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+			Fairy_E[num]->Draw();	//描画
+		}
+	}
 }
 
 void EnemyManager::Set_x(int _x) {
@@ -44,25 +65,49 @@ void EnemyManager::Set_height(int _height) {
 }
 
 int EnemyManager::Get_ActiveFlg(bool) {
-	return ;
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+		//	return Fairy_E[num]->();
+		}
+	}
 }
 
 int EnemyManager::Get_Power(int) {
-	return ;
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+			return Fairy_E[num]->GetIsAttack();
+		}
+	}
 }
 
 int EnemyManager::Get_x() {
-	return ;
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+			return Fairy_E[num]->Get_X();
+		}
+	}
 }
 
 int EnemyManager::Get_y() {
-	return ;
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+			return Fairy_E[num]->Get_Y();
+		}
+	}
 }
 
 int EnemyManager::Get_width() {
-	return ;
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+			return Fairy_E[num]->Get_Width();
+		}
+	}
 }
 
 int EnemyManager::Get_height() {
-	return ;
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+			return Fairy_E[num]->Get_Height();
+		}
+	}
 }
