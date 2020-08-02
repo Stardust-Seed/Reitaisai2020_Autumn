@@ -16,8 +16,14 @@ class BasePlayer:public virtual Object {
 
 protected:
 
-	const float	PLAYER_SPOWNPOSX = 392;	//プレイヤーの初期位置_X
-	const float	PLAYER_SPOWNPOSY = 348;	//プレイヤーの初期位置_Y
+	const float	PLAYER_SPOWNPOSX = 392;	   //プレイヤーの初期位置_X
+	const float	PLAYER_SPOWNPOSY = 348;	   //プレイヤーの初期位置_Y
+	const float PLAYER_UPDOWNPOSX = 485;   //プレイヤーの上と下の位置X
+	const float PLAYER_UPPOSY = 264;       //プレイヤーの上の位置Y
+	const float PLAYER_DOWNPOSY = 456;     //プレイヤーの下の位置Y
+	const float PLAYER_LEFTRIGHTPOS = 345; //プレイヤーの左と右の高さ
+	const float PLAYER_LEFTPOS = 392;      //プレイヤーの左の位置
+	const float PLAYER_RIGHTPOS = 584;     //プレイヤーの右の位置
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
@@ -39,9 +45,9 @@ protected:
 	bool isOps_RIGHT;               //右の反対に移動するためのフラグ
 	bool isDamage;                  //プレイヤーの被弾フラグ
 
-	float x2;         //テスト用
-	float y2;         //テスト用
-	int Color;                      //テスト用のカラー
+	//テスト用
+	int x2;
+	int y2;
 
 public:
 	 virtual bool ClisionHit(float mx, float my, float mw, float mh,
