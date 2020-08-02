@@ -1,8 +1,10 @@
 #ifndef _BASEENEMY_H
 #define _BASEENEMY_H
 
-#include "Castle.h"
 #include "Object.h"
+
+class Castle;
+class BasePlayer;
 
 /*-------------------------------------------------------------
 オブジェクト名    BaseEnemy
@@ -14,7 +16,6 @@
 --------------------------------------------------------------*/
 
 class BaseEnemy :public virtual Object {
-	
 protected:
 	static const float ENEMY_SPAWNXLEFT;	//エネミーの初期位置X左
 	static const float ENEMY_SPAWNYLEFT;	//エネミーの初期位置Y左
@@ -41,10 +42,10 @@ protected:
 public:
 	BaseEnemy() = default;
 	BaseEnemy(float _speed, float _power, int _durability, int _direction);
-	virtual void Update(Castle* _castle) {}	//更新処理
+	virtual void Update(Castle* _castle, BasePlayer* _player) {}	//更新処理
 	void Move();					//移動処理
-	void SearchCastle(int _ox, int _oy, int _ow, int _oh);	//城の範囲内かサーチ
-	void SearchPlayer(int _px, int _py, int _pw, int _ph);	//プレイヤーが攻撃範囲内にいるかサーチ
+	void SearchCastle(float _ox, float _oy, float _ow, float _oh);	//城の範囲内かサーチ
+	void SearchPlayer(float _px, float _py, float _pw, float _ph);	//プレイヤーが攻撃範囲内にいるかサーチ
 	void JudgeActive();		//アクティブかを判断する
 
 	void Set_X(float _x) { x = _x; }						//x座標を設定する
@@ -57,6 +58,7 @@ public:
 	float Get_Width() { return width; }		//widthを取得する
 	float Get_Height() { return height; }	//heightを取得する
 	float GetPower() { return power; }		//エネミーの攻撃力を取得する
+	bool GetIsActive() { return isActive; }	//生存フラグを取得する
 	bool GetIsAttack() { return isAttack; }	//アタックフラグを取得する
 	
 
