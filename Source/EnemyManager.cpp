@@ -48,30 +48,46 @@ void EnemyManager::Draw() {
 	}
 }
 
-void EnemyManager::Set_x(int _x) {
-
-}
-
-void EnemyManager::Set_y(int _y) {
-
-}
-
-void EnemyManager::Set_width(int _width) {
-
-}
-
-void EnemyManager::Set_height(int _height) {
-
-}
-
-int EnemyManager::Get_ActiveFlg(bool) {
+void EnemyManager::Set_x(float _x) {
 	for (int num = 0; num < ENEMY_NUM; num++) {
 		if (Fairy_E[num] != NULL) {
-		//	return Fairy_E[num]->();	//•Ô‚·ŠÖ”‚ª—~‚µ‚¢
+			Fairy_E[num]->Set_X(_x);			
 		}
 	}
 }
 
+void EnemyManager::Set_y(float _y) {
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+			Fairy_E[num]->Set_Y(_y);			
+		}
+	}
+}
+
+void EnemyManager::Set_width(float _width) {
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+			Fairy_E[num]->Set_Width(_width);	
+		}
+	}
+}
+
+void EnemyManager::Set_height(float _height) {
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+			Fairy_E[num]->Set_Height(_height);	
+		}
+	}
+}
+/*
+int EnemyManager::Get_ActiveFlg(bool) {
+	for (int num = 0; num < ENEMY_NUM; num++) {
+		if (Fairy_E[num] != NULL) {
+			return Fairy_E[num]->();	//•Ô‚·ŠÖ”‚ª—~‚µ‚¢
+		}
+	}
+}
+*/
 int EnemyManager::Get_Power(int) {
 	for (int num = 0; num < ENEMY_NUM; num++) {
 		if (Fairy_E[num] != NULL) {
