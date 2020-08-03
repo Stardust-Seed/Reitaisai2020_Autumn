@@ -434,8 +434,8 @@ void BasePlayer::Attack()
 bool BasePlayer::ClisionHit(float mx, float my, float mw, float mh,
 	float ox, float oy, float ow, float oh)
 {
-	if (mx < (ox + 100) && my < (oy + 100) &&
-		ox < (mx + width) && oy < (my + height))
+	if (mx < (ox + ow) && my < (oy + oh) &&
+		ox < (mx + mw) && oy < (my + mh))
 	{
 		return DrawFormatString(0, 100, GetColor(255, 0, 0), "激突の浦部");
 	}
@@ -465,12 +465,11 @@ void BasePlayer::Update()
 	//***テスト用***//
 	float xx = 500;
 	float yy = 400;
-
-	float xx2 = 600;
-	float yy2 = 500;
 	//**************//
 	Move();
-	ClisionHit(x, y, width, height, xx, yy, xx2, yy2);
+
+	//
+	ClisionHit(x, y, width, height, xx, yy, 48, 48);
 
 }
 
