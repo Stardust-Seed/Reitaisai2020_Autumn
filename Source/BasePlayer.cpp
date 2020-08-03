@@ -467,26 +467,6 @@ void BasePlayer::Update()
 	float yy = 400;
 	//**************//
 	Move();
-
-	//
 	ClisionHit(x, y, width, height, xx, yy, 48, 48);
-
-}
-
-//プレイヤーの処理まとめ
-void BasePlayer::All()
-{
-
-	//***テストに使ってたやつ***
-	/***プレイヤーの移動範囲***
-	DrawBox(632, 504, PLAYER_LEFTPOS, PLAYER_UPPOSY, GetColor(255, 255, 0), TRUE);
-	//拠点
-	DrawBox(482, 342, 542, 402, GetColor(255, 0, 0), TRUE);
-	//敵
-	DrawBox(xx, yy, xx2, yy2, GetColor(100, 100, 100), TRUE);
-	****************************/
-
-	Draw();
-	Update();
 
 }

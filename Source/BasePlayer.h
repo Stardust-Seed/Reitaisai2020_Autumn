@@ -65,7 +65,6 @@ public:
 	 virtual void Move_RIGHT();     //→移動処理
 	 virtual void Move_OPS();       //反対移動処理:起動
 	 virtual void Move_OPSRUN();    //反対移動処理:処理
-	 virtual void All();            //プレイヤーの処理
 	 virtual void Attack();         //攻撃処理
 
 	 virtual void Set_x(float _x) { x = _x; }                        //セッター
