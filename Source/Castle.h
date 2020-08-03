@@ -2,6 +2,7 @@
 #define _CASTLE_H
 
 #include "Object.h"
+#include "Define.h"
 
 /*-------------------------------------------------------------
 オブジェクト名:	Castle
@@ -12,7 +13,7 @@
 詳細説明	  : 拠点
 --------------------------------------------------------------*/
 class Fairy_Speed;
-
+//class EnemyManager;
 class Castle:public virtual Object{
 
 private:
@@ -36,9 +37,9 @@ public:
 	 bool ClisionHit(float ox, float oy, float ow, float oh,int pow);
 
 	 void Update(Fairy_Speed* enemy);                //更新処理
+	 //void Update(EnemyManager* enemy);                //更新処理
 	 void Draw();                                    //描画処理
-	 //void HitDamage();                             //ダメージ処理
-	 //void JudgeActive();                           //生存判定処理
+
 
 	 //void Set_x(float _x) { x = _x; }                                 //セッター
 	 //void Set_y(float _y) { y = _y; }                                 //セッター
