@@ -9,10 +9,10 @@ GameScene::GameScene()
 }
 
 //更新
-void GameScene::Update(Castle* _castle)
+void GameScene::Update()
 {
 	Input::Instance()->UpdateKey();
-	ChangeScene(_castle);
+	ChangeScene();
 	//ゲーム画面なのでここでプレイヤーとか動かすのかもしれない
 
 }
@@ -40,7 +40,7 @@ void GameScene::Draw()
 }
 
 //シーン変更
-void GameScene::ChangeScene(Castle* _castle)
+void GameScene::ChangeScene()
 {
 	//ゲームクリアなら
 	{
@@ -54,8 +54,8 @@ void GameScene::ChangeScene(Castle* _castle)
 	
 	//ゲームオーバーなら
 	{
-		//if(Castle.Get_IsActive()==false)みたいなif文...たぶん
-		if (_castle->Get_IsActive() == false)			//2が押されたらがめおヴぇｒとしておく
+		if(Input::Instance()->GetPressCount(KEY_INPUT_1) == 2)
+		//if (_castle->Get_IsActive() == false)			//2が押されたらがめおヴぇｒとしておく
 		{
 			nowScene = GAMEOVER;
 			//SceneChange->onSceneChanged(Scene::GAMEOVER);みたいな感じかもしれないきっと
