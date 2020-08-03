@@ -28,8 +28,21 @@ void Pausemenu::PauseAll()
 			if (!ePausetype_Game)									// Pause状態中にゲーム画面に戻るが押されたとき
 			{
 				pauseReset = false;									// ゲーム画面に戻るが押されてなければPause解除になっていない
-				DrawString(300, 0, "ポーズ画面", GetColor(255, 255, 255));
-				View();
+
+				DrawString(300, 0, "ポーズ画面", GetColor(255, 255, 255));				//確認
+				DrawString(500, PGAME_Y, "ゲーム画面に戻る", GetColor(255, 255, 255));
+				DrawString(500, PEND_Y, "ゲーム終了", GetColor(255, 255, 255));
+
+				switch (NowSelect) {													//現在の選択状態に従って処理を分岐
+				case ePausetype_Game:													//ゲーム画面に戻るを選択中なら
+					y = PGAME_Y;														//ゲーム画面に戻るの座標を格納
+					break;
+
+				case ePausetype_Menu:													//ゲームを終了を選択中なら
+					y = PEND_Y;															//ゲーム終了の座標を格納
+					break;
+				}
+				DrawString(450, y, "■", GetColor(255, 255, 255));						//選択カーソル
 			}
 	}
 }	
@@ -70,27 +83,8 @@ void Pausemenu::Update()
 	}
 }
 
-//表示
-void Pausemenu::View()
-{
-	DrawString(500, PGAME_Y, "ゲーム画面に戻る", GetColor(255, 255, 255));
-	DrawString(500, PEND_Y, "ゲーム終了", GetColor(255, 255, 255));
-
-	switch (NowSelect) {									//現在の選択状態に従って処理を分岐
-	case ePausetype_Game:									//ゲーム画面に戻るを選択中なら
-		y = PGAME_Y;										//ゲーム画面に戻るの座標を格納
-		break;
-
-	case ePausetype_Menu:									//ゲームを終了を選択中なら
-		y = PEND_Y;											//ゲーム終了の座標を格納
-		break;
-	}
-	DrawString(450, y, "■", GetColor(255, 255, 255));		//選択カーソル
-}
-
 //描画
 void Pausemenu::Draw()
 {
-	Update();
 	PauseAll();
 }

@@ -26,8 +26,6 @@ public:
 
 	void PauseAll();				//ポーズ画面時の処理
 
-	void View();					//表示処理
-
 	void Update();					//更新処理
 
 	void Draw();					//描画処理
