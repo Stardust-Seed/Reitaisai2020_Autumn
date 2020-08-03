@@ -4,6 +4,12 @@
 #include "Fairy_Endurance.h"
 #include "Fairy_Speed.h"
 
+class Castle;
+class BasePlayer;
+
+Castle* _castle;
+BasePlayer* _player;
+
 class EnemyManager {
 private:
 	static const int POPENEMY_EASY = 2;		//“ïˆÕ“x•Ê‰æ–Ê“à‚Ì¶¬”
