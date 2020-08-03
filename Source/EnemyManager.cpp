@@ -2,7 +2,6 @@
 #include "EnemyManager.h"
 
 EnemyManager::EnemyManager() {
-
 	for (int num = 0; num < ENEMY_NUM; num++) {
 		Fairy_E[num] = NULL;		//Fairy_EのポインタにNULL
 	}
@@ -23,7 +22,7 @@ void EnemyManager::SpawnEnemy() {
 }
 
 void EnemyManager::Update(){
-	SpawnEnemy();						//生成呼び出し
+	//SpawnEnemy();						//生成呼び出し
 
 	for (int num = 0; num < ENEMY_NUM; num++) {
 		if (Fairy_E[num] != NULL) {		//NULLでない場合
