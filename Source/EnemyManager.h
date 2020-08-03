@@ -12,6 +12,10 @@ private:
 
 	static const int POPENEMY_HARD = 4;		//4体まで
 
+	static const int ENEMY_NUM = POPENEMY_EASY;
+
+	Fairy_Endurance* Fairy_E[ENEMY_NUM];
+	//体力型エネミーオブジェクト配列
 public:
 	EnemyManager();					//コンストラクタ
 
@@ -23,24 +27,24 @@ public:
 
 	void Draw();					//描画処理
 
-	void Set_x(int _x);				//x座標をセット
+	void Set_x(float _x);				//x座標をセット
 
-	void Set_y(int _y);				//y座標をセット
+	void Set_y(float _y);				//y座標をセット
 
-	void Set_width(int _width);		//幅をセット
+	void Set_width(float _width);		//幅をセット
 
-	void Set_height(int _height);	//高さをセット
+	void Set_height(float _height);	//高さをセット
 
-	int Get_ActiveFlg(bool);			//アクティブかを受け取る
+	int Get_ActiveFlg(int);			//アクティブかを受け取る
 
 	int Get_Power(int);				//攻撃力を受け取る
 
-	int Get_x();					//x座標を受け取る
+	int Get_x(int);					//x座標を受け取る
 
-	int Get_y();					//y座標を受け取る
+	int Get_y(int);					//y座標を受け取る
 
-	int Get_width();				//幅を受け取る
+	int Get_width(int);				//幅を受け取る
 
-	int Get_height();				//高さを受け取る
+	int Get_height(int);				//高さを受け取る
 };
 #endif // !_ENEMYMANAGER_H
