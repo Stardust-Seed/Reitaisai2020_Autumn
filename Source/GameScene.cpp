@@ -54,11 +54,12 @@ void GameScene::ChangeScene()
 	
 	//ゲームオーバーなら
 	{
-		//if(Castle.Get_IsActive()==false)みたいなif文...たぶん
-		if (Input::Instance()->GetPressCount(KEY_INPUT_2) == 1)			//2が押されたらがめおヴぇｒとしておく
+		if(Input::Instance()->GetPressCount(KEY_INPUT_1) == 2)
+		//if (_castle->Get_IsActive() == false)			//2が押されたらがめおヴぇｒとしておく
 		{
 			nowScene = GAMEOVER;
 			//SceneChange->onSceneChanged(Scene::GAMEOVER);みたいな感じかもしれないきっと
+			Draw();
 		}
 	}
 

@@ -2,6 +2,7 @@
 #define _GAMESCENE_H_
 
 #include "BaseScene.h"
+//#include "Castle.h"
 
 class GameScene :public virtual BaseScene{
 
@@ -10,7 +11,6 @@ private:
 
 public:
 	GameScene();
-
 	void Update();				//更新処理
 	void Draw();				//描画処理
 	void ChangeScene();         //シーン変更処理
