@@ -46,11 +46,11 @@ public:
 	 //void Set_height(float _height) { height = _height; }             //セッター
 	 //void Set_IsActive(bool _isActive) { isActive = _isActive; }      //セッター
 
-	 int Get_x() { return x; }                                      //ゲッター
-	 int Get_y() { return y; }                                      //ゲッター
-	 int Get_width() { return width; }                              //ゲッター
-	 int Get_height() { return height; }                            //ゲッター
-	 int Get_IsActive() { return isActive; }                        //ゲッター
+	 float Get_x() { return x; }                                        //ゲッター
+	 float Get_y() { return y; }                                        //ゲッター
+	 float Get_width() { return width; }                                //ゲッター
+	 float Get_height() { return height; }                              //ゲッター
+	 bool Get_IsActive() { return isActive; }                           //ゲッター
 };
 
 #endif //_CASTLE_H
