@@ -29,11 +29,11 @@ void EnemyManager::Update(){
 			/*
 			Fairy_E[num]->Update();		//更新処理、引数がわからん
 			
-			if (Fairy_E[num]->JudgeActive() == false) {
-			//BaseEnemyにアクティブ状態を返す関数が欲しい
+			if (Fairy_E[num]->() == false) {
 
 			delete Fairy_E[num];		//アクティブでない場合デリートして
 			Fairy_E[num] = NULL;		//NULLを入れる
+
 			}
 			*/
 		}
@@ -80,50 +80,38 @@ void EnemyManager::Set_height(float _height) {
 	}
 }
 /*
-int EnemyManager::Get_ActiveFlg(bool) {
-	for (int num = 0; num < ENEMY_NUM; num++) {
+int EnemyManager::Get_ActiveFlg(int num) {
 		if (Fairy_E[num] != NULL) {
 			return Fairy_E[num]->();	//返す関数が欲しい
 		}
-	}
 }
 */
-int EnemyManager::Get_Power(int) {
-	for (int num = 0; num < ENEMY_NUM; num++) {
+int EnemyManager::Get_Power(int num) {
 		if (Fairy_E[num] != NULL) {
 			return Fairy_E[num]->GetIsAttack();
 		}
-	}
 }
 
-int EnemyManager::Get_x() {
-	for (int num = 0; num < ENEMY_NUM; num++) {
+int EnemyManager::Get_x(int num) {
 		if (Fairy_E[num] != NULL) {
 			return Fairy_E[num]->Get_X();
 		}
-	}
 }
 
-int EnemyManager::Get_y() {
-	for (int num = 0; num < ENEMY_NUM; num++) {
+int EnemyManager::Get_y(int num) {
 		if (Fairy_E[num] != NULL) {
 			return Fairy_E[num]->Get_Y();
 		}
-	}
 }
 
-int EnemyManager::Get_width() {
-	for (int num = 0; num < ENEMY_NUM; num++) {
+int EnemyManager::Get_width(int num) {
 		if (Fairy_E[num] != NULL) {
 			return Fairy_E[num]->Get_Width();
 		}
-	}
 }
 
-int EnemyManager::Get_height() {
-	for (int num = 0; num < ENEMY_NUM; num++) {
+int EnemyManager::Get_height(int num) {
 		if (Fairy_E[num] != NULL) {
 			return Fairy_E[num]->Get_Height();
 		}
-	}
 }

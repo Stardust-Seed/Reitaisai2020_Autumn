@@ -35,16 +35,16 @@ public:
 
 	void Set_height(float _height);	//高さをセット
 
-	int Get_ActiveFlg(bool);			//アクティブかを受け取る
+	int Get_ActiveFlg(int);			//アクティブかを受け取る
 
 	int Get_Power(int);				//攻撃力を受け取る
 
-	int Get_x();					//x座標を受け取る
+	int Get_x(int);					//x座標を受け取る
 
-	int Get_y();					//y座標を受け取る
+	int Get_y(int);					//y座標を受け取る
 
-	int Get_width();				//幅を受け取る
+	int Get_width(int);				//幅を受け取る
 
-	int Get_height();				//高さを受け取る
+	int Get_height(int);				//高さを受け取る
 };
 #endif // !_ENEMYMANAGER_H
