@@ -50,7 +50,7 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction
 //移動処理
 void BaseEnemy::Move() {
 
-	if (isActive == false) {
+	if (isActive == false || isAttack == true) {
 		return;
 	}
 
@@ -80,59 +80,42 @@ void BaseEnemy::JudgeActive() {
 }
 
 //プレイヤーサーチ処理
-void BaseEnemy::SearchPlayer(int _px, int _py, int _pw, int _ph) {
-
-	if (direction == DIRECTIONLEFT) {
-		if (_px + _pw >= x + width && _px <= x + width && _py + _ph >= y && _py <= y + height) {
-			isAttack = true;
-		}
-	}
-
-	if (direction == DIRECTIONRIGHT) {
-		if (_px + _pw >= x - width && _px <= x - width && _py + _ph >= y && _py <= y + height) {
-			isAttack = true;
-		}
-	}
-
-	if (direction == DIRECTIONUP) {
-		if (_px + _pw >= x && _px <= x + width && _py + _ph >= y + height && _py <= y + height) {
-			isAttack = true;
-		}
-	}
-
-	if (direction == DIRECTIONDOWN) {
-		if (_px + _pw >= x && _px <= x + width && _py + _ph >= y - height && _py <= y - height) {
-			isAttack = true;
-		}
+/*
+現状敵側は遠距離攻撃を想定してない判定式となってるので
+敵が遠距離攻撃を行うようにする際は判定式を変更する必要性がある
+*/
+void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph) {
+	if (x + width >= _px && x <= _px + _pw && y + height >= _py && y <= _py + _ph) {
+		isAttack = true;
 	}
 }
 
 //城サーチ処理
-void BaseEnemy::SearchCastle(int _ox, int _oy, int _ow, int _oh) {
+void BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh) {
 
 	if (direction == DIRECTIONLEFT) {
-		if (x + width >= _ox + width && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
+		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
 			isAttack = true;
 			isActive = false;
 		}
 	}
 
 	if (direction == DIRECTIONRIGHT) {
-		if (x + width >= _ox && x <= (_ox + _ow) - width && y + height >= _oy && y <= _oy + _oh) {
+		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
 			isAttack = true;
 			isActive = false;
 		}
 	}
 
 	if (direction == DIRECTIONUP) {
-		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy + height && y <= _oy + _oh) {
+		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
 			isAttack = true;
 			isActive = false;
 		}
 	}
 
 	if (direction == DIRECTIONDOWN) {
-		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= (_oy + _oh) - height) {
+		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
 			isAttack = true;
 			isActive = false;
 		}
