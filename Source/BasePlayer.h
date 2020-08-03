@@ -16,8 +16,14 @@ class BasePlayer:public virtual Object {
 
 protected:
 
-	const float	PLAYER_SPOWNPOSX = 392;	//プレイヤーの初期位置_X
-	const float	PLAYER_SPOWNPOSY = 348;	//プレイヤーの初期位置_Y
+	const float	PLAYER_SPOWNPOSX = 392;	   //プレイヤーの初期位置_X
+	const float	PLAYER_SPOWNPOSY = 348;	   //プレイヤーの初期位置_Y
+	const float PLAYER_UPDOWNPOSX = 485;   //プレイヤーの上と下の位置X
+	const float PLAYER_UPPOSY = 264;       //プレイヤーの上の位置Y
+	const float PLAYER_DOWNPOSY = 456;     //プレイヤーの下の位置Y
+	const float PLAYER_LEFTRIGHTPOS = 345; //プレイヤーの左と右の高さ
+	const float PLAYER_LEFTPOS = 392;      //プレイヤーの左の位置
+	const float PLAYER_RIGHTPOS = 584;     //プレイヤーの右の位置
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
@@ -39,9 +45,9 @@ protected:
 	bool isOps_RIGHT;               //右の反対に移動するためのフラグ
 	bool isDamage;                  //プレイヤーの被弾フラグ
 
-	float x2;         //テスト用
-	float y2;         //テスト用
-	int Color;                      //テスト用のカラー
+	//テスト用
+	int x2;
+	int y2;
 
 public:
 	 virtual bool ClisionHit(float mx, float my, float mw, float mh,
@@ -59,18 +65,17 @@ public:
 	 virtual void Move_RIGHT();     //→移動処理
 	 virtual void Move_OPS();       //反対移動処理:起動
 	 virtual void Move_OPSRUN();    //反対移動処理:処理
-	 virtual void All();            //プレイヤーの処理
 	 virtual void Attack();         //攻撃処理
 
-	 virtual void Set_x(int _x) { x = _x; }                        //セッター
-	 virtual void Set_y(int _y) { y = _y; }                        //セッター
-	 virtual void Set_width(int _width) { width = _width; }        //セッター
-	 virtual void Set_height(int _height) { height = _height; }    //セッター
+	 virtual void Set_x(float _x) { x = _x; }                        //セッター
+	 virtual void Set_y(float _y) { y = _y; }                        //セッター
+	 virtual void Set_width(float _width) { width = _width; }        //セッター
+	 virtual void Set_height(float _height) { height = _height; }    //セッター
 
-	 virtual int Get_x() { return x; }                             //ゲッター
-	 virtual int Get_y() { return y; }                             //ゲッター
-	 virtual int Get_width() { return width; }                     //ゲッター
-	 virtual int Get_height() { return height; }                   //ゲッター
+	 virtual float Get_x() { return x; }                             //ゲッター
+	 virtual float Get_y() { return y; }                             //ゲッター
+	 virtual float Get_width() { return width; }                     //ゲッター
+	 virtual float Get_height() { return height; }                   //ゲッター
 
 };
 
