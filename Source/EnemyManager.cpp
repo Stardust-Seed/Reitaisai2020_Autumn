@@ -16,7 +16,7 @@ void EnemyManager::SpawnEnemy() {
 	if ((rand() % 100) == 0) {		//適当に確率
 		for (int num = 0; num < ENEMY_NUM; num++) {
 			if (Fairy_E[num] == NULL) {				//NULLの場合
-				Fairy_E[num] = new Fairy_Endurance;	//生成処理
+				Fairy_E[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);	//生成処理
 				break;								//一体生成したら抜ける
 			}
 		}
@@ -24,7 +24,7 @@ void EnemyManager::SpawnEnemy() {
 }
 
 void EnemyManager::Update(){
-	SpawnEnemy();						//生成呼び出し
+	//SpawnEnemy();						//生成呼び出し
 
 	for (int num = 0; num < ENEMY_NUM; num++) {
 		if (Fairy_E[num] != NULL) {		//NULLでない場合
