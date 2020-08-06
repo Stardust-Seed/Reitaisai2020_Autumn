@@ -13,7 +13,6 @@ private:
 	float o;
 	int textSpeed[3];
 	int cnt;
-	float w;
 
 public:
 	Title();

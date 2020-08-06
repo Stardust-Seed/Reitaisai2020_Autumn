@@ -6,12 +6,17 @@
 //コンストラクタ
 Title::Title(){
 
+
+	deg = 0;
+	rad = 0;
+
 	//却下されれば消す
 	textSpeed[0] = 0;
 	textSpeed[1] = 1;
 	textSpeed[2] = 2;
 	cnt = 0;
 	o = 1000;
+
 	//画像とか読み込みたいね
 
 }
