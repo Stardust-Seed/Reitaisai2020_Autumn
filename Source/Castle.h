@@ -2,6 +2,7 @@
 #define _CASTLE_H
 
 #include "Object.h"
+#include "Define.h"
 
 /*-------------------------------------------------------------
 オブジェクト名:	Castle
@@ -12,7 +13,7 @@
 詳細説明	  : 拠点
 --------------------------------------------------------------*/
 class Fairy_Speed;
-
+//class EnemyManager;
 class Castle:public virtual Object{
 
 private:
@@ -36,21 +37,23 @@ public:
 	 bool ClisionHit(float ox, float oy, float ow, float oh,int pow);
 
 	 void Update(Fairy_Speed* enemy);                //更新処理
+	 //void Update(EnemyManager* enemy);                //更新処理
 	 void Draw();                                    //描画処理
-	 //void HitDamage();                             //ダメージ処理
-	 //void JudgeActive();                           //生存判定処理
 
-	 //void Set_x(float _x) { x = _x; }                                 //セッター
-	 //void Set_y(float _y) { y = _y; }                                 //セッター
-	 //void Set_width(float _width) { width = _width; }                 //セッター
-	 //void Set_height(float _height) { height = _height; }             //セッター
-	 //void Set_IsActive(bool _isActive) { isActive = _isActive; }      //セッター
 
-	 int Get_x() { return x; }                                      //ゲッター
-	 int Get_y() { return y; }                                      //ゲッター
-	 int Get_width() { return width; }                              //ゲッター
-	 int Get_height() { return height; }                            //ゲッター
-	 int Get_IsActive() { return isActive; }                        //ゲッター
+	 //void Set_x(float _x) { x = _x; }                                     //セッター
+	 //void Set_y(float _y) { y = _y; }                                     //セッター
+	 //void Set_width(float _width) { width = _width; }                     //セッター
+	 //void Set_height(float _height) { height = _height; }                 //セッター
+	 //void Set_IsActive(bool _isActive) { isActive = _isActive; }          //セッター
+	 //void Set_durability(int _durability { durability = _durability; }    //セッター
+
+	 float Get_x() { return x; }                                            //ゲッター
+	 float Get_y() { return y; }                                            //ゲッター
+	 float Get_width() { return width; }                                    //ゲッター
+	 float Get_height() { return height; }                                  //ゲッター
+	 bool  Get_IsActive() { return isActive; }                              //ゲッター
+	 int   Get_durability() { return durability; }                          //ゲッター
 };
 
 #endif //_CASTLE_H
