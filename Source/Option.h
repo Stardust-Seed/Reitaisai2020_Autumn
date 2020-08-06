@@ -37,10 +37,16 @@ private:
 	static const int STRING_XSE;
 	static const int STRING_YSE;
 
+	static const int BUF_SIZE;
+	static const int CONFIGFILE_NUM;
+
 	int bgmVolume;	//BGMの音量
 	int seVolume;	//SEの音量
 
 	SelectOptionType selectType;	//現在選択してるタイプ
+
+	void LoadConfigFile();
+	void SaveConfigFile();
 public:
 	Option();
 	void Update();
