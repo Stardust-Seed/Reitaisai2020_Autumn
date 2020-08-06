@@ -4,9 +4,16 @@
 #include "BaseScene.h"
 #include "Define.h"
 #include "FontHandle.h"
+
 class Title :public virtual BaseScene {
 
 private:
+
+	float deg, rad;
+	float o;
+	int textSpeed[3];
+	int cnt;
+	float w;
 
 public:
 	Title();

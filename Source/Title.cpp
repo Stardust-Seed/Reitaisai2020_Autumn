@@ -3,13 +3,6 @@
 #include "Input.h"
 #include "math.h"
 
-//タイトルテキストをちょこっと動かすだけの処理に使う
-//タイトル動かすのかは決めてないから却下されれば消す
-float deg, rad;
-float o;
-int textSpeed[3];
-int cnt;
-float w;
 //コンストラクタ
 Title::Title(){
 
