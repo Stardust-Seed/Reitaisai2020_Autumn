@@ -18,7 +18,7 @@ private:
 	int Color;						//F
 
 public:
-	void Set_CastleDurability(int CastleDurability, int MAX_DURABILITY);
+	void Set_CastleDurability(int castledurability, int max_durabilty);
 	void Set_EnemyiesRest(int);
 	void PlayGuide();
 };
