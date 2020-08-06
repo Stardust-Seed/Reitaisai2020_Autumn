@@ -59,9 +59,17 @@ protected:
 		int flag;      //存在フラグ
 	public:
 		Shot();
-		float Get_x() { return x; }  //x座標ゲッター
-		float Get_y() { return y; }  //y座標ゲッター
-		BasePlayer* BasePlayer;
+
+		void Set_x(float _x) { x = _x; }                        //セッター
+		void Set_y(float _y) { y = _y; }                        //セッター
+		void Set_width(float _width) { width = _width; }        //セッター
+		void Set_height(float _height) { height = _height; }    //セッター
+
+		float Get_x() { return x; }          //x座標ゲッター
+		float Get_y() { return y; }          //y座標ゲッター
+		float Get_width() { return width; }  //widthゲッター
+		float Get_height() { return height; }//heightゲッター
+		//BasePlayer* BasePlayer;
 	};
 	Shot shot[10];
 
@@ -87,15 +95,15 @@ public:
 	 virtual void Move_OPSRUN();    //反対移動処理:処理
 	 virtual void Attack();         //攻撃処理
 
-	 virtual void Set_x(float _x) { x = _x; }                        //セッター
-	 virtual void Set_y(float _y) { y = _y; }                        //セッター
-	 virtual void Set_width(float _width) { width = _width; }        //セッター
-	 virtual void Set_height(float _height) { height = _height; }    //セッター
+	  void Set_x(float _x) { x = _x; }                        //セッター
+	  void Set_y(float _y) { y = _y; }                        //セッター
+	  void Set_width(float _width) { width = _width; }        //セッター
+	  void Set_height(float _height) { height = _height; }    //セッター
 
-	 virtual float Get_x() { return x; }                             //ゲッター
-	 virtual float Get_y() { return y; }                             //ゲッター
-	 virtual float Get_width() { return width; }                     //ゲッター
-	 virtual float Get_height() { return height; }                   //ゲッター
+	  float Get_x() { return x; }                             //ゲッター
+	  float Get_y() { return y; }                             //ゲッター
+	  float Get_width() { return width; }                     //ゲッター
+	  float Get_height() { return height; }                   //ゲッター
 
 };
 
