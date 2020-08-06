@@ -25,10 +25,12 @@ protected:
 	const float PLAYER_LEFTPOS = 392;      //プレイヤーの左の位置
 	const float PLAYER_RIGHTPOS = 584;     //プレイヤーの右の位置
 
+	const int   MAX_SHOT = 10;             //プレイヤーの最大弾(仮)
+
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
 	int stanTime;	                //プレイヤーのスタンタイム
-	int attackTime;                 //プレイヤーの攻撃間隔
+	int AttackTime;                 //プレイヤーの攻撃間隔
 
 	int PlayerPos;                  //プレイヤーのいる場所
 	// 0 = 左         1 = 上        2 = 右         3 = 下
@@ -50,6 +52,32 @@ protected:
 	int y2;
 
 public:
+	class Shot {
+	public:
+		float x;       //弾のx座標
+		float y;       //弾のy座標
+		float width;   //弾の幅
+		float height;  //弾の高さ
+		float cx;      //弾の中心x
+		float cy;      //弾の中心y
+		float shot_gh; //グラフィックハンドル
+		int flag;      //存在フラグ
+	public:
+		Shot();
+
+		void Set_x(float _x) { x = _x; }                        //セッター
+		void Set_y(float _y) { y = _y; }                        //セッター
+		void Set_width(float _width) { width = _width; }        //セッター
+		void Set_height(float _height) { height = _height; }    //セッター
+
+		float Get_x() { return x; }          //x座標ゲッター
+		float Get_y() { return y; }          //y座標ゲッター
+		float Get_width() { return width; }  //widthゲッター
+		float Get_height() { return height; }//heightゲッター
+		//BasePlayer* BasePlayer;
+	};
+	Shot shot[10];
+
 	 virtual bool ClisionHit(float mx, float my, float mw, float mh,
 		     float ox, float oy, float ow, float oh) = 0;
 	 //m = my 自分   o = opnet 相手
@@ -67,15 +95,15 @@ public:
 	 virtual void Move_OPSRUN();    //反対移動処理:処理
 	 virtual void Attack();         //攻撃処理
 
-	 virtual void Set_x(float _x) { x = _x; }                        //セッター
-	 virtual void Set_y(float _y) { y = _y; }                        //セッター
-	 virtual void Set_width(float _width) { width = _width; }        //セッター
-	 virtual void Set_height(float _height) { height = _height; }    //セッター
+	  void Set_x(float _x) { x = _x; }                        //セッター
+	  void Set_y(float _y) { y = _y; }                        //セッター
+	  void Set_width(float _width) { width = _width; }        //セッター
+	  void Set_height(float _height) { height = _height; }    //セッター
 
-	 virtual float Get_x() { return x; }                             //ゲッター
-	 virtual float Get_y() { return y; }                             //ゲッター
-	 virtual float Get_width() { return width; }                     //ゲッター
-	 virtual float Get_height() { return height; }                   //ゲッター
+	  float Get_x() { return x; }                             //ゲッター
+	  float Get_y() { return y; }                             //ゲッター
+	  float Get_width() { return width; }                     //ゲッター
+	  float Get_height() { return height; }                   //ゲッター
 
 };
 
