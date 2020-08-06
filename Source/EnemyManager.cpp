@@ -23,7 +23,7 @@ void EnemyManager::SpawnEnemy() {
 	}
 }
 
-void EnemyManager::Update(){
+void EnemyManager::Update(Castle *_castle,BasePlayer *_player){
 	//SpawnEnemy();						//¶¬ŒÄ‚Ño‚µ
 
 	for (int num = 0; num < ENEMY_NUM; num++) {

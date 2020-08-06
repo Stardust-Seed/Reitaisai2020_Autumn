@@ -22,10 +22,6 @@ private:
 
 	Fairy_Endurance* Fairy_E[ENEMY_NUM];
 	//体力型エネミーオブジェクト配列
-
-	Castle* _castle;				//呼び出すUpdateの引数用	
-
-	BasePlayer* _player;			//上に同じ
 	
 	int _durability;				//体力
 	
@@ -42,7 +38,7 @@ public:
 
 	void SpawnEnemy();				//エネミー生成処理
 
-	void Update();					//更新処理
+	void Update(Castle*,BasePlayer*);					//更新処理
 
 	void Draw();					//描画処理
 
