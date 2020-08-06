@@ -13,29 +13,29 @@ EnemyManager::~EnemyManager() {
 	}
 }
 void EnemyManager::SpawnEnemy() {
-	for (int num = 0; num < ENEMY_NUM; num++) {
-		if (Fairy_E[num] == NULL) {				//NULLの場合
-			Fairy_E[num] = new Fairy_Endurance;	//生成処理
-			break;								//一体生成したら抜ける
+	if ((rand() % 100) == 0) {		//適当に確率
+		for (int num = 0; num < ENEMY_NUM; num++) {
+			if (Fairy_E[num] == NULL) {				//NULLの場合
+				Fairy_E[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);	//生成処理
+				break;								//一体生成したら抜ける
+			}
 		}
 	}
 }
 
-void EnemyManager::Update(){
-	SpawnEnemy();						//生成呼び出し
+void EnemyManager::Update(Castle *_castle,BasePlayer *_player){
+	//SpawnEnemy();						//生成呼び出し
 
 	for (int num = 0; num < ENEMY_NUM; num++) {
 		if (Fairy_E[num] != NULL) {		//NULLでない場合
-			/*
-			Fairy_E[num]->Update();		//更新処理、引数がわからん
+			Fairy_E[num]->Update(_castle, _player);		//更新処理
 			
-			if (Fairy_E[num]->() == false) {
+			if (Fairy_E[num]->GetIsActive() == false) {
 
 			delete Fairy_E[num];		//アクティブでない場合デリートして
 			Fairy_E[num] = NULL;		//NULLを入れる
 
 			}
-			*/
 		}
 	}
 }
@@ -79,13 +79,13 @@ void EnemyManager::Set_height(float _height) {
 		}
 	}
 }
-/*
+
 int EnemyManager::Get_ActiveFlg(int num) {
 		if (Fairy_E[num] != NULL) {
-			return Fairy_E[num]->();	//返す関数が欲しい
+			return Fairy_E[num]->GetIsActive();	
 		}
 }
-*/
+
 int EnemyManager::Get_Power(int num) {
 		if (Fairy_E[num] != NULL) {
 			return Fairy_E[num]->GetIsAttack();

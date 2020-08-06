@@ -4,6 +4,12 @@
 #include "Fairy_Endurance.h"
 #include "Fairy_Speed.h"
 
+class Castle;
+
+class BasePlayer;
+
+class Fairy_Endurance;
+
 class EnemyManager {
 private:
 	static const int POPENEMY_EASY = 2;		//難易度別画面内の生成数
@@ -16,6 +22,15 @@ private:
 
 	Fairy_Endurance* Fairy_E[ENEMY_NUM];
 	//体力型エネミーオブジェクト配列
+	
+	int _durability;				//体力
+	
+	int _direction;					//方向
+	
+	float _speed;					//速度
+	
+	float _power;					//パワー
+
 public:
 	EnemyManager();					//コンストラクタ
 
@@ -23,7 +38,7 @@ public:
 
 	void SpawnEnemy();				//エネミー生成処理
 
-	void Update();					//更新処理
+	void Update(Castle*,BasePlayer*);					//更新処理
 
 	void Draw();					//描画処理
 
@@ -45,6 +60,7 @@ public:
 
 	int Get_width(int);				//幅を受け取る
 
-	int Get_height(int);				//高さを受け取る
+	int Get_height(int);			//高さを受け取る
+
 };
 #endif // !_ENEMYMANAGER_H
