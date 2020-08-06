@@ -79,6 +79,18 @@ void BaseEnemy::JudgeActive() {
 	}
 }
 
+void BaseEnemy::AttackProc() {
+	static int attackTime = 0;
+
+	if (attackTime == 60) {
+		isAttack = false;
+		attackTime = 0;
+		return;
+	}
+
+	attackTime++;
+}
+
 //プレイヤーサーチ処理
 /*
 現状敵側は遠距離攻撃を想定してない判定式となってるので
