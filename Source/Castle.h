@@ -41,17 +41,19 @@ public:
 	 void Draw();                                    //描画処理
 
 
-	 //void Set_x(float _x) { x = _x; }                                 //セッター
-	 //void Set_y(float _y) { y = _y; }                                 //セッター
-	 //void Set_width(float _width) { width = _width; }                 //セッター
-	 //void Set_height(float _height) { height = _height; }             //セッター
-	 //void Set_IsActive(bool _isActive) { isActive = _isActive; }      //セッター
+	 //void Set_x(float _x) { x = _x; }                                     //セッター
+	 //void Set_y(float _y) { y = _y; }                                     //セッター
+	 //void Set_width(float _width) { width = _width; }                     //セッター
+	 //void Set_height(float _height) { height = _height; }                 //セッター
+	 //void Set_IsActive(bool _isActive) { isActive = _isActive; }          //セッター
+	 //void Set_durability(int _durability { durability = _durability; }    //セッター
 
-	 float Get_x() { return x; }                                        //ゲッター
-	 float Get_y() { return y; }                                        //ゲッター
-	 float Get_width() { return width; }                                //ゲッター
-	 float Get_height() { return height; }                              //ゲッター
-	 bool Get_IsActive() { return isActive; }                           //ゲッター
+	 float Get_x() { return x; }                                            //ゲッター
+	 float Get_y() { return y; }                                            //ゲッター
+	 float Get_width() { return width; }                                    //ゲッター
+	 float Get_height() { return height; }                                  //ゲッター
+	 bool  Get_IsActive() { return isActive; }                              //ゲッター
+	 int   Get_durability() { return durability; }                          //ゲッター
 };
 
 #endif //_CASTLE_H
