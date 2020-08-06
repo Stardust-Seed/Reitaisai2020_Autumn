@@ -3,14 +3,13 @@
 
 #include "BaseScene.h"
 #include "Define.h"
-
+#include "FontHandle.h"
 class Title :public virtual BaseScene {
 
 private:
 
 public:
 	Title();
-
 	void Update();				//XVˆ—
 	void Draw();				//•`‰æˆ—
 	void Move();                //ˆÚ“®ˆ—

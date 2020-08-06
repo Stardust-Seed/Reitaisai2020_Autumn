@@ -10,7 +10,6 @@ float o;
 int textSpeed[3];
 int cnt;
 float w;
-
 //コンストラクタ
 Title::Title(){
 
@@ -20,7 +19,6 @@ Title::Title(){
 	textSpeed[2] = 2;
 	cnt = 0;
 	o = 1000;
-	w = 0;
 	//画像とか読み込みたいね
 
 }
@@ -41,22 +39,15 @@ void Title::Update()
 
 void Title::Draw()
 {
-	// 描画する文字列のサイズを設定
-	SetFontSize(112);
-
 	//普通に描画するだけ
 	//DrawFormatString(GAME_WIDTH / 2 - 112*2.5f, GAME_HEIHGT / 2 , GetColor(255, 255, 255), "東方河本録");
 
 	//動かすなら
-	DrawFormatString(GAME_WIDTH / 2 - 64 - textSpeed[2] + o, GAME_HEIHGT / 2-200 - sin(rad) * 64 * 0.25f, GetColor(255, 255, 255), "東");
-	DrawFormatString(GAME_WIDTH / 2 - 64 - textSpeed[1] + o, GAME_HEIHGT / 2-200 - cos(rad) * 64 * 0.5f,  GetColor(255, 255, 255), "方");
-	DrawFormatString(GAME_WIDTH / 2 - 64 + textSpeed[0] + o, GAME_HEIHGT / 2-200 - sin(rad) * 64 * 0.05f, GetColor(255, 255, 255), "河");
-	DrawFormatString(GAME_WIDTH / 2 - 64 + textSpeed[1] + o, GAME_HEIHGT / 2-200 - cos(rad) * 64 * 0.5f,  GetColor(255, 255, 255), "本");
-	DrawFormatString(GAME_WIDTH / 2 - 64 + textSpeed[2] + o, GAME_HEIHGT / 2-200 - sin(rad) * 64 * 0.75f, GetColor(255, 255, 255), "録");
-
-	//梵天丸が存在感あり過ぎなので抑制しておく
-	// 描画する文字列のサイズを設定
-	SetFontSize(4);
+	DrawStringToHandle(GAME_WIDTH / 2 - 64 - textSpeed[2] + o, GAME_HEIHGT / 2 - 200 - sin(rad) * 64 * 0.25f, "東", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 64 - textSpeed[1] + o, GAME_HEIHGT / 2 - 200 - cos(rad) * 64 * 0.5f , "方", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 64 + textSpeed[0] + o, GAME_HEIHGT / 2 - 200 - sin(rad) * 64 * 0.05f, "河", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 64 + textSpeed[1] + o, GAME_HEIHGT / 2 - 200 - cos(rad) * 64 * 0.5f , "本", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 64 + textSpeed[2] + o, GAME_HEIHGT / 2 - 200 - sin(rad) * 64 * 0.75f, "録", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
 
 	//普通に描画するだけ
 	//DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f, GetColor(255, 255, 255), "PRESS SPACE");
@@ -99,22 +90,15 @@ void Title::Move()
 	}
 	//プレススペースの表示処理
 	{
-		if(cnt>=500)w+=0.5f;
-		if (w >= 450)w = 50;
-		// 描画する文字列のサイズを設定
-		SetFontSize(32);
-		DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.25f, GetColor(255, 255, 255), "P");
-		DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.5f,  GetColor(255, 255, 255), " R");
-		DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.75f, GetColor(255, 255, 255), "  E");
-		DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 2,     GetColor(255, 255, 255), "   S");
-		DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 2.5f,  GetColor(255, 255, 255), "    S");
-		DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 2.5f,  GetColor(255, 255, 255), "      S");
-		DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 2,     GetColor(255, 255, 255), "       P");
-		DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.75,  GetColor(255, 255, 255), "        A");
-		DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.5f,  GetColor(255, 255, 255), "         C");
-		DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.25f, GetColor(255, 255, 255), "          E");
-
-		DrawBox(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.4f      , GAME_WIDTH / 2 - 32 * 1.25f + 200, GAME_HEIHGT / 1.75f + w,     GetColor(0, 0, 0), true);
-		DrawBox(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.4f - 350, GAME_WIDTH / 2 - 32 * 3.5f  + 200, GAME_HEIHGT / 1.75f + w-350, GetColor(0, 0, 0), true);
+		DrawStringToHandle(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.25f, "P"          , GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.5f,  " R"         , GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.75f, "  E"        , GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 2,     "   S"       , GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 2.5f,  "    S"      , GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 2.5f,  "      S"    , GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 2,     "       P"   , GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.75,  "        A"  , GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.5f,  "         C" , GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f - sin(rad) * 1.25f, "          E", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
 	}
 }
