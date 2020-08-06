@@ -25,10 +25,12 @@ protected:
 	const float PLAYER_LEFTPOS = 392;      //プレイヤーの左の位置
 	const float PLAYER_RIGHTPOS = 584;     //プレイヤーの右の位置
 
+	const int   MAX_SHOT = 10;             //プレイヤーの最大弾(仮)
+
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
 	int stanTime;	                //プレイヤーのスタンタイム
-	int attackTime;                 //プレイヤーの攻撃間隔
+	int AttackTime;                 //プレイヤーの攻撃間隔
 
 	int PlayerPos;                  //プレイヤーのいる場所
 	// 0 = 左         1 = 上        2 = 右         3 = 下
@@ -44,6 +46,24 @@ protected:
 	bool isOps_LEFT;                //左の反対に移動するためのフラグ
 	bool isOps_RIGHT;               //右の反対に移動するためのフラグ
 	bool isDamage;                  //プレイヤーの被弾フラグ
+
+	class Shot {
+	public:
+		float x;       //弾のx座標
+		float y;       //弾のy座標
+		float width;   //弾の幅
+		float height;  //弾の高さ
+		float cx;      //弾の中心x
+		float cy;      //弾の中心y
+		float shot_gh; //グラフィックハンドル
+		int flag;      //存在フラグ
+	public:
+		Shot();
+		float Get_x() { return x; }  //x座標ゲッター
+		float Get_y() { return y; }  //y座標ゲッター
+		BasePlayer* BasePlayer;
+	};
+	Shot shot[10];
 
 	//テスト用
 	int x2;

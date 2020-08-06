@@ -8,7 +8,7 @@ BasePlayer::BasePlayer()
 	speed = 3;
 	power = 0;
 	stanTime = 0;
-	attackTime = 0;
+	AttackTime = 0;
 
 	PlayerPos = 0;                  
 	// 0 = 左         1 = 上        2 = 右         3 = 下
@@ -37,6 +37,26 @@ BasePlayer::BasePlayer()
 	//テスト用
 	x2 = 440;
 	y2 = 396;
+
+}
+
+BasePlayer::Shot::Shot()
+{
+	/************
+	x = BasePlayer->Get_x();       //弾のx座標
+	y = BasePlayer->Get_y();       //弾のy座標
+	だと処理落ちするのなんでだああああああああああ
+	*****************/
+
+	//正式な弾とか決まったら修正
+	x = 392;       //弾のx座標
+	y = 345;       //弾のy座標
+	width = 24;    //弾の幅
+	height = 24;   //弾の高さ
+	cx = (x + width);
+	cy = (y + height);
+	shot_gh = 0;   //グラフィックハンドル
+	flag = 0;      //存在フラグ
 
 }
 
@@ -423,10 +443,115 @@ void BasePlayer::Move_OPSRUN()
 	}
 
 }
-//プレイヤーの攻撃処理
+
+//***プレイヤーの攻撃処理***//
+//現在はプレイヤーの中心から発射されるようにしている。
+//弾を打って、まだ弾が画面上にある間に動くと弾も移動するバグがある。
+//後で治す
+//***************************//
 void BasePlayer::Attack()
 {
+	//***当たり判定のテスト用***//
+	float xx = 700;
+	float yy = 300;
 
+	float xx2 = 50;
+	float yy2 = 100;
+	//**************************//
+
+	if (AttackTime < 5)
+	{
+		AttackTime++;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && AttackTime >= 5)
+	{
+		AttackTime = 0;
+		for (int i = 0; i < MAX_SHOT; ++i)
+		{
+			if (shot[i].flag == 0 && PlayerPos == 0)
+			{
+				shot[i].x = (x + 24);  //弾のx座標
+				shot[i].y = (y + 24); //弾のy座標
+
+				shot[i].flag = 1;
+				break;
+			}
+			if (shot[i].flag == 0 && PlayerPos == 1)
+			{
+				shot[i].x = (x + 24);  //弾のx座標
+				shot[i].y = (y + 24);  //弾のy座標
+
+				shot[i].flag = 1;
+				break;
+			}
+			if (shot[i].flag == 0 && PlayerPos == 2)
+			{
+				shot[i].x = (x + 24);  //弾のx座標
+				shot[i].y = (y + 24);  //弾のy座標
+
+				shot[i].flag = 1;
+				break;
+			}
+			if (shot[i].flag == 0 && PlayerPos == 3)
+			{
+				shot[i].x = (x + 24);  //弾のx座標
+				shot[i].y = (y + 24);  //弾のy座標
+
+				shot[i].flag = 1;
+				break;
+			}
+		}
+	}
+	for (int i = 0; i < MAX_SHOT; ++i)
+	{
+		if (shot[i].flag == 1 && PlayerPos == 0)
+		{
+
+			shot[i].x -= 5;
+			DrawCircle(shot[i].x, shot[i].y, 10, GetColor(255, 255, 255), TRUE);
+		}
+		if (shot[i].flag == 1 && PlayerPos == 1)
+		{
+
+			shot[i].y -= 5;
+			DrawCircle(shot[i].x, shot[i].y, 10, GetColor(255, 255, 255), TRUE);
+		}
+		if (shot[i].flag == 1 && PlayerPos == 2)
+		{
+
+			shot[i].x += 5;
+			DrawCircle(shot[i].x, shot[i].y, 10, GetColor(255, 255, 255), TRUE);
+		}
+		if (shot[i].flag == 1 && PlayerPos == 3)
+		{
+
+			shot[i].y += 5;
+			DrawCircle(shot[i].x, shot[i].y, 10, GetColor(255, 255, 255), TRUE);
+		}
+
+		if (shot[i].x < 0)
+		{
+			shot[i].flag = 0;
+		}
+		if (shot[i].y < 0)
+		{
+			shot[i].flag = 0;
+		}
+		if (shot[i].x > 1024)
+		{
+			shot[i].flag = 0;
+		}
+		if (shot[i].y > 768)
+		{
+			shot[i].flag = 0;
+		}
+		int yyy = 50 + (i * 25);
+		DrawFormatString(0, yyy, GetColor(255, 255, 255), "shot:flag:[%d]", shot[i].flag);
+		DrawFormatString(200, yyy, GetColor(255, 255, 255), "shot:x:[%f]", shot[i].x);
+
+		ClisionHit(shot[i].x, shot[i].y, shot[i].width, shot[i].height,
+			xx, yy, xx2, yy2);
+	}
 
 }
 
@@ -467,6 +592,7 @@ void BasePlayer::Update()
 	float yy = 400;
 	//**************//
 	Move();
+	Attack();
 	ClisionHit(x, y, width, height, xx, yy, 48, 48);
 
 }
