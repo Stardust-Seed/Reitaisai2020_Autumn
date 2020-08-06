@@ -47,6 +47,11 @@ protected:
 	bool isOps_RIGHT;               //右の反対に移動するためのフラグ
 	bool isDamage;                  //プレイヤーの被弾フラグ
 
+	//テスト用
+	int x2;
+	int y2;
+
+public:
 	class Shot {
 	public:
 		float x;       //弾のx座標
@@ -73,11 +78,6 @@ protected:
 	};
 	Shot shot[10];
 
-	//テスト用
-	int x2;
-	int y2;
-
-public:
 	 virtual bool ClisionHit(float mx, float my, float mw, float mh,
 		     float ox, float oy, float ow, float oh) = 0;
 	 //m = my 自分   o = opnet 相手
