@@ -16,6 +16,10 @@ void Fairy_Endurance::Update(Castle* _castle, BasePlayer* _player) {
 	SearchCastle(_castle->Get_x(), _castle->Get_y(), _castle->Get_width(), _castle->Get_height());
 
 	Move();
+
+	if (isAttack) {
+		AttackProc();
+	}
 }
 
 void Fairy_Endurance::Draw() {
