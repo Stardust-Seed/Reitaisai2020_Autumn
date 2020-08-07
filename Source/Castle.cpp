@@ -30,6 +30,7 @@ void Castle::Update(Fairy_Speed* enemy)
 //拠点の描画
 void Castle::Draw()
 {
+	/*
 	DrawFormatString(10, 100, GetColor(255, 255, 255), "%d", durability);
 	if (isActive == false)
 	{
@@ -39,7 +40,7 @@ void Castle::Draw()
 	{
 		DrawFormatString(10, 130, GetColor(255, 255, 255), "クラムボンはいきてる");
 	}
-
+	*/
 	//プレイヤーの移動範囲
 	DrawBox(x-60.0f, y-60.0f, x+width+60.0f, y+height+60.0f, GetColor(25, 25, 25), true);
 	//拠点の画像を読み込んで描画させます今は四角を表示
@@ -49,11 +50,11 @@ void Castle::Draw()
 //拠点がダメージを受けたときの処理
 bool Castle::ClisionHit(float ox, float oy, float ow, float oh,int pow)
 {
-	DrawFormatString(10, 500, GetColor(255, 255, 255), "%f", ox);
-	DrawFormatString(10, 520, GetColor(255, 255, 255), "%f", oy);
-	DrawFormatString(10, 540, GetColor(255, 255, 255), "%f", ow);
-	DrawFormatString(10, 560, GetColor(255, 255, 255), "%f", oh);
-	DrawFormatString(10, 580, GetColor(255, 255, 255), "%d", pow);
+	//DrawFormatString(10, 500, GetColor(255, 255, 255), "%f", ox);
+	//DrawFormatString(10, 520, GetColor(255, 255, 255), "%f", oy);
+	//DrawFormatString(10, 540, GetColor(255, 255, 255), "%f", ow);
+	//DrawFormatString(10, 560, GetColor(255, 255, 255), "%f", oh);
+	//DrawFormatString(10, 580, GetColor(255, 255, 255), "%d", pow);
 	//ソーシャルディスタンスを保てない屑野郎が来たら
 	//星屑野郎の攻撃力分、自分のHPを減らすことが出来る！
 	if (x + width >= ox && x <= ox + ow &&
