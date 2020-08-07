@@ -4,7 +4,7 @@
 #include "BaseScene.h"
 #include "Define.h"
 #include "FontHandle.h"
-
+#include "SE.h"
 class Title :public virtual BaseScene {
 
 private:
