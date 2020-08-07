@@ -46,6 +46,10 @@ protected:
 	bool isOps_LEFT;                //左の反対に移動するためのフラグ
 	bool isOps_RIGHT;               //右の反対に移動するためのフラグ
 	bool isDamage;                  //プレイヤーの被弾フラグ
+	bool isAttack;                  //攻撃フラグ
+	bool isStan;                    //スタン中かどうかのフラグ
+
+	int Now_Move;                  //現在移動中のフラグ
 
 	//テスト用
 	int x2;

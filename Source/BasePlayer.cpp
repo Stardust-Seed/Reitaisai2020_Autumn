@@ -25,6 +25,9 @@ BasePlayer::BasePlayer()
 	isOps_LEFT = false;
 	isOps_RIGHT = false;
 	isDamage = false;
+	isStan = false;
+
+	Now_Move = 0;
 
 	//プレイヤーの初期座標
 	x = PLAYER_SPOWNPOSX;
@@ -64,7 +67,7 @@ BasePlayer::Shot::Shot()
 void BasePlayer::Move()
 {
 	//←キーを押したとき
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1)) {
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1) && Now_Move == 0) {
 
 		if (PlayerPos == 2) {
 			isOps = true;
@@ -75,10 +78,11 @@ void BasePlayer::Move()
 			isMove = 0;
 			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
+			Now_Move = 1;
 		}
 	}
 	//↑キーを押したとき
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_UP) == 1)) {
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_UP) == 1) && Now_Move == 0) {
 
 		if (PlayerPos == 3) {
 			isOps = true;
@@ -89,10 +93,11 @@ void BasePlayer::Move()
 			isMove = 1;
 			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
+			Now_Move = 1;
 		}
 	}
 	//→キーを押したとき
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) == 1)) {
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) == 1) && Now_Move == 0) {
 
 		if (PlayerPos == 0) {
 			isOps = true;
@@ -103,11 +108,12 @@ void BasePlayer::Move()
 			isMove = 2;
 			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
+			Now_Move = 1;
 		}
 
 	}
 	//↓キーを押したとき
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_DOWN) == 1)) {
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_DOWN) == 1) && Now_Move == 0) {
 
 		if (PlayerPos == 1) {
 			isOps = true;
@@ -118,33 +124,43 @@ void BasePlayer::Move()
 			isMove = 3;
 			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
+			Now_Move = 1;
 		}
 	}
 	//移動方向が左の時、左へ移動させる
-	if (isMove == 0 && isMoveKey == true) {
+	if (isMove == 0 && isMoveKey == true && isOps == false) {
 		Move_LEFT();
+
 	}
 	//移動方向が上の時、上へ移動させる
-	if (isMove == 1 && isMoveKey == true) {
+	if (isMove == 1 && isMoveKey == true && isOps == false) {
 		Move_UP();
+
 	}
 	//移動方向が右の時、右へ移動させる
-	if (isMove == 2 && isMoveKey == true) {
+	if (isMove == 2 && isMoveKey == true && isOps == false) {
 		Move_RIGHT();
+
 	}
 	//移動方向が下の時、下へ移動させる
-	if (isMove == 3 && isMoveKey == true) {
+	if (isMove == 3 && isMoveKey == true && isOps == false) {
 		Move_DOWN();
+
 	}
 	//反対フラグがtrueの時、反対移動処理を起動させる
-	if (isOps == true) {
+	if (isOps == true && Now_Move == 0) {
 		Move_OPS();
+		Now_Move = 1;
+
 	}
 	//反対移動処理を実行
 	if (isOps_RUN == true) {
 		Move_OPSRUN();
+
 	}
 }
+
+//上に移動する処理
 void BasePlayer::Move_UP()
 {
 	//左から上へ
@@ -167,6 +183,11 @@ void BasePlayer::Move_UP()
 			//移動方向をリセットする
 			isMove = 4;
 
+			//無移動状態にする
+			if (isOps == false) {
+				Now_Move = 0;
+			}
+
 			//移動キーのチェックをリセット
 			//isMoveKey = false;
 		}
@@ -174,6 +195,7 @@ void BasePlayer::Move_UP()
 			isOps = false;
 			isOps_DOWN = false;
 			isOps_RUN = false;
+			Now_Move = 0;
 		}
 	}
 	//右から上へ
@@ -198,12 +220,19 @@ void BasePlayer::Move_UP()
 
 			//移動キーのチェックをリセット
 			isMoveKey = false;
+
+			//無移動状態にする
+			if (isOps == false) {
+				Now_Move = 0;
+			}
 		}
 	}
 }
+
 //下へ移動する処理
 void BasePlayer::Move_DOWN()
 {
+
 	//左から下へ
 	if (PlayerPos == 0 && isMove == 3) {
 		if (y <= PLAYER_DOWNPOSY) {
@@ -226,6 +255,11 @@ void BasePlayer::Move_DOWN()
 
 			//移動キーのチェックをリセット
 			isMoveKey = false;
+
+			//無移動状態にする
+			if (isOps == false) {
+				Now_Move = 0;
+			}
 		}
 	}
 
@@ -251,15 +285,22 @@ void BasePlayer::Move_DOWN()
 
 			//移動キーのチェックをリセット
 			isMoveKey = false;
+
+			//無移動状態にする
+			if (isOps == false) {
+				Now_Move = 0;
+			}
 		}
 		if (isOps == true && isOps_UP == true && x <= PLAYER_UPDOWNPOSX && y >= PLAYER_DOWNPOSY) {
 			isOps = false;
 			isOps_UP = false;
 			isOps_RUN = false;
+			Now_Move = 0;
 		}
 
 	}
 }
+
 //左へ移動する処理
 void BasePlayer::Move_LEFT()
 {
@@ -275,7 +316,7 @@ void BasePlayer::Move_LEFT()
 			y += speed;
 			y2 += speed;
 		}
-		if (y >= PLAYER_LEFTRIGHTPOS) {
+		if (y >= PLAYER_LEFTRIGHTPOS && x <= PLAYER_LEFTPOS) {
 
 			//プレイヤーの場所を左にする
 			PlayerPos = 0;
@@ -285,11 +326,17 @@ void BasePlayer::Move_LEFT()
 
 			//移動キーのチェックをリセット
 			isMoveKey = false;
+
+			//無移動状態にする
+			if (isOps == false) {
+				Now_Move = 0;
+			}
 		}
 		if (isOps == true && x <= PLAYER_LEFTPOS && y >= PLAYER_LEFTRIGHTPOS) {
 			isOps = false;
 			isOps_RIGHT = false;
 			isOps_RUN = false;
+			Now_Move = 0;
 		}
 	}
 	//下から左へ
@@ -304,18 +351,24 @@ void BasePlayer::Move_LEFT()
 			y -= speed;
 			y2 -= speed;
 		}
-		if (y <= PLAYER_LEFTRIGHTPOS) {
+		if (y <= PLAYER_LEFTRIGHTPOS && x <= PLAYER_LEFTPOS) {
 
 			//プレイヤーの場所を左にする
 			PlayerPos = 0;
 
 			//移動方向をリセットする
 			isMove = 4;
+
+			//無移動状態にする
+			if (isOps == false) {
+				Now_Move = 0;
+			}
 		}
 		if (isOps == true && isOps_RIGHT == true && x <= PLAYER_LEFTPOS && y <= PLAYER_LEFTRIGHTPOS) {
 			isOps = false;
 			isOps_RIGHT = false;
 			isOps_RUN = false;
+			Now_Move = 0;
 		}
 	}
 }
@@ -334,7 +387,7 @@ void BasePlayer::Move_RIGHT()
 			y += speed;
 			y2 += speed;
 		}
-		if (y >= PLAYER_LEFTRIGHTPOS) {
+		if (y >= PLAYER_LEFTRIGHTPOS && x >= PLAYER_RIGHTPOS) {
 
 			//プレイヤーの場所を右にする
 			PlayerPos = 2;
@@ -344,11 +397,17 @@ void BasePlayer::Move_RIGHT()
 
 			//移動キーのチェックをリセット
 			isMoveKey = false;
+
+			//無移動状態にする
+			if (isOps == false) {
+				Now_Move = 0;
+			}
 		}
 		if (isOps == true && isOps_LEFT == true && x >= PLAYER_RIGHTPOS && y >= PLAYER_LEFTRIGHTPOS) {
 			isOps = false;
 			isOps_LEFT = false;
 			isOps_RUN = false;
+			Now_Move = 0;
 		}
 	}
 	//下から右へ
@@ -363,7 +422,7 @@ void BasePlayer::Move_RIGHT()
 			y -= speed;
 			y2 -= speed;
 		}
-		if (y <= PLAYER_LEFTRIGHTPOS) {
+		if (y <= PLAYER_LEFTRIGHTPOS && x >= PLAYER_RIGHTPOS) {
 
 			//プレイヤーの場所を右にする
 			PlayerPos = 2;
@@ -373,8 +432,14 @@ void BasePlayer::Move_RIGHT()
 
 			//移動キーのチェックをリセット
 			isMoveKey = false;
+
+			//無移動状態にする
+			if (isOps == false) {
+				Now_Move = 0;
+			}
 		}
 	}
+
 }
 
 //反対へ移動する処理
@@ -402,6 +467,7 @@ void BasePlayer::Move_OPS()
 		isOps_RUN = true;
 	}
 }
+
 //反対移動処理:処理
 void BasePlayer::Move_OPSRUN()
 {
@@ -443,6 +509,7 @@ void BasePlayer::Move_OPSRUN()
 	}
 
 }
+
 
 //***プレイヤーの攻撃処理***//
 //現在はプレイヤーの中心から発射されるようにしている。
