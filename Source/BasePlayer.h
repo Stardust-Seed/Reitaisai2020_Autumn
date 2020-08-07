@@ -79,7 +79,7 @@ public:
 	Shot shot[10];
 
 	 virtual bool ClisionHit(float mx, float my, float mw, float mh,
-		     float ox, float oy, float ow, float oh) = 0;
+		     float ox, float oy, float ow, float oh);
 	 //m = my 自分   o = opnet 相手
 
 	 BasePlayer();                  //ベースプレイヤーのコンストラクタ
