@@ -23,21 +23,18 @@ SE::~SE() {
 }
 
 //読み込み
-//多分シーンごとに読み込むやつ振り分けておいた方がいいと思うのかなーと思いますね
-//Loadに引数でEBaseSceneをもってきてそのシーン別にswitch文で読み込むやつを実行みたいな
 void SE::Load()
 {
 	//ファイルパス指定
-	seNum[SE_00] = LoadSE("./res/Sound/SE/OOHSYUK.wav");
-	seNum[SE_01] = 0;
-	seNum[SE_02] = 0;
+	seNum[SE_test] = LoadSE("./res/Sound/SE/OOHSYUK.wav");
+
 }
 
 //SEを再生
-void SE::PlaySE(SEnum _SEnum, PlayBackType _PlayBackType)
+void SE::PlaySE(SEnum _SEnum,int _type)
 {
 	//DrawFormatString(10, 500, GetColor(255, 255, 255), "サウンド再生_番号:%d",_SEnum);
-	PlaySoundMem(seNum[_SEnum], _PlayBackType,TRUE);
+	PlaySoundMem(seNum[_SEnum],_type,TRUE);
 }
 
 //SEを止める
