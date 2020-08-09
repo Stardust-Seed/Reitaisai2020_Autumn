@@ -40,7 +40,9 @@ protected:
 	bool isActive;		//エネミーの生存フラグ
 
 public:
-	BaseEnemy() = default;
+	BaseEnemy(){}
+	virtual ~BaseEnemy(){}
+
 	BaseEnemy(float _speed, float _power, int _durability, int _direction);
 	virtual void Update(Castle* _castle, BasePlayer* _player) {}	//更新処理
 	void Move();					//移動処理
