@@ -6,17 +6,26 @@ void UI::Set_CastleDurability()
 {
 	CastleDurability = Get_durability();		//拠点の体力を受け取る
 
-	DrawBox(HPBAR_X, HPBAR_Y, HPBAR_X1 + 200, HPBAR_Y1 + 20, Color = GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+	DrawBox(HPMOJI_X + 10, HPMOJI_Y, HPMOJI_X + HPBAR_X, HPMOJI_Y + 20, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+
+	DrawString(HPMOJI_X	+ 20, HPMOJI_Y + 2, "HP", GetColor(255, 255, 255));						//HPという文字を表示するため
+
+	DrawBox(HPBAR_X, HPBAR_Y, HPBAR_X1 + 200, HPBAR_Y1 + 20, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
 
 	percent = MAX_DURABILTY / 3;				//ピンチ時にHPゲージを赤色にするための割合(３割)　＊要調整
-	 
+
+	if (CastleDurability <= 0)					//HPゲージが0以下になってもゲージは0で止める
+	{
+		CastleDurability = 0;
+	}
+
 	if (CastleDurability <= percent)			//３割以下でHPゲージが赤になる	
 	{
-		DrawBox(HPBAR_X, HPBAR_Y, HPBAR_X1 + 200 * CastleDurability / MAX_DURABILTY, HPBAR_Y1 + 20, Color = GetColor(255, 0, 0), TRUE);		//ピンチ用HPゲージ(赤）
+		DrawBox(HPGAUGE_X, HPGAUGE_Y, HPGAUGE_X1 + 200 * CastleDurability / MAX_DURABILTY, HPGAUGE_Y1 + 20, GetColor(255, 0, 0), TRUE);		//ピンチ用HPゲージ(赤）
 	}
 	else
 	{
-		DrawBox(HPBAR_X, HPBAR_Y, HPBAR_X1 + 200 * CastleDurability / MAX_DURABILTY, HPBAR_Y1 + 20, Color = GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+		DrawBox(HPGAUGE_X, HPGAUGE_Y, HPGAUGE_X1 + 200 * CastleDurability / MAX_DURABILTY, HPGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
 
 	/*DrawFormatString(150,500, GetColor(255, 255, 255), "%d", percent);//確認用　＊後で消す
@@ -36,12 +45,13 @@ void UI::PlayGuide()
 	//追加があるかもしれないけど思いつくのはこの二つ  ＊コメント消す
 	DrawString(500, 0, "十字キーで上下左右に移動", GetColor(255, 255, 255));
 	DrawString(500, 100, "スペースキーでポーズメニュー表示", GetColor(255, 255, 255));
+	DrawString(500, 200, "〇〇キーで弾発射", GetColor(255, 255, 255));
 }
 
 //更新
 void UI::Update(Castle* _castle)
 {
-	Set_durability(_castle->Get_durability());		//現在の拠点の体力
+	Set_durability(_castle->Get_durability());		//拠点の体力をセットする
 }
 
 //描画処理
