@@ -29,7 +29,7 @@ SE::~SE() {
 void SE::Load()
 {
 	//ファイルパス指定
-	seNum[SE_test] = LoadSE("./res/Sound/SE/OOHSYUK.wav");
+	seNum[SE_test] = LoadSE("./res/Sound/SE/test.wav");
 
 }
 
