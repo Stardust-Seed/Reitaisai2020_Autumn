@@ -30,7 +30,7 @@ BGM::~BGM() {
 void BGM::Load()
 {
 	//ファイルパス指定
-	bgmNum[BGM_test] = LoadBGM("./res/Sound/BGM/OOHSYUK.wav");
+	bgmNum[BGM_test] = LoadBGM("./res/Sound/BGM/test.wav");
 
 }
 

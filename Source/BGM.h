@@ -8,9 +8,9 @@
 使用例
 
 //再生するとき
-BGM::Instance()->PlayBGM(BGM_00);
-BGM::Instance()->PlayBGM(BGM_00,DX_PLAYTYPE_LOOP);
-BGM::Instance()->PlayBGM(BGM_00,DX_PLAYTYPE_LOOP,FALSE);
+BGM::Instance()->PlayBGM(BGM_test);
+BGM::Instance()->PlayBGM(BGM_test,DX_PLAYTYPE_LOOP);
+BGM::Instance()->PlayBGM(BGM_test,DX_PLAYTYPE_LOOP,FALSE);
 
 第三引数使うときは第二引数もちゃんと指定してください
 
