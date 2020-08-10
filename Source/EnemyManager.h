@@ -8,7 +8,11 @@ class Castle;
 
 class BasePlayer;
 
+class BaseEnemy;
+
 class Fairy_Endurance;
+
+class Fairy_Speed;
 
 class EnemyManager {
 private:
@@ -20,8 +24,7 @@ private:
 
 	static const int ENEMY_NUM = POPENEMY_EASY;
 
-	Fairy_Endurance* Fairy_E[ENEMY_NUM];
-	//体力型エネミーオブジェクト配列
+	BaseEnemy* Enemys[ENEMY_NUM];			//エネミーオブジェクト配列
 	
 	int _durability;				//体力
 	
