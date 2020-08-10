@@ -24,6 +24,10 @@ private:
 
 	static const int ENEMY_NUM = POPENEMY_EASY;
 
+	static const int SPAWN_SPEED = 0;		//生成識別番号
+
+	static const int SPAWN_ENDURANCE = 1;	//生成識別番号
+
 	BaseEnemy* Enemys[ENEMY_NUM];			//エネミーオブジェクト配列
 	
 	int _durability;				//体力

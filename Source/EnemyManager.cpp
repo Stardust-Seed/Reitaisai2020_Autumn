@@ -21,12 +21,12 @@ void EnemyManager::SpawnEnemy() {
 				SRand;								//乱数初期化
 				_direction = GetRand(3);			//ランダムな出現方向
 
-				if (GetRand(1) == 0) {				//スピード型
+				if (GetRand(1) == SPAWN_SPEED) {				//スピード型
 					Enemys[num] = new Fairy_Speed(1, 10, 100, _direction);		//生成処理
 					break;								//一体生成したら抜ける
 				}
 
-				if (GetRand(1) == 1) {				//体力型
+				if (GetRand(1) == SPAWN_ENDURANCE) {				//体力型
 					Enemys[num] = new Fairy_Endurance(1, 10, 100, _direction);	//生成処理
 					break;								//一体生成したら抜ける
 				}
