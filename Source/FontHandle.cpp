@@ -1,6 +1,11 @@
 #include "FontHandle.h"
 #include "DxLib.h"
 
+//コンストラクタ
+FontHandle::FontHandle(){
+	Init();
+}
+//初期化
 void FontHandle::Init()
 {
 	//CreateFontToHandle("指定するフォント名", 文字のサイズ, 文字の太さ);
