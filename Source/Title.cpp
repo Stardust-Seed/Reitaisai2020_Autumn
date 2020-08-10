@@ -10,8 +10,11 @@ Title::Title(){
 	textSpeed[0] = 0;
 	textSpeed[1] = 1;
 	textSpeed[2] = 2;
+	deg = 0;
+	rad = 0;
 	cnt = 0;
 	o = 1000;
+
 	//画像とか読み込みたいね
 
 }
@@ -20,37 +23,29 @@ void Title::Update()
 {
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
 	{
+		SE::Instance()->PlaySE(SE_00,No);
 		// 描画する文字列のサイズを設定
 		SetFontSize(16);
 		DrawFormatString(0,40, GetColor(255, 255, 255), "スペースが押されたのでシーン切り替えされたい");
 		//SceneChange->onSceneChanged(Scene::MENU);みたいな感じかもしれないきっと
 	}
 
-	//却下されれば消す
 	Move();
 }
 
 void Title::Draw()
 {
-	//普通に描画するだけ
-	//DrawFormatString(GAME_WIDTH / 2 - 112*2.5f, GAME_HEIHGT / 2 , GetColor(255, 255, 255), "東方河本録");
-
-	//動かすなら
+	//タイトル表示
 	DrawStringToHandle(GAME_WIDTH / 2 - 64 - textSpeed[2] + o, GAME_HEIHGT / 2 - 200 - sin(rad) * 64 * 0.25f, "東", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
 	DrawStringToHandle(GAME_WIDTH / 2 - 64 - textSpeed[1] + o, GAME_HEIHGT / 2 - 200 - cos(rad) * 64 * 0.5f , "方", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
 	DrawStringToHandle(GAME_WIDTH / 2 - 64 + textSpeed[0] + o, GAME_HEIHGT / 2 - 200 - sin(rad) * 64 * 0.05f, "河", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
 	DrawStringToHandle(GAME_WIDTH / 2 - 64 + textSpeed[1] + o, GAME_HEIHGT / 2 - 200 - cos(rad) * 64 * 0.5f , "本", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
 	DrawStringToHandle(GAME_WIDTH / 2 - 64 + textSpeed[2] + o, GAME_HEIHGT / 2 - 200 - sin(rad) * 64 * 0.75f, "録", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
 
-	//普通に描画するだけ
-	//DrawFormatString(GAME_WIDTH / 2 - 32 * 3.5f, GAME_HEIHGT / 1.5f, GetColor(255, 255, 255), "PRESS SPACE");
-
 	//画像表示今は四角表示
 	DrawBox(GAME_WIDTH -250, GAME_HEIHGT - 400, GAME_WIDTH, GAME_HEIHGT, GetColor(255, 255, 255), true);
-
 }
 
-//却下されれば消す
 void Title::Move()
 {
 	cnt++;

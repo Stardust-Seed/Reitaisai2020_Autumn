@@ -4,7 +4,7 @@
 #include "BaseScene.h"
 #include "Define.h"
 #include "FontHandle.h"
-
+#include "SE.h"
 class Title :public virtual BaseScene {
 
 private:
@@ -13,7 +13,6 @@ private:
 	float o;
 	int textSpeed[3];
 	int cnt;
-	float w;
 
 public:
 	Title();
