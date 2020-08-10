@@ -25,9 +25,8 @@ void GameOver::Update()
 //描画
 void GameOver::Draw()
 {
-	DrawFormatString(200, 50, GetColor(255, 255, 255), "望むは一つ、勝利のみ、この物語の主人公よ恍惚とした\n光の中へと先導でしまうとは壊れゆく時の彼方で無為を望んだ");
 	DrawFormatString(10, 100, GetColor(255, 255, 255), "現在のシーン番号%d", nowScene);
-	DrawFormatString(10, 600, GetColor(255, 255, 255), "nowCursor:%d", nowCursor);
+	//DrawFormatString(10, 600, GetColor(255, 255, 255), "nowCursor:%d", nowCursor);
 	DrawFormatString(5, y, GetColor(255, 255, 255), "(首)->");
 	DrawFormatString(65, GAME_Y, GetColor(255, 255, 255), ":コンティニューする  ");
 	DrawFormatString(65, MENU_Y, GetColor(255, 255, 255), ":コンティニューしない");
