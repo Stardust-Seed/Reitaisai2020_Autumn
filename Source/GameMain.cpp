@@ -1,10 +1,12 @@
 #include <DxLib.h>
 #include "GameMain.h"
+#include "BasePlayer.h"
+#include "BulletManager.h"
 
-GameMain::GameMain() {
+GameMain::GameMain() {	
 }
 
-GameMain::~GameMain() {
+GameMain::~GameMain() {	
 }
 
 void GameMain::Init() {
