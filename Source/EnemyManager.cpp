@@ -18,15 +18,17 @@ void EnemyManager::SpawnEnemy() {
 		for (int num = 0; num < ENEMY_NUM; num++) {	//エネミーの数だけ動かす
 			if (Enemys[num] == NULL) {				//NULLの場合生成開始
 
-				SRand;								//乱数初期化
+				SRand;					//乱数初期化
+				
 				_direction = GetRand(3);			//ランダムな出現方向
-
-				if (GetRand(1) == SPAWN_SPEED) {				//スピード型
+				enemyType = GetRand(1);				//ランダムな敵の種類
+				
+				if (enemyType == 0) {				//スピード型
 					Enemys[num] = new Fairy_Speed(1, 10, 100, _direction);		//生成処理
 					break;								//一体生成したら抜ける
 				}
 
-				if (GetRand(1) == SPAWN_ENDURANCE) {				//体力型
+				if (enemyType == 1) {				//体力型
 					Enemys[num] = new Fairy_Endurance(1, 10, 100, _direction);	//生成処理
 					break;								//一体生成したら抜ける
 				}
