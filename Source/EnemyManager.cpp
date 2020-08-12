@@ -29,6 +29,7 @@ EnemyManager::~EnemyManager() {
 		delete Enemys[num];		//デリート処理
 	}
 }
+
 void EnemyManager::SpawnEnemy() {
 	if ((rand() % 100) == 0) {		//出現確率
 
