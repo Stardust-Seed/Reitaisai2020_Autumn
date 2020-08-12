@@ -18,13 +18,10 @@ private:
 	const static int GAME_Y;    //イエースこんてぃぬーと表示
 	const static int MENU_Y;    //新たな伝説を断念と表示
 
-	int nowScene;               //現在選択中のシーン
 	int nowCursor;              //現在選択中のカーソル
 	int y;                      //カーソル表示用のY座標
-
 public:
-	GameOver();
-
+	GameOver(ISceneChanger* _sceneChanger);
 	void Update();				//更新処理
 	void Draw();				//描画処理
 	void Select();              //選択処理
