@@ -4,13 +4,9 @@
 #include "BaseScene.h"
 //#include "Castle.h"
 
-class GameScene :public virtual BaseScene{
-
-private:
-	int nowScene;               //現在選択中のシーン
-
+class GameScene :public virtual BaseScene {
 public:
-	GameScene();
+	GameScene(ISceneChanger* _sceneChanger);
 	void Update();				//更新処理
 	void Draw();				//描画処理
 	void ChangeScene();         //シーン変更処理
