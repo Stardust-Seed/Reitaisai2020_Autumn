@@ -24,6 +24,8 @@ private:
 
 	static const int ENEMY_NUM = POPENEMY_EASY;
 
+	static const int ENEMY_TYPES = 2;		//現在のエネミーの種類
+
 	BaseEnemy* Enemys[ENEMY_NUM];			//エネミーオブジェクト配列
 	
 	int enemyType;					//ランダムな値を入れる
