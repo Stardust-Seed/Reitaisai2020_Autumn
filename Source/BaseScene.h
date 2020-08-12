@@ -1,25 +1,32 @@
-#ifndef _BaseScene_H
-#define _BaseScene_H_
+#ifndef _BASESCENE_H
+#define _BASESCENE_H
 
-enum EBaseScene
+#include "ISceneChanger.h"
+
+class ISceneChanger;
+
+enum eScene
 {
-	TITLE,				//タイトル画面
-	MENU,				//メニュー画面
-	GAME,				//ゲーム画面
-	CLAER,				//クリア画面
-	GAMEOVER,			//ゲームオブジェクト
-	OPTION,				//オプション
-	PAUSEMENU,			//ポーズメニュー
-	CHARASELECT,		//キャラ選択画面
-	LEVELSELECT,		//難易度選択画面
+	eScene_TITLE,			//タイトル画面
+	eScene_MENU,			//メニュー画面
+	eScene_GAME,			//ゲーム画面
+	eScene_CLAER,			//クリア画面
+	eScene_GAMEOVER,		//ゲームオブジェクト
+	eScene_OPTION,			//オプション
+	eScene_PAUSEMENU,		//ポーズメニュー
+	eScene_CHARASELECT,		//キャラ選択画面
+	eScene_LEVELSELECT,		//難易度選択画面
 };
 
-class BaseScene
-{
+class BaseScene {
+protected:
+	ISceneChanger* sceneChanger;	//シーン切り替えのインターフェイスクラス
 public:
+	BaseScene(ISceneChanger* _sceneChanger);
+	virtual ~BaseScene() = default;
 	virtual void Draw() = 0;		//描画処理
-
 	virtual void Update() = 0;		//更新処理
 };
 
-#endif
+
+#endif // !_BASESCENE_H
