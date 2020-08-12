@@ -22,12 +22,12 @@ private:
 
 	static const int POPENEMY_HARD = 4;		//4体まで
 
-	static const int ENEMY_NUM = POPENEMY_EASY;
-
 	static const int ENEMY_TYPES = 2;		//現在のエネミーの種類
 
+	static const int ENEMY_NUM = 4;			//エネミー配列の生成数
+
 	BaseEnemy* Enemys[ENEMY_NUM];			//エネミーオブジェクト配列
-	
+
 	int enemyType;					//ランダムな値を入れる
 
 	int _durability;				//体力
