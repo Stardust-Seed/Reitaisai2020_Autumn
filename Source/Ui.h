@@ -24,7 +24,7 @@ private:
 	int Color;						//色
 
 public:
-	void Set_CastleDurability();		//拠点の体力を受け取る
+	void Get_CastleDurability();		//拠点の体力を受け取る
 	void Set_EnemyiesRest(int);			//コメント考えます
 	void PlayGuide();					//プレイヤーのガイド
 	void Update(Castle* _castle);		//更新処理
