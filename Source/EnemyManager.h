@@ -24,11 +24,13 @@ private:
 
 	static const int ENEMY_TYPES = 2;		//現在のエネミーの種類
 
-	static const int ENEMY_NUM = 4;			//エネミー配列の生成数
+	static const int MAX_ENEMY_NUM = 4;			//エネミーの最大生成数分の要素数
 
-	BaseEnemy* Enemys[ENEMY_NUM];			//エネミーオブジェクト配列
+	BaseEnemy* Enemys[MAX_ENEMY_NUM];			//エネミーオブジェクト配列
 
 	int enemyType;					//ランダムな値を入れる
+
+	int enemyNum;					//難易度別生成数を入れる
 
 	int _durability;				//体力
 	
@@ -39,7 +41,7 @@ private:
 	float _power;					//パワー
 
 public:
-	EnemyManager();					//コンストラクタ
+	EnemyManager(int);					//コンストラクタ
 
 	~EnemyManager();				//デストラクタ
 
