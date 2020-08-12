@@ -34,7 +34,7 @@ const int Option::BUF_SIZE = 256;
 const int Option::CONFIGFILE_NUM = 2;
 
 /*コンストラクタ*/
-Option::Option() {
+Option::Option(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
 	LoadConfigFile();
 
 	//bgmVolume = 5;
@@ -51,7 +51,7 @@ void Option::Update() {
 	}
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
-		DrawString(0, 50, "ゲーム画面へ戻る処理", GetColor(255, 255, 255));
+		sceneChanger->SceneChange(eScene_MENU, false, true);
 	}
 
 	//変更項目の変更処理
