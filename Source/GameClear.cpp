@@ -2,10 +2,14 @@
 #include "GameClear.h"
 #include "Input.h"
 
+GameClear::GameClear(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
+
+}
+
 /*更新処理*/
 void GameClear::Update() {
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1) {
-		DrawString(0, 0, "メニューへ戻る処理", GetColor(255, 255, 255));
+		sceneChanger->SceneChange(eScene_MENU, false, false);
 	}
 }
 
