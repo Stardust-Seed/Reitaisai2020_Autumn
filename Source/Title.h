@@ -5,17 +5,17 @@
 #include "Define.h"
 #include "FontHandle.h"
 #include "SE.h"
-class Title :public virtual BaseScene {
 
+
+class Title final :public BaseScene {
 private:
-
 	float deg, rad;
 	float o;
 	int textSpeed[3];
 	int cnt;
-
 public:
-	Title();
+	Title(ISceneChanger* _sceneChanger);
+	~Title() = default;
 	void Update();				//XVˆ—
 	void Draw();				//•`‰æˆ—
 	void Move();                //ˆÚ“®ˆ—

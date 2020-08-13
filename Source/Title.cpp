@@ -3,9 +3,8 @@
 #include "Input.h"
 #include "math.h"
 
-//コンストラクタ
-Title::Title(){
-
+/*コンストラクタ*/
+Title::Title(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
 	//却下されれば消す
 	textSpeed[0] = 0;
 	textSpeed[1] = 1;
@@ -16,18 +15,16 @@ Title::Title(){
 	o = 1000;
 
 	//画像とか読み込みたいね
-
 }
 
 void Title::Update()
 {
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
 	{
-		SE::Instance()->PlaySE(SE_00,No);
+		//SE::Instance()->PlaySE(SE_00,No);
 		// 描画する文字列のサイズを設定
 		SetFontSize(16);
-		DrawFormatString(0,40, GetColor(255, 255, 255), "スペースが押されたのでシーン切り替えされたい");
-		//SceneChange->onSceneChanged(Scene::MENU);みたいな感じかもしれないきっと
+		sceneChanger->SceneChange(eScene_MENU, false, false);
 	}
 
 	Move();
