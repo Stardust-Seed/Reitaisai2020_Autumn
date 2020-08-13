@@ -2,6 +2,7 @@
 #include "GameSystem.h"
 
 #include "Define.h"
+#include "FPS.h"
 #include "GameMain.h"
 
 bool GameSystem::Init() {
@@ -23,12 +24,17 @@ void GameSystem::Final() {
 
 void GameSystem::Main() {
 	GameMain gMain;
+	FPS fps;
 
-	gMain.Init();
+	while (!ProcessMessage()) {
+		ClearDrawScreen();
 
-	while (!ScreenFlip() && !ProcessMessage() && !ClearDrawScreen()) {
-		if (!gMain.GameLoop()) {
-			break;
-		}
+		if (!gMain.GameLoop())break;
+
+		fps.Update();
+		fps.Draw();
+
+		ScreenFlip();
+		fps.Wait();
 	}
 }
