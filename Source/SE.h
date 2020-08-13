@@ -5,6 +5,19 @@
 #include "Singleton.h"
 
 /********************************************************************************************
+登録の仕方
+SE.hで
+SEnumに項目追加
+int seNum[]; の箱を増やす分、数字を大きくする
+
+SE_urabe
+int seNum[4];
+
+SE.cppで
+Load()に項目追加
+
+seNum[SE_urabe] = LoadSE("./res/Sound/SE/urabe.wav");
+
 使用例
 //再生するとき
 SE::Instance()->PlaySE(SE_test);
@@ -28,13 +41,14 @@ enum SEnum {
 
 };
 
-class SE:public Singleton <SE> {
+class SE :public Singleton <SE> {
 
 	friend Singleton <SE>;
 
 private:
 
 	std::vector<int> seNums;
+	//追加するときはこの配列の数字も増やしてね
 	int seNum[3];                         //格納するための配列
 	int LoadSE(const char* _filePath);    //読み込み用に
 
@@ -43,7 +57,7 @@ public:
 	SE();                                 //コンストラクタ
 	~SE();                                //デストラクタ
 	void Load();                          //読み込みたいやつら
-	void PlaySE(SEnum,int _type= 1);      //再生
+	void PlaySE(SEnum, int _type = 1);      //再生
 	void StopSE(SEnum);                   //停止
 
 };
