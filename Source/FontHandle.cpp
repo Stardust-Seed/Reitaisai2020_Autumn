@@ -5,6 +5,7 @@
 FontHandle::FontHandle(){
 	Init();
 }
+
 //‰Šú‰»
 void FontHandle::Init()
 {
