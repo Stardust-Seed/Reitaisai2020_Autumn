@@ -2,6 +2,10 @@
 #include "Input.h"
 #include "Menu.h"
 
+Menu::Menu(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
+
+}
+
 //選択されてる画面
 void Menu::SelectMenu()
 {
@@ -11,8 +15,6 @@ void Menu::SelectMenu()
 //更新
 void Menu::Update()
 {
-	Input::Instance()->UpdateKey();
-
 	if (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) == 1)			//下キーが押されていたら
 	{
 		NowSelect = (NowSelect + 1) % eMenutype_Num;					//選択状態を下げる
@@ -32,7 +34,7 @@ void Menu::Update()
 			break;
 
 		case eMenutype_Option:
-			DrawString(100, 0, "オプション", GetColor(255, 255, 255));
+			sceneChanger->SceneChange(eScene_OPTION, true, false);
 			break;
 
 		case eMenutype_Title:

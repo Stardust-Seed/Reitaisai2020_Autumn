@@ -22,6 +22,8 @@ private:
 	int y = 0;							
 
 public:
+	Menu(ISceneChanger* _sceneChanager);
+
 	void SelectMenu();			//メニュー項目の選択
 
 	void Update();				//更新処理
