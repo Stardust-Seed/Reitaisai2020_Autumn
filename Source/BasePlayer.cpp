@@ -3,6 +3,7 @@
 #include"BasePlayer.h"
 #include"BaseEnemy.h"
 #include"BulletManager.h"
+#include"EnemyManager.h"
 
 BasePlayer::BasePlayer()
 {
@@ -50,23 +51,27 @@ void BasePlayer::Draw()
 	DrawBox(482, 342, 542, 402, GetColor(255, 0, 0), TRUE);
 
 }
-void BasePlayer::Update()
+void BasePlayer::Update(EnemyManager* _eManager, EnemyManager* _enemyCount)
 {
 	//スタン状態でない時
 	if (isStan == false) {
 
 		Move();    //移動処理
 		Attack();  //攻撃処理
-		//Stan();  //スタン処理
-	}
 
+		for (int i = 0; i < _enemyCount->Get_ActiveCount(); i++) {
+
+			//スタン処理
+			Stan(_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i));
+		}
+	}
 }
 //プレイヤーのスタン処理
-void BasePlayer::Stan()
+void BasePlayer::Stan(float eX, float eY, float eW, float eH)
 {
 	//プレイヤーが敵に当たったらisStanをtrueにする
 	isStan = ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
-		baseEnemy->Get_X(), baseEnemy->Get_Y(), baseEnemy->Get_Width(), baseEnemy->Get_Height());
+		eX, eY, eW, eH);
 
 	//trueの時スタンタイムを加算
 	if (isStan == true)
