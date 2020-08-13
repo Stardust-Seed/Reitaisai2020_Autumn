@@ -3,8 +3,17 @@
 
 //コンストラクタ
 FontHandle::FontHandle(){
+	//コンストラクタにInitの処理内容を直接入れるとなんか実行されなく、
+	//Initに処理を入れてコンストラクタに入れるとなんか実行されます
 	Init();
 }
+
+//デストラクタ
+FontHandle::~FontHandle() {
+	//作成したフォントハンドルを消してくれる便利な奴
+	InitFontToHandle();
+}
+
 //初期化
 void FontHandle::Init()
 {
