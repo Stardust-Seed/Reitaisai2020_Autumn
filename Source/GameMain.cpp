@@ -1,21 +1,25 @@
 #include <DxLib.h>
 #include "GameMain.h"
-#include "BasePlayer.h"
-#include "BulletManager.h"
+#include "Input.h"
 
-GameMain::GameMain() {	
+GameMain::GameMain() {
+
 }
 
-GameMain::~GameMain() {	
+GameMain::~GameMain() {
+
 }
 
 void GameMain::Init() {
+
 }
 
 bool GameMain::GameLoop() {
 
-	//ƒQ[ƒ€‚Ì’†g‚Ìˆ—‚ğ‘‚­
-	DrawString(0, 0, "Hello “VŠÛ", GetColor(255, 255, 255));
+	Input::Instance()->UpdateKey();
+
+	sManager.Update();
+	sManager.Draw();
 
 	return true;
 }
