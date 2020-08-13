@@ -89,36 +89,28 @@ void EnemyManager::Draw() {
 	}
 }
 
-void EnemyManager::Set_x(float _x) {
-	for (int num = 0; num < enemyNum; num++) {
+void EnemyManager::Set_x(int num,float _x) {
 		if (Enemys[num] != NULL) {
 			Enemys[num]->Set_X(_x);			
 		}
-	}
 }
 
-void EnemyManager::Set_y(float _y) {
-	for (int num = 0; num < enemyNum; num++) {
+void EnemyManager::Set_y(int num,float _y) {
 		if (Enemys[num] != NULL) {
 			Enemys[num]->Set_Y(_y);			
 		}
-	}
 }
 
-void EnemyManager::Set_width(float _width) {
-	for (int num = 0; num < enemyNum; num++) {
+void EnemyManager::Set_width(int num,float _width) {
 		if (Enemys[num] != NULL) {
 			Enemys[num]->Set_Width(_width);	
 		}
-	}
 }
 
-void EnemyManager::Set_height(float _height) {
-	for (int num = 0; num < enemyNum; num++) {
+void EnemyManager::Set_height(int num,float _height) {
 		if (Enemys[num] != NULL) {
 			Enemys[num]->Set_Height(_height);	
 		}
-	}
 }
 
 int EnemyManager::Get_ActiveFlg(int num) {

@@ -51,13 +51,13 @@ public:
 
 	void Draw();					//描画処理
 
-	void Set_x(float _x);				//x座標をセット
+	void Set_x(int,float _x);				//x座標をセット
 
-	void Set_y(float _y);				//y座標をセット
+	void Set_y(int,float _y);				//y座標をセット
 
-	void Set_width(float _width);		//幅をセット
+	void Set_width(int,float _width);		//幅をセット
 
-	void Set_height(float _height);	//高さをセット
+	void Set_height(int,float _height);	//高さをセット
 
 	int Get_ActiveFlg(int);			//アクティブかを受け取る
 
