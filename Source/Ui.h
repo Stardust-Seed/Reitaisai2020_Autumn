@@ -3,7 +3,8 @@
 
 #include "Castle.h"
 
-class UI:public virtual Castle
+class Castle;
+class UI
 {
 private:
 	static const int HPMOJI_X = 0;				//文字のｘ
@@ -21,11 +22,15 @@ private:
 
 	int percent;					//パーセント
 	int CastleDurability;			//拠点の体力
+	int EnemyNum;
+	int cut;
 	int Color;						//色
 
+	bool isActive;
+
 public:
-	void Set_CastleDurability();		//拠点の体力を受け取る
-	void Set_EnemyiesRest(int);			//コメント考えます
+	void Get_CastleDurability();		//拠点の体力を受け取る
+	void Set_EnemyiesRest(int);		//コメント考えます
 	void PlayGuide();					//プレイヤーのガイド
 	void Update(Castle* _castle);		//更新処理
 	void Draw();						//描画処理

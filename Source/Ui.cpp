@@ -2,10 +2,8 @@
 #include "Ui.h"
 
 //HPバーの表示と中身の処理
-void UI::Set_CastleDurability()
+void UI::Get_CastleDurability()
 {
-	CastleDurability = Get_durability();		//拠点の体力を受け取る
-
 	DrawBox(HPMOJI_X + 10, HPMOJI_Y, HPMOJI_X + HPBAR_X, HPMOJI_Y + 20, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
 
 	DrawString(HPMOJI_X	+ 20, HPMOJI_Y + 2, "HP", GetColor(255, 255, 255));						//HPという文字を表示するため
@@ -28,15 +26,15 @@ void UI::Set_CastleDurability()
 		DrawBox(HPGAUGE_X, HPGAUGE_Y, HPGAUGE_X1 + 200 * CastleDurability / MAX_DURABILTY, HPGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
 
-	/*DrawFormatString(150,500, GetColor(255, 255, 255), "%d", percent);//確認用　＊後で消す
-	DrawFormatString(150, 600, GetColor(255, 255, 255), "%d", MAX_DURABILTY);//確認用　＊後で消す
-	DrawFormatString(150,700, GetColor(255, 255, 255), "%d", CastleDurability);//確認用　＊後で消す*/
+	//DrawFormatString(150,500, GetColor(255, 255, 255), "%d", percent);//確認用　＊後で消す
+	//DrawFormatString(150, 600, GetColor(255, 255, 255), "%d", MAX_DURABILTY);//確認用　＊後で消す
+	//DrawFormatString(150,700, GetColor(255, 255, 255), "HP%d", CastleDurability);//確認用　＊後で消す*/
 }
 
 //敵の数とかそういう関連の処理を書く　＊コメント変える
-void UI::Set_EnemyiesRest(int) 
+void UI::Set_EnemyiesRest(int num)
 {
-
+			
 }
 
 //操作説明
@@ -51,12 +49,12 @@ void UI::PlayGuide()
 //更新
 void UI::Update(Castle* _castle)
 {
-	Set_durability(_castle->Get_durability());		//拠点の体力をセットする
+	CastleDurability = _castle->Get_durability();		//拠点の体力をセットする
 }
 
 //描画処理
 void UI::Draw()
 {
-	Set_CastleDurability();
+	Get_CastleDurability();
 	PlayGuide();
 }
