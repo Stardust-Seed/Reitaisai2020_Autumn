@@ -120,8 +120,10 @@ void Option::Draw() {
 	DrawString(STRING_XBGM, STRING_YBGM, "BGM Volume", GetColor(0, 0, 0));
 
 	for (int i = 0; i < bgmVolume; i++) {
-		DrawBoxAA(100 + (i * BGMBAR_WIDTH) + ((i + 1) * BGMBAR_INTERVAL), 329, (100 + BGMBAR_WIDTH) + (i * BGMBAR_WIDTH) + ((i + 1) * BGMBAR_INTERVAL),
-			329 - BGMBAR_HEIGHT - (BGMBAR_HEIGHT * i), GetColor(0, 0, 0), TRUE);
+		DrawBoxAA(100 + (i * BGMBAR_WIDTH) + ((i + 1) * BGMBAR_INTERVAL),
+			329 - BGMBAR_HEIGHT - (BGMBAR_HEIGHT * i),
+			(100 + BGMBAR_WIDTH) + (i * BGMBAR_WIDTH) + ((i + 1) * BGMBAR_INTERVAL),
+			329, GetColor(0, 0, 0), TRUE);
 	}
 
 	//SE関連のUIの表示
@@ -129,8 +131,10 @@ void Option::Draw() {
 	DrawString(STRING_XSE, STRING_YSE, "SE Volume", GetColor(0, 0, 0));
 
 	for (int i = 0; i < seVolume; i++) {
-		DrawBoxAA(100 + (i * SEBAR_WIDTH) + ((i + 1) * SEBAR_INTERVAL), 663, (100 + SEBAR_WIDTH) + (i * SEBAR_WIDTH) + ((i + 1) * SEBAR_INTERVAL),
-			663 - SEBAR_HEIGHT - (SEBAR_HEIGHT * i), GetColor(0, 0, 0), TRUE);
+		DrawBoxAA(100 + (i * SEBAR_WIDTH) + ((i + 1) * SEBAR_INTERVAL),
+			663 - SEBAR_HEIGHT - (SEBAR_HEIGHT * i),
+			(100 + SEBAR_WIDTH) + (i * SEBAR_WIDTH) + ((i + 1) * SEBAR_INTERVAL),
+			663, GetColor(0, 0, 0), TRUE);
 	}
 
 	//キー関連のUIの表示処理
