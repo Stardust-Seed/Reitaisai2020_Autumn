@@ -119,15 +119,25 @@ void EnemyManager::Set_height(int num,float _height) {
 		}
 }
 
+int EnemyManager::Get_ActiveCount() {
+			return activeCount;
+}
+
 int EnemyManager::Get_ActiveFlg(int num) {
 		if (Enemys[num] != NULL) {
 			return Enemys[num]->GetIsActive();	
 		}
 }
 
-int EnemyManager::Get_Power(int num) {
+int EnemyManager::Get_AttackFlg(int num) {
 		if (Enemys[num] != NULL) {
 			return Enemys[num]->GetIsAttack();
+		}
+}
+
+int EnemyManager::Get_Power(int num) {
+		if (Enemys[num] != NULL) {
+			return Enemys[num]->GetPower();
 		}
 }
 
@@ -153,8 +163,4 @@ int EnemyManager::Get_height(int num) {
 		if (Enemys[num] != NULL) {
 			return Enemys[num]->Get_Height();
 		}
-}
-
-int EnemyManager::Get_ActiveCount() {
-	return EnemyManager::activeCount;
 }

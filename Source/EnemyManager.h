@@ -61,7 +61,11 @@ public:
 
 	void Set_height(int,float _height);	//高さをセット
 
+	int Get_ActiveCount();			//アクティブなエネミーの値を返す
+
 	int Get_ActiveFlg(int);			//アクティブかを受け取る
+
+	int Get_AttackFlg(int);			//アタックフラグを受け取る
 
 	int Get_Power(int);				//攻撃力を受け取る
 
@@ -72,7 +76,5 @@ public:
 	int Get_width(int);				//幅を受け取る
 
 	int Get_height(int);			//高さを受け取る
-
-	int Get_ActiveCount();			//アクティブなエネミーの値を返す
 };
 #endif // !_ENEMYMANAGER_H
