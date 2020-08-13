@@ -47,7 +47,8 @@ public:
 	virtual void Update(Castle* _castle, BasePlayer* _player) {}	//更新処理
 	void Move();					//移動処理
 	void SearchCastle(float _ox, float _oy, float _ow, float _oh);	//城の範囲内かサーチ
-	void SearchPlayer(float _px, float _py, float _pw, float _ph);	//プレイヤーが攻撃範囲内にいるかサーチ
+	void SearchPlayer(float _px, float _py, float _pw, float _ph,
+		BasePlayer* _player);										//プレイヤーが攻撃範囲内かサーチ
 	void JudgeActive();		//アクティブかを判断する
 	void AttackProc();		//攻撃中の時間処理
 
