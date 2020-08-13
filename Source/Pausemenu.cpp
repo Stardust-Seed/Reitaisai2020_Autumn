@@ -2,6 +2,10 @@
 #include "Pausemenu.h"
 #include "Input.h"
 
+Pausemenu::Pausemenu(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
+
+}
+
 //‰æ‘œ‚Æ‚©”wŒiH(–¢À‘•)
 /*void Pausemenu::Pause()
 {
