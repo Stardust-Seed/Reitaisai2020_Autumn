@@ -28,13 +28,13 @@ void UI::Get_CastleDurability()
 
 	//DrawFormatString(150,500, GetColor(255, 255, 255), "%d", percent);//確認用　＊後で消す
 	//DrawFormatString(150, 600, GetColor(255, 255, 255), "%d", MAX_DURABILTY);//確認用　＊後で消す
-	DrawFormatString(150,700, GetColor(255, 255, 255), "HP%d", CastleDurability);//確認用　＊後で消す*/
+	//DrawFormatString(150,700, GetColor(255, 255, 255), "HP%d", CastleDurability);//確認用　＊後で消す*/
 }
 
 //敵の数とかそういう関連の処理を書く　＊コメント変える
-void UI::Set_EnemyiesRest(int) 
+void UI::Set_EnemyiesRest(int num)
 {
-
+			
 }
 
 //操作説明
