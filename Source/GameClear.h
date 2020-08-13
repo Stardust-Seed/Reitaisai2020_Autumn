@@ -5,6 +5,7 @@
 
 class GameClear final :public BaseScene {
 public:
+	GameClear(ISceneChanger* _sceneChanger);
 	void Update();
 	void Draw();
 };
