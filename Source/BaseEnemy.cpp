@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "BaseEnemy.h"
+#include "BasePlayer.h"
 
 const float BaseEnemy::ENEMY_SPAWNXLEFT = 82;
 const float BaseEnemy::ENEMY_SPAWNYLEFT = 360;
@@ -96,41 +97,22 @@ void BaseEnemy::AttackProc() {
 現状敵側は遠距離攻撃を想定してない判定式となってるので
 敵が遠距離攻撃を行うようにする際は判定式を変更する必要性がある
 */
-void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph) {
+void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePlayer* _player) {
 	if (x + width >= _px && x <= _px + _pw && y + height >= _py && y <= _py + _ph) {
+		//プレイヤーがスタンしてる場合攻撃を行わない
+		if (_player->Get_isStan()) {
+			return;
+		}
+
 		isAttack = true;
 	}
 }
 
 //城サーチ処理
 void BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh) {
-
-	if (direction == DIRECTIONLEFT) {
-		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
-			isAttack = true;
-			isActive = false;
-		}
-	}
-
-	if (direction == DIRECTIONRIGHT) {
-		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
-			isAttack = true;
-			isActive = false;
-		}
-	}
-
-	if (direction == DIRECTIONUP) {
-		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
-			isAttack = true;
-			isActive = false;
-		}
-	}
-
-	if (direction == DIRECTIONDOWN) {
-		if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
-			isAttack = true;
-			isActive = false;
-		}
+	if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
+		isAttack = true;
+		isActive = false;
 	}
 }
 
