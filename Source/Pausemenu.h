@@ -18,10 +18,6 @@ private:
 	int NowSelect = 0;				//現在選択されている項目
 	int y;
 
-	bool pauseFlg;					//ポーズメニューへ移行するかの判定
-	bool pauseState;				//ポーズメニューに一度でもなったかの判定
-	bool pauseReset;				//ポーズメニューを一度でも解除したかの判定
-
 public:
 	Pausemenu(ISceneChanger* _sceneChanger);
 	void Pause();					//ゲーム画面の中断
