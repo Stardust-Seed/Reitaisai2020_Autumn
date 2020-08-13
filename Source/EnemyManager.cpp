@@ -155,6 +155,6 @@ int EnemyManager::Get_height(int num) {
 		}
 }
 
-int EnemyManager::Get_ActiveNum() {
+int EnemyManager::Get_ActiveCount() {
 	return EnemyManager::activeCount;
 }

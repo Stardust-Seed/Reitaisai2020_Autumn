@@ -73,6 +73,6 @@ public:
 
 	int Get_height(int);			//高さを受け取る
 
-	int Get_ActiveNum();			//アクティブなエネミーの値を返す
+	int Get_ActiveCount();			//アクティブなエネミーの値を返す
 };
 #endif // !_ENEMYMANAGER_H
