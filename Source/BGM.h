@@ -5,6 +5,19 @@
 #include "Singleton.h"
 
 /********************************************************************************************
+登録の仕方
+BGM.hで
+BGMnumに項目追加
+int BGMNum[]; の箱を増やす分、数字を大きくする
+
+BGM_urabe
+int BGMNum[4];
+
+BGM.cppで
+Load()に項目追加
+
+BGMNum[BGM_urabe] = LoadSE("./res/Sound/BGM/urabe.wav");
+
 使用例
 
 //再生するとき
@@ -37,7 +50,6 @@ enum BGMnum {
 	BGM_test,
 
 };
-
 
 class BGM :public Singleton <BGM> {
 
