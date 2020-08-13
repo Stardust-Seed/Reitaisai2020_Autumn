@@ -22,6 +22,8 @@ EnemyManager::EnemyManager(int level) {
 		break;
 	}
 
+	activeCount = 0;				//生成カウント初期化
+
 }
 
 EnemyManager::~EnemyManager() {
@@ -35,6 +37,8 @@ void EnemyManager::SpawnEnemy() {
 
 		for (int num = 0; num < enemyNum; num++) {	//エネミーの数だけ動かす
 			if (Enemys[num] == NULL) {				//NULLの場合生成開始
+
+				activeCount++;			//生成カウント加算
 
 				SRand;					//乱数初期化
 				
@@ -53,7 +57,7 @@ void EnemyManager::SpawnEnemy() {
 					_speed = 1;
 					_power = 10;
 					_durability = 100;
-					Enemys[num] = new Fairy_Endurance(_speed, _power, _durability,_direction);	//生成処理
+					Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);	//生成処理
 					break;								//一体生成したら抜ける
 				}
 
@@ -64,7 +68,7 @@ void EnemyManager::SpawnEnemy() {
 
 void EnemyManager::Update(Castle *_castle,BasePlayer *_player){
 	SpawnEnemy();						//生成呼び出し
-	
+
 	for (int num = 0; num < enemyNum; num++) {
 
 		if (Enemys[num] != NULL) {		//NULLでない場合
@@ -74,6 +78,8 @@ void EnemyManager::Update(Castle *_castle,BasePlayer *_player){
 
 			delete Enemys[num];		//アクティブでない場合デリートして
 			Enemys[num] = NULL;		//NULLを入れる
+
+			activeCount--;			//生成カウント減算
 
 			}
 		}
@@ -147,4 +153,8 @@ int EnemyManager::Get_height(int num) {
 		if (Enemys[num] != NULL) {
 			return Enemys[num]->Get_Height();
 		}
+}
+
+int EnemyManager::Get_ActiveNum() {
+	return EnemyManager::activeCount;
 }

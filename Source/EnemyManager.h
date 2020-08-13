@@ -32,6 +32,8 @@ private:
 
 	int enemyNum;					//難易度別生成数を入れる
 
+	int activeCount;					//アクティブなエネミーの数を入れる
+
 	int _durability;				//体力
 	
 	int _direction;					//方向
@@ -71,5 +73,6 @@ public:
 
 	int Get_height(int);			//高さを受け取る
 
+	int Get_ActiveNum();			//アクティブなエネミーの値を返す
 };
 #endif // !_ENEMYMANAGER_H
