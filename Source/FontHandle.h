@@ -56,11 +56,12 @@ private:
 	/*----------------------------*/
 public:
 
-	//コンストラクタちゃんが使えるやんけさすが浦部
-	FontHandle();
-	//Init君を宣言しております
-	void Init();
+	FontHandle();     //コンストラクタ
+	~FontHandle();    //デストラクタ
 
+	void Init();      //初期化
+
+	//ゲッター
 	int Get_MS_GOTHIC_112_3() { return MS_GOTHIC_112_3; }
 	int Get_MS_GOTHIC_64_3() { return MS_GOTHIC_64_3; }
 	int Get_MS_GOTHIC_32_3() { return MS_GOTHIC_32_3; }
