@@ -7,8 +7,8 @@
 /********************************************************************************************
 使用例
 //再生するとき
-SE::Instance()->PlaySE(SE_00);
-SE::Instance()->PlaySE(SE_00,DX_PLAYTYPE_LOOP);
+SE::Instance()->PlaySE(SE_test);
+SE::Instance()->PlaySE(SE_test,DX_PLAYTYPE_LOOP);
 
 第二引数が指定されてないときは
 DX_PLAYTYPE_BACKがデフォルトで指定されてます
@@ -18,7 +18,7 @@ DX_PLAYTYPE_BACK　　 : 他の処理は止まらずに再生
 DX_PLAYTYPE_LOOP　　 : 他の処理は止まらずにループ再生
 
 //再生を止めるとき
-SE::Instance()->StopSE(SE_00);
+SE::Instance()->StopSE(SE_test);
 ********************************************************************************************/
 
 // SEナンバー
@@ -27,7 +27,6 @@ enum SEnum {
 	SE_test,
 
 };
-
 
 class SE:public Singleton <SE> {
 
