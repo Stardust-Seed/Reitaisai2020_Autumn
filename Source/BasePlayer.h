@@ -4,7 +4,7 @@
 #include"Object.h"
 
 class BulletManager;
-class EnrmyManager;
+class EnemyManager;
 class BaseEnemy;
 
 class BasePlayer :public Object

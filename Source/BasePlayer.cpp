@@ -41,14 +41,8 @@ BasePlayer::~BasePlayer()
 }
 void BasePlayer::Draw()
 {
-	//プレイヤーの移動範囲
-	DrawBox(632, 504, 392, 264, GetColor(255, 255, 0), TRUE);
-
 	//自機の描画
 	DrawBox(pos.x, pos.y, pos.x + width, pos.y + height, GetColor(0, 255, 0), TRUE);
-
-	//拠点
-	DrawBox(482, 342, 542, 402, GetColor(255, 0, 0), TRUE);
 
 }
 void BasePlayer::Update(EnemyManager* _eManager, EnemyManager* _enemyCount)
