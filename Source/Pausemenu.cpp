@@ -51,12 +51,12 @@ void Pausemenu::Update()
 		{
 		case ePausetype_Game:															//ƒQ[ƒ€‰æ–Ê‚É–ß‚é€–Ú
 			DrawString(100, 0, "ƒQ[ƒ€‰æ–Ê", GetColor(255, 255, 255));
-			sceneChanger->SceneChange(eScene_GAME, true, false);											
+			sceneChanger->SceneChange(eScene_GAME, false, true);											
 			break;
 
 		case ePausetype_Menu:															//ƒQ[ƒ€I—¹‚Ì€–Ú
 			DrawString(100, 0, "ƒƒjƒ…[‰æ–Ê", GetColor(255, 255, 255));
-			sceneChanger->SceneChange(eScene_MENU, true, false);
+			sceneChanger->SceneChange(eScene_MENU, false, false);
 			break;
 		}
 	}
