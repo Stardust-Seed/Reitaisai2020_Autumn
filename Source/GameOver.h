@@ -15,8 +15,8 @@ enum Continuity                 //選択させるのに使います
 class GameOver :public virtual BaseScene{
 
 private:
-	const static int GAME_Y;    //イエースこんてぃぬーと表示
-	const static int MENU_Y;    //新たな伝説を断念と表示
+	const static int GAME_Y;    //コンティニューすると表示するテキストのY座標
+	const static int MENU_Y;    //コンティニューしないと表示するテキストのY座標
 
 	int nowCursor;              //現在選択中のカーソル
 	int y;                      //カーソル表示用のY座標
