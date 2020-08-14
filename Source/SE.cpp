@@ -1,5 +1,6 @@
+#include "DxLib.h"
 #include "SE.h"
-#include"DxLib.h"
+
 //コンストラクタ
 SE::SE(){
 
@@ -36,7 +37,6 @@ void SE::Load()
 //SEを再生
 void SE::PlaySE(SEnum _SEnum,int _type)
 {
-	//DrawFormatString(10, 500, GetColor(255, 255, 255), "サウンド再生_番号:%d",_SEnum);
 	PlaySoundMem(seNum[_SEnum],_type,TRUE);
 }
 
@@ -44,6 +44,16 @@ void SE::PlaySE(SEnum _SEnum,int _type)
 void SE::StopSE(SEnum _SEnum)
 {
 	StopSoundMem(seNum[_SEnum]);
+}
+
+//音量の設定
+void SE::VolumeSE(int _volume)
+{
+	int size = seNums.size();
+	for (int i = 0; i < size; i++)
+	{
+		ChangeVolumeSoundMem(255 * (_volume * 10) / 100, seNum[i]);
+	}
 }
 
 //wavファイルを読み込んで読み込んだやつをメンバ変数に追加

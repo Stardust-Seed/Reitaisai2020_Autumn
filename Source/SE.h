@@ -10,8 +10,8 @@ SE.hで
 SEnumに項目追加
 int seNum[]; の箱を増やす分、数字を大きくする
 
-SE_urabe
-int seNum[4];
+,SE_urabe
+int seNum[2];
 
 SE.cppで
 Load()に項目追加
@@ -49,7 +49,7 @@ private:
 
 	std::vector<int> seNums;
 	//追加するときはこの配列の数字も増やしてね
-	int seNum[3];                         //格納するための配列
+	int seNum[1];                         //格納するための配列
 	int LoadSE(const char* _filePath);    //読み込み用に
 
 public:
@@ -57,8 +57,9 @@ public:
 	SE();                                 //コンストラクタ
 	~SE();                                //デストラクタ
 	void Load();                          //読み込みたいやつら
-	void PlaySE(SEnum, int _type = 1);      //再生
+	void PlaySE(SEnum, int _type = 1);    //再生
 	void StopSE(SEnum);                   //停止
+	void VolumeSE(int);                   //音量設定
 
 };
 
