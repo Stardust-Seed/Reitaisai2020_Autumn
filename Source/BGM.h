@@ -10,8 +10,8 @@ BGM.h‚Å
 BGMnum‚É€–Ú’Ç‰Á
 int BGMNum[]; ‚Ì” ‚ğ‘‚â‚·•ªA”š‚ğ‘å‚«‚­‚·‚é
 
-BGM_urabe
-int BGMNum[4];
+,BGM_urabe
+int BGMNum[2];
 
 BGM.cpp‚Å
 Load()‚É€–Ú’Ç‰Á
@@ -59,7 +59,7 @@ private:
 
 	std::vector<int> bgmNums;
 	//’Ç‰Á‚·‚é‚Æ‚«‚Í‚±‚Ì”z—ñ‚Ì”š‚à‘‚â‚µ‚Ä‚Ë
-	int bgmNum[3];                                              //Ši”[‚·‚é‚½‚ß‚Ì”z—ñ
+	int bgmNum[1];                                              //Ši”[‚·‚é‚½‚ß‚Ì”z—ñ
 	int LoadBGM(const char* _filePath);                         //“Ç‚İ‚İ—p‚É
 
 public:
@@ -69,7 +69,7 @@ public:
 	void Load();                                                //“Ç‚İ‚İ‚½‚¢‚â‚Â‚ç
 	void PlayBGM(BGMnum,int _type = 1, bool _topflg = true);    //Ä¶
 	void StopBGM(BGMnum);                                       //’â~
-
+	void VolumeBGM(int);                                        //‰¹—Êİ’è
 };
 
 #endif //BGM_H_
