@@ -1,7 +1,6 @@
 #include "Castle.h"
 #include "DxLib.h"
-#include "Fairy_Speed.h"
-//#include"EnemyManager.h"
+#include"EnemyManager.h"
 
 //‹’“_‚Ì‘Ï‹v—Í‚ðÝ’è
 const int Castle::MAX_DURABILITY = 100;
@@ -19,12 +18,13 @@ Castle::Castle(){
 
 }
 
-//void Castle::Update(Enemy& enemy)const‚É‚È‚é—\’è
-//¡‚ÍƒXƒs[ƒhŒ^‚Ì“zŽQÆ‚µ‚ÄƒeƒXƒg‚µ‚Ä‚Ü‚·
-//void Castle::Update(EnemyManager* enemy)
-void Castle::Update(Fairy_Speed* enemy)
+
+void Castle::Update(EnemyManager* enemy)
 {
-	ClisionHit(enemy->Get_X(), enemy->Get_Y(), enemy->Get_Width(), enemy->Get_Height(),enemy->GetPower());
+	for (int num = 0; num < enemy->Get_ActiveCount(); num++)
+	{
+		ClisionHit(enemy->Get_x(num), enemy->Get_y(num), enemy->Get_width(num), enemy->Get_height(num), enemy->Get_Power(num));
+	}
 }
 
 //‹’“_‚Ì•`‰æ
