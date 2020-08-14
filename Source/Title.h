@@ -2,17 +2,13 @@
 #define _TITLE_H_
 
 #include "BaseScene.h"
-#include "Define.h"
-#include "FontHandle.h"
-#include "SE.h"
-
 
 class Title final :public BaseScene {
 private:
-	float deg, rad;
-	float o;
-	int textSpeed[3];
-	int cnt;
+	float deg, rad;             //sin、cosの計算用
+	float textPosition;         //タイミング調整用
+	int cnt;                    //タイミング調整用
+	int r, g, b;                //色用
 public:
 	Title(ISceneChanger* _sceneChanger);
 	~Title() = default;
