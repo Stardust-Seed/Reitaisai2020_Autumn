@@ -4,12 +4,16 @@
 #include"Object.h"
 
 class BulletManager;
+class EnemyManager;
 class BaseEnemy;
 
 class BasePlayer :public Object
 {
 	//弾管理のポインタ変数
 	BulletManager* bulletManager;
+
+	//エネミー管理のポインタ変数
+	EnemyManager* enemyManager;
 
 	//エネミーのポインタ変数
 	BaseEnemy* baseEnemy;
@@ -69,7 +73,10 @@ public:
 	BasePlayer();		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
 	void Draw();           //描画処理
-	void Update();         //更新処理
+
+	//更新処理
+	void Update(EnemyManager* _eManager, EnemyManager* _enemyCount);
+
 	void Move();           //移動処理
 	void Move_UP();        //↑移動処理
 	void Move_DOWN();      //↓移動処理
@@ -78,7 +85,9 @@ public:
 	void Move_OPS();       //反対移動処理:起動
 	void Move_OPSRUN();    //反対移動処理:処理
 	void Attack();         //攻撃処理
-	void Stan();           //スタン処理
+
+	//スタン処理
+	void Stan(float eX, float eY, float eW, float eH);           
 
 	void Set_x(float _x) { pos.x = _x; }                        //セッター
 	void Set_y(float _y) { pos.y = _y; }                        //セッター
@@ -94,6 +103,9 @@ public:
 
 	//bulletManagerのアドレスを取得
 	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }
+
+	//EnemyManagerのアドレスを取得
+	//void SetEnemyManager(EnemyManager* eManager) { enemyManager = eManager; }
 
 };
 

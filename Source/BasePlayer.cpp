@@ -3,6 +3,7 @@
 #include"BasePlayer.h"
 #include"BaseEnemy.h"
 #include"BulletManager.h"
+#include"EnemyManager.h"
 
 BasePlayer::BasePlayer()
 {
@@ -40,33 +41,31 @@ BasePlayer::~BasePlayer()
 }
 void BasePlayer::Draw()
 {
-	//プレイヤーの移動範囲
-	DrawBox(632, 504, 392, 264, GetColor(255, 255, 0), TRUE);
-
 	//自機の描画
 	DrawBox(pos.x, pos.y, pos.x + width, pos.y + height, GetColor(0, 255, 0), TRUE);
 
-	//拠点
-	DrawBox(482, 342, 542, 402, GetColor(255, 0, 0), TRUE);
-
 }
-void BasePlayer::Update()
+void BasePlayer::Update(EnemyManager* _eManager, EnemyManager* _enemyCount)
 {
 	//スタン状態でない時
 	if (isStan == false) {
 
 		Move();    //移動処理
 		Attack();  //攻撃処理
-		//Stan();  //スタン処理
-	}
 
+		for (int i = 0; i < _enemyCount->Get_ActiveCount(); i++) {
+
+			//スタン処理
+			Stan(_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i));
+		}
+	}
 }
 //プレイヤーのスタン処理
-void BasePlayer::Stan()
+void BasePlayer::Stan(float eX, float eY, float eW, float eH)
 {
 	//プレイヤーが敵に当たったらisStanをtrueにする
 	isStan = ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
-		baseEnemy->Get_X(), baseEnemy->Get_Y(), baseEnemy->Get_Width(), baseEnemy->Get_Height());
+		eX, eY, eW, eH);
 
 	//trueの時スタンタイムを加算
 	if (isStan == true)
