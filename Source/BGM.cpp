@@ -1,5 +1,5 @@
+#include "DxLib.h"
 #include "BGM.h"
-#include"DxLib.h"
 
 //コンストラクタ
 BGM::BGM() {
@@ -54,6 +54,16 @@ void BGM::PlayBGM(BGMnum _BGMnum, int _type, bool _topFlg)
 void BGM::StopBGM(BGMnum _BGMnum)
 {
 	StopSoundMem(bgmNum[_BGMnum]);
+}
+
+//音量の設定
+void BGM::VolumeBGM(int _volume)
+{
+	int size = bgmNums.size();
+	for (int i = 0; i < size; i++)
+	{
+		ChangeVolumeSoundMem(255 * (_volume * 10) / 100, bgmNum[BGM_test]);
+	}
 }
 
 //wavファイルを読み込んで読み込んだやつをメンバ変数に追加
