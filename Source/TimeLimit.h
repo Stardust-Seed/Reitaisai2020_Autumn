@@ -23,6 +23,8 @@ public:
 	void Draw();					//描画処理
 
 	void CountDown();				//カウントダウン
+
+	int Get_finishTime();			//終了フラグのゲッター
 };
 
 #endif //_TIMELIMIT_H
