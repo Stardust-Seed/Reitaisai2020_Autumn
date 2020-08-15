@@ -21,7 +21,7 @@ void TimeLimit::Update() {
 }
 
 void TimeLimit::Draw() {
-	DrawFormatString(20, 20,color, "êßå¿éûä‘%d",timer/100);	//ï\é¶
+	DrawFormatString(20, 20,color, "êßå¿éûä‘%d",timer/FRAME);	//ï\é¶
 } 
 
 void TimeLimit::CountDown() {
