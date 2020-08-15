@@ -8,6 +8,8 @@ class Castle;
 
 class BasePlayer;
 
+class BulletManager;
+
 class BaseEnemy;
 
 class Fairy_Endurance;
@@ -49,7 +51,7 @@ public:
 
 	void SpawnEnemy();				//エネミー生成処理
 
-	void Update(Castle*,BasePlayer*);					//更新処理
+	void Update(Castle*,BasePlayer*,BulletManager*);					//更新処理
 
 	void Draw();					//描画処理
 

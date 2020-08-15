@@ -66,7 +66,7 @@ void EnemyManager::SpawnEnemy() {
 	}
 }
 
-void EnemyManager::Update(Castle *_castle,BasePlayer *_player){
+void EnemyManager::Update(Castle *_castle,BasePlayer *_player,BulletManager *_bulletManager){
 	SpawnEnemy();						//¶¬ŒÄ‚Ño‚µ
 
 	for (int num = 0; num < enemyNum; num++) {
