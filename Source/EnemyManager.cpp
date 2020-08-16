@@ -119,48 +119,52 @@ void EnemyManager::Set_height(int num,float _height) {
 		}
 }
 
+int EnemyManager::Get_enemyNum() {
+	return enemyNum;
+}
+
 int EnemyManager::Get_ActiveCount() {
-			return activeCount;
+	return activeCount;
 }
 
 int EnemyManager::Get_ActiveFlg(int num) {
-		if (Enemys[num] != NULL) {
-			return Enemys[num]->GetIsActive();	
-		}
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->GetIsActive();	
+	}
 }
 
 int EnemyManager::Get_AttackFlg(int num) {
-		if (Enemys[num] != NULL) {
-			return Enemys[num]->GetIsAttack();
-		}
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->GetIsAttack();
+	}
 }
 
 int EnemyManager::Get_Power(int num) {
-		if (Enemys[num] != NULL) {
-			return Enemys[num]->GetPower();
-		}
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->GetPower();
+	}
 }
 
 int EnemyManager::Get_x(int num) {
-		if (Enemys[num] != NULL) {
-			return Enemys[num]->Get_X();
-		}
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->Get_X();
+	}
 }
 
 int EnemyManager::Get_y(int num) {
-		if (Enemys[num] != NULL) {
-			return Enemys[num]->Get_Y();
-		}
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->Get_Y();
+	}
 }
 
 int EnemyManager::Get_width(int num) {
-		if (Enemys[num] != NULL) {
-			return Enemys[num]->Get_Width();
-		}
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->Get_Width();
+	}
 }
 
 int EnemyManager::Get_height(int num) {
-		if (Enemys[num] != NULL) {
-			return Enemys[num]->Get_Height();
-		}
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->Get_Height();
+	}
 }

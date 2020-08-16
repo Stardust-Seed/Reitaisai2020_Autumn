@@ -61,7 +61,9 @@ public:
 
 	void Set_width(int,float _width);		//幅をセット
 
-	void Set_height(int,float _height);	//高さをセット
+	void Set_height(int,float _height);		//高さをセット
+
+	int Get_enemyNum();				//難易度によって変わる生成数を返す
 
 	int Get_ActiveCount();			//アクティブなエネミーの値を返す
 
