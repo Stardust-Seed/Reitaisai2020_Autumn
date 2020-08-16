@@ -12,6 +12,8 @@ BulletManager::BulletManager()
 		bullet[i] = NULL;
 	}
 
+	activeBullet = 0;  //最初はアクティブな弾はない
+
 }
 //デストラクタ
 BulletManager::~BulletManager()
@@ -31,26 +33,28 @@ void BulletManager::Shot(VECTOR& pos, int pl_pos, bool pl_attack)
 		if (bullet[i] == NULL)
 		{
 			bullet[i] = new Bullet(pos, pl_pos, pl_attack);
+			activeBullet++;
 			break;
 		}
 	}
 }
 //更新処理
-void BulletManager::Update()
+void BulletManager::Update(EnemyManager* _enemyManager)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		//NULLでない場合,BulletのUpdate関数を行う
 		if (bullet[i] != NULL)
 		{
-			bullet[i]->Update();
+			bullet[i]->Update(_enemyManager);
 
 			//弾が画面外に出ていた場合か弾が敵に当たった場合
-			if (bullet[i]->Get_Flag() == false || bullet[i]->Get_Hit() == true)
+			if (bullet[i]->Get_isActive() == false || bullet[i]->Get_isHit() == true)
 			{
 				//削除してNULLを入れて、また使えるようにする
 				delete bullet[i];
 				bullet[i] = NULL;
+				activeBullet--;
 			}
 		}
 	}
@@ -69,4 +73,45 @@ void BulletManager::Draw()
 		}
 	}
 
+}
+//弾が攻撃中かのゲッター
+bool BulletManager::Get_IsActive(int i) {
+	if (bullet[i] != NULL) {
+		return bullet[i]->Get_isActive();
+	}
+}
+//弾が当たってるかどうかのゲッター
+bool BulletManager::Get_IsHit(int i) {
+	if (bullet[i] != NULL) {
+		return bullet[i]->Get_isHit();
+	}
+}
+
+//弾のx座標ゲッター
+float BulletManager::Get_X(int i) {
+	if (bullet[i] != NULL) {
+		return bullet[i]->Get_x();
+	}
+}
+//弾のy座標ゲッター
+float BulletManager::Get_Y(int i) {
+	if (bullet[i] != NULL) {
+		return bullet[i]->Get_y();
+	}
+}
+//弾のwidthゲッター
+float BulletManager::Get_Width(int i) {
+	if (bullet[i] != NULL) {
+		return bullet[i]->Get_width();
+	}
+}
+//弾のheightゲッター
+float BulletManager::Get_Height(int i) {
+	if (bullet[i] != NULL) {
+		return bullet[i]->Get_height();
+	}
+}
+//弾のアクティブゲッター
+int BulletManager::Get_ActiveBullet() {
+		return activeBullet;
 }
