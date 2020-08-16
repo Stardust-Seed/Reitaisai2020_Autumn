@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "BaseEnemy.h"
 #include "BasePlayer.h"
+#include "BulletManager.h"
 
 const float BaseEnemy::ENEMY_SPAWNXLEFT = 82;
 const float BaseEnemy::ENEMY_SPAWNYLEFT = 360;
