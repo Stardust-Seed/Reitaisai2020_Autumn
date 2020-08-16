@@ -3,7 +3,7 @@
 
 class TimeLimit {
 private:
-	static const int FRAME = 100;							//フレームレート(将来的には60fps)
+	static const int FRAME = 60;							//フレームレート
 
 	static const int TIME = 10;								//実際の制限時間
 
@@ -23,6 +23,8 @@ public:
 	void Draw();					//描画処理
 
 	void CountDown();				//カウントダウン
+
+	int Get_finishTime();			//終了フラグのゲッター
 };
 
 #endif //_TIMELIMIT_H
