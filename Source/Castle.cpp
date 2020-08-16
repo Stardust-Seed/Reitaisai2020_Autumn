@@ -1,6 +1,6 @@
-#include "Castle.h"
 #include "DxLib.h"
-#include"EnemyManager.h"
+#include "Castle.h"
+#include "EnemyManager.h"
 
 //‹’“_‚Ì‘Ï‹v—Í‚ðÝ’è
 const int Castle::MAX_DURABILITY = 100;
@@ -64,7 +64,7 @@ bool Castle::ClisionHit(float ox, float oy, float ow, float oh,int pow)
 	}
 
 	//‰´Ž€‚ñ‚Å‚µ‚Ü‚¤Žž‚Ìˆ—
-	if (durability >= 0)
+	if (durability > 0)
 	{
 		isActive = true;
 	}
