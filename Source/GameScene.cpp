@@ -1,51 +1,81 @@
 #include <DxLib.h>
-#include "Input.h"
 #include "GameScene.h"
 
 //コンストラクタ
 GameScene::GameScene(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger)
 {
+	timeLimit = new TimeLimit();
+	player = new BasePlayer;
+	bulletManager = new BulletManager();
+	castle = new Castle();
+	enemyManager = new EnemyManager(0);
+	ui = new UI();
 
+	//弾管理のアドレスを取得
+	player->SetBulletManager(bulletManager);
 }
 
 //更新
 void GameScene::Update()
 {
-	ChangeScene();
-	//ゲーム画面なのでここでプレイヤーとか動かすのかもしれない
+	//表示するのが奥の方の奴ら
+	castle->Update(enemyManager);
 
+	//表示するのが中間の奴ら
+	enemyManager->Update(castle,player);
+	player->Update(enemyManager, enemyManager);
+	bulletManager->Update();
+
+	//表示するのが前の方の奴ら
+	timeLimit->Update();
+	ui->Update(castle);
+
+	//ゲームシーンのシーン処理
+	ChangeScene();
 }
 
 //描画
 void GameScene::Draw()
 {
-	DrawFormatString(10, 120, GetColor(255, 255, 255), "今反応するキー:ESC,1,2");
+	//表示するのが奥の方の奴ら
+	castle->Draw();
+
+	//表示するのが中間の奴ら
+	enemyManager->Draw();
+	player->Draw();
+	bulletManager->Draw();
+
+	//表示するのが前の方の奴ら
+	timeLimit->Draw();
+	ui->Draw();
 }
 
 //シーン変更
 void GameScene::ChangeScene()
 {
-	//ゲームクリアなら
+	//ゲームクリア
 	{
-		//何をもってクリアなのかまだ知らん
-		if (Input::Instance()->GetPressCount(KEY_INPUT_1) == 1)			//1が押されたらクリアとしておく
+		//制限時間に達した
+		if (timeLimit->Get_FinishFlg() == true && castle->Get_IsActive() == true)
 		{
-			sceneChanger->SceneChange(eScene_CLAER, false, false);
+			//isStackがfalseだと強制終了してしまう原因は知らん
+			sceneChanger->SceneChange(eScene_CLAER, true, false);
 		}
 	}
 	
-	//ゲームオーバーなら
+	//ゲームオーバー
 	{
-		if(Input::Instance()->GetPressCount(KEY_INPUT_2) == 1)
-		//if (_castle->Get_IsActive() == false)			//2が押されたらがめおヴぇｒとしておく
+		//制限時間に達する前に拠点が壊された
+		if (timeLimit->Get_FinishFlg() == false && castle->Get_IsActive() == false)
 		{
+			//isStackがfalseだけど動くゲームクリアと何が違うんだ！
 			sceneChanger->SceneChange(eScene_GAMEOVER, false, false);
 		}
 	}
 
 	//ESCキー押したら
 	{
-		if (Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1)    //ESCキーがポーズとしておく
+		if (Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1)
 		{
 			sceneChanger->SceneChange(eScene_PAUSEMENU, true, false);
 		}
