@@ -20,9 +20,6 @@ Bullet::Bullet(VECTOR& position, int pl_pos, bool pl_attack)
 	//”­Ë’†‚©‚Ç‚¤‚©
 	isActive = pl_attack;
 
-	//UŒ‚—Í
-	power = 1;
-
 	//‰æ‘œ
 	gh = 0;
 }

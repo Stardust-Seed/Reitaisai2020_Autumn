@@ -55,7 +55,6 @@ public:
 	bool Get_isActive() { return isActive; } //弾が攻撃中かどうかのゲッター
 	bool Get_isHit() { return isHit; }          //弾が当たったかどうかのゲッター
 
-	int  Get_power() { return power; }        //攻撃力ゲッター
 };
 
 #endif // BULLET_H_
