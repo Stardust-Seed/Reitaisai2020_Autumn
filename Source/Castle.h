@@ -34,7 +34,7 @@ public:
 	 //m = my ©•ª   o = opnet ‘Šè
 
 	 //‚±‚Á‚¿g‚¤
-	 bool ClisionHit(float ox, float oy, float ow, float oh,int pow);
+	 bool ClisionHit(float ox, float oy, float ow, float oh,int pow, bool AttackFlg);
 
 	 void Update(EnemyManager* enemy);               //XVˆ—
 	 void Draw();                                    //•`‰æˆ—
