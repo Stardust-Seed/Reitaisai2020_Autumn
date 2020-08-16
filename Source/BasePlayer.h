@@ -99,6 +99,8 @@ public:
 	float Get_width() { return width; }                     //widthゲッター
 	float Get_height() { return height; }                   //heightゲッター
 
+	int  Get_power() { return power; }        //攻撃力ゲッター
+
 	bool Get_isStan() { return isStan; }                    //スタン状態ゲッター
 
 	//bulletManagerのアドレスを取得

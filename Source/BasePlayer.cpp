@@ -15,7 +15,7 @@ BasePlayer::BasePlayer()
 	height = 48;
 
 	speed = 3;
-	power = 0;
+	power = 1;
 	stanTime = 0;
 	AttackTime = 0;
 

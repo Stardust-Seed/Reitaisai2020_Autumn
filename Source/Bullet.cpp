@@ -3,6 +3,7 @@
 #include"Bullet.h"
 #include"Define.h"
 #include"BaseEnemy.h"
+#include"EnemyManager.h"
 
 
 Bullet::Bullet(VECTOR& position, int pl_pos, bool pl_attack)
@@ -13,8 +14,11 @@ Bullet::Bullet(VECTOR& position, int pl_pos, bool pl_attack)
 	//進む方向
 	Bullet_Move = pl_pos;
 
+	//当たり判定
+	isHit = false;
+
 	//発射中かどうか
-	Bullet_Attack = pl_attack;
+	isActive = pl_attack;
 
 	//画像
 	gh = 0;
@@ -43,9 +47,9 @@ void Bullet::Draw()
 	Cr = GetColor(255, 255, 255);
 	DrawCircle(pos.x + 24, pos.y + 24, 5.0, Cr, TRUE);
 }
-void Bullet::Update()
+void Bullet::Update(EnemyManager* _eManager)
 {
-	if (Bullet_Attack == true) {
+	if (isActive == true) {
 		if (Bullet_Move == 0)
 		{
 			pos.x -= 3.0f;
@@ -67,15 +71,19 @@ void Bullet::Update()
 	//画面外に出たらフラグをfalseにする
 	if (pos.x > GAME_WIDTH || pos.x < 0)
 	{
-		Bullet_Attack = false;
+		isActive = false;
 	}
 	if (pos.y > GAME_HEIHGT || pos.y < 0)
 	{
-		Bullet_Attack = false;
+		isActive= false;
 	}
-
-	//isHit = ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
-	//	baseEnemy->Get_X(), baseEnemy->Get_Y(), baseEnemy->Get_Width(), baseEnemy->Get_Height());
-
+	for (int i = 0; i < _eManager->Get_ActiveCount(); i++) {
+		isHit = ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
+			_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i));
+	}
+	if (isHit == true)
+	{
+		isActive = false;
+	}
 
 }
