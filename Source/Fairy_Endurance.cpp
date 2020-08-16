@@ -9,7 +9,7 @@ Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, in
 
 }
 
-void Fairy_Endurance::Update(Castle* _castle, BasePlayer* _player) {
+void Fairy_Endurance::Update(Castle* _castle, BasePlayer* _player, BulletManager* _bulletManager) {
 	JudgeActive();
 
 	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
