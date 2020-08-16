@@ -22,9 +22,9 @@ void GameScene::Update()
 	castle->Update(enemyManager);
 
 	//表示するのが中間の奴ら
-	enemyManager->Update(castle,player);
+	enemyManager->Update(castle,player, bulletManager);
 	player->Update(enemyManager, enemyManager);
-	bulletManager->Update();
+	bulletManager->Update(enemyManager);
 
 	//表示するのが前の方の奴ら
 	timeLimit->Update();
@@ -56,7 +56,7 @@ void GameScene::ChangeScene()
 	//ゲームクリア
 	{
 		//制限時間に達した
-		if (timeLimit->Get_FinishFlg() == true && castle->Get_IsActive() == true)
+		if (timeLimit->Get_finishTime() == true && castle->Get_IsActive() == true)
 		{
 			sceneChanger->SceneChange(eScene_CLAER, false, false);
 			return;
@@ -66,7 +66,7 @@ void GameScene::ChangeScene()
 	//ゲームオーバー
 	{
 		//制限時間に達する前に拠点が壊された
-		if (timeLimit->Get_FinishFlg() == false && castle->Get_IsActive() == false)
+		if (timeLimit->Get_finishTime() == false && castle->Get_IsActive() == false)
 		{
 			sceneChanger->SceneChange(eScene_GAMEOVER, false, false);
 			return;
