@@ -8,7 +8,7 @@ private:
 public:
 	Fairy_Endurance() = default;
 	Fairy_Endurance(float _speed, float _power, int _durability, int _direction);
-	void Update(Castle* _castle, BasePlayer* _player);
+	void Update(Castle* _castle, BasePlayer* _player, BulletManager* _bulletManager);
 	void Draw();
 };
 
