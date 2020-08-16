@@ -3,7 +3,7 @@
 
 #include "Object.h"
 #include "Define.h"
-
+#include "SE.h"
 /*-------------------------------------------------------------
 オブジェクト名:	Castle
 概要	      : 拠点
@@ -34,7 +34,7 @@ public:
 	 //m = my 自分   o = opnet 相手
 
 	 //こっち使う
-	 bool ClisionHit(float ox, float oy, float ow, float oh,int pow);
+	 bool ClisionHit(float ox, float oy, float ow, float oh,int pow, bool AttackFlg);
 
 	 void Update(EnemyManager* enemy);               //更新処理
 	 void Draw();                                    //描画処理
