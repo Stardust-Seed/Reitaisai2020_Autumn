@@ -58,8 +58,8 @@ void GameScene::ChangeScene()
 		//制限時間に達した
 		if (timeLimit->Get_FinishFlg() == true && castle->Get_IsActive() == true)
 		{
-			//isStackがfalseだと強制終了してしまう原因は知らん
-			sceneChanger->SceneChange(eScene_CLAER, true, false);
+			sceneChanger->SceneChange(eScene_CLAER, false, false);
+			return;
 		}
 	}
 	
@@ -68,8 +68,8 @@ void GameScene::ChangeScene()
 		//制限時間に達する前に拠点が壊された
 		if (timeLimit->Get_FinishFlg() == false && castle->Get_IsActive() == false)
 		{
-			//isStackがfalseだけど動くゲームクリアと何が違うんだ！
 			sceneChanger->SceneChange(eScene_GAMEOVER, false, false);
+			return;
 		}
 	}
 
