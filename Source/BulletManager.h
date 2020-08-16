@@ -38,6 +38,8 @@ public:
 	float Get_Height(int i);  //’e‚ÌheightÀ•WƒQƒbƒ^[
 
 	int Get_ActiveBullet();   //Active‚È’e‚ÌƒQƒbƒ^[
+
+	int Get_ispower(int i);        //’e‚ÌUŒ‚—Í
 };
 
 #endif // BULLET_MANAGER_H_

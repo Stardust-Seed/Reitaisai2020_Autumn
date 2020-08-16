@@ -115,3 +115,9 @@ float BulletManager::Get_Height(int i) {
 int BulletManager::Get_ActiveBullet() {
 		return activeBullet;
 }
+//’e‚ÌUŒ‚—ÍƒQƒbƒ^[
+int BulletManager::Get_ispower(int i) {
+	if (bullet[i] != NULL) {
+		return bullet[i]->Get_power();
+	}
+}

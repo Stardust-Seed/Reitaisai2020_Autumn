@@ -30,6 +30,10 @@ private:
 	//画像
 	int gh;
 
+	//弾の攻撃力(テスト)
+	//本来プレイヤーから持ってきます。
+	int power
+
 	//テスト用カラー
 	int Cr;
 public:
@@ -50,6 +54,8 @@ public:
 
 	bool Get_isActive() { return isActive; } //弾が攻撃中かどうかのゲッター
 	bool Get_isHit() { return isHit; }          //弾が当たったかどうかのゲッター
+
+	int  Get_power() { return power; }        //攻撃力ゲッター
 };
 
 #endif // BULLET_H_
