@@ -30,7 +30,7 @@ void Menu::Update()
 		switch (NowSelect)
 		{
 		case eMenutype_Game:
-			DrawString(100, 0, "ゲーム画面", GetColor(255, 255, 255));
+			sceneChanger->SceneChange(eScene_GAME, false, false);
 			break;
 
 		case eMenutype_Option:
@@ -38,7 +38,7 @@ void Menu::Update()
 			break;
 
 		case eMenutype_Title:
-			DrawString(100, 0, "タイトル", GetColor(255, 255, 255));
+			sceneChanger->SceneChange(eScene_TITLE, false, false);
 			break;
 		}
 	}
