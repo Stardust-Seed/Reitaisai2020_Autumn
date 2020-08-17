@@ -36,7 +36,7 @@ EnemyManager::~EnemyManager() {
 void EnemyManager::SpawnEnemy() {
 
 	waitCount++;
-	if (waitCount >= 30) {		//一秒間は待機
+	if (waitCount >= 30) {		//0.5秒間は待機
 
 		if ((rand() % 100) == 0) {		//出現確率
 			for (int num = 0; num < enemyNum; num++) {	//エネミーの数だけ動かす
