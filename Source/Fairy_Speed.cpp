@@ -2,6 +2,7 @@
 #include "Fairy_Speed.h"
 
 #include "BasePlayer.h"
+#include "BulletManager.h"
 #include "Castle.h"
 
 Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, int _direction)
@@ -10,6 +11,17 @@ Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, int _direc
 }
 
 void Fairy_Speed::Update(Castle* _castle, BasePlayer* _player, BulletManager* _bulletManager) {
+
+	for (int i = 0; i < 10; i++) {
+
+		if (_bulletManager->Get_IsActive(i) == true) {
+			if (ClisionHit(x, y, width, height, _bulletManager->Get_X(i), _bulletManager->Get_Y(i),
+				_bulletManager->Get_Width(i), _bulletManager->Get_Height(i))) {
+				DamageProc(_player->Get_power());
+			}
+		}
+	}
+
 	JudgeActive();
 
 	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
