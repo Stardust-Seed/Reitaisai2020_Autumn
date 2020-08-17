@@ -22,6 +22,12 @@ Bullet::Bullet(VECTOR& position, int pl_pos, bool pl_attack)
 
 	//âÊëú
 	gh = 0;
+
+	//ïù
+	width = 24;
+
+	//èc
+	height = 24;
 }
 Bullet::~Bullet()
 {
@@ -77,7 +83,7 @@ void Bullet::Update(EnemyManager* _eManager)
 	{
 		isActive= false;
 	}
-	for (int i = 0; i < _eManager->Get_ActiveCount(); i++) {
+	for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
 		isHit = ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
 			_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i));
 	}

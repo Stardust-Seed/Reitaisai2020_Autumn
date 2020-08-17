@@ -7,10 +7,10 @@
 class Bullet;
 class EnemyManager;
 
-#define MAX_BULLET 10   //弾の最大
-
 class BulletManager
 {
+	static const int MAX_BULLET = 10;  //弾の最大
+
 	Bullet* bullet[MAX_BULLET];  //適当に最大弾は10発
 
 	//エネミー管理のポインタ変数
@@ -38,6 +38,7 @@ public:
 	float Get_Height(int i);  //弾のheight座標ゲッター
 
 	int Get_ActiveBullet();   //Activeな弾のゲッター
+	int Get_MaxBullet();      //弾の最大数のゲッター
 };
 
 #endif // BULLET_MANAGER_H_

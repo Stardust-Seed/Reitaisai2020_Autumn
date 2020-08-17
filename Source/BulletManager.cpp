@@ -79,6 +79,8 @@ bool BulletManager::Get_IsActive(int i) {
 	if (bullet[i] != NULL) {
 		return bullet[i]->Get_isActive();
 	}
+
+	return false;
 }
 //弾が当たってるかどうかのゲッター
 bool BulletManager::Get_IsHit(int i) {
@@ -114,4 +116,8 @@ float BulletManager::Get_Height(int i) {
 //弾のアクティブゲッター
 int BulletManager::Get_ActiveBullet() {
 		return activeBullet;
+}
+//弾の最大数のゲッター
+int BulletManager::Get_MaxBullet() {
+	return MAX_BULLET;
 }

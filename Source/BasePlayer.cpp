@@ -45,7 +45,7 @@ void BasePlayer::Draw()
 	DrawBox(pos.x, pos.y, pos.x + width, pos.y + height, GetColor(0, 255, 0), TRUE);
 
 }
-void BasePlayer::Update(EnemyManager* _eManager, EnemyManager* _enemyCount)
+void BasePlayer::Update(EnemyManager* _eManager)
 {
 	//スタン状態でない時
 	if (isStan == false) {
@@ -53,7 +53,7 @@ void BasePlayer::Update(EnemyManager* _eManager, EnemyManager* _enemyCount)
 		Move();    //移動処理
 		Attack();  //攻撃処理
 
-		for (int i = 0; i < _enemyCount->Get_ActiveCount(); i++) {
+		for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
 
 			//スタン処理
 			Stan(_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i));
