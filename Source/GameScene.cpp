@@ -26,7 +26,7 @@ void GameScene::Update()
 
 	//•\Ž¦‚·‚é‚Ì‚ª’†ŠÔ‚Ì“z‚ç
 	enemyManager->Update(castle,player, bulletManager);
-	player->Update(enemyManager, enemyManager);
+	player->Update(enemyManager);
 	bulletManager->Update(enemyManager);
 
 	//•\Ž¦‚·‚é‚Ì‚ª‘O‚Ì•û‚Ì“z‚ç
