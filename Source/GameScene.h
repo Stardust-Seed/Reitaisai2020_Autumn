@@ -4,10 +4,7 @@
 //インクルードするやつが多いのでグループ分けして間を分けてる
 #include "BaseScene.h"
 
-#include "BaseEnemy.h"
 #include "EnemyManager.h"
-#include "Fairy_Endurance.h"
-#include "Fairy_Speed.h"
 
 #include "BasePlayer.h"
 #include "BulletManager.h"
@@ -16,10 +13,6 @@
 
 #include "TimeLimit.h"
 #include "Ui.h"
-
-#include "Input.h"
-#include "SE.h"
-#include "BGM.h"
 
 class GameScene :public virtual BaseScene {
 

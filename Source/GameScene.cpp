@@ -1,5 +1,8 @@
 #include <DxLib.h>
 #include "GameScene.h"
+#include "Input.h"
+#include "SE.h"
+#include "BGM.h"
 
 //コンストラクタ
 GameScene::GameScene(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger)
@@ -8,7 +11,7 @@ GameScene::GameScene(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger)
 	player = new BasePlayer;
 	bulletManager = new BulletManager();
 	castle = new Castle();
-	enemyManager = new EnemyManager(0);
+	enemyManager = new EnemyManager(2);
 	ui = new UI();
 
 	//弾管理のアドレスを取得
