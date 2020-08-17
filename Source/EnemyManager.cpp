@@ -72,16 +72,18 @@ void EnemyManager::Update(Castle *_castle,BasePlayer *_player,BulletManager *_bu
 	for (int num = 0; num < enemyNum; num++) {
 
 		if (Enemys[num] != NULL) {		//NULLでない場合
-			Enemys[num]->Update(_castle, _player, _bulletManager);		//更新処理
-			
+
 			if (Enemys[num]->GetIsActive() == false) {
 
-			delete Enemys[num];		//アクティブでない場合デリートして
-			Enemys[num] = NULL;		//NULLを入れる
+				delete Enemys[num];		//アクティブでない場合デリートして
+				Enemys[num] = NULL;		//NULLを入れる
 
-			activeCount--;			//生成カウント減算
+				activeCount--;			//生成カウント減算
 
 			}
+
+			Enemys[num]->Update(_castle, _player, _bulletManager);		//更新処理
+			
 		}
 	}
 }
