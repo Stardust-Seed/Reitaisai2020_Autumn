@@ -24,6 +24,7 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction
 	direction = _direction;
 	isActive = true;
 	isAttack = false;
+	isHit = false;
 
 	if (direction == DIRECTIONLEFT) {
 		x = ENEMY_SPAWNXLEFT;
@@ -84,13 +85,17 @@ void BaseEnemy::JudgeActive() {
 void BaseEnemy::AttackProc() {
 	static int attackTime = 0;
 
-	if (attackTime == 60) {
+	if (attackTime == 30) {
 		isAttack = false;
 		attackTime = 0;
 		return;
 	}
 
 	attackTime++;
+}
+
+void BaseEnemy::DamageProc(int _damage) {
+	durability -= _damage;
 }
 
 //プレイヤーサーチ処理
