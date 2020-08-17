@@ -14,6 +14,7 @@
 --------------------------------------------------------------*/
 
 class EnemyManager;
+class BaseEnemy;
 class Castle:public virtual Object{
 
 private:
@@ -34,9 +35,9 @@ public:
 	 //m = my 自分   o = opnet 相手
 
 	 //こっち使う
-	 bool ClisionHit(float ox, float oy, float ow, float oh,int pow, bool AttackFlg);
+	 bool ClisionHit(float ox, float oy, float ow, float oh,int pow,int num, bool attackFlg,bool activeFlg,EnemyManager*);
 
-	 void Update(EnemyManager* enemy);               //更新処理
+	 void Update(EnemyManager*);               //更新処理
 	 void Draw();                                    //描画処理
 
 	 float Get_x() { return x; }                                            //ゲッター
