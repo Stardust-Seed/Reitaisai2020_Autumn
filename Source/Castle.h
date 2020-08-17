@@ -22,6 +22,7 @@ private:
 
 	int durability;	                    //耐久力
 
+	bool hitFlg;                        //ヒットしたかのフラグ
 	bool isActive;	                    //拠点の生存フラグ
 
 public:
