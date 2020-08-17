@@ -25,25 +25,14 @@ void UI::Get_CastleDurability()
 	{
 		DrawBox(HPGAUGE_X, HPGAUGE_Y, HPGAUGE_X1 + 200 * CastleDurability / MAX_DURABILTY, HPGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
-
-	//DrawFormatString(150,500, GetColor(255, 255, 255), "%d", percent);//確認用　＊後で消す
-	//DrawFormatString(150, 600, GetColor(255, 255, 255), "%d", MAX_DURABILTY);//確認用　＊後で消す
-	//DrawFormatString(150,700, GetColor(255, 255, 255), "HP%d", CastleDurability);//確認用　＊後で消す*/
-}
-
-//敵の数とかそういう関連の処理を書く　＊コメント変える
-void UI::Set_EnemyiesRest(int num)
-{
-			
 }
 
 //操作説明
 void UI::PlayGuide()
 {
-	//追加があるかもしれないけど思いつくのはこの二つ  ＊コメント消す
-	DrawString(500, 0, "十字キーで上下左右に移動", GetColor(255, 255, 255));
-	DrawString(500, 100, "スペースキーでポーズメニュー表示", GetColor(255, 255, 255));
-	DrawString(500, 200, "〇〇キーで弾発射", GetColor(255, 255, 255));
+	DrawString(700, 10, "十字キーで上下左右に移動", GetColor(255, 255, 255));
+	DrawString(700, 60, "〇〇でポーズメニュー表示", GetColor(255, 255, 255));
+	DrawString(700, 110, "Zキーで弾発射", GetColor(255, 255, 255));
 }
 
 //更新
