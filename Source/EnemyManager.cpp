@@ -97,6 +97,18 @@ void EnemyManager::Draw() {
 	}
 }
 
+void EnemyManager::Set_IsActive(int num, bool _isActive) {
+	if (Enemys[num] != NULL) {
+		Enemys[num]->SetIsActive(_isActive);
+	}
+}
+
+void EnemyManager::Set_IsAttack(int num, bool _isAttack) {
+	if (Enemys[num] != NULL) {
+		Enemys[num]->SetIsAttack(_isAttack);
+	}
+}
+
 void EnemyManager::Set_x(int num,float _x) {
 		if (Enemys[num] != NULL) {
 			Enemys[num]->Set_X(_x);			
