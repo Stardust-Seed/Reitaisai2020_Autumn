@@ -25,7 +25,16 @@ void Castle::Update(EnemyManager* enemy)
 		if (enemy->Get_ActiveFlg(num) == true)
 		{
 			ClisionHit(enemy->Get_x(num), enemy->Get_y(num), enemy->Get_width(num),
-				enemy->Get_height(num), enemy->Get_Power(num), enemy->Get_AttackFlg(num));
+				       enemy->Get_height(num), enemy->Get_Power(num),num,
+				       enemy->Get_AttackFlg(num),enemy->Get_ActiveFlg(num));
+		}
+
+		if (ClisionHit(enemy->Get_x(num), enemy->Get_y(num), enemy->Get_width(num),
+			           enemy->Get_height(num), enemy->Get_Power(num), num,
+		               enemy->Get_AttackFlg(num), enemy->Get_ActiveFlg(num)) == true)
+		{
+			enemy->Set_IsActive(num, false);
+			enemy->Set_IsAttack(num, false);
 		}
 	}
 }
@@ -40,12 +49,15 @@ void Castle::Draw()
 }
 
 //拠点がダメージを受けたときの処理
-bool Castle::ClisionHit(float ox, float oy, float ow, float oh, int pow, bool attackFlg)
+bool Castle::ClisionHit(float ox, float oy, float ow, float oh,
+	                     int pow, int num, bool attackFlg, bool activeFlg)
 {
 	if (x + width >= ox && x <= ox + ow &&
-		y + height >= oy && y <= oy + oh)
+		y + height >= oy && y <= oy + oh &&
+		attackFlg==true && activeFlg == true)
 	{
 		durability -= pow;
+		return true;
 	}
 
 	//俺死んでしまう時の処理
@@ -57,5 +69,5 @@ bool Castle::ClisionHit(float ox, float oy, float ow, float oh, int pow, bool at
 	{
 		isActive = false;
 	}
-	return isActive;
+	return false;
 }
