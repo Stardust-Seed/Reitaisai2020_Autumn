@@ -118,7 +118,6 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 void BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh) {
 	if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
 		isAttack = true;
-		isActive = false;
 	}
 }
 

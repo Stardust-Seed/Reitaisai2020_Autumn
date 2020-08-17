@@ -61,7 +61,8 @@ public:
 	void Set_Y(float _y) { y = _y; }							//yÀ•W‚ğİ’è‚·‚é
 	void Set_Width(float _width) { width = _width; }			//width‚ğİ’è‚·‚é
 	void Set_Height(float _height) { height = _height; }		//height‚ğİ’è‚·‚é
-	void SetIsAttack(bool _isAttack) { isAttack = _isAttack; }	
+	void SetIsAttack(bool _isAttack) { isAttack = _isAttack; }	//isAttack‚ğİ’è‚·‚é
+	void SetIsActive(bool _isActive) { isActive = _isActive; }	//isActive‚ğİ’è‚·‚é
 
 	float Get_X() { return x; }				//xÀ•W‚ğæ“¾‚·‚é
 	float Get_Y() { return y; }				//yÀ•W‚ğæ“¾‚·‚é
