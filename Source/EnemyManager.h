@@ -30,6 +30,8 @@ private:
 
 	BaseEnemy* Enemys[MAX_ENEMY_NUM];			//エネミーオブジェクト配列
 
+	int waitCount;					//生成待機用
+
 	int enemyType;					//ランダムな値を入れる
 
 	int enemyNum;					//難易度別生成数を入れる
