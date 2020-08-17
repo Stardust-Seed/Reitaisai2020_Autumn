@@ -2,6 +2,7 @@
 #define _BASE_PLAYER_H
 
 #include"Object.h"
+#include"DxLib.h"
 
 class BulletManager;
 class EnemyManager;
@@ -75,7 +76,7 @@ public:
 	void Draw();           //•`‰æˆ—
 
 	//XVˆ—
-	void Update(EnemyManager* _eManager, EnemyManager* _enemyCount);
+	void Update(EnemyManager* _eManager);
 
 	void Move();           //ˆÚ“®ˆ—
 	void Move_UP();        //ªˆÚ“®ˆ—
