@@ -38,6 +38,7 @@ public:
 	float Get_Height(int i);  //弾のheight座標ゲッター
 
 	int Get_ActiveBullet();   //Activeな弾のゲッター
+	int Get_MaxBullet();      //弾の最大数のゲッター
 };
 
 #endif // BULLET_MANAGER_H_

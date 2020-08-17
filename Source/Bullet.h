@@ -2,6 +2,7 @@
 #define BULLET_H_
 
 #include "Object.h"
+#include "DxLib.h"
 
 class BaseEnemy;
 class EnemyManager;
@@ -30,10 +31,6 @@ private:
 	//画像
 	int gh;
 
-	//弾の攻撃力(テスト)
-	//本来プレイヤーから持ってきます。
-	int power
-
 	//テスト用カラー
 	int Cr;
 public:
@@ -53,7 +50,7 @@ public:
 	float Get_height() { return height; }     //heightゲッター
 
 	bool Get_isActive() { return isActive; } //弾が攻撃中かどうかのゲッター
-	bool Get_isHit() { return isHit; }          //弾が当たったかどうかのゲッター
+	bool Get_isHit() { return isHit; }       //弾が当たったかどうかのゲッター
 
 };
 
