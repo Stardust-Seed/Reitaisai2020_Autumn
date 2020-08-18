@@ -10,7 +10,7 @@ Castle::Castle() {
 
 	durability = MAX_DURABILITY;
 	isActive = true;
-	hitFlg = false;
+	isHit = false;
 	width = 120;
 	height = 120;
 	x = GAME_WIDTH / 2 - width / 2;
@@ -58,18 +58,18 @@ bool Castle::ClisionHit(float ox, float oy, float ow, float oh,
 		attackFlg==true && activeFlg == true)
 	{
 		//‚±‚ñ‚ÈŠ´‚¶‚Åif•¶‚©‚Ü‚¹‚È‚¢‚Æˆ—‚ª1‰ñˆÈã‚³‚ê‚Ä‚µ‚Ü‚¤‚Ì‚ÅƒEƒFƒC
-		if (hitFlg == false)
+		if (isHit == false)
 		{
 			durability -= pow;
-			hitFlg = true;
+			isHit = true;
 		}
 
 		return true;
 	}
 
-	if (hitFlg == true)
+	if (isHit == true)
 	{
-		hitFlg = false;
+		isHit = false;
 	}
 
 	//‰´€‚ñ‚Å‚µ‚Ü‚¤‚Ìˆ—
