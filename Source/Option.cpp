@@ -1,6 +1,8 @@
 #include <DxLib.h>
 #include <cstdio>
 #include "Input.h"
+#include "SE.h"
+#include "BGM.h"
 #include "Option.h"
 
 const float Option::BGMBAR_WIDTH = 76.9f;
@@ -48,6 +50,8 @@ void Option::Update() {
 	//Ý’è‚µ‚½€–Ú‚Ì•Û‘¶ˆ—
 	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) {
 		SaveConfigFile();
+		SE::Instance()->VolumeSE(seVolume);
+		BGM::Instance()->VolumeBGM(bgmVolume);
 	}
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
