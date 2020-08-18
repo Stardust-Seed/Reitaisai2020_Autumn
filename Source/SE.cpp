@@ -3,7 +3,6 @@
 
 //コンストラクタ
 SE::SE(){
-
 	Load();
 }
 
@@ -37,7 +36,13 @@ void SE::Load()
 //SEを再生
 void SE::PlaySE(SEnum _SEnum,int _type)
 {
-	PlaySoundMem(seNum[_SEnum],_type,TRUE);
+	//その音が再生中だったら止める
+	if (CheckSoundMem(seNum[_SEnum]) == 1)
+	{
+		StopSoundMem(seNum[_SEnum]);
+	}
+
+	PlaySoundMem(seNum[_SEnum], _type, TRUE);
 }
 
 //SEを止める
