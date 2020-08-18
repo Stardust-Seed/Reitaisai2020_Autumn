@@ -23,6 +23,7 @@ EnemyManager::EnemyManager(int level) {
 	}
 
 	activeCount = 0;				//生成カウント初期化
+	waitCount = 0;					//待機カウント初期化
 
 }
 
@@ -33,34 +34,42 @@ EnemyManager::~EnemyManager() {
 }
 
 void EnemyManager::SpawnEnemy() {
-	if ((rand() % 100) == 0) {		//出現確率
 
-		for (int num = 0; num < enemyNum; num++) {	//エネミーの数だけ動かす
-			if (Enemys[num] == NULL) {				//NULLの場合生成開始
+	waitCount++;
+	if (waitCount >= 30) {		//0.5秒間は待機
 
-				activeCount++;			//生成カウント加算
+		if ((rand() % 100) == 0) {		//出現確率
+			for (int num = 0; num < enemyNum; num++) {	//エネミーの数だけ動かす
+				if (Enemys[num] == NULL) {				//NULLの場合生成開始
 
-				SRand;					//乱数初期化
-				
-				enemyType = GetRand(ENEMY_TYPES-1);	//ランダムな敵の種類
-				_direction = GetRand(3);			//ランダムな出現方向
-				
-				if (enemyType == 0) {				//スピード型
-					_speed = 1.5;
-					_power = 10;
-					_durability = 50;
-					Enemys[num] = new Fairy_Speed(_speed,_power,_durability,_direction);		//生成処理
-					break;								//一体生成したら抜ける
+					activeCount++;			//生成カウント加算
+
+					SRand;					//乱数初期化
+
+					enemyType = GetRand(ENEMY_TYPES - 1);	//ランダムな敵の種類
+					_direction = GetRand(3);			//ランダムな出現方向
+
+					if (enemyType == 0) {				//スピード型
+						_speed = 1.5;
+						_power = 10;
+						_durability = 50;
+						Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _direction);		//生成処理
+
+						waitCount = 0;
+						break;								//一体生成したら抜ける
+					}
+
+					if (enemyType == 1) {				//体力型
+						_speed = 1;
+						_power = 10;
+						_durability = 100;
+						Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);	//生成処理
+
+						waitCount = 0;
+						break;								//一体生成したら抜ける
+					}
+
 				}
-
-				if (enemyType == 1) {				//体力型
-					_speed = 1;
-					_power = 10;
-					_durability = 100;
-					Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);	//生成処理
-					break;								//一体生成したら抜ける
-				}
-
 			}
 		}
 	}
@@ -73,6 +82,8 @@ void EnemyManager::Update(Castle *_castle,BasePlayer *_player,BulletManager *_bu
 
 		if (Enemys[num] != NULL) {		//NULLでない場合
 
+			Enemys[num]->Update(_castle, _player, _bulletManager);		//更新処理
+
 			if (Enemys[num]->GetIsActive() == false) {
 
 				delete Enemys[num];		//アクティブでない場合デリートして
@@ -81,9 +92,6 @@ void EnemyManager::Update(Castle *_castle,BasePlayer *_player,BulletManager *_bu
 				activeCount--;			//生成カウント減算
 
 			}
-
-			Enemys[num]->Update(_castle, _player, _bulletManager);		//更新処理
-			
 		}
 	}
 }
