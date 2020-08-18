@@ -126,7 +126,7 @@ void BasePlayer::Move()
 			isOps = true;
 			isOps_RIGHT = true;
 		}
-		else {
+		else if (PlayerPos != 0) {
 			//移動方向を左にする
 			isMove = 0;
 			//キー入力の操作であることのフラグをon
@@ -141,7 +141,7 @@ void BasePlayer::Move()
 			isOps = true;
 			isOps_DOWN = true;
 		}
-		else {
+		else if (PlayerPos != 1) {
 			//移動方向を上にする
 			isMove = 1;
 			//キー入力の操作であることのフラグをon
@@ -156,7 +156,7 @@ void BasePlayer::Move()
 			isOps = true;
 			isOps_LEFT = true;
 		}
-		else {
+		else if (PlayerPos != 2) {
 			//移動方向を右にする
 			isMove = 2;
 			//キー入力の操作であることのフラグをon
@@ -172,7 +172,7 @@ void BasePlayer::Move()
 			isOps = true;
 			isOps_UP = true;
 		}
-		else {
+		else if (PlayerPos != 3) {
 			//移動方向を下にする
 			isMove = 3;
 			//キー入力の操作であることのフラグをon
