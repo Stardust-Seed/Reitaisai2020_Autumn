@@ -9,13 +9,12 @@
 Bullet::Bullet(VECTOR& position, int pl_pos, bool pl_attack)
 {
 	//’e‚Ì”­¶ˆÊ’u
-	pos = position;
+	pos.x = position.x + 12;
+
+	pos.y = position.y + 12;
 
 	//i‚Ş•ûŒü
 	Bullet_Move = pl_pos;
-
-	//“–‚½‚è”»’è
-	isHit = false;
 
 	//”­Ë’†‚©‚Ç‚¤‚©
 	isActive = pl_attack;
@@ -37,8 +36,8 @@ Bullet::~Bullet()
 bool Bullet::ClisionHit(float mx, float my, float mw, float mh,
 	float ox, float oy, float ow, float oh)
 {
-	if (mx < (ox + ow) && my < (oy + oh) &&
-		ox < (mx + mw) && oy < (my + mh))
+	if (mx <= (ox + ow) && my <= (oy + oh) &&
+		ox <= (mx + mw) && oy <= (my + mh))
 	{
 		return true;
 	}
@@ -49,9 +48,14 @@ bool Bullet::ClisionHit(float mx, float my, float mw, float mh,
 }
 void Bullet::Draw()
 {
-	//’e‚Ì•`‰æ
+	//’e‚ÌF
 	Cr = GetColor(255, 255, 255);
-	DrawCircle(pos.x + 24, pos.y + 24, 5.0, Cr, TRUE);
+
+	//’e‚Ì•`‰æ
+	DrawBox(pos.x, pos.y, pos.x + width, pos.y + height, Cr, TRUE);
+
+	//’e‚Ì“–‚½‚è”»’è
+	DrawBox(Get_x(), Get_y(), pos.x + Get_width(), pos.y + Get_height(), GetColor(255, 0, 0), FALSE);
 }
 void Bullet::Update(EnemyManager* _eManager)
 {
@@ -84,12 +88,11 @@ void Bullet::Update(EnemyManager* _eManager)
 		isActive= false;
 	}
 	for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
-		isHit = ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
-			_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i));
-	}
-	if (isHit == true)
-	{
-		isActive = false;
+		if (ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
+			_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
+		{
+			isActive = false;
+		}
 	}
 
 }

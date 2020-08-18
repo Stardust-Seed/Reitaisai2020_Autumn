@@ -42,6 +42,7 @@ private:
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
 	int stanTime;	                //プレイヤーのスタンタイム
+	int stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
 	int AttackTime;                 //攻撃間隔
 
 	float width;
@@ -65,7 +66,7 @@ private:
 	bool isDamage;                  //プレイヤーの被弾フラグ
 	bool isAttack;                  //攻撃フラグ
 	bool isStan;                    //スタン中かどうかのフラグ
-
+	bool isStan_Next;               //スタンが起こる状態かどうかのフラグ
 public:
 	//当たり判定
 	bool ClisionHit(float mx, float my, float mw, float mh,
@@ -88,7 +89,7 @@ public:
 	void Attack();         //攻撃処理
 
 	//スタン処理
-	void Stan(float eX, float eY, float eW, float eH);           
+	void Stan();           
 
 	void Set_x(float _x) { pos.x = _x; }                        //セッター
 	void Set_y(float _y) { pos.y = _y; }                        //セッター

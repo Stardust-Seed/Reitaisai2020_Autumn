@@ -49,7 +49,7 @@ void BulletManager::Update(EnemyManager* _enemyManager)
 			bullet[i]->Update(_enemyManager);
 
 			//弾が画面外に出ていた場合か弾が敵に当たった場合
-			if (bullet[i]->Get_isActive() == false || bullet[i]->Get_isHit() == true)
+			if (bullet[i]->Get_isActive() == false)
 			{
 				//削除してNULLを入れて、また使えるようにする
 				delete bullet[i];
@@ -82,13 +82,6 @@ bool BulletManager::Get_IsActive(int i) {
 
 	return false;
 }
-//弾が当たってるかどうかのゲッター
-bool BulletManager::Get_IsHit(int i) {
-	if (bullet[i] != NULL) {
-		return bullet[i]->Get_isHit();
-	}
-}
-
 //弾のx座標ゲッター
 float BulletManager::Get_X(int i) {
 	if (bullet[i] != NULL) {
