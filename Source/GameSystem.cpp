@@ -26,6 +26,8 @@ void GameSystem::Main() {
 	GameMain gMain;
 	FPS fps;
 
+	gMain.Init();
+
 	while (!ProcessMessage()) {
 		ClearDrawScreen();
 
