@@ -10,6 +10,7 @@ Castle::Castle() {
 
 	durability = MAX_DURABILITY;
 	isActive = true;
+	isHit = false;
 	width = 120;
 	height = 120;
 	x = GAME_WIDTH / 2 - width / 2;
@@ -33,8 +34,8 @@ void Castle::Update(EnemyManager* enemy)
 			           enemy->Get_height(num), enemy->Get_Power(num), num,
 		               enemy->Get_AttackFlg(num), enemy->Get_ActiveFlg(num)) == true)
 		{
-			enemy->Set_IsActive(num, false);
 			enemy->Set_IsAttack(num, false);
+			enemy->Set_IsActive(num, false);
 		}
 	}
 }
@@ -56,8 +57,19 @@ bool Castle::ClisionHit(float ox, float oy, float ow, float oh,
 		y + height >= oy && y <= oy + oh &&
 		attackFlg==true && activeFlg == true)
 	{
-		durability -= pow;
+		//‚±‚ñ‚ÈŠ´‚¶‚Åif•¶‚©‚Ü‚¹‚È‚¢‚Æˆ—‚ª1‰ñˆÈã‚³‚ê‚Ä‚µ‚Ü‚¤‚Ì‚ÅƒEƒFƒC
+		if (isHit == false)
+		{
+			durability -= pow;
+			isHit = true;
+		}
+
 		return true;
+	}
+
+	if (isHit == true)
+	{
+		isHit = false;
 	}
 
 	//‰´Ž€‚ñ‚Å‚µ‚Ü‚¤Žž‚Ìˆ—
