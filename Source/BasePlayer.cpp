@@ -15,8 +15,10 @@ BasePlayer::BasePlayer()
 	height = 48;
 
 	speed = 3;
-	power = 1;
+	power = 25;
 	stanTime = 0;
+	stanTime_stay = 360;
+
 	AttackTime = 0;
 
 	PlayerPos = 0;	//最初は左
@@ -32,6 +34,7 @@ BasePlayer::BasePlayer()
 	isDamage = false;
 	isAttack = false;
 	isStan = false;
+	isStan_Next = false;
 
 	Now_Move = 0;
 }
@@ -47,45 +50,67 @@ void BasePlayer::Draw()
 }
 void BasePlayer::Update(EnemyManager* _eManager)
 {
+
 	//スタン状態でない時
-	if (isStan == false) {
+	if (isStan == 0) {
 
 		Move();    //移動処理
 		Attack();  //攻撃処理
 
 		for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
 
-			//スタン処理
-			Stan(_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i));
+			//プレイヤーが敵に当たったらisStanをtrueにする
+			if (ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
+				_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
+			{
+				isStan = true;
+			}
 		}
 	}
+
+	if (isStan == true && isStan_Next == true)
+	{
+		Stan();
+	}
+	//スタンが解除されたら次にスタンが起こる時間をプラス
+	if (isStan == false)
+	{
+		stanTime = 0;
+		if (stanTime_stay < 240) {
+			stanTime_stay++;
+		}
+	}
+	if (stanTime_stay >= 360)
+	{
+		isStan_Next = true;
+
+	}
+	float xx = pos.x + width;
+	float yy = pos.y + height;
+
 }
 //プレイヤーのスタン処理
-void BasePlayer::Stan(float eX, float eY, float eW, float eH)
+void BasePlayer::Stan()
 {
-	//プレイヤーが敵に当たったらisStanをtrueにする
-	isStan = ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
-		eX, eY, eW, eH);
 
-	//trueの時スタンタイムを加算
-	if (isStan == true)
-	{
-		DrawFormatString(0, 100, GetColor(255, 255, 255), "しびれ浦部", 0);
+	//スタンタイムを加算
+	DrawFormatString(0, 100, GetColor(255, 255, 255), "しびれ浦部", 0);
+	if (stanTime < 120) {
 		stanTime++;
 	}
 	//一定時間経過したらスタンを解除してスタンタイムをリセット
 	if (stanTime >= 120)
 	{
 		isStan = false;
-		stanTime = 0;
+
 	}
 }
 //当たり判定
 bool BasePlayer::ClisionHit(float mx, float my, float mw, float mh,
 	float ox, float oy, float ow, float oh)
 {
-	if (mx < (ox + ow) && my < (oy + oh) &&
-		ox < (mx + mw) && oy < (my + mh))
+	if (mx <= (ox + ow) && my <= (oy + oh) &&
+		ox <= (mx + mw) && oy <= (my + mh))
 	{
 		return true;
 	}
@@ -104,7 +129,7 @@ void BasePlayer::Attack()
 	}
 
 	//攻撃間隔
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && AttackTime >= 5)
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && AttackTime >= 5 && Now_Move == 0)
 	{
 		//攻撃flagをtrueにする
 		isAttack = true;

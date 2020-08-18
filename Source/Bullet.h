@@ -50,7 +50,6 @@ public:
 	float Get_height() { return height; }     //heightゲッター
 
 	bool Get_isActive() { return isActive; } //弾が攻撃中かどうかのゲッター
-	bool Get_isHit() { return isHit; }       //弾が当たったかどうかのゲッター
 
 };
 
