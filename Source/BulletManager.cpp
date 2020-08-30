@@ -124,3 +124,4 @@ void BulletManager::Set_isActive(int i, bool flg) {
 	if (bullet[i] != NULL) {
 		bullet[i]->Set_isActive(flg);
 	}
+}
