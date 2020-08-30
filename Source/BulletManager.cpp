@@ -114,3 +114,13 @@ int BulletManager::Get_ActiveBullet() {
 int BulletManager::Get_MaxBullet() {
 	return MAX_BULLET;
 }
+bool BulletManager::Get_IsHit(int i) {
+	if (bullet[i] != NULL) {
+		return bullet[i]->Get_isHit();
+	}
+}
+void BulletManager::Set_isActive(int i, bool flg) {
+
+	if (bullet[i] != NULL) {
+		bullet[i]->Set_isActive(flg);
+	}

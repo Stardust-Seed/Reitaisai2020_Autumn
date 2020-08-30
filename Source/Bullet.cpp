@@ -27,6 +27,9 @@ Bullet::Bullet(VECTOR& position, int pl_pos, bool pl_attack)
 
 	//c
 	height = 24;
+
+	//“–‚½‚è”»’è
+	isHit = false;
 }
 Bullet::~Bullet()
 {
@@ -91,8 +94,13 @@ void Bullet::Update(EnemyManager* _eManager)
 		if (ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
 			_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
 		{
-			isActive = false;
+			isHit = true;
 		}
+	}
+	if (isHit == true)
+	{
+		DrawFormatString(0, 150, GetColor(255, 255, 255), "‚¤‚ç‚×‚¦‚¦‚¦‚¦‚¦‚¦", 0);
+		isActive = false;
 	}
 
 }

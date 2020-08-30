@@ -23,12 +23,12 @@ private:
 	const float PLAYER_SPOWNPOSX = 300;	    //プレイヤーの初期位置_X
 	const float PLAYER_SPOWNPOSY = 356;	    //プレイヤーの初期位置_Y
 
-	const float PLAYER_UPDOWNPOSX = 485;    //プレイヤーの上と下の位置X
+	const float PLAYER_UPDOWNPOSX = 488;    //プレイヤーの上と下の位置X
 
 	const float PLAYER_UPPOSY = 264;    //プレイヤーの上の位置Y
 	const float PLAYER_DOWNPOSY = 456;      //プレイヤーの下の位置Y
 
-	const float PLAYER_LEFTRIGHTPOS = 345;  //プレイヤーの左と右の高さ
+	const float PLAYER_LEFTRIGHTPOS = 360;  //プレイヤーの左と右の高さ
 	const float PLAYER_LEFTPOS = 392;       //プレイヤーの左の位置
 
 	const float PLAYER_RIGHTPOS = 584;      //プレイヤーの右の位置

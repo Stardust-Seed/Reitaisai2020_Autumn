@@ -39,6 +39,8 @@ public:
 
 	int Get_ActiveBullet();   //Activeな弾のゲッター
 	int Get_MaxBullet();      //弾の最大数のゲッター
-};
+
+	void Set_isActive(int, bool);//弾のActiveのセッター
+}
 
 #endif // BULLET_MANAGER_H_
