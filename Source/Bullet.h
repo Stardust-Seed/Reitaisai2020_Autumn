@@ -52,7 +52,7 @@ public:
 	bool Get_isActive() { return isActive; } //弾が攻撃中かどうかのゲッター
 	bool Get_isHit() { return isHit; }       //弾の当たり判定のゲッター
 
-	void Set_isactive(bool _Active) { isActive = _Active; } //弾のアクティブのセッター
+	void Set_isActive(bool _Active) { isActive = _Active; } //弾のアクティブのセッター
 
 };
 
