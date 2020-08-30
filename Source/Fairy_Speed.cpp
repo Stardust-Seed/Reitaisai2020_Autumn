@@ -16,7 +16,7 @@ void Fairy_Speed::Update(Castle* _castle, BasePlayer* _player, BulletManager* _b
 		if (_bulletManager->Get_IsActive(i) == true) {
 			if (ClisionHit(x, y, width, height, _bulletManager->Get_X(i), _bulletManager->Get_Y(i),
 				_bulletManager->Get_Width(i), _bulletManager->Get_Height(i))) {
-				_bulletManager->Set_IsActive(i, false);
+				_bulletManager->Set_isActive(i, false);
 				DamageProc(_player->Get_power());
 			}
 		}
