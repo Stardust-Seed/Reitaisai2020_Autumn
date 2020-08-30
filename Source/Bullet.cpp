@@ -100,7 +100,7 @@ void Bullet::Update(EnemyManager* _eManager)
 	if (isHit == true)
 	{
 		DrawFormatString(0, 150, GetColor(255, 255, 255), "‚¤‚ç‚×‚¦‚¦‚¦‚¦‚¦‚¦", 0);
-		isActive = false;
+		//isActive = false;
 	}
 
 }
