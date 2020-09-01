@@ -7,15 +7,17 @@ class BaseEvent;
 
 class EventManager {
 private:
-	static const int ACTIVEEVENT_EASY = 1;		//難易度によって変わるイベントの発生回数
+	static const int ACTIVEEVENT_EASY = 90;		//難易度によって変わるイベントの発生間隔(秒)
 
-	static const int ACTIVEEVENT_NORMAL = 2;
+	static const int ACTIVEEVENT_NORMAL = 60;
 
-	static const int ACTIVEEVENT_HARD = 3;
+	static const int ACTIVEEVENT_HARD = 30;
 
 	static const int EVENT_TYPES = 2;			//イベントの種類
 
-	int eventNum;			//難易度よって変わるイベントの発生回数
+	static const int FREAM = 60;				//フレームレート
+
+	int eventWaitTime;		//難易度よって変わるイベントの発生間隔
 
 	int eventType;			//発生するイベントの乱数
 

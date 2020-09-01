@@ -8,16 +8,16 @@ EventManager::EventManager(int level) {
 	switch (level)				//引数(0～2)で難易度別の生成数を設定
 	{
 	case 0:						//EASY		
-		eventNum = ACTIVEEVENT_EASY;
+		eventWaitTime = ACTIVEEVENT_EASY;
 		break;
 	case 1:						//NORMAL	
-		eventNum = ACTIVEEVENT_NORMAL;
+		eventWaitTime = ACTIVEEVENT_NORMAL;
 		break;
 	case 2:						//HARD		
-		eventNum = ACTIVEEVENT_HARD;
+		eventWaitTime = ACTIVEEVENT_HARD;
 		break;
 	default:					//例外
-		eventNum = 4;
+		eventWaitTime = 4;
 		break;
 	}
 
@@ -30,7 +30,7 @@ EventManager::~EventManager() {
 void EventManager::SpawnEvent() {
 	waitCount++;
 
-	if (waitCount < 60 * 20) {// フレーム数 * 秒 = 待機時間
+	if (waitCount < FRAME * eventWaitTime) {// フレーム数 * 秒 = 待機時間
 
 		if (Event == NULL) {//NULL(何もイベントが発生していない)時に生成
 
