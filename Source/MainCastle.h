@@ -1,11 +1,11 @@
-#ifndef _CASTLE_H
-#define _CASTLE_H
+#ifndef _MAINCASTLE_H
+#define _MAINCASTLE_H
 
-#include "Object.h"
+#include "BaseCastle.h"
 #include "Define.h"
 #include "SE.h"
 /*-------------------------------------------------------------
-オブジェクト名:	Castle
+オブジェクト名:	MainCastle
 概要	      : 拠点
 アクセス      :
 継承クラス    : Object(オブジェクト)
@@ -15,18 +15,16 @@
 
 class EnemyManager;
 class BaseEnemy;
-class Castle:public virtual Object{
+class MainCastle:public BaseCastle{
 
 private:
-	static const int MAX_DURABILITY;    //最大耐久力
-
 	int durability;	                    //耐久力
 
 	bool hitFlg;                        //ヒットしたかのフラグ
 	bool isActive;	                    //拠点の生存フラグ
 
 public:
-	 Castle();
+	 MainCastle(int);
 	 //こっち使わない
 	 bool ClisionHit(float mx, float my, float mw, float mh,
 		 float ox, float oy, float ow, float oh) 
@@ -49,4 +47,4 @@ public:
 	 int   Get_durability() { return durability; }                          //ゲッター
 };
 
-#endif //_CASTLE_H
+#endif //_MAINCASTLE_H
