@@ -1,8 +1,6 @@
 #ifndef _BASEEVENT_H
 #define _BASEEVENT_H
 
-#include "Object.h"
-
 class BaseEvent{
 protected:
 	bool isActive = false;			//アクティブ状態 雑に初期化
