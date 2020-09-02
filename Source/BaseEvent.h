@@ -3,7 +3,7 @@
 
 #include "Object.h"
 
-class BaseEvent : public virtual Object {
+class BaseEvent{
 protected:
 	bool isActive = false;			//アクティブ状態 雑に初期化
 
