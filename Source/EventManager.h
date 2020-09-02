@@ -21,7 +21,7 @@ private:
 
 	int eventType;			//発生するイベントの乱数
 
-	int waitCount;			//イベントの最短発生間隔
+	int waitCount;			//イベント発生の待機カウント
 
 	BaseEvent* Event;		//イベントを入れる変数
 
