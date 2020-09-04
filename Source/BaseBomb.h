@@ -1,13 +1,15 @@
 #ifndef _BASEBOMB_H
 #define _BASEBOMB_H
 
+#include "Castle.h"
+
 enum eBombType
 {
 	Bomb,			//–{•¨
 	fakeBomb		//‹U•¨
 };
 
-enum EBombType bombtype;
+//enum EBombType bombtype;
 
 class BaseBomb
 {
@@ -29,8 +31,8 @@ private:
 	int countdown;
 	int direction;
 	int BombType;
-	int x;
-	int y;
+	int x = 50;
+	int y = 10;
 
 	bool isTrigger;
 	bool isSpown;
@@ -40,7 +42,11 @@ public:
 	~BaseBomb() {}
 	BaseBomb(float _speed, int _damage, int _direction, int _countdown);
 
+	void Update(Castle* _castle);
+	void Draw();
+
 	void SpawnBomb();
+	void Damage(int _damage);
 	void JudgeTrigger();							//”š”­‚µ‚½‚©‚Ì”»’è
 	void Move();									//”š’e‚Ì—Ž‰º
 

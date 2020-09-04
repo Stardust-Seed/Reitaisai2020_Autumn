@@ -5,6 +5,7 @@
 BaseBomb::BaseBomb(float _speed, int _damage, int _direction, int _countdown)
 {
 	speed = _speed;
+	speed = 10;
 	damage = _damage;
 	direction = _direction;
 	countdown = _countdown;
@@ -73,8 +74,35 @@ BaseBomb::BaseBomb(float _speed, int _damage, int _direction, int _countdown)
 
 void BaseBomb::JudgeTrigger()
 {
-
+	countdown = 10;
+	if (countdown > 0)
+	{
+		isTrigger = false;
+	}
+	if (countdown == 0)
+	{
+		DrawString(700, 100, "”š”­", GetColor(255, 255, 255));
+		isTrigger = true;
+	}
 }
+
+//”š”­‚Ìƒ_ƒ[ƒW
+void BaseBomb::Damage(int _damage)
+{
+	BombType = 0;
+
+	if (isTrigger == true) {
+		if (BombType == Bomb) {
+			damage = _damage;
+		}
+
+		if (BombType == fakeBomb)
+		{
+			damage = _damage;
+		}
+	}
+}
+
 
 void BaseBomb::Move()
 {
@@ -101,5 +129,10 @@ void BaseBomb::Move()
 	{
 		y += speed;
 	}
+}
+
+void BaseBomb::Draw() 
+{
+	DrawCircle(x, y, 5, GetColor(255, 0, 0), TRUE);
 }
 
