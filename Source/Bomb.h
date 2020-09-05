@@ -6,10 +6,10 @@
 class Bomb :public BaseBomb {
 private:
 	const int BOMBDAMAGE = 10;
+
 public:
-	Bomb(float _speed, int _damage, int _direction, int _countdown);
-	void Update();
-	void Draw();
+	Bomb();
+	void Damage();
 };
 
 #endif // !_BOMB_H

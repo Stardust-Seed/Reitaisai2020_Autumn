@@ -2,15 +2,15 @@
 #include "BaseBomb.h"
 
 //コンストラクタ
-BaseBomb::BaseBomb(float _speed, int _damage, int _direction, int _countdown)
+BaseBomb::BaseBomb()
 {
-	speed = _speed;
-	speed = 10;
-	damage = _damage;
-	direction = _direction;
-	countdown = _countdown;
+	//damage = _damage;
+	direction = GetRand(3);
+	speed = 3;
+	countdown = TIMELIMIT;						//制限時間のセット
 
-	isSpown = true;
+	finishxplosion = false;							//初期状態
+	isSpown = false;
 	isTrigger = false;
 
 	if (direction == DIRECTIONLEFT)			//左
@@ -38,50 +38,77 @@ BaseBomb::BaseBomb(float _speed, int _damage, int _direction, int _countdown)
 	}
 }
 
-/*void BaseBomb::SpawnBomb() 
+BaseBomb::~BaseBomb() 
 {
-	bool isSpawn = false;    //生成判定フラグ
+	
+}
 
-	for (int i = 0; i < 1; i++) {
-		//items[i]が空の場合
-		if (bombs[i] == null) {
-			int spawnPercent = GetRand(100);    //生成確率
+//爆弾生成
+void BaseBomb::SpawnBomb() 
+{
+	isSpown = true;
+}
 
-			//50以下の場合生成判定フラグをtrueにする
-			if (spawnPercent > 50) {
-				isSpawn = true;
-			}
+//爆弾落下
+void BaseBomb::Move()
+{
+	
+	SpawnBomb();				//爆弾生成
 
-			//生成判定フラグがtrueの場合
-			if (isSpawn == true) {
-				int spawnType = GetRand(1); 
-
-
-				if (spawnType == static_cast<int>(eBombType::Bomb)) {
-					bombs[i] = new Bomb(_ex, _ey, 48, 48, eBombType::Bomb);
-				}
-
-				
-				if (spawnType == static_cast<int>(eBombType::fakeBomb)) {
-					bombs[i] = new fakeBomb(_ex, _ey, 48, 48, eBombType::fakeBomb);
-				}
-			}
-
-			break;
+	if (direction == DIRECTIONLEFT)			//左
+	{
+		y += speed;
+		if (y > BOMB_SPOWNLR + 356)
+		{
+			speed = 0;
 		}
 	}
-}*/
 
+	if (direction == DIRECTIONRIGHT)		//右
+	{
+		y += speed;
+		if (y > BOMB_SPOWNLR + 356)
+		{
+			speed = 0;
+		}
+	}
+
+	if (direction == DIRECTIONUP)			//上
+	{
+		y += speed;
+		if (y > BOMB_SPOWNUPY + 264)
+		{
+			speed = 0;
+		}
+	}
+
+	if (direction == DIRECTIONDOWN)			//下
+	{
+		y -= speed;
+		if (y < BOMB_SPOWNDOWNY - 264)
+		{
+			speed = 0;
+		}
+	}	
+}
+
+//爆弾起動
 void BaseBomb::JudgeTrigger()
 {
-	countdown = 10;
-	if (countdown > 0)
+	if (speed == 0)
 	{
-		isTrigger = false;
+		DrawFormatString(10, 150, GetColor(255, 255, 255), "制限時間%d", countdown / FRAME);	//表示
+		if (countdown <= FRAME) {								//残り一秒以下は割り算の結果0になるため、表示タイミングの調整
+			finishxplosion = true;							//フラグ切替
+		}
+		if (countdown >= 0) {									//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+			countdown -= 1;							//カウントダウン
+		}
 	}
-	if (countdown == 0)
+
+	if (finishxplosion == true)
 	{
-		DrawString(700, 100, "爆発", GetColor(255, 255, 255));
+		DrawString(700, 300, "爆発", GetColor(255, 255, 255));
 		isTrigger = true;
 	}
 }
@@ -103,36 +130,20 @@ void BaseBomb::Damage(int _damage)
 	}
 }
 
-
-void BaseBomb::Move()
+//更新
+void BaseBomb::Update()
 {
-	if (isSpown == false) {
-		return;
-	}
-
-	if (direction == DIRECTIONLEFT)			//左
-	{		
-		y += speed;
-	}
-
-	if (direction == DIRECTIONRIGHT)		//右
-	{
-		y += speed;
-	}
-
-	if (direction == DIRECTIONUP)			//上
-	{
-		y += speed;
-	}
-
-	if (direction == DIRECTIONDOWN)			//下
-	{
-		y += speed;
-	}
+	Move();
+	JudgeTrigger();
 }
 
+//描画
 void BaseBomb::Draw() 
 {
-	DrawCircle(x, y, 5, GetColor(255, 0, 0), TRUE);
+	if (isSpown == true)
+	{
+		DrawCircle(x, y, 5, GetColor(255, 0, 0), TRUE);
+		//DrawFormatString(700, 170, GetColor(255, 255, 255), "%f", y);
+	}
 }
 
