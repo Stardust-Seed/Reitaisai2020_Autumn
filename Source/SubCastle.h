@@ -17,9 +17,8 @@ class BaseEnemy;
 class SubCastle :public BaseCastle {
 
 private:
-
 	int durability;	                    //耐久力
-
+	int popEnemy;                       //追加分の敵の数
 	bool hitFlg;                        //ヒットしたかのフラグ
 	bool isActive;	                    //拠点の生存フラグ
 
@@ -34,7 +33,9 @@ public:
 	bool ClisionHit(float ox, float oy, float ow, float oh, int pow, int num, bool attackFlg, bool activeFlg);
 
 	void Update(EnemyManager*);    //更新処理
-	void Draw();                         //描画処理
+	void Draw();                   //描画処理
+
+	void EnemyCastle();            //敵パラメータの設定処理
 
 };
 
