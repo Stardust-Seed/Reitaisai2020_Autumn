@@ -9,7 +9,9 @@ private:
 
 public:
 	Bomb();
-	void Damage();
+	void DamageMotion();
+	void Update();
+	void Draw();
 };
 
 #endif // !_BOMB_H

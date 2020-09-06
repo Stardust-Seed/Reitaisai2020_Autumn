@@ -3,11 +3,11 @@
 
 //#include "Castle.h"
 
-enum eBombType
+/*enum eBombType
 {
 	Bomb,			//本物
 	fakeBomb		//偽物
-};
+};*/
 
 //enum EBombType bombtype;
 
@@ -28,8 +28,8 @@ protected:
 
 	static const int FRAME = 60;							//フレームレート
 
-	static const int TIME = 1;								//実際の制限時間
-	static const int TIMELIMIT = FRAME * (TIME + 1) - 1;
+	static const int COUNT = 1;								//実際の制限時間
+	static const int COUNTMAX = FRAME * (COUNT + 1) - 1;
 
 	float speed;
 	int damage;
@@ -47,20 +47,20 @@ public:
 	BaseBomb();
 	~BaseBomb();
 
-	void Update();
-	void Draw();
+	//void Update();
+	//void Draw();
 
 	void SpawnBomb();
 	void Damage(int _damage);
 	void JudgeTrigger();							//爆発したかの判定
 	void Move();									//爆弾の落下
-	void Delete();
 
 	void Set_X(float _x) { x = _x; }				//x座標をセット
 	void Set_Y(float _y) { y = _y; }				//y座標をセット
 
 	float Get_X() { return x; }						//x座標をゲットする
 	float Get_Y() { return y; }						//y座標をゲットする
+	int Get_Damage(int) { return damage; }
 	bool GetIsTrigger() { return isTrigger; };		//爆弾が爆発したか
 	bool GetIsActive() { return isSpown; };
 };

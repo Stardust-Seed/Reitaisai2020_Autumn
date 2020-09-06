@@ -4,10 +4,10 @@
 //コンストラクタ
 BaseBomb::BaseBomb()
 {
-	//damage = _damage;
+	//BombType = GetRand(1);
 	direction = GetRand(3);
 	speed = 3;
-	countdown = TIMELIMIT;						//制限時間のセット
+	countdown = COUNTMAX;						//制限時間のセット
 
 	finishxplosion = false;							//初期状態
 	isSpown = false;
@@ -114,36 +114,41 @@ void BaseBomb::JudgeTrigger()
 }
 
 //爆発時のダメージ
-void BaseBomb::Damage(int _damage)
+/*void BaseBomb::Damage(int _damage)
 {
-	BombType = 0;
-
-	if (isTrigger == true) {
-		if (BombType == Bomb) {
-			damage = _damage;
+	if (isTrigger == true) 
+	{
+		if (BombType == Bomb) 
+		{
+			damage= _damage;
+			DrawFormatString(700, 170, GetColor(255, 255, 255), "%d", damage);
+			DrawString(700, 350, "本物", GetColor(255, 255, 255));
 		}
 
 		if (BombType == fakeBomb)
 		{
 			damage = _damage;
+			DrawFormatString(700, 170, GetColor(255, 255, 255), "%d", damage);
+			DrawString(700, 350, "偽物", GetColor(255, 255, 255));
 		}
 	}
-}
+}*/
 
 //更新
-void BaseBomb::Update()
+/*void BaseBomb::Update()
 {
 	Move();
 	JudgeTrigger();
-}
+	Damage(damage);
+}*/
 
 //描画
-void BaseBomb::Draw() 
+/*void BaseBomb::Draw() 
 {
 	if (isSpown == true)
 	{
-		DrawCircle(x, y, 5, GetColor(255, 0, 0), TRUE);
+		DrawCircle(x, y, 10, GetColor(255, 0, 0), TRUE);
 		//DrawFormatString(700, 170, GetColor(255, 255, 255), "%f", y);
 	}
-}
+}*/
 
