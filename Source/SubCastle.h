@@ -17,20 +17,13 @@ class BaseEnemy;
 class SubCastle :public BaseCastle {
 
 private:
-	int durability;	                    //耐久力
 	int popEnemy;                       //追加分の敵の数
-	bool hitFlg;                        //ヒットしたかのフラグ
-	bool isActive;	                    //拠点の生存フラグ
 
 public:
 	SubCastle(int,int);
-	//こっち使わない
-	bool ClisionHit(float mx, float my, float mw, float mh,
-		float ox, float oy, float ow, float oh)
-	{
-		return isActive;
-	}
-	bool ClisionHit(float ox, float oy, float ow, float oh, int pow, int num, bool attackFlg, bool activeFlg);
+
+	bool ClisionHit(float ox, float oy, float ow, float oh,
+	     int pow, int num, bool attackFlg, bool activeFlg);
 
 	void Update(EnemyManager*);    //更新処理
 	void Draw();                   //描画処理
