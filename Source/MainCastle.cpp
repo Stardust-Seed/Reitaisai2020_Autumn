@@ -5,9 +5,14 @@
 //コンストラクタ
 MainCastle::MainCastle(int _durability)
 	:BaseCastle(_durability) {
-	durability =_durability;
-}
 
+	durability = _durability;
+	width = 120;
+	height = 120;
+	x = GAME_WIDTH / 2 - width / 2;       //452
+	y = GAME_HEIHGT / 2 - height / 2;     //324
+
+}
 
 void MainCastle::Update(EnemyManager* enemy)
 {
@@ -33,8 +38,9 @@ void MainCastle::Update(EnemyManager* enemy)
 //拠点の描画
 void MainCastle::Draw()
 {
-	//プレイヤーの移動範囲
+	//プレイヤーの移動範囲(これUIの方がいいのでは)
 	DrawBox(x - 60.0f, y - 60.0f, x + width + 60.0f, y + height + 60.0f, GetColor(25, 25, 25), true);
+
 	if (isActive == true)
 	{
 		//拠点の画像を読み込んで描画させます今は四角を表示
@@ -50,10 +56,11 @@ bool MainCastle::ClisionHit(float ox, float oy, float ow, float oh,
 		y + height >= oy && y <= oy + oh &&
 		attackFlg == true && activeFlg == true)
 	{
-		//こんな感じでif文かませないと処理が1回以上されてしまうのでウェイ
+		//一回だけ処理
 		if (isHit == false)
 		{
 			durability -= pow;
+			//セットしてあげないと挙動してくれない
 			Set_Durability(durability);
 			isHit = true;
 		}
@@ -61,12 +68,13 @@ bool MainCastle::ClisionHit(float ox, float oy, float ow, float oh,
 		return true;
 	}
 
+	//一回だけ処理する用のフラグ処理
 	if (isHit == true)
 	{
 		isHit = false;
 	}
 
-	//俺死んでしまう時の処理
+	//耐久の処理
 	if (durability > 0)
 	{
 		isActive = true;
@@ -76,6 +84,7 @@ bool MainCastle::ClisionHit(float ox, float oy, float ow, float oh,
 		isActive = false;
 	}
 
+	//セットしてあげないと挙動してくれない
 	Set_IsActive(isActive);
 
 	return false;

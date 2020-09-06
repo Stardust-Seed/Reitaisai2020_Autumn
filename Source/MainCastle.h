@@ -14,7 +14,7 @@
 --------------------------------------------------------------*/
 
 class EnemyManager;
-class BaseEnemy;
+
 class MainCastle:public BaseCastle{
 
 private:
@@ -34,17 +34,11 @@ public:
 	 //m = my 自分   o = opnet 相手
 
 	 //こっち使う
-	 bool ClisionHit(float ox, float oy, float ow, float oh,int pow,int num, bool attackFlg,bool activeFlg);
+	 bool ClisionHit(float, float, float, float,int,int, bool,bool);
 
 	 void Update(EnemyManager*);               //更新処理
-	 void Draw();                                    //描画処理
+	 void Draw();                              //描画処理
 
-	 float Get_x() { return x; }                                            //ゲッター
-	 float Get_y() { return y; }                                            //ゲッター
-	 float Get_width() { return width; }                                    //ゲッター
-	 float Get_height() { return height; }                                  //ゲッター
-	 bool  Get_IsActive() { return isActive; }                              //ゲッター
-	 int   Get_durability() { return durability; }                          //ゲッター
 };
 
 #endif //_MAINCASTLE_H
