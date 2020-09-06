@@ -12,12 +12,11 @@ class EnemyManager;
 
 class CastleManager {
 private:
-	static const int POPCASTLE = 5;    //拠点の生成数
+	static const int POPCASTLE = 5;
 
 	BaseCastle* Castles[POPCASTLE];
 
 	int durability;
-	int x, y, width, heigth;
 	int activeCount;
 	int popEnemyNum;
 
@@ -34,25 +33,19 @@ public:
 	void Update(EnemyManager*);
 	void Draw();
 
-	//ゲッター
-	//拠点関連
-	int Get_CastleNum();              //拠点の数を返す
-	int Get_PopEnemyNum();			  //追加の敵の数を返す
-	int Get_X(int);
-	int Get_Y(int);
-	int Get_Width(int);
-	int Get_Height(int);
-	int Get_IsActive(int);
+	int Get_CastleNum();
+	int Get_PopEnemyNum();			//アクティブな拠点の数を返す
 
-	//敵パラメータ関連
+	float Get_X(int);				//x座標を受け取る
+	float Get_Y(int);				//y座標を受け取る
+	float Get_Width(int);			//幅を受け取る
+	float Get_Height(int);			//高さを受け取る
+	bool Get_IsActive(int);			//アクティブフラグのセッター
 	int Get_Durability(int);	
-	int Get_EnemyDurability(int);
-	int Get_EnemyDirection(int);
-
 	float Get_EnemySpeed(int);
 	float Get_EnemyPower(int);
-
-	//セッター
+	int Get_EnemyDurability(int);
+	int Get_EnemyDirection(int);
 	void Set_Durability(int,int);
 };
 

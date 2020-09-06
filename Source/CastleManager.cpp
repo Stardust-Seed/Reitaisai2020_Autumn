@@ -82,43 +82,63 @@ void CastleManager::Draw()
 	}
 }
 
-int CastleManager::Get_X(int _num)
+float CastleManager::Get_X(int _num)
 {
 	if (Castles[_num] != NULL)
 	{
 		return Castles[_num]->Get_X();
 	}
+	else
+	{
+		return 0;
+	}
 }
 
-int CastleManager::Get_Y(int _num)
+float CastleManager::Get_Y(int _num)
 {
 	if (Castles[_num] != NULL) 
 	{
 		return Castles[_num]->Get_Y();
 	}
+	else
+	{
+		return 0;
+	}
 }
 
-int CastleManager::Get_Width(int _num)
+float CastleManager::Get_Width(int _num)
 {
 	if (Castles[_num] != NULL) 
 	{
 		return Castles[_num]->Get_Width();
 	}
+	else
+	{
+		return 0;
+	}
 }
 
-int CastleManager::Get_Height(int _num)
+float CastleManager::Get_Height(int _num)
 {
 	if (Castles[_num] != NULL) 
 	{
 		return Castles[_num]->Get_Height();
 	}
+	else
+	{
+		return 0;
+	}
 }
 
-int CastleManager::Get_IsActive(int num) 
+bool CastleManager::Get_IsActive(int num) 
 {
 	if (Castles[num] != NULL) 
 	{
 		return Castles[num]->GetIsActive();
+	}
+	else
+	{
+		return 0;
 	}
 }
 
@@ -126,6 +146,10 @@ int CastleManager::Get_Durability(int num)
 {
 	if (Castles[num] != NULL) {
 		return Castles[num]->Get_Durability();
+	}
+	else
+	{
+		return 0;
 	}
 }
 
@@ -139,12 +163,20 @@ float CastleManager::Get_EnemySpeed(int num)
 	if (Castles[num] != NULL) {
 		return Castles[num]->Get_EnemySpeed();
 	}
+	else
+	{
+		return 0;
+	}
 }
 
 float CastleManager::Get_EnemyPower(int num)
 {
 	if (Castles[num] != NULL) {
 		return Castles[num]->Get_EnemyPower();
+	}
+	else
+	{
+		return 0;
 	}
 }
 
@@ -153,12 +185,20 @@ int CastleManager::Get_EnemyDurability(int num)
 	if (Castles[num] != NULL) {
 		return Castles[num]->Get_EnemyDurability();
 	}
+	else
+	{
+		return 0;
+	}
 }
 
 int CastleManager::Get_EnemyDirection(int num)
 {
 	if (Castles[num] != NULL) {
 		return Castles[num]->Get_EnemyDirection();
+	}
+	else
+	{
+		return 0;
 	}
 }
 
