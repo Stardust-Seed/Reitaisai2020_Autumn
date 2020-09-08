@@ -5,6 +5,9 @@
 
 class BasePlayer;
 
+/// <summary>
+/// ItemManager class
+/// </summary>
 class ItemManager final {
 private:
 	static const int MAX_ITEM_NUM = 50;				//ƒAƒCƒeƒ€‚Ì‰æ–ÊãÅ‘å¶¬”

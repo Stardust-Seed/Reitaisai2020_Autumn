@@ -38,8 +38,7 @@ void ItemManager::Update(BasePlayer* _player) {
 			if (items[i]->Get_IsHit() == true) {
 
 				//items[i]のアイテム情報を取得し、対応した処理をおこなう
-				switch (items[i]->Get_ItemType())
-				{
+				switch (items[i]->Get_ItemType()) {
 				//eItem::Powerの場合、p_Countを加算
 				case eItem::Power:
 					p_Count++;
@@ -60,6 +59,10 @@ void ItemManager::Draw() {
 			items[i]->Draw();
 		}
 	}
+
+	//仮置きUI
+	DrawFormatString(0, 500, GetColor(255, 255, 255), "アイテムP取得個数 : %d", p_Count);
+	DrawFormatString(0, 525, GetColor(255, 255, 255), "アイテムS取得個数 : %d", s_Count);
 }
 
 void ItemManager::SpawnItem(float _ex,float _ey) {
