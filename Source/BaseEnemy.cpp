@@ -16,7 +16,7 @@ const int BaseEnemy::DIRECTIONRIGHT = 1;
 const int BaseEnemy::DIRECTIONUP = 2;
 const int BaseEnemy::DIRECTIONDOWN = 3;
 
-//コンストラクタ
+//通常スポーン用のコンストラクタ
 BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction) {
 	speed = _speed;
 	power = _power;
@@ -25,6 +25,7 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction
 	isActive = true;
 	isAttack = false;
 	isHit = false;
+	inactiveType = eInactiveType::None;
 
 	if (direction == DIRECTIONLEFT) {
 		x = ENEMY_SPAWNXLEFT;
@@ -45,6 +46,23 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction
 		x = ENEMY_SPAWNXDOWN;
 		y = ENEMY_SPAWNYDOWN;
 	}
+
+	width = 48;
+	height = 48;
+}
+
+//サブ拠点用のコンストラクタ
+BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction, float _x, float _y) {
+	speed = _speed;
+	power = _power;
+	durability = _durability;
+	direction = _direction;
+	isActive = true;
+	isAttack = false;
+	isHit = false;
+	inactiveType = eInactiveType::None;
+	x = _x;
+	y = _y;
 
 	width = 48;
 	height = 48;
@@ -78,6 +96,7 @@ void BaseEnemy::Move() {
 //生存判定処理
 void BaseEnemy::JudgeActive() {
 	if (durability <= 0) {
+		inactiveType = eInactiveType::Defeat;
 		isActive = false;
 	}
 }
@@ -115,8 +134,9 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 }
 
 //城サーチ処理
-void BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh) {
-	if (x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh) {
+void BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _isActive) {
+	if ((x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh)
+		&& _isActive == true) {
 		isAttack = true;
 	}
 }
