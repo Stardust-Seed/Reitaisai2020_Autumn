@@ -59,7 +59,7 @@ protected:
 	int power;		                //プレイヤーの攻撃力
 	int stanTime;	                //プレイヤーのスタンタイム
 	int stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
-	int AttackTime;                 //攻撃間隔
+	int attackTime;                 //攻撃間隔
 
 	bool isAbility;             //スキルが発動している状態かどうか
 	int  abilityCount;                 //スキル回数
