@@ -67,8 +67,6 @@ public:
 
 	void Set_IsAttack(int, bool);			//攻撃フラグのセッター	
 
-	void Set_IsMove(int, bool);				//移動フラグのセッター
-
 	void Set_x(int,float _x);				//x座標をセット
 
 	void Set_y(int,float _y);				//y座標をセット
