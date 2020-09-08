@@ -3,7 +3,7 @@
 
 class BaseEvent{
 protected:
-	bool isActive = false;			//アクティブ状態 雑に初期化
+	bool isActive;					//アクティブ状態
 
 public:
 	BaseEvent() {}					//コンストラクタ
