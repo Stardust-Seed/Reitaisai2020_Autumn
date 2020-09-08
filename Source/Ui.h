@@ -1,9 +1,9 @@
 #ifndef _UI_H
 #define _UI_H
 
-#include "Castle.h"
+#include "CastleManager.h"
 
-class Castle;
+class CastleManager;
 class UI
 {
 private:
@@ -26,7 +26,7 @@ private:
 public:
 	void Get_CastleDurability();		//拠点の体力を受け取る
 	void PlayGuide();					//プレイヤーのガイド
-	void Update(Castle* _castle);		//更新処理
+	void Update(CastleManager* _castlemanager);		//更新処理
 	void Draw();						//描画処理
 };
 

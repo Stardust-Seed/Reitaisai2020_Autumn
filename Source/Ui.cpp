@@ -36,9 +36,9 @@ void UI::PlayGuide()
 }
 
 //更新
-void UI::Update(Castle* _castle)
+void UI::Update(CastleManager* _castlemanager)
 {
-	CastleDurability = _castle->Get_durability();		//拠点の体力をセットする
+	CastleDurability = _castlemanager->Get_Durability(0);		//拠点の体力をセットする
 }
 
 //描画処理
