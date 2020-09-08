@@ -11,6 +11,7 @@ Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, in
 }
 
 void Fairy_Endurance::Update(Castle* _castle, BasePlayer* _player, BulletManager* _bulletManager) {
+
 	for (int i = 0; i < _bulletManager->Get_MaxBullet(); i++) {
 		if (_bulletManager->Get_IsActive(i) == true) {
 			if (ClisionHit(x, y, width, height, _bulletManager->Get_X(i), _bulletManager->Get_Y(i),
@@ -25,7 +26,11 @@ void Fairy_Endurance::Update(Castle* _castle, BasePlayer* _player, BulletManager
 
 	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
 		_player);
-	SearchCastle(_castle->Get_x(), _castle->Get_y(), _castle->Get_width(), _castle->Get_height());
+
+	for (int i = 0; i < _castle->Get_CastleNum(); i++) {
+		SearchCastle(_castle->Get_X(i), _castle->Get_Y(i),
+			_castle->Get_Width(i), _castle->Get_Height(i), _castle->Get_IsActive(i));
+	}
 
 	Move();
 
