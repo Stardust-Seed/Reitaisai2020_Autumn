@@ -6,43 +6,79 @@
 SubCastle::SubCastle(int _durability,int _type)
 	:BaseCastle(_durability) {
 	durability = _durability;
+	SRand;					//乱数初期化
+
+	width =  60;
+	height = width;
 
 	//座標設定
 	switch (_type)
 	{
 	case 1:    //左側
-		width = 50;
-		height = 50;
-		x = 350  - width;
-		y = 450  - height;
-		enemyDirection = 0;
+		//右か左か(上か下か)
+		posType = GetRand(1);
+		x = 250 + GetRand(50) - width;
+
+		if (posType == 0)    //上
+		{
+			y = 360 - height;
+		}
+		else                 //下
+		{
+			y = 348 + height;
+		}
+		direction = 0;
 
 		break;
 
 	case 2:    //右側
-		width = 30;
-		height = 30;
-		x = 850 - width;
-		y = 400 - height;
-		enemyDirection = 1;
+		//右か左か(上か下か)
+		posType = GetRand(1);
+		x = 800 + GetRand(50) - width;
+
+		if (posType == 0)    //上
+		{
+			y = 360 - height;
+		}
+		else                 //下
+		{
+			y = 348 + height;
+		}
+		direction = 1;
 
 		break;
 
 	case 3:    //上側
-		width = 60;
-		height = 60;
-		x = 550 - width;
-		y = 250 - height;
-		enemyDirection = 2;
+		//右か左か(上か下か)
+		posType = GetRand(1);
+		if (posType == 0)    //上
+		{
+			x = 490 - width;
+		}
+		else                 //下
+		{
+			x = 475 + width;
+		}
+
+		y = 175 + GetRand(75) - height;
+		direction = 2;
 
 		break;
 
 	case 4:    //下側
-		width = 50;
-		height = 50;
-		x = 550 - width;
-		y = 750 - height;
-		enemyDirection = 3;
+		//右か左か(上か下か)
+		posType = GetRand(1);
+		if (posType == 0)    //上
+		{
+			x = 490 - width;
+		}
+		else                 //下
+		{
+			x = 475 + width;
+		}
+
+		y = 575 + GetRand(75) - height;
+		direction = 3;
 
 		break;
 
@@ -62,21 +98,12 @@ void SubCastle::Update(EnemyManager* enemy)
 				enemy->Get_AttackFlg(num), enemy->Get_ActiveFlg(num));
 		}
 
-		if (ClisionHit(enemy->Get_x(num), enemy->Get_y(num), enemy->Get_width(num),
-			enemy->Get_height(num), enemy->Get_Power(num), num,
-			enemy->Get_AttackFlg(num), enemy->Get_ActiveFlg(num)) == true)
+		if (isHit == true)
 		{
 			enemy->Set_IsAttack(num, false);
 			enemy->Set_IsActive(num, false);
 		}
 	}
-
-	//占領状態なら
-	if (isActive == false)
-	{
-		EnemyCastle();
-	}
-
 }
 
 void SubCastle::Draw()
@@ -92,58 +119,4 @@ void SubCastle::Draw()
 	}
 }
 
-//拠点がダメージを受けたときの処理
-bool SubCastle::ClisionHit(float ox, float oy, float ow, float oh,
-	int pow, int num, bool attackFlg, bool activeFlg)
-{
-	if (x + width >= ox && x <= ox + ow &&
-		y + height >= oy && y <= oy + oh &&
-		attackFlg == true && activeFlg == true)
-	{
-		//一回だけ処理
-		if (isHit == false)
-		{
-			durability -= pow;
-			//セットしてあげないと挙動してくれない
-			Set_Durability(durability);
-			isHit = true;
-		}
-
-		return true;
-	}
-
-	//一回だけ処理する用のフラグ処理
-	if (isHit == true)
-	{
-		isHit = false;
-	}
-
-	//耐久の処理
-	if (durability > 0)
-	{
-		isActive = true;
-	}
-	else
-	{
-		isActive = false;
-	}
-
-	//セットしてあげないと挙動してくれない
-	Set_IsActive(isActive);
-
-	return false;
-}
-
-void SubCastle::EnemyCastle()
-{
-	//EnemyManagerに送り付けるパラメータを設定(調整部分)
-	enemySpeed =10;
-	enemyPower=1;
-	enemyDurability=10;
-
-	Set_EnemySpeed(enemySpeed);
-	Set_EnemyPower(enemyPower);
-	Set_EnemyDurability(enemyDurability);
-	Set_EnemyDirection(enemyDirection);
-}
 
