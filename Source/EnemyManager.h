@@ -3,6 +3,8 @@
 
 #include "Fairy_Endurance.h"
 #include "Fairy_Speed.h"
+#include "CastleManager.h"
+#include "ItemManager.h"
 
 class CastleManager;
 

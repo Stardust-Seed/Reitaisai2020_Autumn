@@ -71,7 +71,7 @@ void EnemyManager::Draw() {
 
 void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
-	//addEnemyNum = _castle->Get_PopEnemyNum();//追加分を取得
+	addEnemyNum = _castle->Get_CastleOccupiedNum();//占領されてる拠点 (追加分) を取得
 
 	waitCount++;				//カウント加算
 
@@ -136,7 +136,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							_power = 10;
 							_durability = 50;
 
-							Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _direction);        //生成処理
+							Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _castle->Get_CastleDirection(_direction),
+								_castle->Get_X(_direction), _castle->Get_Y(_direction));        //生成処理
 
 							waitCount = 0;
 							break;      //一体生成したら抜ける
@@ -148,7 +149,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							_power = 10;
 							_durability = 100;
 
-							Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);        //生成処理
+							Enemys[num] = new Fairy_Endurance(_speed, _power, _castle->Get_CastleDirection(_direction),
+								_castle->Get_X(_direction), _castle->Get_Y(_direction));        //生成処理
 
 							waitCount = 0;
 							break;      //一体生成したら抜ける
