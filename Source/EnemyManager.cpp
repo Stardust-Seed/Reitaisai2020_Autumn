@@ -71,7 +71,7 @@ void EnemyManager::Draw() {
 
 void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
-	addEnemyNum = _castle->Get_PopEnemyNum();//追加分を取得
+	//addEnemyNum = _castle->Get_PopEnemyNum();//追加分を取得
 
 	waitCount++;				//カウント加算
 
@@ -81,7 +81,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 			SRand;					//乱数初期化
 
-			int i = 0;				//direction初期化
+			_direction = 0;			//方向初期化
 
 			enemyType = GetRand(ENEMY_TYPES - 1);	//ランダムな敵の種類
 
@@ -91,9 +91,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					activeCount++;			//生成カウント加算
 
-					i = GetRand(3);			//ランダムな出現方向
-
-					_direction = i;			
+					_direction = GetRand(3);			//ランダムな出現方向	
 
 					if (enemyType == 0) {				//スピード型
 
@@ -124,19 +122,21 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 			for (int num = enemyNum; num < enemyNum + addEnemyNum; num++) {    //追加分動かす
 
-				if (_castle->Get_IsActive(i) == false){
+				_direction = GetRand(4);				//ランダムな出現方向
+
+				if (_castle->Get_IsActive(_direction) == false){
 
 					if (Enemys[num] == NULL) {      //NULLの場合生成開始
 
-						activeCount++;				//生成カウント加算
-
-						i = GetRand(4);				//ランダムな出現方向
+						activeCount++;				//生成カウント加
 
 						if (enemyType == 0) {            //スピード型
 
-							Enemys[num] = new Fairy_Speed(_castle->Get_EnemySpeed(i), _castle->Get_EnemyPower(i),
-								_castle->Get_EnemyDurability(i), _castle->Get_EnemyDirection(i),
-								_castle->Get_X(i), _castle->Get_Y(i));        //生成処理
+							_speed = 1.5;
+							_power = 10;
+							_durability = 50;
+
+							Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _direction);        //生成処理
 
 							waitCount = 0;
 							break;      //一体生成したら抜ける
@@ -144,9 +144,11 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 						if (enemyType == 1) {            //耐久型
 
-							Enemys[num] = new Fairy_Endurance(_castle->Get_EnemySpeed(i), _castle->Get_EnemyPower(i),
-								_castle->Get_EnemyDurability(i), _castle->Get_EnemyDirection(i),
-								_castle->Get_X(i), _castle->Get_Y(i));        //生成処理
+							_speed = 1;
+							_power = 10;
+							_durability = 100;
+
+							Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);        //生成処理
 
 							waitCount = 0;
 							break;      //一体生成したら抜ける
