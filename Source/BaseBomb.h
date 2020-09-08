@@ -1,20 +1,12 @@
 #ifndef _BASEBOMB_H
 #define _BASEBOMB_H
 
-//#include "Castle.h"
+#include "Object.h"
 
-/*enum eBombType
-{
-	Bomb,			//本物
-	fakeBomb		//偽物
-};*/
-
-//enum EBombType bombtype;
-
-class BaseBomb
+class BaseBomb: public virtual Object
 {
 protected:
-	const float BOMB_SPOWNUPDOWNX = 488;				//上下x
+	const float BOMB_SPOWNUPDOWNX = 488;			//上下x
 	const float BOMB_SPOWNRIGHTX = 584;				//右x
 	const float BOMB_SPOWNLEFTHX = 392;				//左x
 	const float BOMB_SPOWNUPY = 0;					//上y
@@ -28,40 +20,25 @@ protected:
 
 	static const int FRAME = 60;							//フレームレート
 
-	static const int COUNT = 1;								//実際の制限時間
-	static const int COUNTMAX = FRAME * (COUNT + 1) - 1;
+	static const int COUNT = 1;								//実際のカウントダウン
+	static const int COUNTMAX = FRAME * (COUNT + 1) - 1;	
 
-	float speed;
-	int damage;
-	int countdown;
-	int direction;
-	int BombType;
-	float x;
-	float y;
+	float speed;		//爆弾が落下するスピード
+	int damage;			//爆弾のダメージ
+	int countdown;		//カウントダウン
+	int direction;		//爆弾が落ちる方向
 
-	bool finishxplosion;
-	bool isTrigger;
-	bool isSpown;
+	bool isXplosion;    //爆発したかどうか
+	bool isTrigger;     //爆発してるかしてないか
+	bool isSpown;		//爆弾の生成したかどうか
 
 public:
 	BaseBomb();
 	~BaseBomb();
 
-	//void Update();
-	//void Draw();
-
-	void SpawnBomb();
-	void Damage(int _damage);
+	void SpawnBomb();								//爆弾の生成
 	void JudgeTrigger();							//爆発したかの判定
 	void Move();									//爆弾の落下
 
-	void Set_X(float _x) { x = _x; }				//x座標をセット
-	void Set_Y(float _y) { y = _y; }				//y座標をセット
-
-	float Get_X() { return x; }						//x座標をゲットする
-	float Get_Y() { return y; }						//y座標をゲットする
-	int Get_Damage(int) { return damage; }
-	bool GetIsTrigger() { return isTrigger; };		//爆弾が爆発したか
-	bool GetIsActive() { return isSpown; };
 };
 #endif // !_BASEBOMB_H
