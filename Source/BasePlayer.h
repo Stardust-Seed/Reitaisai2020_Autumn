@@ -35,10 +35,10 @@ class BasePlayer :public virtual Object
 	BaseEnemy* baseEnemy;
 
 	//キャラクター選択
-	PlayerType playertype;
+	PlayerType playerType;
 
 	//キャラのアビリティ
-	isAbilityType abilitytype;
+	isAbilityType abilityType;
 
 protected:
 
@@ -138,7 +138,7 @@ public:
 	
 	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }//bulletManagerのアドレスを取得
 
-	isAbilityType Get_AbilityType() { return abilitytype; }  //スキルタイプのゲッター
+	isAbilityType Get_AbilityType() { return abilityType; }  //スキルタイプのゲッター
 };
 
 
