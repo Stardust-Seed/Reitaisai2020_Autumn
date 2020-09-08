@@ -10,6 +10,11 @@ Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, int _direc
 
 }
 
+Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, int _direction, int _x, int _y)
+	: BaseEnemy(_speed, _power, _durability, _direction, _x, _y) {
+
+}
+
 void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager) {
 
 	for (int i = 0; i < _bulletManager->Get_MaxBullet(); i++) {

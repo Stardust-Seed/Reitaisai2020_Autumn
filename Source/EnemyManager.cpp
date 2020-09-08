@@ -71,8 +71,7 @@ void EnemyManager::Draw() {
 
 void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
-	addEnemyNum = _castle->Get_CastleOccupiedNum();//占領されてる拠点 (追加分) を取得
-
+	addEnemyNum = 2 * _castle->Get_OccupiedNum();
 	waitCount++;				//カウント加算
 
 	if (waitCount >= 30) {		//0.5秒間は待機
@@ -99,7 +98,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						_power = 10;
 						_durability = 50;
 
-						Enemys[num] = new Fairy_Speed(_speed,_power,_durability,_direction);        //生成処理
+						Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
@@ -119,12 +118,11 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 				}
 			}
 
-
 			for (int num = enemyNum; num < enemyNum + addEnemyNum; num++) {    //追加分動かす
 
 				_direction = GetRand(4);				//ランダムな出現方向
 
-				if (_castle->Get_IsActive(_direction) == false){
+				if (_castle->Get_IsActive(_direction) == false) {
 
 					if (Enemys[num] == NULL) {      //NULLの場合生成開始
 
@@ -149,7 +147,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							_power = 10;
 							_durability = 100;
 
-							Enemys[num] = new Fairy_Endurance(_speed, _power, _castle->Get_CastleDirection(_direction),
+							Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _castle->Get_CastleDirection(_direction),
 								_castle->Get_X(_direction), _castle->Get_Y(_direction));        //生成処理
 
 							waitCount = 0;
@@ -158,8 +156,6 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 					}
 				}
 			}
-
-
 		}
 	}
 }

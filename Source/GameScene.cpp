@@ -10,28 +10,31 @@ GameScene::GameScene(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger)
 	timeLimit = new TimeLimit();
 	player = new BasePlayer;
 	bulletManager = new BulletManager();
-	castle = new Castle();
+	itemManager = new ItemManager();
+	buffManager = new BuffManager();
+	castleManager = new CastleManager();
 	enemyManager = new EnemyManager(2);
 	ui = new UI();
 
 	//弾管理のアドレスを取得
 	player->SetBulletManager(bulletManager);
+
 }
 
 //更新
 void GameScene::Update()
 {
 	//表示するのが奥の方の奴ら
-	castle->Update(enemyManager);
+	castleManager->Update(enemyManager);
 
 	//表示するのが中間の奴ら
-	enemyManager->Update(castle,player, bulletManager);
+	enemyManager->Update(castleManager, player, bulletManager, itemManager);
 	player->Update(enemyManager);
 	bulletManager->Update(enemyManager);
 
 	//表示するのが前の方の奴ら
 	timeLimit->Update();
-	ui->Update(castle);
+	ui->Update(castleManager);
 
 	//ゲームシーンのシーン処理
 	ChangeScene();
@@ -41,7 +44,7 @@ void GameScene::Update()
 void GameScene::Draw()
 {
 	//表示するのが奥の方の奴ら
-	castle->Draw();
+	castleManager->Draw();
 
 	//表示するのが中間の奴ら
 	enemyManager->Draw();
@@ -59,7 +62,7 @@ void GameScene::ChangeScene()
 	//ゲームクリア
 	{
 		//制限時間に達した
-		if (timeLimit->Get_finishTime() == true && castle->Get_IsActive() == true)
+		if (timeLimit->Get_finishTime() == true && castleManager->Get_IsActive(0) == true)
 		{
 			sceneChanger->SceneChange(eScene_CLAER, false, false);
 			return;
@@ -69,7 +72,7 @@ void GameScene::ChangeScene()
 	//ゲームオーバー
 	{
 		//制限時間に達する前に拠点が壊された
-		if (timeLimit->Get_finishTime() == false && castle->Get_IsActive() == false)
+		if (timeLimit->Get_finishTime() == false && castleManager->Get_IsActive(0) == false)
 		{
 			sceneChanger->SceneChange(eScene_GAMEOVER, false, false);
 			return;

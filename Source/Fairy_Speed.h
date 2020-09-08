@@ -8,6 +8,7 @@ private:
 public:
 	Fairy_Speed() = default;
 	Fairy_Speed(float _speed, float _power, int _durability, int _direction);
+	Fairy_Speed(float _speed, float _power, int _durability, int _direction, int _x, int _y);
 	void Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager);
 	void Draw();
 };

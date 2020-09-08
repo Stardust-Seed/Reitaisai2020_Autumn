@@ -17,7 +17,7 @@ private:
 	BaseCastle* Castles[POPCASTLE];
 
 	int durability;
-	int activeCount;
+	int occupiedNum;
 
 	bool activeCountFlg[POPCASTLE];
 
@@ -38,6 +38,7 @@ public:
 	bool Get_IsActive(int);			//アクティブフラグのセッター
 	int Get_Durability(int);	
 	int Get_CastleDirection(int);
+	int Get_OccupiedNum();
 };
 
 #endif // !_CASTLEMANAGER_H

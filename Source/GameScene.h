@@ -8,8 +8,9 @@
 
 #include "BasePlayer.h"
 #include "BulletManager.h"
-
-#include "Castle.h"
+#include "ItemManager.h"
+#include "BuffManager.h"
+#include "CastleManager.h"
 
 #include "TimeLimit.h"
 #include "Ui.h"
@@ -21,7 +22,9 @@ private:
 	BasePlayer* player;
 	BulletManager* bulletManager;
 	EnemyManager* enemyManager;
-	Castle* castle;
+	ItemManager* itemManager;
+	BuffManager* buffManager;
+	CastleManager* castleManager;
 	TimeLimit* timeLimit;
 	UI* ui;
 

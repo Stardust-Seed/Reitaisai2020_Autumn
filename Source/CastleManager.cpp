@@ -23,11 +23,10 @@ CastleManager::CastleManager() {
 				Castles[i] = new SubCastle(durability, i);    //生成処理
 			}
 			activeCountFlg[i] = true;
-			activeCount++;
 		}
 	}
 
-	activeCount = 0;
+	occupiedNum = 0;
 }
 
 CastleManager::~CastleManager() {
@@ -52,7 +51,7 @@ void CastleManager::Update(EnemyManager*_enemy)
 				//一回だけ処理させたいので
 				if (activeCountFlg[i] == true)
 				{
-					activeCount--;                //アクティブな拠点の数を減らす
+					occupiedNum++;                //アクティブな拠点の数を減らす
 					activeCountFlg[i] = false;    //一回以上処理させない用のフラグ
 				}
 			}
@@ -156,5 +155,10 @@ int CastleManager::Get_CastleDirection(int num)
 int CastleManager::Get_CastleNum()
 {
 	return POPCASTLE;
+}
+
+int CastleManager::Get_OccupiedNum()
+{
+	return occupiedNum;
 }
 
