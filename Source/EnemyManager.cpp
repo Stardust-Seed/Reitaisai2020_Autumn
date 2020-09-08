@@ -34,7 +34,7 @@ EnemyManager::~EnemyManager() {
 	}
 }
 
-void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManager *_bulletManager){
+void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManager *_bulletManager,ItemManager *_itemManager){
 	SpawnEnemy(_castle);						//生成呼び出し
 
 	for (int num = 0; num < enemyNum + addEnemyNum; num++) {
@@ -42,6 +42,11 @@ void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManag
 		if (Enemys[num] != NULL) {		//NULLでない場合
 
 			Enemys[num]->Update(_castle, _player, _bulletManager);		//更新処理
+
+			if (Enemys[num]->GetInactiveType() == eInactiveType::Defeat) {
+
+				_itemManager->SpawnItem(Enemys[num]->Get_X(), Enemys[num]->Get_Y());	//アイテム生成
+			}
 
 			if (Enemys[num]->GetIsActive() == false) {
 

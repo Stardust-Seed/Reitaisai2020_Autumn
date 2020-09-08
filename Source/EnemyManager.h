@@ -10,6 +10,8 @@ class BasePlayer;
 
 class BulletManager;
 
+class ItemManager;
+
 class BaseEnemy;
 
 class Fairy_Endurance;
@@ -55,7 +57,7 @@ public:
 
 	~EnemyManager();				//デストラクタ
 
-	void Update(CastleManager*,BasePlayer*,BulletManager*);					//更新処理
+	void Update(CastleManager*,BasePlayer*,BulletManager*,ItemManager*);					//更新処理
 
 	void Draw();									//描画処理
 
