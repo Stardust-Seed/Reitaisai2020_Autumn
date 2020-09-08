@@ -17,7 +17,7 @@ private:
 	int power;		                //プレイヤーの攻撃力
 	int attackTime;                 //攻撃間隔
 
-	int skilTimer;                  //スキル発動時間
+	int abilityTimer;                  //スキル発動時間
 
 	unsigned int color;                      //スキル時間の色
 

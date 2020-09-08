@@ -7,7 +7,7 @@ Sakuya::Sakuya()
 	power = 400;		            //プレイヤーの攻撃力
 	attackTime = 0;                 //攻撃間隔
 
-	skilTimer = STOPTIME;               //スキル時間タイマー
+	abilityTimer = STOPTIME;               //スキル時間タイマー
 
 	color = GetColor(255, 0, 0);		//色
 
@@ -31,7 +31,7 @@ void Sakuya::Ability()
 }
 void Sakuya::SkilClock()
 {
-	DrawFormatString(10, 100, color, "咲夜スキル時間：%d", skilTimer);
+	DrawFormatString(10, 100, color, "咲夜スキル時間：%d", abilityTimer);
 }
 void Sakuya::Update()
 {
@@ -40,11 +40,11 @@ void Sakuya::Update()
 		Ability();                         //スキル
 		SkilClock();                    //スキルタイマーの表示
 
-		if (skilTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
-			skilTimer -= 1;
+		if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+			abilityTimer -= 1;
 			countDown = FRAME;
 		}
-		if (skilTimer <= 0)
+		if (abilityTimer <= 0)
 		{
 			isAbility = false;
 		}

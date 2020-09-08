@@ -35,7 +35,7 @@ class BasePlayer :public virtual Object
 	BaseEnemy* baseEnemy;
 
 	//キャラクター選択
-	PlayerType select_pl;
+	PlayerType playertype;
 
 	//キャラのアビリティ
 	isAbilityType abilitytype;
@@ -67,7 +67,7 @@ protected:
 	float width;
 	float height;
 
-	int PlayerPos;                  //プレイヤーのいる場所
+	int playerPos;                  //プレイヤーのいる場所
 	// 0 = 左         1 = 上        2 = 右         3 = 下
 
 	int isMove;						//プレイヤーの移動の管理

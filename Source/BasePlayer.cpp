@@ -40,7 +40,7 @@ BasePlayer::BasePlayer()
 
 	now_Move = 0;			//現在移動を行っているかどうかのフラグ
 
-	select_pl = SAKUYA;
+	playertype = SAKUYA;
 	abilitytype = SAKUYA_Ability; //まだキャラ選択できないので今は咲夜
 }
 BasePlayer::~BasePlayer()
