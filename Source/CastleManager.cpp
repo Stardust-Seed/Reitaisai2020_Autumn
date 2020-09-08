@@ -8,22 +8,7 @@ CastleManager::CastleManager() {
 		Castles[i] = NULL;		//CastleのポインタにNULL
 	}
 
-	popEnemyNum = 0;
-	activeCount = 0;
-	spawnFlg = true;
-}
-
-CastleManager::~CastleManager() {
-
-	for (int num = 0; num < POPCASTLE; num++) 
-	{
-		delete Castles[num];    //デリート処理
-	}
-}
-
-void CastleManager::SpawnCastle()
-{
-	for (int i = 0; i < POPCASTLE; i++) 
+	for (int i = 0; i < POPCASTLE; i++)
 	{
 		if (Castles[i] == NULL)    //NULLの場合生成開始
 		{
@@ -35,21 +20,28 @@ void CastleManager::SpawnCastle()
 			else         //サブ拠点
 			{
 				durability = 10;
-				Castles[i] = new SubCastle(durability,i);    //生成処理
+				Castles[i] = new SubCastle(durability, i);    //生成処理
 			}
 			activeCountFlg[i] = true;
 			activeCount++;
 		}
 	}
-	spawnFlg = false;
+
+	popEnemyNum = 0;
+	activeCount = 0;
 }
+
+CastleManager::~CastleManager() {
+
+	for (int num = 0; num < POPCASTLE; num++) 
+	{
+		delete Castles[num];    //デリート処理
+	}
+}
+
 
 void CastleManager::Update(EnemyManager*_enemy)
 {
-	if (spawnFlg == true)
-	{
-		SpawnCastle();    //生成
-	}
 
 	for (int i = 0; i < POPCASTLE; i++)
 	{
@@ -153,64 +145,19 @@ int CastleManager::Get_Durability(int num)
 	}
 }
 
+int CastleManager::Get_CastleDirection(int num)
+{
+	if (Castles[num] != NULL) {
+		return Castles[num]->Get_CastleDirection();
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 int CastleManager::Get_CastleNum()
 {
 	return POPCASTLE;
 }
 
-float CastleManager::Get_EnemySpeed(int num)
-{
-	if (Castles[num] != NULL) {
-		return Castles[num]->Get_EnemySpeed();
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-float CastleManager::Get_EnemyPower(int num)
-{
-	if (Castles[num] != NULL) {
-		return Castles[num]->Get_EnemyPower();
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-int CastleManager::Get_EnemyDurability(int num)
-{
-	if (Castles[num] != NULL) {
-		return Castles[num]->Get_EnemyDurability();
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-int CastleManager::Get_EnemyDirection(int num)
-{
-	if (Castles[num] != NULL) {
-		return Castles[num]->Get_EnemyDirection();
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-int CastleManager::Get_PopEnemyNum()
-{
-	return popEnemyNum;
-}
-
-void CastleManager::Set_Durability(int num,int _durability) 
-{
-	if (Castles[num] != NULL) 
-	{
-		Castles[num]->Set_Durability(_durability);
-	}
-}
