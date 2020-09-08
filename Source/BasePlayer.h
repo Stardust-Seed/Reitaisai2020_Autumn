@@ -13,7 +13,7 @@ typedef enum
 	//キャラクター
 	SAKUYA,     //咲夜
 	FRAN        //フラン
-}Select_PL;
+}PlayerType;
 
 //キャラクタースキルタイプ
 typedef enum
@@ -23,7 +23,7 @@ typedef enum
 	FRAN_Ability            //フランのスキル
 }isAbilityType;
 
-class BasePlayer :public Object
+class BasePlayer :public virtual Object
 {
 	//弾管理のポインタ変数
 	BulletManager* bulletManager;
@@ -35,7 +35,7 @@ class BasePlayer :public Object
 	BaseEnemy* baseEnemy;
 
 	//キャラクター選択
-	Select_PL select_pl;
+	PlayerType select_pl;
 
 	//キャラのアビリティ
 	isAbilityType abilitytype;
@@ -73,7 +73,7 @@ protected:
 	int isMove;						//プレイヤーの移動の管理
 	// 0 = 左へ移動   1 =上へ移動   2 = 右へ移動   3 = 下へ移動   4 = なし
 
-	int Now_Move;                   //現在移動中のフラグ
+	int now_Move;                   //現在移動中のフラグ
 
 	bool isMoveKey;                 //キー入力による移動かをチェックするフラグ。反対移動処理との重複を防ぐため
 	bool isOps;                     //反対移動処理を起動するためのフラグ
