@@ -14,16 +14,17 @@ BasePlayer::BasePlayer()
 	width = 48;
 	height = 48;
 
-	speed = 3;
-	power = 25;
-	stanTime = 0;
-	stanTime_stay = 360;
+	speed = 3;					//移動速度
+	power = 25;					//攻撃力 
+	abilityCount = 5;				//スキル回数
+	stanTime = 0;				//スタンタイム
+	stanTime_stay = 360;		//スタン再発動までの時間
 
-	AttackTime = 0;
+	attackTime = 0;
 
-	PlayerPos = 0;	//最初は左
+	playerPos = 0;			//最初は左
 
-	isMove = 4;   //初期は4
+	isMove = 4;				//初期は4 ※4は何もしてない状態。詳しくはヘッダー参照
 	isMoveKey = false;
 	isOps = false;
 	isOps_RUN = false;
@@ -35,8 +36,12 @@ BasePlayer::BasePlayer()
 	isAttack = false;
 	isStan = false;
 	isStan_Next = false;
+	isAbility = false;
 
-	Now_Move = 0;
+	now_Move = 0;			//現在移動を行っているかどうかのフラグ
+
+	playerType = SAKUYA;
+	abilityType = SAKUYA_Ability; //まだキャラ選択できないので今は咲夜
 }
 BasePlayer::~BasePlayer()
 {
@@ -123,19 +128,19 @@ bool BasePlayer::ClisionHit(float mx, float my, float mw, float mh,
 void BasePlayer::Attack()
 {
 
-	if (AttackTime < 5)
+	if (attackTime < 5)
 	{
-		AttackTime++;
+		attackTime++;
 	}
 
 	//攻撃間隔
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && AttackTime >= 5 && Now_Move == 0)
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && attackTime >= 5 && now_Move == 0)
 	{
 		//攻撃flagをtrueにする
 		isAttack = true;
 		//弾を飛ばす
-		bulletManager->Shot(pos, PlayerPos, isAttack);
-		AttackTime = 0;
+		bulletManager->Shot(pos, playerPos, isAttack);
+		attackTime = 0;
 	}
 
 }
@@ -145,64 +150,64 @@ void BasePlayer::Move()
 {
 
 	//←キーを押したとき
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1) && Now_Move == 0) {
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1) && now_Move == 0) {
 
-		if (PlayerPos == 2) {
+		if (playerPos == 2) {
 			isOps = true;
 			isOps_RIGHT = true;
 		}
-		else if (PlayerPos != 0) {
+		else if (playerPos != 0) {
 			//移動方向を左にする
 			isMove = 0;
 			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
-			Now_Move = 1;
+			now_Move = 1;
 		}
 	}
 	//↑キーを押したとき
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_UP) == 1) && Now_Move == 0) {
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_UP) == 1) && now_Move == 0) {
 
-		if (PlayerPos == 3) {
+		if (playerPos == 3) {
 			isOps = true;
 			isOps_DOWN = true;
 		}
-		else if (PlayerPos != 1) {
+		else if (playerPos != 1) {
 			//移動方向を上にする
 			isMove = 1;
 			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
-			Now_Move = 1;
+			now_Move = 1;
 		}
 	}
 	//→キーを押したとき
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) == 1) && Now_Move == 0) {
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) == 1) && now_Move == 0) {
 
-		if (PlayerPos == 0) {
+		if (playerPos == 0) {
 			isOps = true;
 			isOps_LEFT = true;
 		}
-		else if (PlayerPos != 2) {
+		else if (playerPos != 2) {
 			//移動方向を右にする
 			isMove = 2;
 			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
-			Now_Move = 1;
+			now_Move = 1;
 		}
 
 	}
 	//↓キーを押したとき
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_DOWN) == 1) && Now_Move == 0) {
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_DOWN) == 1) && now_Move == 0) {
 
-		if (PlayerPos == 1) {
+		if (playerPos == 1) {
 			isOps = true;
 			isOps_UP = true;
 		}
-		else if (PlayerPos != 3) {
+		else if (playerPos != 3) {
 			//移動方向を下にする
 			isMove = 3;
 			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
-			Now_Move = 1;
+			now_Move = 1;
 		}
 	}
 	//移動方向が左の時、左へ移動させる
@@ -226,9 +231,9 @@ void BasePlayer::Move()
 
 	}
 	//反対フラグがtrueの時、反対移動処理を起動させる
-	if (isOps == true && Now_Move == 0) {
+	if (isOps == true && now_Move == 0) {
 		Move_OPS();
-		Now_Move = 1;
+		now_Move = 1;
 
 	}
 	//反対移動処理を実行
@@ -243,7 +248,7 @@ void BasePlayer::Move()
 void BasePlayer::Move_UP()
 {
 	//左から上へ
-	if (PlayerPos == 0 && isMove == 1) {
+	if (playerPos == 0 && isMove == 1) {
 		if (pos.y >= PLAYER_UPPOSY) {
 
 			pos.y -= speed;
@@ -257,14 +262,14 @@ void BasePlayer::Move_UP()
 		if (pos.x >= PLAYER_UPDOWNPOSX && pos.y <= PLAYER_UPPOSY) {
 
 			//プレイヤーの場所を上にする
-			PlayerPos = 1;
+			playerPos = 1;
 
 			//移動方向をリセットする
 			isMove = 4;
 
 			//無移動状態にする
 			if (isOps == false) {
-				Now_Move = 0;
+				now_Move = 0;
 			}
 
 			//移動キーのチェックをリセット
@@ -274,11 +279,11 @@ void BasePlayer::Move_UP()
 			isOps = false;
 			isOps_DOWN = false;
 			isOps_RUN = false;
-			Now_Move = 0;
+			now_Move = 0;
 		}
 	}
 	//右から上へ
-	if (PlayerPos == 2 && isMove == 1) {
+	if (playerPos == 2 && isMove == 1) {
 		if (pos.y >= PLAYER_UPPOSY) {
 
 			pos.y -= speed;
@@ -292,7 +297,7 @@ void BasePlayer::Move_UP()
 		if (pos.y <= PLAYER_UPPOSY && pos.x <= PLAYER_UPDOWNPOSX) {
 
 			//プレイヤーの場所を上にする
-			PlayerPos = 1;
+			playerPos = 1;
 
 			//移動方向をリセットする
 			isMove = 4;
@@ -302,7 +307,7 @@ void BasePlayer::Move_UP()
 
 			//無移動状態にする
 			if (isOps == false) {
-				Now_Move = 0;
+				now_Move = 0;
 			}
 		}
 	}
@@ -313,7 +318,7 @@ void BasePlayer::Move_DOWN()
 {
 
 	//左から下へ
-	if (PlayerPos == 0 && isMove == 3) {
+	if (playerPos == 0 && isMove == 3) {
 		if (pos.y <= PLAYER_DOWNPOSY) {
 
 			pos.y += speed;
@@ -327,7 +332,7 @@ void BasePlayer::Move_DOWN()
 		if (pos.x >= PLAYER_UPDOWNPOSX) {
 
 			//プレイヤーの場所を下にする
-			PlayerPos = 3;
+			playerPos = 3;
 
 			//移動方向をリセットする
 			isMove = 4;
@@ -337,13 +342,13 @@ void BasePlayer::Move_DOWN()
 
 			//無移動状態にする
 			if (isOps == false) {
-				Now_Move = 0;
+				now_Move = 0;
 			}
 		}
 	}
 
 	//右から下へ
-	if (PlayerPos == 2 && isMove == 3) {
+	if (playerPos == 2 && isMove == 3) {
 		if (pos.y <= PLAYER_DOWNPOSY) {
 
 			pos.y += speed;
@@ -357,7 +362,7 @@ void BasePlayer::Move_DOWN()
 		if (pos.x <= PLAYER_UPDOWNPOSX) {
 
 			//プレイヤーの場所を下にする
-			PlayerPos = 3;
+			playerPos = 3;
 
 			//移動方向をリセットする
 			isMove = 4;
@@ -367,14 +372,14 @@ void BasePlayer::Move_DOWN()
 
 			//無移動状態にする
 			if (isOps == false) {
-				Now_Move = 0;
+				now_Move = 0;
 			}
 		}
 		if (isOps == true && isOps_UP == true && pos.x <= PLAYER_UPDOWNPOSX && pos.y >= PLAYER_DOWNPOSY) {
 			isOps = false;
 			isOps_UP = false;
 			isOps_RUN = false;
-			Now_Move = 0;
+			now_Move = 0;
 		}
 
 	}
@@ -384,7 +389,7 @@ void BasePlayer::Move_DOWN()
 void BasePlayer::Move_LEFT()
 {
 	//上から左へ
-	if (PlayerPos == 1 && isMove == 0) {
+	if (playerPos == 1 && isMove == 0) {
 		if (pos.x >= PLAYER_LEFTPOS) {
 
 			pos.x -= speed;
@@ -398,7 +403,7 @@ void BasePlayer::Move_LEFT()
 		if (pos.y >= PLAYER_LEFTRIGHTPOS && pos.x <= PLAYER_LEFTPOS) {
 
 			//プレイヤーの場所を左にする
-			PlayerPos = 0;
+			playerPos = 0;
 
 			//移動方向をリセットする
 			isMove = 4;
@@ -408,18 +413,18 @@ void BasePlayer::Move_LEFT()
 
 			//無移動状態にする
 			if (isOps == false) {
-				Now_Move = 0;
+				now_Move = 0;
 			}
 		}
 		if (isOps == true && pos.x <= PLAYER_LEFTPOS && pos.y >= PLAYER_LEFTRIGHTPOS) {
 			isOps = false;
 			isOps_RIGHT = false;
 			isOps_RUN = false;
-			Now_Move = 0;
+			now_Move = 0;
 		}
 	}
 	//下から左へ
-	if (PlayerPos == 3 && isMove == 0) {
+	if (playerPos == 3 && isMove == 0) {
 		if (pos.x >= PLAYER_LEFTPOS) {
 
 			pos.x -= speed;
@@ -433,21 +438,21 @@ void BasePlayer::Move_LEFT()
 		if (pos.y <= PLAYER_LEFTRIGHTPOS && pos.x <= PLAYER_LEFTPOS) {
 
 			//プレイヤーの場所を左にする
-			PlayerPos = 0;
+			playerPos = 0;
 
 			//移動方向をリセットする
 			isMove = 4;
 
 			//無移動状態にする
 			if (isOps == false) {
-				Now_Move = 0;
+				now_Move = 0;
 			}
 		}
 		if (isOps == true && isOps_RIGHT == true && pos.x <= PLAYER_LEFTPOS && pos.y <= PLAYER_LEFTRIGHTPOS) {
 			isOps = false;
 			isOps_RIGHT = false;
 			isOps_RUN = false;
-			Now_Move = 0;
+			now_Move = 0;
 		}
 	}
 }
@@ -455,7 +460,7 @@ void BasePlayer::Move_LEFT()
 void BasePlayer::Move_RIGHT()
 {
 	//上から右へ
-	if (PlayerPos == 1 && isMove == 2) {
+	if (playerPos == 1 && isMove == 2) {
 		if (pos.x <= PLAYER_RIGHTPOS) {
 
 			pos.x += speed;
@@ -469,7 +474,7 @@ void BasePlayer::Move_RIGHT()
 		if (pos.y >= PLAYER_LEFTRIGHTPOS && pos.x >= PLAYER_RIGHTPOS) {
 
 			//プレイヤーの場所を右にする
-			PlayerPos = 2;
+			playerPos = 2;
 
 			//移動方向をリセットする
 			isMove = 4;
@@ -479,18 +484,18 @@ void BasePlayer::Move_RIGHT()
 
 			//無移動状態にする
 			if (isOps == false) {
-				Now_Move = 0;
+				now_Move = 0;
 			}
 		}
 		if (isOps == true && isOps_LEFT == true && pos.x >= PLAYER_RIGHTPOS && pos.y >= PLAYER_LEFTRIGHTPOS) {
 			isOps = false;
 			isOps_LEFT = false;
 			isOps_RUN = false;
-			Now_Move = 0;
+			now_Move = 0;
 		}
 	}
 	//下から右へ
-	if (PlayerPos == 3 && isMove == 2) {
+	if (playerPos == 3 && isMove == 2) {
 		if (pos.x <= PLAYER_RIGHTPOS) {
 
 			pos.x += speed;
@@ -504,7 +509,7 @@ void BasePlayer::Move_RIGHT()
 		if (pos.y <= PLAYER_LEFTRIGHTPOS && pos.x >= PLAYER_RIGHTPOS) {
 
 			//プレイヤーの場所を右にする
-			PlayerPos = 2;
+			playerPos = 2;
 
 			//移動方向をリセットする
 			isMove = 4;
@@ -514,7 +519,7 @@ void BasePlayer::Move_RIGHT()
 
 			//無移動状態にする
 			if (isOps == false) {
-				Now_Move = 0;
+				now_Move = 0;
 			}
 		}
 	}
@@ -526,22 +531,22 @@ void BasePlayer::Move_OPS()
 {
 
 	//左から右へ移動
-	if (PlayerPos == 0 && isOps_LEFT == true) {
+	if (playerPos == 0 && isOps_LEFT == true) {
 
 		isOps_RUN = true;
 	}
 	//右から左へ移動
-	if (PlayerPos == 2 && isOps_RIGHT == true) {
+	if (playerPos == 2 && isOps_RIGHT == true) {
 
 		isOps_RUN = true;
 	}
 	//上から下へ移動
-	if (PlayerPos == 1 && isOps_UP == true) {
+	if (playerPos == 1 && isOps_UP == true) {
 
 		isOps_RUN = true;
 	}
 	//下から上へ移動
-	if (PlayerPos == 3 && isOps_DOWN == true) {
+	if (playerPos == 3 && isOps_DOWN == true) {
 
 		isOps_RUN = true;
 	}

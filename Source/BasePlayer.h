@@ -8,7 +8,22 @@ class BulletManager;
 class EnemyManager;
 class BaseEnemy;
 
-class BasePlayer :public Object
+typedef enum
+{
+	//キャラクター
+	SAKUYA,     //咲夜
+	FRAN        //フラン
+}PlayerType;
+
+//キャラクタースキルタイプ
+typedef enum
+{
+	//キャラのスキルタイプ
+	SAKUYA_Ability,         //咲夜のスキル
+	FRAN_Ability            //フランのスキル
+}isAbilityType;
+
+class BasePlayer :public virtual Object
 {
 	//弾管理のポインタ変数
 	BulletManager* bulletManager;
@@ -19,7 +34,14 @@ class BasePlayer :public Object
 	//エネミーのポインタ変数
 	BaseEnemy* baseEnemy;
 
-private:
+	//キャラクター選択
+	PlayerType playerType;
+
+	//キャラのアビリティ
+	isAbilityType abilityType;
+
+protected:
+
 	const float PLAYER_SPOWNPOSX = 300;	    //プレイヤーの初期位置_X
 	const float PLAYER_SPOWNPOSY = 356;	    //プレイヤーの初期位置_Y
 
@@ -33,28 +55,25 @@ private:
 
 	const float PLAYER_RIGHTPOS = 584;      //プレイヤーの右の位置
 
-	//DXライブラリで定義されている構造体
-	//中身はfloat型の(x,y,z)
-	VECTOR pos;                     //プレイヤーの座標
-
-	VECTOR vPos;                    //プレイヤーを移動させるため
-
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
 	int stanTime;	                //プレイヤーのスタンタイム
 	int stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
-	int AttackTime;                 //攻撃間隔
+	int attackTime;                 //攻撃間隔
+
+	bool isAbility;             //スキルが発動している状態かどうか
+	int  abilityCount;                 //スキル回数
 
 	float width;
 	float height;
 
-	int PlayerPos;                  //プレイヤーのいる場所
+	int playerPos;                  //プレイヤーのいる場所
 	// 0 = 左         1 = 上        2 = 右         3 = 下
 
 	int isMove;						//プレイヤーの移動の管理
 	// 0 = 左へ移動   1 =上へ移動   2 = 右へ移動   3 = 下へ移動   4 = なし
 
-	int Now_Move;                   //現在移動中のフラグ
+	int now_Move;                   //現在移動中のフラグ
 
 	bool isMoveKey;                 //キー入力による移動かをチェックするフラグ。反対移動処理との重複を防ぐため
 	bool isOps;                     //反対移動処理を起動するためのフラグ
@@ -67,7 +86,15 @@ private:
 	bool isAttack;                  //攻撃フラグ
 	bool isStan;                    //スタン中かどうかのフラグ
 	bool isStan_Next;               //スタンが起こる状態かどうかのフラグ
+
 public:
+
+	//DXライブラリで定義されている構造体
+//中身はfloat型の(x,y,z)
+	VECTOR pos;                     //プレイヤーの座標
+
+	VECTOR vPos;                    //プレイヤーを移動させるため
+
 	//当たり判定
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);
@@ -77,7 +104,7 @@ public:
 	void Draw();           //描画処理
 
 	//更新処理
-	void Update(EnemyManager* _eManager);
+    void Update(EnemyManager* _eManager);
 
 	void Move();           //移動処理
 	void Move_UP();        //↑移動処理
@@ -91,26 +118,27 @@ public:
 	//スタン処理
 	void Stan();           
 
-	void Set_x(float _x) { pos.x = _x; }                        //セッター
-	void Set_y(float _y) { pos.y = _y; }                        //セッター
+	void Set_x(float _x) { pos.x = _x; }                    //セッター
+	void Set_y(float _y) { pos.y = _y; }                    //セッター
 	void Set_width(float _width) { width = _width; }        //セッター
 	void Set_height(float _height) { height = _height; }    //セッター
+	void Set_isAbility(bool _isAbility) { isAbility = _isAbility; } //スキルのActiveセッター
+	void Set_abilityCount(int _abilityCount) { abilityCount = _abilityCount; }  //スキル回数のセッター      
 
 	float Get_x() { return pos.x; }                         //x座標ゲッター
 	float Get_y() { return pos.y; }                         //y座標ゲッター
 	float Get_width() { return width; }                     //widthゲッター
 	float Get_height() { return height; }                   //heightゲッター
 
-	int  Get_power() { return power; }        //攻撃力ゲッター
+	int  Get_power() { return power; }                      //攻撃力ゲッター
+	int  Get_abilityCount() { return abilityCount; }              //スキル時間のゲッター
 
 	bool Get_isStan() { return isStan; }                    //スタン状態ゲッター
+	bool Get_isAbility() { return isAbility; }           //スキルのActiveのゲッター
+	
+	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }//bulletManagerのアドレスを取得
 
-	//bulletManagerのアドレスを取得
-	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }
-
-	//EnemyManagerのアドレスを取得
-	//void SetEnemyManager(EnemyManager* eManager) { enemyManager = eManager; }
-
+	isAbilityType Get_AbilityType() { return abilityType; }  //スキルタイプのゲッター
 };
 
 
