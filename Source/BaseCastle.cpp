@@ -11,8 +11,6 @@ BaseCastle::BaseCastle(int _durability){
 
 }
 
-
-
 //拠点がダメージを受けたときの処理
 bool BaseCastle::ClisionHit(float ox, float oy, float ow, float oh,
 	int pow, int num, bool attackFlg, bool activeFlg)
