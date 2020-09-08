@@ -172,6 +172,12 @@ void EnemyManager::Set_IsAttack(int num, bool _isAttack) {
 	}
 }
 
+void EnemyManager::Set_IsMove(int num, bool _isMove) {
+	if (Enemys[num] != NULL) {
+		Enemys[num]->SetIsMove(_isMove);
+	}
+}
+
 void EnemyManager::Set_x(int num,float _x) {
 		if (Enemys[num] != NULL) {
 			Enemys[num]->Set_X(_x);			
