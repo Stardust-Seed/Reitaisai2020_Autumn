@@ -1,9 +1,7 @@
 #ifndef _BASEBOMB_H
 #define _BASEBOMB_H
 
-#include "Object.h"
-
-class BaseBomb: public virtual Object
+class BaseBomb
 {
 protected:
 	const float BOMB_SPOWNUPDOWNX = 488;			//上下x
@@ -24,6 +22,8 @@ protected:
 	static const int COUNTMAX = FRAME * (COUNT + 1) - 1;	
 
 	float speed;		//爆弾が落下するスピード
+	float x;
+	float y;
 	int damage;			//爆弾のダメージ
 	int countdown;		//カウントダウン
 	int direction;		//爆弾が落ちる方向
@@ -39,6 +39,8 @@ public:
 	void SpawnBomb();								//爆弾の生成
 	void JudgeTrigger();							//爆発したかの判定
 	void Move();									//爆弾の落下
+	virtual void Update() = 0;
+	virtual void Draw() = 0;
 
 };
 #endif // !_BASEBOMB_H
