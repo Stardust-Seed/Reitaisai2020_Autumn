@@ -62,7 +62,9 @@ private:
 	bool isAttack;                  //攻撃フラグ
 	bool isStan;                    //スタン中かどうかのフラグ
 	bool isStan_Next;               //スタンが起こる状態かどうかのフラグ
+	bool isAbility;             //スキルが発動している状態かどうか
 
+	int  SkilCount;                 //スキル回数
 public:
 
 	//DXライブラリで定義されている構造体
@@ -73,18 +75,26 @@ public:
 
 
 	//キャラクター画像
-	enum Player_Graph
+	typedef enum
 	{
 		//キャラ画像格納用
 		SAKUYA_GRAPH1,
 		FRAN_GRAPH1,
 		//キャラ画像サイズ
 		GRAPH_SIZE
-	};
+	}Player_Graph;
+
 	int handle[GRAPH_SIZE];  //画像ハンドル
 
-	bool Skil_isActive;      //スキルが発動している状態かどうか
-	int  SkilCount;          //スキル回数
+	//キャラクタースキルタイプ
+	typedef enum
+	{
+		//キャラのスキルタイプ
+		SAKUYA_Ability,         //咲夜のスキル
+		FRAN_Ability            //フランのスキル
+	}isAbilityType;
+
+	isAbilityType abilitytype;
 
 	//当たり判定
 	bool ClisionHit(float mx, float my, float mw, float mh,
@@ -92,12 +102,10 @@ public:
 
 	BasePlayer();		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
-	void Draw();   //描画処理
+	void Draw();           //描画処理
 
 	//更新処理
-	virtual void Update(EnemyManager* _eManager);
-
-	void LoadGraphData();      //キャラ画像読み込み
+    void Update(EnemyManager* _eManager);
 
 	void Move();           //移動処理
 	void Move_UP();        //↑移動処理
@@ -115,6 +123,8 @@ public:
 	void Set_y(float _y) { pos.y = _y; }                    //セッター
 	void Set_width(float _width) { width = _width; }        //セッター
 	void Set_height(float _height) { height = _height; }    //セッター
+	void Set_isAbility(bool _isAbility) { isAbility = _isAbility; } //スキルのActiveセッター
+	void Set_SkilCount(int _SkilCount) { SkilCount = _SkilCount; }  //スキル回数のセッター      
 
 	float Get_x() { return pos.x; }                         //x座標ゲッター
 	float Get_y() { return pos.y; }                         //y座標ゲッター
@@ -125,11 +135,11 @@ public:
 	int  Get_SkilCount() { return SkilCount; }              //スキル時間のゲッター
 
 	bool Get_isStan() { return isStan; }                    //スタン状態ゲッター
-	bool Get_SkilActive() { return Skil_isActive; }           //スキルのActiveのゲッター
+	bool Get_isAbility() { return isAbility; }           //スキルのActiveのゲッター
 	
 	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }//bulletManagerのアドレスを取得
-
-
+	
+	isAbilityType Get_AbilityType(){return abilitytype; }  //スキルタイプのゲッター
 };
 
 

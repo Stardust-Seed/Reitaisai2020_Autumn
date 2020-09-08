@@ -10,57 +10,45 @@ Sakuya::Sakuya()
 	SkilTimer = STOPTIME;               //スキル時間タイマー
 
 	Color = GetColor(255, 0, 0);		//色
+
+	CountDown = FRAME;              //スキルタイマーを減らすのに使う
 }
 Sakuya::~Sakuya()
 {
 
 }
-void Sakuya::Draw()
-{
-	//自機の描画
-	DrawGraph(pos.x, pos.y,handle[SAKUYA_GRAPH1],true);
-}
 void Sakuya::Skil()
 {
 	//スキル回数がまだ残っている時
-	if (SkilCount > 0 && Skil_isActive == false) {
+	if (Get_SkilCount() > 0 && Get_isAbility() == false) {
 		//スペースキーを押すとスキル発動
 		if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
 		{
-			Skil_isActive = true;
-			SkilCount -= 1;
+			Set_isAbility(true);
+			Set_SkilCount(Get_SkilCount() - 1);
 		}
 	}
 }
 void Sakuya::SkilClock()
 {
-	if (Skil_isActive == true) {
-		DrawFormatString(10, 100, Color, "咲夜スキル時間：%d", SkilTimer / FRAME);
-	}
+	DrawFormatString(10, 100, Color, "咲夜スキル時間：%d", SkilTimer);
 }
-void Sakuya::Update(EnemyManager* _eManager)
+void Sakuya::Update()
 {
-	Sakuya::Draw();						    //描画
-	BasePlayer::Update(_eManager);          //更新
-	SkilClock();
-	Skil();                     //スキル
-	if (SkilTimer >= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
-		SkilTimer -= 1;
+	if (Get_isAbility() == true) {
+
+		Skil();                         //スキル
+		SkilClock();                    //スキルタイマーの表示
+
+		if (SkilTimer >= 0 && CountDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+			SkilTimer -= 1;
+			CountDown = FRAME;
+		}
+		if (SkilTimer <= 0)
+		{
+			Set_isAbility(false);
+		}
+		CountDown -= 1;
 	}
 
-	//スキル発動時はエネミーの移動を止める
-	if (Skil_isActive == true)
-	{
-		for (int i = 0; i < _eManager->Get_enemyNum(); i++)
-		{
-			_eManager->Set_IsMove(i, false);
-		}
-	}
-	if (Skil_isActive == false)
-	{
-		for (int i = 0; i < _eManager->Get_enemyNum(); i++)
-		{
-			_eManager->Set_IsMove(i, true);
-		}
-	}
 }

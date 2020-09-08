@@ -36,11 +36,11 @@ BasePlayer::BasePlayer()
 	isAttack = false;
 	isStan = false;
 	isStan_Next = false;
-	Skil_isActive = false;
+	isAbility = false;
 
 	Now_Move = 0;			//現在移動を行っているかどうかのフラグ
 
-	LoadGraphData();
+	abilitytype = SAKUYA_Ability; //まだキャラ選択できないので今は咲夜
 }
 BasePlayer::~BasePlayer()
 {
@@ -50,11 +50,6 @@ void BasePlayer::Draw()
 {
 	//自機の描画
 	DrawBox(pos.x, pos.y, pos.x + width, pos.y + height, GetColor(0, 255, 0), TRUE);
-
-}
-void BasePlayer::LoadGraphData()
-{
-	handle[SAKUYA_GRAPH1] = LoadGraph("res/Image/sakuya.png");
 
 }
 void BasePlayer::Update(EnemyManager* _eManager)

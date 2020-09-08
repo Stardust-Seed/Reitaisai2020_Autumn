@@ -24,12 +24,13 @@ private:
 
 	int Color;                      //スキル時間の色
 
+	int CountDown;
+
 public:
 
 	Sakuya();			   //コンストラクタ
 	~Sakuya();             //デストラクタ
-	void Draw();           //描画処理
-	void Update(EnemyManager* _enemyManager);  //更新処理
+	void Update();         //更新処理
 	void SkilClock();      //スキルタイマー描画処理
 	void Skil();           //スキル処理
 
