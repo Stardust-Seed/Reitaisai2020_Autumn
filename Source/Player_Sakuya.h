@@ -6,25 +6,22 @@
 
 class EnemyManager;
 
-class Sakuya :public BasePlayer
+class Sakuya :public virtual BasePlayer
 {
 private:
 
 	static const int FRAME = 60;	//フレームレート
 	const int STOPTIME = 5;         //時止めスキルの時間]
-	static const int TIME = 10;								//実際の制限時間
-	static const int MAX_LIMITTIME = FRAME * (TIME + 1) - 1;	
-	//フレームレート * (指定した秒数 +1) - 1 // "+1) - 1"この部分は表示の違和感をなくすため
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
-	int AttackTime;                 //攻撃間隔
+	int attackTime;                 //攻撃間隔
 
-	int SkilTimer;                  //スキル発動時間
+	int skilTimer;                  //スキル発動時間
 
-	int Color;                      //スキル時間の色
+	unsigned int color;                      //スキル時間の色
 
-	int CountDown;
+	int countDown;                  //スキルタイマーのカウントダウンに使用
 
 public:
 
@@ -32,7 +29,7 @@ public:
 	~Sakuya();             //デストラクタ
 	void Update();         //更新処理
 	void SkilClock();      //スキルタイマー描画処理
-	void Skil();           //スキル処理
+	void Ability();        //スキル処理
 
 	int  Get_SkilTime() {return STOPTIME;}   //スキルの発動時間
 

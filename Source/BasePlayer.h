@@ -8,6 +8,21 @@ class BulletManager;
 class EnemyManager;
 class BaseEnemy;
 
+typedef enum
+{
+	//キャラクター
+	SAKUYA,     //咲夜
+	FRAN        //フラン
+}Select_PL;
+
+//キャラクタースキルタイプ
+typedef enum
+{
+	//キャラのスキルタイプ
+	SAKUYA_Ability,         //咲夜のスキル
+	FRAN_Ability            //フランのスキル
+}isAbilityType;
+
 class BasePlayer :public Object
 {
 	//弾管理のポインタ変数
@@ -19,7 +34,13 @@ class BasePlayer :public Object
 	//エネミーのポインタ変数
 	BaseEnemy* baseEnemy;
 
-private:
+	//キャラクター選択
+	Select_PL select_pl;
+
+	//キャラのアビリティ
+	isAbilityType abilitytype;
+
+protected:
 
 	const float PLAYER_SPOWNPOSX = 300;	    //プレイヤーの初期位置_X
 	const float PLAYER_SPOWNPOSY = 356;	    //プレイヤーの初期位置_Y
@@ -39,6 +60,9 @@ private:
 	int stanTime;	                //プレイヤーのスタンタイム
 	int stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
 	int AttackTime;                 //攻撃間隔
+
+	bool isAbility;             //スキルが発動している状態かどうか
+	int  abilityCount;                 //スキル回数
 
 	float width;
 	float height;
@@ -62,9 +86,7 @@ private:
 	bool isAttack;                  //攻撃フラグ
 	bool isStan;                    //スタン中かどうかのフラグ
 	bool isStan_Next;               //スタンが起こる状態かどうかのフラグ
-	bool isAbility;             //スキルが発動している状態かどうか
 
-	int  SkilCount;                 //スキル回数
 public:
 
 	//DXライブラリで定義されている構造体
@@ -72,29 +94,6 @@ public:
 	VECTOR pos;                     //プレイヤーの座標
 
 	VECTOR vPos;                    //プレイヤーを移動させるため
-
-
-	//キャラクター画像
-	typedef enum
-	{
-		//キャラ画像格納用
-		SAKUYA_GRAPH1,
-		FRAN_GRAPH1,
-		//キャラ画像サイズ
-		GRAPH_SIZE
-	}Player_Graph;
-
-	int handle[GRAPH_SIZE];  //画像ハンドル
-
-	//キャラクタースキルタイプ
-	typedef enum
-	{
-		//キャラのスキルタイプ
-		SAKUYA_Ability,         //咲夜のスキル
-		FRAN_Ability            //フランのスキル
-	}isAbilityType;
-
-	isAbilityType abilitytype;
 
 	//当たり判定
 	bool ClisionHit(float mx, float my, float mw, float mh,
@@ -124,7 +123,7 @@ public:
 	void Set_width(float _width) { width = _width; }        //セッター
 	void Set_height(float _height) { height = _height; }    //セッター
 	void Set_isAbility(bool _isAbility) { isAbility = _isAbility; } //スキルのActiveセッター
-	void Set_SkilCount(int _SkilCount) { SkilCount = _SkilCount; }  //スキル回数のセッター      
+	void Set_abilityCount(int _abilityCount) { abilityCount = _abilityCount; }  //スキル回数のセッター      
 
 	float Get_x() { return pos.x; }                         //x座標ゲッター
 	float Get_y() { return pos.y; }                         //y座標ゲッター
@@ -132,14 +131,14 @@ public:
 	float Get_height() { return height; }                   //heightゲッター
 
 	int  Get_power() { return power; }                      //攻撃力ゲッター
-	int  Get_SkilCount() { return SkilCount; }              //スキル時間のゲッター
+	int  Get_abilityCount() { return abilityCount; }              //スキル時間のゲッター
 
 	bool Get_isStan() { return isStan; }                    //スタン状態ゲッター
 	bool Get_isAbility() { return isAbility; }           //スキルのActiveのゲッター
 	
 	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }//bulletManagerのアドレスを取得
-	
-	isAbilityType Get_AbilityType(){return abilitytype; }  //スキルタイプのゲッター
+
+	isAbilityType Get_AbilityType() { return abilitytype; }  //スキルタイプのゲッター
 };
 
 
