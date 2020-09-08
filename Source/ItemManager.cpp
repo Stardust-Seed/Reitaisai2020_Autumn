@@ -55,14 +55,16 @@ void ItemManager::Update(BasePlayer* _player) {
 
 void ItemManager::Draw() {
 	for (int i = 0; i < MAX_ITEM_NUM; i++) {
+		//items[i]が空ではない場合
 		if (items[i] != nullptr) {
+			//items[i]の描画処理
 			items[i]->Draw();
 		}
 	}
 
-	//仮置きUI
-	DrawFormatString(0, 500, GetColor(255, 255, 255), "アイテムP取得個数 : %d", p_Count);
-	DrawFormatString(0, 525, GetColor(255, 255, 255), "アイテムS取得個数 : %d", s_Count);
+	//仮置きUI(UIが完成したら撤去させる)
+	//DrawFormatString(0, 500, GetColor(255, 255, 255), "アイテムP取得個数 : %d", p_Count);
+	//DrawFormatString(0, 525, GetColor(255, 255, 255), "アイテムS取得個数 : %d", s_Count);
 }
 
 void ItemManager::SpawnItem(float _ex,float _ey) {
