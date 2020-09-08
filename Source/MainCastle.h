@@ -15,19 +15,15 @@
 
 class EnemyManager;
 
-class MainCastle:public BaseCastle{
+class MainCastle:public virtual BaseCastle{
 
 private:
 
 public:
 	 MainCastle(int);
 
-	 bool ClisionHit(float ox, float oy, float ow, float oh,
-		  int pow, int num, bool attackFlg, bool activeFlg);
-
-	 void Update(EnemyManager*);               //更新処理
-	 void Draw();                              //描画処理
-
+	 void Update(EnemyManager*);                     //更新処理
+	 void Draw();                                    //描画処理
 };
 
 #endif //_MAINCASTLE_H
