@@ -4,11 +4,13 @@
 #include "Fairy_Endurance.h"
 #include "Fairy_Speed.h"
 
-class Castle;
+class CastleManager;
 
 class BasePlayer;
 
 class BulletManager;
+
+class ItemManager;
 
 class BaseEnemy;
 
@@ -24,9 +26,11 @@ private:
 
 	static const int POPENEMY_HARD = 4;		//4体まで
 
-	static const int ENEMY_TYPES = 2;		//現在のエネミーの種類
+	static const int POPENEMY_ADD = 8;      //追加の敵の最大数
 
-	static const int MAX_ENEMY_NUM = 4;			//エネミーの最大生成数分の要素数
+	static const int MAX_ENEMY_NUM = POPENEMY_HARD + POPENEMY_ADD;			//エネミーの最大生成数分の要素数
+
+	static const int ENEMY_TYPES = 2;		//現在のエネミーの種類
 
 	BaseEnemy* Enemys[MAX_ENEMY_NUM];			//エネミーオブジェクト配列
 
@@ -36,7 +40,9 @@ private:
 
 	int enemyNum;					//難易度別生成数を入れる
 
-	int activeCount;					//アクティブなエネミーの数を入れる
+	int addEnemyNum;				//追加されるエネミーの数
+
+	int activeCount;				//アクティブなエネミーの数を入れる
 
 	int _durability;				//体力
 	
@@ -51,11 +57,11 @@ public:
 
 	~EnemyManager();				//デストラクタ
 
-	void SpawnEnemy();				//エネミー生成処理
+	void Update(CastleManager*,BasePlayer*,BulletManager*,ItemManager*);					//更新処理
 
-	void Update(Castle*,BasePlayer*,BulletManager*);					//更新処理
+	void Draw();									//描画処理
 
-	void Draw();					//描画処理
+	void SpawnEnemy(CastleManager*);				//エネミー生成処理
 
 	void Set_IsActive(int, bool);			//アクティブフラグのセッター
 

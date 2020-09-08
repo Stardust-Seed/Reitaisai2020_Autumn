@@ -22,6 +22,7 @@ EnemyManager::EnemyManager(int level) {
 		break;
 	}
 
+	addEnemyNum = 0;				//最初なので追加分はなし
 	activeCount = 0;				//生成カウント初期化
 	waitCount = 0;					//待機カウント初期化
 
@@ -33,56 +34,19 @@ EnemyManager::~EnemyManager() {
 	}
 }
 
-void EnemyManager::SpawnEnemy() {
+void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManager *_bulletManager,ItemManager *_itemManager){
+	SpawnEnemy(_castle);						//生成呼び出し
 
-	waitCount++;
-	if (waitCount >= 30) {		//0.5秒間は待機
-
-		if ((rand() % 100) == 0) {		//出現確率
-			for (int num = 0; num < enemyNum; num++) {	//エネミーの数だけ動かす
-				if (Enemys[num] == NULL) {				//NULLの場合生成開始
-
-					activeCount++;			//生成カウント加算
-
-					SRand;					//乱数初期化
-
-					enemyType = GetRand(ENEMY_TYPES - 1);	//ランダムな敵の種類
-					_direction = GetRand(3);			//ランダムな出現方向
-
-					if (enemyType == 0) {				//スピード型
-						_speed = 1.5;
-						_power = 10;
-						_durability = 50;
-						Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _direction);		//生成処理
-
-						waitCount = 0;
-						break;								//一体生成したら抜ける
-					}
-
-					if (enemyType == 1) {				//体力型
-						_speed = 1;
-						_power = 10;
-						_durability = 100;
-						Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);	//生成処理
-
-						waitCount = 0;
-						break;								//一体生成したら抜ける
-					}
-
-				}
-			}
-		}
-	}
-}
-
-void EnemyManager::Update(Castle *_castle,BasePlayer *_player,BulletManager *_bulletManager){
-	SpawnEnemy();						//生成呼び出し
-
-	for (int num = 0; num < enemyNum; num++) {
+	for (int num = 0; num < enemyNum + addEnemyNum; num++) {
 
 		if (Enemys[num] != NULL) {		//NULLでない場合
 
 			Enemys[num]->Update(_castle, _player, _bulletManager);		//更新処理
+
+			if (Enemys[num]->GetInactiveType() == eInactiveType::Defeat) {
+
+				_itemManager->SpawnItem(Enemys[num]->Get_X(), Enemys[num]->Get_Y());	//アイテム生成
+			}
 
 			if (Enemys[num]->GetIsActive() == false) {
 
@@ -97,10 +61,103 @@ void EnemyManager::Update(Castle *_castle,BasePlayer *_player,BulletManager *_bu
 }
 
 void EnemyManager::Draw() {
-	for (int num = 0; num < enemyNum; num++) {
+	for (int num = 0; num < enemyNum + addEnemyNum; num++) {
 		if (Enemys[num] != NULL) {
 			Enemys[num]->Draw();	//描画
 			
+		}
+	}
+}
+
+void EnemyManager::SpawnEnemy(CastleManager* _castle) {
+
+	//addEnemyNum = _castle->Get_PopEnemyNum();//追加分を取得
+
+	waitCount++;				//カウント加算
+
+	if (waitCount >= 30) {		//0.5秒間は待機
+
+		if ((rand() % 100) == 0) {	//出現確率
+
+			SRand;					//乱数初期化
+
+			_direction = 0;			//方向初期化
+
+			enemyType = GetRand(ENEMY_TYPES - 1);	//ランダムな敵の種類
+
+			for (int num = 0; num < enemyNum; num++) {	//エネミーの数だけ動かす
+
+				if (Enemys[num] == NULL) {				//NULLの場合生成開始
+
+					activeCount++;			//生成カウント加算
+
+					_direction = GetRand(3);			//ランダムな出現方向	
+
+					if (enemyType == 0) {				//スピード型
+
+						_speed = 1.5;
+						_power = 10;
+						_durability = 50;
+
+						Enemys[num] = new Fairy_Speed(_speed,_power,_durability,_direction);        //生成処理
+
+						waitCount = 0;
+						break;								//一体生成したら抜ける
+					}
+
+					if (enemyType == 1) {				//体力型
+
+						_speed = 1;
+						_power =10;
+						_durability = 100;
+
+						Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);        //生成処理
+
+						waitCount = 0;
+						break;								//一体生成したら抜ける
+					}
+				}
+			}
+
+
+			for (int num = enemyNum; num < enemyNum + addEnemyNum; num++) {    //追加分動かす
+
+				_direction = GetRand(4);				//ランダムな出現方向
+
+				if (_castle->Get_IsActive(_direction) == false){
+
+					if (Enemys[num] == NULL) {      //NULLの場合生成開始
+
+						activeCount++;				//生成カウント加
+
+						if (enemyType == 0) {            //スピード型
+
+							_speed = 1.5;
+							_power = 10;
+							_durability = 50;
+
+							Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _direction);        //生成処理
+
+							waitCount = 0;
+							break;      //一体生成したら抜ける
+						}
+
+						if (enemyType == 1) {            //耐久型
+
+							_speed = 1;
+							_power = 10;
+							_durability = 100;
+
+							Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);        //生成処理
+
+							waitCount = 0;
+							break;      //一体生成したら抜ける
+						}
+					}
+				}
+			}
+
+
 		}
 	}
 }
@@ -142,7 +199,7 @@ void EnemyManager::Set_height(int num,float _height) {
 }
 
 int EnemyManager::Get_enemyNum() {
-	return enemyNum;
+	return enemyNum + addEnemyNum;
 }
 
 int EnemyManager::Get_ActiveCount() {
