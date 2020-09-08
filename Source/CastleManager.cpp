@@ -27,7 +27,6 @@ CastleManager::CastleManager() {
 		}
 	}
 
-	popEnemyNum = 0;
 	activeCount = 0;
 }
 
@@ -38,7 +37,6 @@ CastleManager::~CastleManager() {
 		delete Castles[num];    //デリート処理
 	}
 }
-
 
 void CastleManager::Update(EnemyManager*_enemy)
 {
@@ -54,7 +52,6 @@ void CastleManager::Update(EnemyManager*_enemy)
 				//一回だけ処理させたいので
 				if (activeCountFlg[i] == true)
 				{
-					popEnemyNum += 2;             //追加分で生成する敵を設定する
 					activeCount--;                //アクティブな拠点の数を減らす
 					activeCountFlg[i] = false;    //一回以上処理させない用のフラグ
 				}

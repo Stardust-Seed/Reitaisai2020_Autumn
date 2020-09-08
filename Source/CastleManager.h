@@ -18,7 +18,6 @@ private:
 
 	int durability;
 	int activeCount;
-	int popEnemyNum;
 
 	bool activeCountFlg[POPCASTLE];
 
