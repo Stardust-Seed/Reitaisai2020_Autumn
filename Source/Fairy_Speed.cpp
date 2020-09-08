@@ -26,7 +26,11 @@ void Fairy_Speed::Update(Castle* _castle, BasePlayer* _player, BulletManager* _b
 
 	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
 		_player);
-	SearchCastle(_castle->Get_x(), _castle->Get_y(), _castle->Get_width(), _castle->Get_height());
+
+	for (int i = 0; i < _castle->Get_CastleNum(); i++) {
+		SearchCastle(_castle->Get_X(i), _castle->Get_Y(i),
+			_castle->Get_Width(i), _castle->Get_Height(i), _castle->Get_IsActive(i));
+	}
 
 	Move();
 
