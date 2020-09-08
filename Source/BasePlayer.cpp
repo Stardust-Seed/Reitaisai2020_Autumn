@@ -14,16 +14,17 @@ BasePlayer::BasePlayer()
 	width = 48;
 	height = 48;
 
-	speed = 3;
-	power = 25;
-	stanTime = 0;
-	stanTime_stay = 360;
+	speed = 3;					//移動速度
+	power = 25;					//攻撃力 
+	SkilCount = 5;				//スキル回数
+	stanTime = 0;				//スタンタイム
+	stanTime_stay = 360;		//スタン再発動までの時間
 
 	AttackTime = 0;
 
-	PlayerPos = 0;	//最初は左
+	PlayerPos = 0;			//最初は左
 
-	isMove = 4;   //初期は4
+	isMove = 4;				//初期は4 ※4は何もしてない状態。詳しくはヘッダー参照
 	isMoveKey = false;
 	isOps = false;
 	isOps_RUN = false;
@@ -35,8 +36,11 @@ BasePlayer::BasePlayer()
 	isAttack = false;
 	isStan = false;
 	isStan_Next = false;
+	Skil_isActive = false;
 
-	Now_Move = 0;
+	Now_Move = 0;			//現在移動を行っているかどうかのフラグ
+
+	LoadGraphData();
 }
 BasePlayer::~BasePlayer()
 {
@@ -46,6 +50,11 @@ void BasePlayer::Draw()
 {
 	//自機の描画
 	DrawBox(pos.x, pos.y, pos.x + width, pos.y + height, GetColor(0, 255, 0), TRUE);
+
+}
+void BasePlayer::LoadGraphData()
+{
+	handle[SAKUYA_GRAPH1] = LoadGraph("res/Image/sakuya.png");
 
 }
 void BasePlayer::Update(EnemyManager* _eManager)

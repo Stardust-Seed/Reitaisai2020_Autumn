@@ -20,6 +20,7 @@ class BasePlayer :public Object
 	BaseEnemy* baseEnemy;
 
 private:
+
 	const float PLAYER_SPOWNPOSX = 300;	    //プレイヤーの初期位置_X
 	const float PLAYER_SPOWNPOSY = 356;	    //プレイヤーの初期位置_Y
 
@@ -32,12 +33,6 @@ private:
 	const float PLAYER_LEFTPOS = 392;       //プレイヤーの左の位置
 
 	const float PLAYER_RIGHTPOS = 584;      //プレイヤーの右の位置
-
-	//DXライブラリで定義されている構造体
-	//中身はfloat型の(x,y,z)
-	VECTOR pos;                     //プレイヤーの座標
-
-	VECTOR vPos;                    //プレイヤーを移動させるため
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
@@ -67,17 +62,42 @@ private:
 	bool isAttack;                  //攻撃フラグ
 	bool isStan;                    //スタン中かどうかのフラグ
 	bool isStan_Next;               //スタンが起こる状態かどうかのフラグ
+
 public:
+
+	//DXライブラリで定義されている構造体
+//中身はfloat型の(x,y,z)
+	VECTOR pos;                     //プレイヤーの座標
+
+	VECTOR vPos;                    //プレイヤーを移動させるため
+
+
+	//キャラクター画像
+	enum Player_Graph
+	{
+		//キャラ画像格納用
+		SAKUYA_GRAPH1,
+		FRAN_GRAPH1,
+		//キャラ画像サイズ
+		GRAPH_SIZE
+	};
+	int handle[GRAPH_SIZE];  //画像ハンドル
+
+	bool Skil_isActive;      //スキルが発動している状態かどうか
+	int  SkilCount;          //スキル回数
+
 	//当たり判定
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);
 
 	BasePlayer();		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
-	void Draw();           //描画処理
+	void Draw();   //描画処理
 
 	//更新処理
-	void Update(EnemyManager* _eManager);
+	virtual void Update(EnemyManager* _eManager);
+
+	void LoadGraphData();      //キャラ画像読み込み
 
 	void Move();           //移動処理
 	void Move_UP();        //↑移動処理
@@ -91,8 +111,8 @@ public:
 	//スタン処理
 	void Stan();           
 
-	void Set_x(float _x) { pos.x = _x; }                        //セッター
-	void Set_y(float _y) { pos.y = _y; }                        //セッター
+	void Set_x(float _x) { pos.x = _x; }                    //セッター
+	void Set_y(float _y) { pos.y = _y; }                    //セッター
 	void Set_width(float _width) { width = _width; }        //セッター
 	void Set_height(float _height) { height = _height; }    //セッター
 
@@ -101,15 +121,14 @@ public:
 	float Get_width() { return width; }                     //widthゲッター
 	float Get_height() { return height; }                   //heightゲッター
 
-	int  Get_power() { return power; }        //攻撃力ゲッター
+	int  Get_power() { return power; }                      //攻撃力ゲッター
+	int  Get_SkilCount() { return SkilCount; }              //スキル時間のゲッター
 
 	bool Get_isStan() { return isStan; }                    //スタン状態ゲッター
+	bool Get_SkilActive() { return Skil_isActive; }           //スキルのActiveのゲッター
+	
+	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }//bulletManagerのアドレスを取得
 
-	//bulletManagerのアドレスを取得
-	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }
-
-	//EnemyManagerのアドレスを取得
-	//void SetEnemyManager(EnemyManager* eManager) { enemyManager = eManager; }
 
 };
 
