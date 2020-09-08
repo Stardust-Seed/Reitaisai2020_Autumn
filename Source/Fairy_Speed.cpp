@@ -3,14 +3,14 @@
 
 #include "BasePlayer.h"
 #include "BulletManager.h"
-#include "Castle.h"
+#include "CastleManager.h"
 
 Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, int _direction)
 	:BaseEnemy(_speed, _power, _durability, _direction) {
 
 }
 
-void Fairy_Speed::Update(Castle* _castle, BasePlayer* _player, BulletManager* _bulletManager) {
+void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager) {
 
 	for (int i = 0; i < _bulletManager->Get_MaxBullet(); i++) {
 		if (_bulletManager->Get_IsActive(i) == true) {
@@ -27,9 +27,9 @@ void Fairy_Speed::Update(Castle* _castle, BasePlayer* _player, BulletManager* _b
 	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
 		_player);
 
-	for (int i = 0; i < _castle->Get_CastleNum(); i++) {
-		SearchCastle(_castle->Get_X(i), _castle->Get_Y(i),
-			_castle->Get_Width(i), _castle->Get_Height(i), _castle->Get_IsActive(i));
+	for (int i = 0; i < _castleManager->Get_CastleNum(); i++) {
+		SearchCastle(_castleManager->Get_X(i), _castleManager->Get_Y(i),
+			_castleManager->Get_Width(i), _castleManager->Get_Height(i), _castleManager->Get_IsActive(i));
 	}
 
 	Move();

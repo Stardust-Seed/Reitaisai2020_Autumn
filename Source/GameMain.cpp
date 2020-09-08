@@ -43,6 +43,10 @@ bool GameMain::GameLoop() {
 
 	Input::Instance()->UpdateKey();
 
+	if (Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) != 0) {
+		return false;
+	}
+
 	sManager.Update();
 	sManager.Draw();
 

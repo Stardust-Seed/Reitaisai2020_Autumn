@@ -3,7 +3,7 @@
 
 #include "Object.h"
 
-class Castle;
+class CastleManager;
 class BasePlayer;
 class BulletManager;
 
@@ -51,7 +51,7 @@ public:
 	BaseEnemy(float _speed, float _power, int _durability, int _direction);
 	BaseEnemy(float _speed, float _power, int _durability, int _direction, float _x, float _y);
 
-	virtual void Update(Castle* _castle, BasePlayer* _player,
+	virtual void Update(CastleManager* _castleManager, BasePlayer* _player,
 		BulletManager* _bulletManager) {}							//XVˆ—
 	virtual void Draw() {}											//•`‰æˆ—
 
