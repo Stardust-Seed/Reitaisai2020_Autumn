@@ -1,8 +1,6 @@
 #include <DxLib.h>
 #include "Bomb.h"
 
-#include "Castle.h"
-
 Bomb::Bomb()
 	: BaseBomb()
 {
@@ -14,7 +12,7 @@ void Bomb::DamageMotion()
 	
 	if (isTrigger == true)
 	{
-		damage = 10;
+		damage = BOMBDAMAGE;
 		DrawFormatString(700, 170, GetColor(255, 255, 255), "%d", damage);
 		DrawString(700, 350, "–{•¨", GetColor(255, 255, 255));
 
@@ -23,6 +21,7 @@ void Bomb::DamageMotion()
 
 void Bomb::Update()
 {
+	SpawnBomb();
 	Move();
 	JudgeTrigger();
 	DamageMotion();

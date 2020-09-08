@@ -1,6 +1,11 @@
 #ifndef _BASEBOMB_H
 #define _BASEBOMB_H
 
+enum eBombType {
+	bomb,
+	fakebomb,
+};
+
 class BaseBomb
 {
 protected:
@@ -24,6 +29,7 @@ protected:
 	float speed;		//爆弾が落下するスピード
 	float x;
 	float y;
+	int time;
 	int damage;			//爆弾のダメージ
 	int countdown;		//カウントダウン
 	int direction;		//爆弾が落ちる方向

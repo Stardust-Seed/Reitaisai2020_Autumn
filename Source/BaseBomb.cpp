@@ -51,9 +51,6 @@ void BaseBomb::SpawnBomb()
 //”š’e—‰º
 void BaseBomb::Move()
 {
-	
-	SpawnBomb();				//”š’e¶¬
-
 	if (direction == DIRECTIONLEFT)			//¶
 	{
 		y += speed;
