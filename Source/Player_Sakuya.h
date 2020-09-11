@@ -9,13 +9,7 @@ class EnemyManager;
 class Sakuya :public virtual BasePlayer
 {
 private:
-
-	static const int FRAME = 60;	//フレームレート
-	const int STOPTIME = 5;         //時止めスキルの時間]
-
-	int speed;		                //プレイヤーの移動速度
-	int power;		                //プレイヤーの攻撃力
-	int attackTime;                 //攻撃間隔
+	const int STOPTIME = 5;         //時止めスキルの時間
 
 	int abilityTimer;                  //スキル発動時間
 

@@ -1,5 +1,6 @@
 #include"Player_Sakuya.h"
 #include"Input.h"
+#include"Define.h"
 
 Sakuya::Sakuya()
 {
@@ -7,10 +8,10 @@ Sakuya::Sakuya()
 	power = 400;		            //プレイヤーの攻撃力
 	attackTime = 0;                 //攻撃間隔
 
-	abilityTimer = STOPTIME;               //スキル時間タイマー
+	color = GetColor(255, 0, 0);    //色
 
-	color = GetColor(255, 0, 0);		//色
-
+	abilityTimer = STOPTIME;        //スキル時間タイマー
+	abilityCount = 3;               //スキル使用回数
 	countDown = FRAME;              //スキルタイマーを減らすのに使う
 }
 Sakuya::~Sakuya()
@@ -35,9 +36,9 @@ void Sakuya::SkilClock()
 }
 void Sakuya::Update()
 {
+	Ability();                          //スキル
 	if (Get_isAbility() == true) {
 
-		Ability();                         //スキル
 		SkilClock();                    //スキルタイマーの表示
 
 		if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
