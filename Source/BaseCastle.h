@@ -2,7 +2,7 @@
 #define _BASECASTLE_H
 
 #include "Object.h"
-
+#include "Direction.h"
 /*-------------------------------------------------------------
 オブジェクト名    BaseCastle
 概要    拠点の元になるオブジェクト
@@ -19,7 +19,7 @@ protected:
 	static const int MAX_DURABILITY;		//最大耐久力			
 
 	int durability;		                    //拠点の体力
-	int direction;
+	eDirection direction;
 	bool isActive;		                    //拠点の生存フラグ
 
 public:
@@ -50,7 +50,7 @@ public:
 	float Get_Width() { return width; }
 	float Get_Height() { return height; }
 
-	int Get_CastleDirection() { return direction; }
+	eDirection Get_CastleDirection() { return direction; }
 };
 
 #endif //_BASECASTLE_H_
