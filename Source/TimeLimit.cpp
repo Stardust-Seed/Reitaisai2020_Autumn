@@ -28,6 +28,6 @@ void TimeLimit::CountDown() {
 	timer -= 1;												//カウントダウン
 }
 
-int TimeLimit::Get_finishTime() {
+bool TimeLimit::Get_finishTime() {
 	return finishTime;
 }
