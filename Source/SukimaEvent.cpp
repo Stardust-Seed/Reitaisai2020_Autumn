@@ -1,13 +1,14 @@
 #include "DxLib.h"
 #include "SukimaEvent.h"
 #include "EnemyManager.h"
+
 //コンストラクタ
 SukimaEvent::SukimaEvent() {
 	SRand;					//乱数初期化
 
 	warpPosX = 0;
     warpPosY = 0;
-	width = 48;
+	width = 60;
 	height = width;
 	cnt = 0;
 	isHit = false;
@@ -75,7 +76,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			case 0:    //左側
 				enemy->Set_x(num, LEFT_X+100);
 				enemy->Set_y(num, LEFT_Y);
-				enemy->Set_A(num, 0);
+				enemy->Set_A(num, eDirection::Left);
 				warpPosX = LEFT_X;
 				warpPosY = LEFT_Y;
 				break;
@@ -83,7 +84,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			case 1:    //右側
 				enemy->Set_x(num, RIGHT_X-100);
 				enemy->Set_y(num, RIGHT_Y);
-				enemy->Set_A(num, 1);
+				enemy->Set_A(num, eDirection::Right);
 				warpPosX = RIGHT_X;
 				warpPosY = RIGHT_Y;
 				break;
@@ -91,7 +92,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			case 2:    //上側
 				enemy->Set_x(num, UP_X);
 				enemy->Set_y(num, UP_Y + 100);
-				enemy->Set_A(num, 2);
+				enemy->Set_A(num, eDirection::Up);
 				warpPosX = UP_X;
 				warpPosY = UP_Y;
 				break;
@@ -99,7 +100,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			case 3:    //下側
 				enemy->Set_x(num, DOWN_X);
 				enemy->Set_y(num, DOWN_Y - 100);
-				enemy->Set_A(num, 3);
+				enemy->Set_A(num, eDirection::Down);
 				warpPosX = DOWN_X;
 				warpPosY = DOWN_Y;
 				break;
@@ -114,7 +115,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 //描画
 void SukimaEvent::Draw()
 {
-	DrawBoxAA(x, y, x + width, y + height, GetColor(255, 0, 255), TRUE);
+	DrawBoxAA(x - width/2, y - height/2, x + width/2, y + height/2, GetColor(255, 0, 255), TRUE);
 }
 //当たり判定
 bool SukimaEvent:: ClisionHit(float mx, float my, float mw, float mh,

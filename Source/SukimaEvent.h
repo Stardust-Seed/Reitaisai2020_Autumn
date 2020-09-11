@@ -3,19 +3,24 @@
 
 #include <DxLib.h>
 #include "BaseEvent.h"
+#include "Define.h"
+#include "Direction.h"
 
 class EnemyManager;
 
 class SukimaEvent : public virtual BaseEvent {
 private:
-	static const int UP_X = 450;		//スキマの発生場所上
-	static const int UP_Y = 150;		//スキマの発生場所上
-	static const int DOWN_X = 450;	    //スキマの発生場所下
-	static const int DOWN_Y = 650;	    //スキマの発生場所下
-	static const int LEFT_X = 150;	    //スキマの発生場所左
-	static const int LEFT_Y = 350;      //スキマの発生場所左
-	static const int RIGHT_X = 750;	    //スキマの発生場所右
-	static const int RIGHT_Y = 350;     //スキマの発生場所右
+	static const int UP_X = GAME_WIDTH  / 2;		     //スキマの発生場所上
+	static const int UP_Y = GAME_HEIHGT / 2 - 300;		 //スキマの発生場所上
+
+	static const int DOWN_X = GAME_WIDTH  / 2;	         //スキマの発生場所下
+	static const int DOWN_Y = GAME_HEIHGT / 2 + 300;	 //スキマの発生場所下
+
+	static const int LEFT_X = GAME_WIDTH  / 2 - 300;	 //スキマの発生場所左
+	static const int LEFT_Y = GAME_HEIHGT / 2;           //スキマの発生場所左
+
+	static const int RIGHT_X = GAME_WIDTH  / 2 + 300;    //スキマの発生場所右
+	static const int RIGHT_Y = GAME_HEIHGT / 2;          //スキマの発生場所右
 
 	//object継承してないので
 	float x;
@@ -27,6 +32,7 @@ private:
 	float warpPosX;
 	float warpPosY;
 
+	int cnt;
 	bool isHit;
 public:
 	SukimaEvent();
