@@ -29,10 +29,12 @@ void GameScene::Update()
 
 	//•\Ž¦‚·‚é‚Ì‚ª’†ŠÔ‚Ì“z‚ç
 	enemyManager->Update(castleManager, player, bulletManager, itemManager);
-	player->Update(enemyManager);
+	player->Update(enemyManager,buffManager);
 	bulletManager->Update(enemyManager);
 
 	//•\Ž¦‚·‚é‚Ì‚ª‘O‚Ì•û‚Ì“z‚ç
+	itemManager->Update(player);
+	buffManager->Update(itemManager,enemyManager);
 	timeLimit->Update();
 	ui->Update(castleManager);
 
@@ -52,6 +54,7 @@ void GameScene::Draw()
 	bulletManager->Draw();
 
 	//•\Ž¦‚·‚é‚Ì‚ª‘O‚Ì•û‚Ì“z‚ç
+	itemManager->Draw();
 	timeLimit->Draw();
 	ui->Draw();
 }
