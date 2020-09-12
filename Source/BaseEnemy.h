@@ -31,11 +31,6 @@ protected:
 	static const float ENEMY_SPAWNXDOWN;	//エネミーの初期位置X下
 	static const float ENEMY_SPAWNYDOWN;	//エネミーの初期位置Y下
 
-	static const int DIRECTIONLEFT;		//左方向
-	static const int DIRECTIONRIGHT;	//右方向
-	static const int DIRECTIONUP;		//上方向
-	static const int DIRECTIONDOWN;		//下方向
-
 	float speed;		//エネミーの移動速度
 	float power;		//エネミーの攻撃力
 	int durability;		//エネミーの体力

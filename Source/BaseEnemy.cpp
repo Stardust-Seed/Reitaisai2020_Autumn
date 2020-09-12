@@ -11,10 +11,6 @@ const float BaseEnemy::ENEMY_SPAWNXRIGHT = 894;
 const float BaseEnemy::ENEMY_SPAWNYRIGHT = 360;
 const float BaseEnemy::ENEMY_SPAWNXDOWN = 488;
 const float BaseEnemy::ENEMY_SPAWNYDOWN = 816;
-const int BaseEnemy::DIRECTIONLEFT = 0;
-const int BaseEnemy::DIRECTIONRIGHT = 1;
-const int BaseEnemy::DIRECTIONUP = 2;
-const int BaseEnemy::DIRECTIONDOWN = 3;
 
 //通常スポーン用のコンストラクタ
 BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction) {
