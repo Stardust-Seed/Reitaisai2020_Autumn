@@ -17,7 +17,7 @@ const int BaseEnemy::DIRECTIONUP = 2;
 const int BaseEnemy::DIRECTIONDOWN = 3;
 
 //通常スポーン用のコンストラクタ
-BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction) {
+BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction) {
 	speed = _speed;
 	power = _power;
 	durability = _durability;
@@ -27,22 +27,22 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction
 	isHit = false;
 	inactiveType = eInactiveType::None;
 
-	if (direction == DIRECTIONLEFT) {
+	if (direction == eDirection::Left) {
 		x = ENEMY_SPAWNXLEFT;
 		y = ENEMY_SPAWNYLEFT;
 	}
 
-	if (direction == DIRECTIONRIGHT) {
+	if (direction == eDirection::Right) {
 		x = ENEMY_SPAWNXRIGHT;
 		y = ENEMY_SPAWNYRIGHT;
 	}
 
-	if (direction == DIRECTIONUP) {
+	if (direction == eDirection::Up) {
 		x = ENEMY_SPAWNXUP;
 		y = ENEMY_SPAWNYUP;
 	}
 
-	if (direction == DIRECTIONDOWN) {
+	if (direction == eDirection::Down) {
 		x = ENEMY_SPAWNXDOWN;
 		y = ENEMY_SPAWNYDOWN;
 	}
@@ -52,7 +52,7 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction
 }
 
 //サブ拠点用のコンストラクタ
-BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction, float _x, float _y) {
+BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction, float _x, float _y) {
 	speed = _speed;
 	power = _power;
 	durability = _durability;
@@ -75,19 +75,19 @@ void BaseEnemy::Move() {
 		return;
 	}
 
-	if (direction == DIRECTIONLEFT) {
+	if (direction == eDirection::Left) {
 		x += speed;
 	}
 
-	if (direction == DIRECTIONRIGHT) {
+	if (direction == eDirection::Down) {
 		x -= speed;
 	}
 
-	if (direction == DIRECTIONUP) {
+	if (direction == eDirection::Up) {
 		y += speed;
 	}
 
-	if (direction == DIRECTIONDOWN) {
+	if (direction == eDirection::Down) {
 		y -= speed;
 	}
 
