@@ -71,17 +71,13 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 				_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
 			{
 				isStan = true;   //スタンは少ししてから解除されるので
-				isHit = true;    //バフレベルダウン用にisHitを使う。
 			}
 		}
-	}
-	if (isHit == true)
-	{
-		//_bManager->DownBuffLevel();  バフレベルダウン
 	}
 	if (isStan == true && isStan_Next == true)
 	{
 		Stan();
+	  //_bManager->DownBuffLevel();  バフレベルダウン
 	}
 	//スタンが解除されたら次にスタンが起こる時間をプラス
 	if (isStan == false)
