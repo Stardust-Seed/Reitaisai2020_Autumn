@@ -1,11 +1,12 @@
 #include"DxLib.h"
+#include"Define.h"
 #include"Input.h"
 #include"BasePlayer.h"
 #include"BaseEnemy.h"
 #include"BulletManager.h"
 #include"EnemyManager.h"
 
-BasePlayer::BasePlayer()
+BasePlayer::BasePlayer(enum PlayerType _pType, enum AbilityType _pAbility)
 {
 
 	pos = VGet(PLAYER_LEFTPOS, PLAYER_LEFTRIGHTPOS, 0);
@@ -15,8 +16,8 @@ BasePlayer::BasePlayer()
 	height = 48;
 
 	speed = 3;					//移動速度
-	power = 25;					//攻撃力 
-	abilityCount = 5;				//スキル回数
+	power = 25;					//攻撃力
+	abilityCount = 5;		    //スキル回数
 	stanTime = 0;				//スタンタイム
 	stanTime_stay = 360;		//スタン再発動までの時間
 
@@ -40,8 +41,8 @@ BasePlayer::BasePlayer()
 
 	now_Move = 0;			//現在移動を行っているかどうかのフラグ
 
-	playerType = SAKUYA;
-	abilityType = SAKUYA_Ability; //まだキャラ選択できないので今は咲夜
+	playerType  = _pType;
+	abilityType = _pAbility; //まだキャラ選択できないので今は咲夜
 }
 BasePlayer::~BasePlayer()
 {
@@ -51,10 +52,11 @@ void BasePlayer::Draw()
 {
 	//自機の描画
 	DrawBox(pos.x, pos.y, pos.x + width, pos.y + height, GetColor(0, 255, 0), TRUE);
-
 }
-void BasePlayer::Update(EnemyManager* _eManager)
+void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 {
+	//power *= _bManager->GetPowerBuff();   バフによる攻撃力増加
+	//speed *= _bManager->GetSpeedBuff();   バフによるスピード増加
 
 	//スタン状態でない時
 	if (isStan == 0) {
@@ -68,11 +70,15 @@ void BasePlayer::Update(EnemyManager* _eManager)
 			if (ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
 				_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
 			{
-				isStan = true;
+				isStan = true;   //スタンは少ししてから解除されるので
+				isHit = true;    //バフレベルダウン用にisHitを使う。
 			}
 		}
 	}
-
+	if (isHit == true)
+	{
+		//_bManager->DownBuffLevel();  バフレベルダウン
+	}
 	if (isStan == true && isStan_Next == true)
 	{
 		Stan();
@@ -499,12 +505,12 @@ void BasePlayer::Move_RIGHT()
 		if (pos.x <= PLAYER_RIGHTPOS) {
 
 			pos.x += speed;
-			//x2 += speed;
+
 		}
 		if (pos.x >= PLAYER_RIGHTPOS && pos.y >= PLAYER_LEFTRIGHTPOS) {
 
 			pos.y -= speed;
-			//y2 -= speed;
+
 		}
 		if (pos.y <= PLAYER_LEFTRIGHTPOS && pos.x >= PLAYER_RIGHTPOS) {
 

@@ -5,28 +5,32 @@
 #include"DxLib.h"
 
 class BulletManager;
+class BuffManager;
 class EnemyManager;
 class BaseEnemy;
 
-typedef enum
+enum PlayerType
 {
 	//キャラクター
 	SAKUYA,     //咲夜
 	FRAN        //フラン
-}PlayerType;
+};
 
 //キャラクタースキルタイプ
-typedef enum
+enum AbilityType
 {
 	//キャラのスキルタイプ
 	SAKUYA_Ability,         //咲夜のスキル
 	FRAN_Ability            //フランのスキル
-}isAbilityType;
+};
 
 class BasePlayer :public virtual Object
 {
 	//弾管理のポインタ変数
 	BulletManager* bulletManager;
+
+	//バフ管理のポインタ変数
+	BuffManager* buffManager;
 
 	//エネミー管理のポインタ変数
 	EnemyManager* enemyManager;
@@ -38,22 +42,22 @@ class BasePlayer :public virtual Object
 	PlayerType playerType;
 
 	//キャラのアビリティ
-	isAbilityType abilityType;
+	AbilityType abilityType;
 
 protected:
 
-	const float PLAYER_SPOWNPOSX = 300;	    //プレイヤーの初期位置_X
-	const float PLAYER_SPOWNPOSY = 356;	    //プレイヤーの初期位置_Y
+	const float PLAYER_SPOWNPOSX = 846;	    //プレイヤーの初期位置_X
+	const float PLAYER_SPOWNPOSY = 516;	    //プレイヤーの初期位置_Y
 
-	const float PLAYER_UPDOWNPOSX = 488;    //プレイヤーの上と下の位置X
+	const float PLAYER_UPDOWNPOSX = 936;    //プレイヤーの上と下の位置X
 
-	const float PLAYER_UPPOSY = 264;    //プレイヤーの上の位置Y
-	const float PLAYER_DOWNPOSY = 456;      //プレイヤーの下の位置Y
+	const float PLAYER_UPPOSY = 426;    //プレイヤーの上の位置Y
+	const float PLAYER_DOWNPOSY = 606;      //プレイヤーの下の位置Y
 
-	const float PLAYER_LEFTRIGHTPOS = 360;  //プレイヤーの左と右の高さ
-	const float PLAYER_LEFTPOS = 392;       //プレイヤーの左の位置
+	const float PLAYER_LEFTRIGHTPOS = 516;  //プレイヤーの左と右の高さ
+	const float PLAYER_LEFTPOS = 846;       //プレイヤーの左の位置
 
-	const float PLAYER_RIGHTPOS = 584;      //プレイヤーの右の位置
+	const float PLAYER_RIGHTPOS = 1026;      //プレイヤーの右の位置
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
@@ -99,12 +103,12 @@ public:
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);
 
-	BasePlayer();		   //コンストラクタ
+	BasePlayer( enum PlayerType _pType,enum AbilityType _pAbility);		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
 	void Draw();           //描画処理
 
 	//更新処理
-    void Update(EnemyManager* _eManager);
+	void Update(EnemyManager* _eManager,BuffManager* _bManager);
 
 	void Move();           //移動処理
 	void Move_UP();        //↑移動処理
@@ -138,7 +142,7 @@ public:
 	
 	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }//bulletManagerのアドレスを取得
 
-	isAbilityType Get_AbilityType() { return abilityType; }  //スキルタイプのゲッター
+	AbilityType Get_AbilityType() { return abilityType; }  //スキルタイプのゲッター
 };
 
 
