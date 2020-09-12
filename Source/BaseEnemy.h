@@ -76,6 +76,7 @@ public:
 	float GetPower() { return power; }							//エネミーの攻撃力を取得する
 	bool GetIsActive() { return isActive; }						//生存フラグを取得する
 	bool GetIsAttack() { return isAttack; }						//アタックフラグを取得する
+	eDirection GetDirection() { return direction; }				//方向を取得する
 	eInactiveType GetInactiveType() { return inactiveType; }	//非アクティブのタイプを取得する
 	
 	bool ClisionHit(float mx, float my, float mw, float mh,
