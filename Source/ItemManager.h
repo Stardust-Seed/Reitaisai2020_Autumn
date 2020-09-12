@@ -4,14 +4,17 @@
 #include "BaseItem.h"
 
 class BasePlayer;
+class BuffManager;
 
 /// <summary>
 /// ItemManager class
 /// </summary>
 class ItemManager final {
 private:
-	static const int MAX_ITEM_NUM = 50;				//アイテムの画面上最大生成数
-	static const int ITEM_GENERATION_RATE = 100;	//アイテムの生成率
+	static const int MAX_ITEM_NUM = 50;			//アイテムの画面上最大生成数
+	const int ITEM_GENERATION_RANDMAX = 100;	//アイテムの生成用RANDMAX
+	const int ITEM_GENERATION_RATE = 100;		//アイテムの生成率
+	const int ITEM_TYPE_NUM = 2;				//アイテムの種類の数
 
 	BaseItem* items[MAX_ITEM_NUM];	//アイテム
 
@@ -32,7 +35,8 @@ public:
 	/// 更新処理
 	/// </summary>
 	/// <param name="_player">プレイヤー情報</param>
-	void Update(BasePlayer* _player);
+	/// <param name="_buffManager">バフマネージャー情報</param>
+	void Update(BasePlayer* _player, BuffManager* _buffManger);
 
 	/// <summary>
 	/// 描画処理
