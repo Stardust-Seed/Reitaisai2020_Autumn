@@ -1,16 +1,17 @@
 #include <DxLib.h>
+#include "Define.h"
 #include "BaseEnemy.h"
 #include "BasePlayer.h"
 #include "BulletManager.h"
 
-const float BaseEnemy::ENEMY_SPAWNXLEFT = 82;
-const float BaseEnemy::ENEMY_SPAWNYLEFT = 360;
-const float BaseEnemy::ENEMY_SPAWNXUP = 488;
-const float BaseEnemy::ENEMY_SPAWNYUP = -48;
-const float BaseEnemy::ENEMY_SPAWNXRIGHT = 894;
-const float BaseEnemy::ENEMY_SPAWNYRIGHT = 360;
-const float BaseEnemy::ENEMY_SPAWNXDOWN = 488;
-const float BaseEnemy::ENEMY_SPAWNYDOWN = 816;
+const float BaseEnemy::ENEMY_SPAWNXLEFT = 420;
+const float BaseEnemy::ENEMY_SPAWNYLEFT = (GAME_HEIHGT / 2) + (48 / 2);
+const float BaseEnemy::ENEMY_SPAWNXUP = (GAME_WIDTH / 2) + (48 / 2);
+const float BaseEnemy::ENEMY_SPAWNYUP = 0 - 48;
+const float BaseEnemy::ENEMY_SPAWNXRIGHT = 1500;
+const float BaseEnemy::ENEMY_SPAWNYRIGHT = (GAME_HEIHGT / 2) + (48 / 2);
+const float BaseEnemy::ENEMY_SPAWNXDOWN = (GAME_WIDTH / 2) + (48 / 2);
+const float BaseEnemy::ENEMY_SPAWNYDOWN = GAME_HEIHGT + 48;
 
 //通常スポーン用のコンストラクタ
 BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction) {
