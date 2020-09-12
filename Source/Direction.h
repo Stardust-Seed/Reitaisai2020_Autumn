@@ -5,6 +5,7 @@
 /// •ûŒü
 /// </summary>
 enum class eDirection {
+	None,   //‚Ç‚ê‚Å‚à‚È‚¢
 	Left,	//¶
 	Right,	//‰E
 	Up,		//ã
