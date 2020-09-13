@@ -27,6 +27,26 @@ void UI::Get_CastleDurability()
 	}
 }
 
+void UI::Get_BuffPoint() 
+{
+	//Pアイテム
+	DrawBox(PMOJI_X, PMOJI_Y, PBAR_X1, PMOJI_Y + 20, GetColor(255, 255, 255), FALSE);										//文字
+	DrawFormatString(PMOJI_X + 10, PMOJI_Y + 2, GetColor(255, 255, 255), "PLv%d", pBuffLevel);
+
+	DrawBox(PBAR_X, PBAR_Y, PBAR_X1 + 200, PBAR_Y1 + 20, GetColor(255, 255, 255), FALSE);									//枠
+	
+	DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1 + 200 * pBuffPoint / MAX_BUFF, PGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);	//ゲージ
+	
+	//Sアイテム
+	DrawBox(SMOJI_X, SMOJI_Y, SBAR_X1, SMOJI_Y + 20, GetColor(255, 255, 255), FALSE);										//文字
+	DrawFormatString(SMOJI_X + 10, SMOJI_Y + 2, GetColor(255, 255, 255), "SLv%d", sBuffLevel);
+
+	DrawBox(SBAR_X, SBAR_Y, SBAR_X1 + 200, SBAR_Y1 + 20, GetColor(255, 255, 255), FALSE);									//枠
+
+	DrawBox(SGAUGE_X, SGAUGE_Y, SGAUGE_X1 + 200 * sBuffPoint / MAX_BUFF, SGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);	//ゲージ
+
+}
+
 //操作説明
 void UI::PlayGuide()
 {
@@ -36,8 +56,12 @@ void UI::PlayGuide()
 }
 
 //更新
-void UI::Update(CastleManager* _castlemanager)
+void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager)
 {
+	pBuffPoint = _itemmanager->Get_P_Count();
+	sBuffPoint = _itemmanager->Get_S_Count();
+	pBuffLevel = _buffmanager->GetPowerLevel();
+	sBuffLevel = _buffmanager->GetSpeedLevel();
 	CastleDurability = _castlemanager->Get_Durability(0);		//拠点の体力をセットする
 }
 
@@ -45,5 +69,6 @@ void UI::Update(CastleManager* _castlemanager)
 void UI::Draw()
 {
 	Get_CastleDurability();
+	Get_BuffPoint();
 	PlayGuide();
 }
