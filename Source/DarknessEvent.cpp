@@ -1,8 +1,8 @@
 #include "DarknessEvent.h"
 
-DarknessEvent::DarknessEvent(){
+DarknessEvent::DarknessEvent() {
 	isActive = true;		//開始
-	phase = PHASE_START;	//開始フェーズ
+	nowPhase = PHASE_START;	//開始フェーズ
 	darkCount = 0;			//カウント初期化
 	opacity = 0;			//透明度初期化
 	darkImage = LoadGraph("./res/Image/darkness.png");	//画像格納
@@ -14,27 +14,27 @@ DarknessEvent::~DarknessEvent() {
 
 void DarknessEvent::Update() {
 
-	if (phase == PHASE_START && opacity <= MAX_OPACITY) {	//開始フェーズ　不透明度を上げる
-			opacity += 2;	//不透明度加算
+	if (nowPhase == PHASE_START && opacity <= MAX_OPACITY) {	//開始フェーズ　不透明度を上げる
+		opacity += 2;	//不透明度加算
 	}
-	else if (phase == PHASE_START && opacity >= MAX_OPACITY) {
+	else if (nowPhase == PHASE_START && opacity >= MAX_OPACITY) {
 		opacity = MAX_OPACITY;	//超過しててもここで合わせる
-		phase = PHASE_DARK;		//次のフェーズ
+		nowPhase = PHASE_DARK;		//次のフェーズ
 	}
 
-	if (phase == PHASE_DARK) {								//維持フェーズ
+	if (nowPhase == PHASE_DARK) {								//維持フェーズ
 		if (darkCount <= MAX_DARKNESSTIME) {
 			darkCount++;									//カウント加算
 		}
 		else if (darkCount > MAX_DARKNESSTIME) {
-			phase = PHASE_END;								//次のフェーズ
+			nowPhase = PHASE_END;								//次のフェーズ
 		}
 	}
 
-	if (phase == PHASE_END && opacity > 0) {
+	if (nowPhase == PHASE_END && opacity > 0) {
 		opacity -= 2;		//不透明度減算
 	}
-	else if (phase == PHASE_END && opacity <= 0) {
+	else if (nowPhase == PHASE_END && opacity <= 0) {
 		opacity = 0;		//合わせる
 		isActive = false;
 	}
