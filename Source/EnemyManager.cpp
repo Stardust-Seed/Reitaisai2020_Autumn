@@ -88,9 +88,11 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 				if (Enemys[num] == NULL) {				//NULLの場合生成開始
 
-					activeCount++;			//生成カウント加算
+					activeCount++;						//生成カウント加算
 
 					_direction = GetRand(3);			//ランダムな出現方向	
+
+					direction = static_cast<eDirection>(_direction);	//int型からenumクラス型に変換
 
 					if (enemyType == 0) {				//スピード型
 
@@ -98,7 +100,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						_power = 10;
 						_durability = 50;
 
-						Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _direction);        //生成処理
+						Enemys[num] = new Fairy_Speed(_speed, _power, _durability, direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
@@ -110,7 +112,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						_power =10;
 						_durability = 100;
 
-						Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _direction);        //生成処理
+						Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
@@ -122,7 +124,9 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 				_direction = GetRand(4);				//ランダムな出現方向
 
-				if (_castle->Get_IsActive(_direction) == false) {
+				direction = static_cast<eDirection>(_direction);	//int型からenumクラス型に変換
+
+				if (_castle->Get_IsActive(direction) == false) {
 
 					if (Enemys[num] == NULL) {      //NULLの場合生成開始
 
@@ -134,8 +138,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							_power = 10;
 							_durability = 50;
 
-							Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _castle->Get_CastleDirection(_direction),
-								_castle->Get_X(_direction), _castle->Get_Y(_direction));        //生成処理
+							Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _castle->Get_CastleDirection(direction),
+								_castle->Get_X(direction), _castle->Get_Y(direction));        //生成処理
 
 							waitCount = 0;
 							break;      //一体生成したら抜ける
@@ -147,8 +151,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							_power = 10;
 							_durability = 100;
 
-							Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _castle->Get_CastleDirection(_direction),
-								_castle->Get_X(_direction), _castle->Get_Y(_direction));        //生成処理
+							Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _castle->Get_CastleDirection(direction),
+								_castle->Get_X(direction), _castle->Get_Y(direction));        //生成処理
 
 							waitCount = 0;
 							break;      //一体生成したら抜ける
@@ -194,6 +198,12 @@ void EnemyManager::Set_height(int num,float _height) {
 		if (Enemys[num] != NULL) {
 			Enemys[num]->Set_Height(_height);	
 		}
+}
+
+void EnemyManager::Set_direction(int num, eDirection _direction) {
+	if (Enemys[num] != NULL) {
+		Enemys[num]->SetDirection(_direction);
+	}
 }
 
 int EnemyManager::Get_enemyNum() {

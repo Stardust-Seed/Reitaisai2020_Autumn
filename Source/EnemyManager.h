@@ -5,6 +5,7 @@
 #include "Fairy_Speed.h"
 #include "CastleManager.h"
 #include "ItemManager.h"
+#include "Direction.h"
 
 class CastleManager;
 
@@ -35,6 +36,8 @@ private:
 	static const int ENEMY_TYPES = 2;		//現在のエネミーの種類
 
 	BaseEnemy* Enemys[MAX_ENEMY_NUM];			//エネミーオブジェクト配列
+
+	eDirection direction;						//方向の列挙クラス
 
 	int waitCount;					//生成待機用
 
@@ -68,6 +71,8 @@ public:
 	void Set_IsActive(int, bool);			//アクティブフラグのセッター
 
 	void Set_IsAttack(int, bool);			//攻撃フラグのセッター	
+
+	void Set_direction(int, eDirection);	//directionのセッター
 
 	void Set_x(int,float _x);				//x座標をセット
 
