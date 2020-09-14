@@ -176,6 +176,12 @@ void EnemyManager::Set_IsAttack(int num, bool _isAttack) {
 	}
 }
 
+void EnemyManager::Set_direction(int num, eDirection _direction) {
+	if (Enemys[num] != NULL) {
+		Enemys[num]->SetDirection(_direction);
+	}
+}
+
 void EnemyManager::Set_x(int num,float _x) {
 		if (Enemys[num] != NULL) {
 			Enemys[num]->Set_X(_x);			
@@ -198,12 +204,6 @@ void EnemyManager::Set_height(int num,float _height) {
 		if (Enemys[num] != NULL) {
 			Enemys[num]->Set_Height(_height);	
 		}
-}
-
-void EnemyManager::Set_direction(int num, eDirection _direction) {
-	if (Enemys[num] != NULL) {
-		Enemys[num]->SetDirection(_direction);
-	}
 }
 
 int EnemyManager::Get_enemyNum() {
