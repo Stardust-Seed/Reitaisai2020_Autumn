@@ -76,7 +76,7 @@ void BaseEnemy::Move() {
 		x += speed;
 	}
 
-	if (direction == eDirection::Down) {
+	if (direction == eDirection::Right) {
 		x -= speed;
 	}
 
