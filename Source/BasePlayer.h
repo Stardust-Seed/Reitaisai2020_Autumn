@@ -29,9 +29,6 @@ class BasePlayer :public virtual Object
 	//弾管理のポインタ変数
 	BulletManager* bulletManager;
 
-	//バフ管理のポインタ変数
-	BuffManager* buffManager;
-
 	//エネミー管理のポインタ変数
 	EnemyManager* enemyManager;
 
@@ -103,7 +100,7 @@ public:
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);
 
-	BasePlayer( enum PlayerType _pType,enum AbilityType _pAbility);		   //コンストラクタ
+	BasePlayer( PlayerType _pType, AbilityType _pAbility);		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
 	void Draw();           //描画処理
 
