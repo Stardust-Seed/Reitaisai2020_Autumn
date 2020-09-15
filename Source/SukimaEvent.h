@@ -1,7 +1,6 @@
 #ifndef _SUKIMAEVENT_H
 #define _SUKIMAEVENT_H
 
-#include <DxLib.h>
 #include "BaseEvent.h"
 #include "Define.h"
 #include "Direction.h"
