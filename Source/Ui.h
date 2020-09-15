@@ -21,7 +21,8 @@ private:
 	static const int HPGAUGE_Y = 10;
 	static const int HPGAUGE_X1 = 50;			//バーのｘ終点
 	static const int HPGAUGE_Y1 = 10;	
-	static const int MAX_DURABILTY = 100;		//拠点最大体力
+	static const int MAX_DURABILTY = 100;		//メイン拠点最大体力
+	static const int MAX_SABDURABILTY = 50;	//サブ拠点最大体力
 
 	static const int PMOJI_X = 1150;			//文字のｘ
 	static const int PMOJI_Y = 760;
@@ -56,9 +57,9 @@ private:
 	int Color;						//色
 
 public:
-	void Get_CastleDurability();		//拠点の体力を受け取る
+	void Get_CastleDurability();		//メイン拠点の体力UI
 	void Get_BuffPoint();
-	void PlayGuide();					//プレイヤーのガイド
+	void Get_SubCastleDurability();		//サブ拠点の体力UI 
 	void Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager);		//更新処理
 	void Draw();						//描画処理
 };
