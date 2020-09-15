@@ -148,7 +148,7 @@ eDirection CastleManager::Get_CastleDirection(int num)
 	}
 	else
 	{
-		return eDirection::Left;
+		return eDirection::None;
 	}
 }
 
