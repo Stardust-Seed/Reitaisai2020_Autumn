@@ -6,7 +6,7 @@
 #include"BulletManager.h"
 #include"EnemyManager.h"
 
-BasePlayer::BasePlayer(enum PlayerType _pType, enum AbilityType _pAbility)
+BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
 {
 
 	pos = VGet(PLAYER_LEFTPOS, PLAYER_LEFTRIGHTPOS, 0);
