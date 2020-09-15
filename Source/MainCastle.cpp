@@ -9,8 +9,8 @@ MainCastle::MainCastle(int _durability)
 	durability = _durability;
 	width = 120;
 	height = 120;
-	x = GAME_WIDTH / 2 - width / 2;       //452
-	y = GAME_HEIHGT / 2 - height / 2;     //324
+	x = GAME_WIDTH / 2 - width / 2;       //1920 / 2 - 120 / 2 = 900
+	y = GAME_HEIHGT / 2 - height / 2;     //1080 / 2 - 120 / 2 = 480
 
 }
 

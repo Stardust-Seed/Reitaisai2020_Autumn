@@ -1,6 +1,7 @@
 #ifndef _BASEENEMY_H
 #define _BASEENEMY_H
 
+#include "Direction.h"
 #include "Object.h"
 
 class CastleManager;
@@ -30,15 +31,11 @@ protected:
 	static const float ENEMY_SPAWNXDOWN;	//エネミーの初期位置X下
 	static const float ENEMY_SPAWNYDOWN;	//エネミーの初期位置Y下
 
-	static const int DIRECTIONLEFT;		//左方向
-	static const int DIRECTIONRIGHT;	//右方向
-	static const int DIRECTIONUP;		//上方向
-	static const int DIRECTIONDOWN;		//下方向
-
 	float speed;		//エネミーの移動速度
 	float power;		//エネミーの攻撃力
 	int durability;		//エネミーの体力
-	int direction;		//エネミーの進行方向
+	//int direction;		//エネミーの進行方向
+	eDirection direction;	//エネミーの進行方向
 
 	bool isAttack;		//エネミーの攻撃フラグ
 	bool isActive;		//エネミーの生存フラグ
@@ -48,8 +45,8 @@ protected:
 public:
 	BaseEnemy(){}
 	virtual ~BaseEnemy(){}
-	BaseEnemy(float _speed, float _power, int _durability, int _direction);
-	BaseEnemy(float _speed, float _power, int _durability, int _direction, float _x, float _y);
+	BaseEnemy(float _speed, float _power, int _durability, eDirection _direction);
+	BaseEnemy(float _speed, float _power, int _durability, eDirection _direction, float _x, float _y);
 
 	virtual void Update(CastleManager* _castleManager, BasePlayer* _player,
 		BulletManager* _bulletManager) {}							//更新処理
@@ -70,6 +67,7 @@ public:
 	void Set_Height(float _height) { height = _height; }		//heightを設定する
 	void SetIsAttack(bool _isAttack) { isAttack = _isAttack; }	//isAttackを設定する
 	void SetIsActive(bool _isActive) { isActive = _isActive; }	//isActiveを設定する
+	void SetDirection(eDirection _direction) { direction = _direction; }
 
 	float Get_X() { return x; }									//x座標を取得する
 	float Get_Y() { return y; }									//y座標を取得する
@@ -78,10 +76,11 @@ public:
 	float GetPower() { return power; }							//エネミーの攻撃力を取得する
 	bool GetIsActive() { return isActive; }						//生存フラグを取得する
 	bool GetIsAttack() { return isAttack; }						//アタックフラグを取得する
+	eDirection GetDirection() { return direction; }				//方向を取得する
 	eInactiveType GetInactiveType() { return inactiveType; }	//非アクティブのタイプを取得する
 	
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);			// m = my 自分   o = opnet 相手	//当たり判定処理
 };
 
-#endif _BASEENEMY_HS
+#endif _BASEENEMY_H

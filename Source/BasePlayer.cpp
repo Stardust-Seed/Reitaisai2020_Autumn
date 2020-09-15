@@ -1,11 +1,12 @@
 #include"DxLib.h"
+#include"Define.h"
 #include"Input.h"
 #include"BasePlayer.h"
 #include"BaseEnemy.h"
 #include"BulletManager.h"
 #include"EnemyManager.h"
 
-BasePlayer::BasePlayer()
+BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
 {
 
 	pos = VGet(PLAYER_LEFTPOS, PLAYER_LEFTRIGHTPOS, 0);
@@ -14,17 +15,19 @@ BasePlayer::BasePlayer()
 	width = 48;
 	height = 48;
 
-	speed = 3;					//�ړ����x
-	power = 25;					//�U���� 
-	abilityCount = 5;			//�X�L����
-	stanTime = 0;				//�X�^���^�C��
-	stanTime_stay = 360;		//�X�^���Ĕ����܂ł̎���
+	speed = 3;					//移動速度
+  
+	power = 25;					//攻撃力
+	abilityCount = 5;		    //スキル回数
+  
+	stanTime = 0;				//スタンタイム
+	stanTime_stay = 360;		//スタン再発動までの時間
 
 	attackTime = 0;
 
-	playerPos = 0;			//�ŏ��͍�
+	playerPos = 0;			//最初は左
 
-	isMove = 4;				//������4 ��4�͉������ĂȂ���ԁB�ڂ����̓w�b�_�[�Q��
+	isMove = 4;				//初期は4 ※4は何もしてない状態。詳しくはヘッダー参照
 	isMoveKey = false;
 	isOps = false;
 	isOps_RUN = false;
@@ -38,10 +41,10 @@ BasePlayer::BasePlayer()
 	isStan_Next = false;
 	isAbility = false;
 
-	now_Move = 0;			//���݈ړ����s���Ă��邩�ǂ����̃t���O
+	now_Move = 0;			//現在移動を行っているかどうかのフラグ
 
-	playerType = SAKUYA;
-	abilityType = SAKUYA_Ability; //�܂��L�����I���ł��Ȃ��̂ō��͍��
+	playerType  = _pType;
+	abilityType = _pAbility; //まだキャラ選択できないので今は咲夜
 }
 BasePlayer::~BasePlayer()
 {
@@ -49,35 +52,36 @@ BasePlayer::~BasePlayer()
 }
 void BasePlayer::Draw()
 {
-	//���@�̕`��
+	//自機の描画
 	DrawBox(pos.x, pos.y, pos.x + width, pos.y + height, GetColor(0, 255, 0), TRUE);
-
 }
-void BasePlayer::Update(EnemyManager* _eManager)
+void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 {
+	//power *= _bManager->GetPowerBuff();   バフによる攻撃力増加
+	//speed *= _bManager->GetSpeedBuff();   バフによるスピード増加
 
-	//�X�^����ԂłȂ���
+	//スタン状態でない時
 	if (isStan == 0) {
 
-		Move();    //�ړ�����
-		Attack();  //�U������
+		Move();    //移動処理
+		Attack();  //攻撃処理
 
 		for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
 
-			//�v���C���[���G�ɓ���������isStan��true�ɂ���
+			//プレイヤーが敵に当たったらisStanをtrueにする
 			if (ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
 				_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
 			{
-				isStan = true;
+				isStan = true;   //スタンは少ししてから解除されるので
 			}
 		}
 	}
-
 	if (isStan == true && isStan_Next == true)
 	{
 		Stan();
+	  //_bManager->DownBuffLevel();  バフレベルダウン
 	}
-	//�X�^�����������ꂽ�玟�ɃX�^�����N���鎞�Ԃ��v���X
+	//スタンが解除されたら次にスタンが起こる時間をプラス
 	if (isStan == false)
 	{
 		stanTime = 0;
@@ -94,23 +98,23 @@ void BasePlayer::Update(EnemyManager* _eManager)
 	float yy = pos.y + height;
 
 }
-//�v���C���[�̃X�^������
+//プレイヤーのスタン処理
 void BasePlayer::Stan()
 {
 
-	//�X�^���^�C�������Z
-	DrawFormatString(0, 100, GetColor(255, 255, 255), "���т�Y��", 0);
+	//スタンタイムを加算
+	DrawFormatString(0, 100, GetColor(255, 255, 255), "しびれ浦部", 0);
 	if (stanTime < 120) {
 		stanTime++;
 	}
-	//��莞�Ԍo�߂�����X�^�����������ăX�^���^�C�������Z�b�g
+	//一定時間経過したらスタンを解除してスタンタイムをリセット
 	if (stanTime >= 120)
 	{
 		isStan = false;
 
 	}
 }
-//�����蔻��
+//当たり判定
 bool BasePlayer::ClisionHit(float mx, float my, float mw, float mh,
 	float ox, float oy, float ow, float oh)
 {
@@ -124,7 +128,7 @@ bool BasePlayer::ClisionHit(float mx, float my, float mw, float mh,
 		return false;
 	}
 }
-//�v���C���[�̍U������
+//プレイヤーの攻撃処理
 void BasePlayer::Attack()
 {
 
@@ -133,23 +137,23 @@ void BasePlayer::Attack()
 		attackTime++;
 	}
 
-	//�U���Ԋu
+	//攻撃間隔
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && attackTime >= 5 && now_Move == 0)
 	{
-		//�U��flag��true�ɂ���
+		//攻撃flagをtrueにする
 		isAttack = true;
-		//�e���΂�
+		//弾を飛ばす
 		bulletManager->Shot(pos, playerPos, isAttack);
 		attackTime = 0;
 	}
 
 }
-//�v���C���[�̈ړ�����
+//プレイヤーの移動処理
 void BasePlayer::Move()
 
 {
 
-	//���L�[���������Ƃ�
+	//←キーを押したとき
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1) && now_Move == 0) {
 
 		if (playerPos == 2) {
@@ -157,14 +161,14 @@ void BasePlayer::Move()
 			isOps_RIGHT = true;
 		}
 		else if (playerPos != 0) {
-			//�ړ����������ɂ���
+			//移動方向を左にする
 			isMove = 0;
-			//�L�[���͂̑���ł��邱�Ƃ̃t���O��on
+			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
 			now_Move = 1;
 		}
 	}
-	//���L�[���������Ƃ�
+	//↑キーを押したとき
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_UP) == 1) && now_Move == 0) {
 
 		if (playerPos == 3) {
@@ -172,14 +176,14 @@ void BasePlayer::Move()
 			isOps_DOWN = true;
 		}
 		else if (playerPos != 1) {
-			//�ړ���������ɂ���
+			//移動方向を上にする
 			isMove = 1;
-			//�L�[���͂̑���ł��邱�Ƃ̃t���O��on
+			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
 			now_Move = 1;
 		}
 	}
-	//���L�[���������Ƃ�
+	//→キーを押したとき
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) == 1) && now_Move == 0) {
 
 		if (playerPos == 0) {
@@ -187,15 +191,15 @@ void BasePlayer::Move()
 			isOps_LEFT = true;
 		}
 		else if (playerPos != 2) {
-			//�ړ��������E�ɂ���
+			//移動方向を右にする
 			isMove = 2;
-			//�L�[���͂̑���ł��邱�Ƃ̃t���O��on
+			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
 			now_Move = 1;
 		}
 
 	}
-	//���L�[���������Ƃ�
+	//↓キーを押したとき
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_DOWN) == 1) && now_Move == 0) {
 
 		if (playerPos == 1) {
@@ -203,40 +207,40 @@ void BasePlayer::Move()
 			isOps_UP = true;
 		}
 		else if (playerPos != 3) {
-			//�ړ����������ɂ���
+			//移動方向を下にする
 			isMove = 3;
-			//�L�[���͂̑���ł��邱�Ƃ̃t���O��on
+			//キー入力の操作であることのフラグをon
 			isMoveKey = true;
 			now_Move = 1;
 		}
 	}
-	//�ړ����������̎��A���ֈړ�������
+	//移動方向が左の時、左へ移動させる
 	if (isMove == 0 && isMoveKey == true && isOps == false) {
 		Move_LEFT();
 
 	}
-	//�ړ���������̎��A��ֈړ�������
+	//移動方向が上の時、上へ移動させる
 	if (isMove == 1 && isMoveKey == true && isOps == false) {
 		Move_UP();
 
 	}
-	//�ړ��������E�̎��A�E�ֈړ�������
+	//移動方向が右の時、右へ移動させる
 	if (isMove == 2 && isMoveKey == true && isOps == false) {
 		Move_RIGHT();
 
 	}
-	//�ړ����������̎��A���ֈړ�������
+	//移動方向が下の時、下へ移動させる
 	if (isMove == 3 && isMoveKey == true && isOps == false) {
 		Move_DOWN();
 
 	}
-	//���΃t���O��true�̎��A���Έړ��������N��������
+	//反対フラグがtrueの時、反対移動処理を起動させる
 	if (isOps == true && now_Move == 0) {
 		Move_OPS();
 		now_Move = 1;
 
 	}
-	//���Έړ����������s
+	//反対移動処理を実行
 	if (isOps_RUN == true) {
 		Move_OPSRUN();
 
@@ -244,10 +248,10 @@ void BasePlayer::Move()
 
 }
 
-//��Ɉړ����鏈��
+//上に移動する処理
 void BasePlayer::Move_UP()
 {
-	//��������
+	//左から上へ
 	if (playerPos == 0 && isMove == 1) {
 		if (pos.y >= PLAYER_UPPOSY) {
 
@@ -261,18 +265,18 @@ void BasePlayer::Move_UP()
 		}
 		if (pos.x >= PLAYER_UPDOWNPOSX && pos.y <= PLAYER_UPPOSY) {
 
-			//�v���C���[�̏ꏊ����ɂ���
+			//プレイヤーの場所を上にする
 			playerPos = 1;
 
-			//�ړ����������Z�b�g����
+			//移動方向をリセットする
 			isMove = 4;
 
-			//���ړ���Ԃɂ���
+			//無移動状態にする
 			if (isOps == false) {
 				now_Move = 0;
 			}
 
-			//�ړ��L�[�̃`�F�b�N�����Z�b�g
+			//移動キーのチェックをリセット
 			//isMoveKey = false;
 		}
 		if (isOps == true && isOps_DOWN == true && pos.x >= PLAYER_UPDOWNPOSX && pos.y <= PLAYER_UPPOSY) {
@@ -282,7 +286,7 @@ void BasePlayer::Move_UP()
 			now_Move = 0;
 		}
 	}
-	//�E������
+	//右から上へ
 	if (playerPos == 2 && isMove == 1) {
 		if (pos.y >= PLAYER_UPPOSY) {
 
@@ -296,16 +300,16 @@ void BasePlayer::Move_UP()
 		}
 		if (pos.y <= PLAYER_UPPOSY && pos.x <= PLAYER_UPDOWNPOSX) {
 
-			//�v���C���[�̏ꏊ����ɂ���
+			//プレイヤーの場所を上にする
 			playerPos = 1;
 
-			//�ړ����������Z�b�g����
+			//移動方向をリセットする
 			isMove = 4;
 
-			//�ړ��L�[�̃`�F�b�N�����Z�b�g
+			//移動キーのチェックをリセット
 			isMoveKey = false;
 
-			//���ړ���Ԃɂ���
+			//無移動状態にする
 			if (isOps == false) {
 				now_Move = 0;
 			}
@@ -313,11 +317,11 @@ void BasePlayer::Move_UP()
 	}
 }
 
-//���ֈړ����鏈��
+//下へ移動する処理
 void BasePlayer::Move_DOWN()
 {
 
-	//�����牺��
+	//左から下へ
 	if (playerPos == 0 && isMove == 3) {
 		if (pos.y <= PLAYER_DOWNPOSY) {
 
@@ -331,23 +335,23 @@ void BasePlayer::Move_DOWN()
 		}
 		if (pos.x >= PLAYER_UPDOWNPOSX) {
 
-			//�v���C���[�̏ꏊ�����ɂ���
+			//プレイヤーの場所を下にする
 			playerPos = 3;
 
-			//�ړ����������Z�b�g����
+			//移動方向をリセットする
 			isMove = 4;
 
-			//�ړ��L�[�̃`�F�b�N�����Z�b�g
+			//移動キーのチェックをリセット
 			isMoveKey = false;
 
-			//���ړ���Ԃɂ���
+			//無移動状態にする
 			if (isOps == false) {
 				now_Move = 0;
 			}
 		}
 	}
 
-	//�E���牺��
+	//右から下へ
 	if (playerPos == 2 && isMove == 3) {
 		if (pos.y <= PLAYER_DOWNPOSY) {
 
@@ -361,16 +365,16 @@ void BasePlayer::Move_DOWN()
 		}
 		if (pos.x <= PLAYER_UPDOWNPOSX) {
 
-			//�v���C���[�̏ꏊ�����ɂ���
+			//プレイヤーの場所を下にする
 			playerPos = 3;
 
-			//�ړ����������Z�b�g����
+			//移動方向をリセットする
 			isMove = 4;
 
-			//�ړ��L�[�̃`�F�b�N�����Z�b�g
+			//移動キーのチェックをリセット
 			isMoveKey = false;
 
-			//���ړ���Ԃɂ���
+			//無移動状態にする
 			if (isOps == false) {
 				now_Move = 0;
 			}
@@ -385,10 +389,10 @@ void BasePlayer::Move_DOWN()
 	}
 }
 
-//���ֈړ����鏈��
+//左へ移動する処理
 void BasePlayer::Move_LEFT()
 {
-	//�ォ�獶��
+	//上から左へ
 	if (playerPos == 1 && isMove == 0) {
 		if (pos.x >= PLAYER_LEFTPOS) {
 
@@ -402,16 +406,16 @@ void BasePlayer::Move_LEFT()
 		}
 		if (pos.y >= PLAYER_LEFTRIGHTPOS && pos.x <= PLAYER_LEFTPOS) {
 
-			//�v���C���[�̏ꏊ�����ɂ���
+			//プレイヤーの場所を左にする
 			playerPos = 0;
 
-			//�ړ����������Z�b�g����
+			//移動方向をリセットする
 			isMove = 4;
 
-			//�ړ��L�[�̃`�F�b�N�����Z�b�g
+			//移動キーのチェックをリセット
 			isMoveKey = false;
 
-			//���ړ���Ԃɂ���
+			//無移動状態にする
 			if (isOps == false) {
 				now_Move = 0;
 			}
@@ -423,7 +427,7 @@ void BasePlayer::Move_LEFT()
 			now_Move = 0;
 		}
 	}
-	//�����獶��
+	//下から左へ
 	if (playerPos == 3 && isMove == 0) {
 		if (pos.x >= PLAYER_LEFTPOS) {
 
@@ -437,13 +441,13 @@ void BasePlayer::Move_LEFT()
 		}
 		if (pos.y <= PLAYER_LEFTRIGHTPOS && pos.x <= PLAYER_LEFTPOS) {
 
-			//�v���C���[�̏ꏊ�����ɂ���
+			//プレイヤーの場所を左にする
 			playerPos = 0;
 
-			//�ړ����������Z�b�g����
+			//移動方向をリセットする
 			isMove = 4;
 
-			//���ړ���Ԃɂ���
+			//無移動状態にする
 			if (isOps == false) {
 				now_Move = 0;
 			}
@@ -456,10 +460,10 @@ void BasePlayer::Move_LEFT()
 		}
 	}
 }
-//�E�ֈړ����鏈��
+//右へ移動する処理
 void BasePlayer::Move_RIGHT()
 {
-	//�ォ��E��
+	//上から右へ
 	if (playerPos == 1 && isMove == 2) {
 		if (pos.x <= PLAYER_RIGHTPOS) {
 
@@ -473,16 +477,16 @@ void BasePlayer::Move_RIGHT()
 		}
 		if (pos.y >= PLAYER_LEFTRIGHTPOS && pos.x >= PLAYER_RIGHTPOS) {
 
-			//�v���C���[�̏ꏊ���E�ɂ���
+			//プレイヤーの場所を右にする
 			playerPos = 2;
 
-			//�ړ����������Z�b�g����
+			//移動方向をリセットする
 			isMove = 4;
 
-			//�ړ��L�[�̃`�F�b�N�����Z�b�g
+			//移動キーのチェックをリセット
 			isMoveKey = false;
 
-			//���ړ���Ԃɂ���
+			//無移動状態にする
 			if (isOps == false) {
 				now_Move = 0;
 			}
@@ -494,30 +498,30 @@ void BasePlayer::Move_RIGHT()
 			now_Move = 0;
 		}
 	}
-	//������E��
+	//下から右へ
 	if (playerPos == 3 && isMove == 2) {
 		if (pos.x <= PLAYER_RIGHTPOS) {
 
 			pos.x += speed;
-			//x2 += speed;
+
 		}
 		if (pos.x >= PLAYER_RIGHTPOS && pos.y >= PLAYER_LEFTRIGHTPOS) {
 
 			pos.y -= speed;
-			//y2 -= speed;
+
 		}
 		if (pos.y <= PLAYER_LEFTRIGHTPOS && pos.x >= PLAYER_RIGHTPOS) {
 
-			//�v���C���[�̏ꏊ���E�ɂ���
+			//プレイヤーの場所を右にする
 			playerPos = 2;
 
-			//�ړ����������Z�b�g����
+			//移動方向をリセットする
 			isMove = 4;
 
-			//�ړ��L�[�̃`�F�b�N�����Z�b�g
+			//移動キーのチェックをリセット
 			isMoveKey = false;
 
-			//���ړ���Ԃɂ���
+			//無移動状態にする
 			if (isOps == false) {
 				now_Move = 0;
 			}
@@ -526,36 +530,36 @@ void BasePlayer::Move_RIGHT()
 
 }
 
-//���΂ֈړ����鏈��
+//反対へ移動する処理
 void BasePlayer::Move_OPS()
 {
 
-	//������E�ֈړ�
+	//左から右へ移動
 	if (playerPos == 0 && isOps_LEFT == true) {
 
 		isOps_RUN = true;
 	}
-	//�E���獶�ֈړ�
+	//右から左へ移動
 	if (playerPos == 2 && isOps_RIGHT == true) {
 
 		isOps_RUN = true;
 	}
-	//�ォ�牺�ֈړ�
+	//上から下へ移動
 	if (playerPos == 1 && isOps_UP == true) {
 
 		isOps_RUN = true;
 	}
-	//�������ֈړ�
+	//下から上へ移動
 	if (playerPos == 3 && isOps_DOWN == true) {
 
 		isOps_RUN = true;
 	}
 }
 
-//���Έړ�����:����
+//反対移動処理:処理
 void BasePlayer::Move_OPSRUN()
 {
-	//�ォ�牺�ֈړ����鏈��
+	//上から下へ移動する処理
 	if (isOps_RUN == true && isOps_UP == true)
 	{
 		isMove = 2;
@@ -564,7 +568,7 @@ void BasePlayer::Move_OPSRUN()
 		Move_DOWN();
 
 	}
-	//�������ֈړ����鏈��
+	//下から上へ移動する処理
 	if (isOps_RUN == true && isOps_DOWN == true)
 	{
 		isMove = 0;
@@ -573,7 +577,7 @@ void BasePlayer::Move_OPSRUN()
 		Move_UP();
 
 	}
-	//������E�ֈړ����鏈��
+	//左から右へ移動する処理
 	if (isOps_RUN == true && isOps_LEFT == true)
 	{
 		isMove = 1;
@@ -582,7 +586,7 @@ void BasePlayer::Move_OPSRUN()
 		Move_RIGHT();
 
 	}
-	//�E���獶�ֈړ����鏈��
+	//右から左へ移動する処理
 	if (isOps_RUN == true && isOps_RIGHT == true)
 	{
 		isMove = 3;

@@ -8,7 +8,8 @@ enum class eDirection {
 	Left,	//ç∂
 	Right,	//âE
 	Up,		//è„
-	Down	//â∫
+	Down,	//â∫
+	None   //Ç«ÇÍÇ≈Ç‡Ç»Ç¢
 };
 
 #endif // !_DIRECTION_H

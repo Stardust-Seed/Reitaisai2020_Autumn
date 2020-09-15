@@ -27,7 +27,7 @@ SubCastle::SubCastle(int _durability,int _type)
 		{
 			y = 348 + height;
 		}
-		direction = 0;
+		direction = eDirection::Left;
 
 		break;
 
@@ -44,7 +44,7 @@ SubCastle::SubCastle(int _durability,int _type)
 		{
 			y = 348 + height;
 		}
-		direction = 1;
+		direction = eDirection::Right;
 
 		break;
 
@@ -61,7 +61,7 @@ SubCastle::SubCastle(int _durability,int _type)
 		}
 
 		y = 175 + GetRand(75) - height;
-		direction = 2;
+		direction = eDirection::Up;
 
 		break;
 
@@ -78,7 +78,7 @@ SubCastle::SubCastle(int _durability,int _type)
 		}
 
 		y = 575 + GetRand(75) - height;
-		direction = 3;
+		direction = eDirection::Down;
 
 		break;
 

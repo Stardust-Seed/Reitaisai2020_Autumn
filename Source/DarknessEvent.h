@@ -12,28 +12,28 @@ private:
 
 	static const int MAX_OPACITY = 255;		//最大不透明度
 
-	static const int PHASE_START = 0;		//開始フェーズ　不透明度をあげる
-
-	static const int PHASE_DARK = 1;		//維持フェーズ　不透明度を維持
-
-	static const int PHASE_END = 2;			//終了フェーズ　不透明度を下げる
+	enum PHASE {
+		PHASE_START = 0,	//開始フェーズ　不透明度をあげる
+		PHASE_DARK = 1,		//維持フェーズ　不透明度を維持
+		PHASE_END = 2		//終了フェーズ　不透明度を下げる
+	};
 
 	int darkCount;		//経過時間
 
-	int phase;			//現在のフェーズ
+	int nowPhase;		//現在のフェーズ
 
 	int opacity;		//不透明度
 
 	int darkImage;		//画像格納用
 
 public:
-		DarknessEvent();	//コンストラクタ
+	DarknessEvent();	//コンストラクタ
 
-		~DarknessEvent();	//デストラクタ
+	~DarknessEvent();	//デストラクタ
 
-		void Update();		//更新
+	void Update();		//更新
 
-		void Draw();		//描画
+	void Draw();		//描画
 };
 
 
