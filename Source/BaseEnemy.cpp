@@ -1,23 +1,20 @@
 #include <DxLib.h>
+#include "Define.h"
 #include "BaseEnemy.h"
 #include "BasePlayer.h"
 #include "BulletManager.h"
 
-const float BaseEnemy::ENEMY_SPAWNXLEFT = 82;
-const float BaseEnemy::ENEMY_SPAWNYLEFT = 360;
-const float BaseEnemy::ENEMY_SPAWNXUP = 488;
-const float BaseEnemy::ENEMY_SPAWNYUP = -48;
-const float BaseEnemy::ENEMY_SPAWNXRIGHT = 894;
-const float BaseEnemy::ENEMY_SPAWNYRIGHT = 360;
-const float BaseEnemy::ENEMY_SPAWNXDOWN = 488;
-const float BaseEnemy::ENEMY_SPAWNYDOWN = 816;
-const int BaseEnemy::DIRECTIONLEFT = 0;
-const int BaseEnemy::DIRECTIONRIGHT = 1;
-const int BaseEnemy::DIRECTIONUP = 2;
-const int BaseEnemy::DIRECTIONDOWN = 3;
+const float BaseEnemy::ENEMY_SPAWNXLEFT = 420;
+const float BaseEnemy::ENEMY_SPAWNYLEFT = (GAME_HEIHGT / 2) - (48 / 2);
+const float BaseEnemy::ENEMY_SPAWNXUP = (GAME_WIDTH / 2) - (48 / 2);
+const float BaseEnemy::ENEMY_SPAWNYUP = 0 - 48;
+const float BaseEnemy::ENEMY_SPAWNXRIGHT = 1500;
+const float BaseEnemy::ENEMY_SPAWNYRIGHT = (GAME_HEIHGT / 2) - (48 / 2);
+const float BaseEnemy::ENEMY_SPAWNXDOWN = (GAME_WIDTH / 2) - (48 / 2);
+const float BaseEnemy::ENEMY_SPAWNYDOWN = GAME_HEIHGT + 48;
 
 //通常スポーン用のコンストラクタ
-BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction) {
+BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction) {
 	speed = _speed;
 	power = _power;
 	durability = _durability;
@@ -27,22 +24,22 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction
 	isHit = false;
 	inactiveType = eInactiveType::None;
 
-	if (direction == DIRECTIONLEFT) {
+	if (direction == eDirection::Left) {
 		x = ENEMY_SPAWNXLEFT;
 		y = ENEMY_SPAWNYLEFT;
 	}
 
-	if (direction == DIRECTIONRIGHT) {
+	if (direction == eDirection::Right) {
 		x = ENEMY_SPAWNXRIGHT;
 		y = ENEMY_SPAWNYRIGHT;
 	}
 
-	if (direction == DIRECTIONUP) {
+	if (direction == eDirection::Up) {
 		x = ENEMY_SPAWNXUP;
 		y = ENEMY_SPAWNYUP;
 	}
 
-	if (direction == DIRECTIONDOWN) {
+	if (direction == eDirection::Down) {
 		x = ENEMY_SPAWNXDOWN;
 		y = ENEMY_SPAWNYDOWN;
 	}
@@ -52,7 +49,7 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction
 }
 
 //サブ拠点用のコンストラクタ
-BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, int _direction, float _x, float _y) {
+BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction, float _x, float _y) {
 	speed = _speed;
 	power = _power;
 	durability = _durability;
@@ -75,19 +72,19 @@ void BaseEnemy::Move() {
 		return;
 	}
 
-	if (direction == DIRECTIONLEFT) {
+	if (direction == eDirection::Left) {
 		x += speed;
 	}
 
-	if (direction == DIRECTIONRIGHT) {
+	if (direction == eDirection::Down) {
 		x -= speed;
 	}
 
-	if (direction == DIRECTIONUP) {
+	if (direction == eDirection::Up) {
 		y += speed;
 	}
 
-	if (direction == DIRECTIONDOWN) {
+	if (direction == eDirection::Down) {
 		y -= speed;
 	}
 
