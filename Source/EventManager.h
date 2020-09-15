@@ -1,15 +1,17 @@
 #ifndef _EVENTMANAGER_H
 #define _EVENTMANAGER_H
 
-#include "BaseEvent.h"
+#include "DarknessEvent.h"
 
 class BaseEvent;
 
+class DarknessEvent;
+
 class EventManager {
 private:
-	static const int ACTIVEEVENT_EASY = 90;		//難易度によって変わるイベントの発生間隔(秒)
+	static const int ACTIVEEVENT_EASY = 60;		//難易度によって変わるイベントの発生間隔(秒)
 
-	static const int ACTIVEEVENT_NORMAL = 60;
+	static const int ACTIVEEVENT_NORMAL = 45;
 
 	static const int ACTIVEEVENT_HARD = 30;
 

@@ -39,7 +39,7 @@ void EventManager::SpawnEvent() {
 			eventType = GetRand(EVENT_TYPES - 1);		//イベント数
 
 			if (eventType == 0) {
-			//	Event = new BaseEvent();	//test用生成
+				Event = new DarknessEvent();	//生成
 				waitCount = 0;
 			}
 
