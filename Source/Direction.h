@@ -5,11 +5,11 @@
 /// ï˚å¸
 /// </summary>
 enum class eDirection {
-	None,   //Ç«ÇÍÇ≈Ç‡Ç»Ç¢
 	Left,	//ç∂
 	Right,	//âE
 	Up,		//è„
-	Down	//â∫
+	Down,	//â∫
+	None   //Ç«ÇÍÇ≈Ç‡Ç»Ç¢
 };
 
 #endif // !_DIRECTION_H
