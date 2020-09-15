@@ -3,7 +3,7 @@
 
 #include "MainCastle.h"
 #include "SubCastle.h"
-
+#include "Direction.h"
 class BaseCastle;
 class MainCastle;
 class SubCastle;
@@ -37,7 +37,7 @@ public:
 	float Get_Height(int);			//高さを受け取る
 	bool Get_IsActive(int);			//アクティブフラグのセッター
 	int Get_Durability(int);	
-	int Get_CastleDirection(int);
+	eDirection Get_CastleDirection(int);
 	int Get_OccupiedNum();
 };
 

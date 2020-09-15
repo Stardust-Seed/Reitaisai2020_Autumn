@@ -141,14 +141,14 @@ int CastleManager::Get_Durability(int num)
 	}
 }
 
-int CastleManager::Get_CastleDirection(int num)
+eDirection CastleManager::Get_CastleDirection(int num)
 {
 	if (Castles[num] != NULL) {
 		return Castles[num]->Get_CastleDirection();
 	}
 	else
 	{
-		return 0;
+		return eDirection::None;
 	}
 }
 
