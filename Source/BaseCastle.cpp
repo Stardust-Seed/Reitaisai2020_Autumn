@@ -4,6 +4,7 @@ const int BaseCastle::MAX_DURABILITY = 100;		//最大耐久力
 
 //コンストラクタ
 BaseCastle::BaseCastle(int _durability){
+	direction = eDirection::None;
 	durability = _durability;
 	isActive = true;
 	isHit = false;
