@@ -76,7 +76,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			case 0:    //¶‘¤
 				enemy->Set_x(num, LEFT_X+100);
 				enemy->Set_y(num, LEFT_Y);
-				enemy->Set_A(num, eDirection::Left);
+				enemy->Set_direction(num, eDirection::Left);
 				warpPosX = LEFT_X;
 				warpPosY = LEFT_Y;
 				break;
@@ -84,7 +84,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			case 1:    //‰E‘¤
 				enemy->Set_x(num, RIGHT_X-100);
 				enemy->Set_y(num, RIGHT_Y);
-				enemy->Set_A(num, eDirection::Right);
+				enemy->Set_direction(num, eDirection::Right);
 				warpPosX = RIGHT_X;
 				warpPosY = RIGHT_Y;
 				break;
@@ -92,7 +92,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			case 2:    //ã‘¤
 				enemy->Set_x(num, UP_X);
 				enemy->Set_y(num, UP_Y + 100);
-				enemy->Set_A(num, eDirection::Up);
+				enemy->Set_direction(num, eDirection::Up);
 				warpPosX = UP_X;
 				warpPosY = UP_Y;
 				break;
@@ -100,7 +100,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			case 3:    //‰º‘¤
 				enemy->Set_x(num, DOWN_X);
 				enemy->Set_y(num, DOWN_Y - 100);
-				enemy->Set_A(num, eDirection::Down);
+				enemy->Set_direction(num, eDirection::Down);
 				warpPosX = DOWN_X;
 				warpPosY = DOWN_Y;
 				break;

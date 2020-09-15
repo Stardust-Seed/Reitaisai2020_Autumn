@@ -2,8 +2,7 @@
 #include"Input.h"
 #include"Define.h"
 
-Sakuya::Sakuya()
-{
+Sakuya::Sakuya(){
 	speed = 10;		                //プレイヤーの移動速度
 	power = 400;		            //プレイヤーの攻撃力
 	attackTime = 0;                 //攻撃間隔

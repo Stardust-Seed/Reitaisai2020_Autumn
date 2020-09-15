@@ -5,12 +5,12 @@
 #include "BulletManager.h"
 #include "CastleManager.h"
 
-Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, int _direction)
+Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, eDirection _direction)
 	:BaseEnemy(_speed, _power, _durability, _direction) {
 
 }
 
-Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, int _direction, int _x, int _y)
+Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, eDirection _direction, int _x, int _y)
 	: BaseEnemy(_speed, _power, _durability, _direction,_x,_y) {
 
 }

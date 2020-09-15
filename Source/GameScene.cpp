@@ -8,7 +8,7 @@
 GameScene::GameScene(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger)
 {
 	timeLimit = new TimeLimit();
-	player = new BasePlayer;
+	player = new BasePlayer(static_cast<PlayerType>(0), static_cast<AbilityType>(0));
 	bulletManager = new BulletManager();
 	itemManager = new ItemManager();
 	buffManager = new BuffManager();
@@ -33,10 +33,10 @@ void GameScene::Update()
 	bulletManager->Update(enemyManager);
 
 	//表示するのが前の方の奴ら
-	itemManager->Update(player);
+	itemManager->Update(player, buffManager);
 	buffManager->Update(itemManager,enemyManager);
 	timeLimit->Update();
-	ui->Update(castleManager);
+	ui->Update(castleManager, itemManager, buffManager);
 
 	//ゲームシーンのシーン処理
 	ChangeScene();
