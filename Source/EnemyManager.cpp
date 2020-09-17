@@ -138,8 +138,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							_power = 10;
 							_durability = 50;
 
-							Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _castle->Get_CastleDirection(static_cast<int>(direction)),
-								_castle->Get_X(static_cast<int>(direction)), _castle->Get_Y(static_cast<int>(direction)));        //¶¬ˆ—
+							Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _castle->Get_CastleDirection(_direction),
+								_castle->Get_X(_direction), _castle->Get_Y(_direction));        //¶¬ˆ—
 
 							waitCount = 0;
 							break;      //ˆê‘Ì¶¬‚µ‚½‚ç”²‚¯‚é
@@ -151,8 +151,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							_power = 10;
 							_durability = 100;
 
-							Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _castle->Get_CastleDirection(static_cast<int>(direction)),
-								_castle->Get_X(static_cast<int>(direction)), _castle->Get_Y(static_cast<int>(direction)));        //¶¬ˆ—
+							Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _castle->Get_CastleDirection(_direction),
+								_castle->Get_X(_direction), _castle->Get_Y(_direction));        //¶¬ˆ—
 
 							waitCount = 0;
 							break;      //ˆê‘Ì¶¬‚µ‚½‚ç”²‚¯‚é
@@ -218,40 +218,47 @@ int EnemyManager::Get_ActiveFlg(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->GetIsActive();	
 	}
+	return 0;
 }
 
 int EnemyManager::Get_AttackFlg(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->GetIsAttack();
 	}
+	return 0;
 }
 
 int EnemyManager::Get_Power(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->GetPower();
 	}
+	return 0;
 }
 
 int EnemyManager::Get_x(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->Get_X();
 	}
+	return 0;
 }
 
 int EnemyManager::Get_y(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->Get_Y();
 	}
+	return 0;
 }
 
 int EnemyManager::Get_width(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->Get_Width();
 	}
+	return 0;
 }
 
 int EnemyManager::Get_height(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->Get_Height();
 	}
+	return 0;
 }
