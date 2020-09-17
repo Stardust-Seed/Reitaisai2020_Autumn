@@ -10,15 +10,15 @@ class EnemyManager;
 class SukimaEvent : public virtual BaseEvent {
 private:
 	static const int UP_X = GAME_WIDTH  / 2;		     //スキマの発生場所上
-	static const int UP_Y = GAME_HEIHGT / 2 - 300;		 //スキマの発生場所上
+	static const int UP_Y = GAME_HEIHGT / 2 - 350;		 //スキマの発生場所上
 
 	static const int DOWN_X = GAME_WIDTH  / 2;	         //スキマの発生場所下
-	static const int DOWN_Y = GAME_HEIHGT / 2 + 300;	 //スキマの発生場所下
+	static const int DOWN_Y = GAME_HEIHGT / 2 + 350;	 //スキマの発生場所下
 
-	static const int LEFT_X = GAME_WIDTH  / 2 - 300;	 //スキマの発生場所左
+	static const int LEFT_X = GAME_WIDTH  / 2 - 350;	 //スキマの発生場所左
 	static const int LEFT_Y = GAME_HEIHGT / 2;           //スキマの発生場所左
 
-	static const int RIGHT_X = GAME_WIDTH  / 2 + 300;    //スキマの発生場所右
+	static const int RIGHT_X = GAME_WIDTH  / 2 + 350;    //スキマの発生場所右
 	static const int RIGHT_Y = GAME_HEIHGT / 2;          //スキマの発生場所右
 
 	//object継承してないので
@@ -26,6 +26,7 @@ private:
 	float y;
 	float width;
 	float height;
+	float addSize;
 
 	//ワープ先の場所
 	float warpPosX;
