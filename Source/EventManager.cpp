@@ -30,7 +30,7 @@ EventManager::~EventManager() {
 void EventManager::SpawnEvent() {
 	waitCount++;
 
-	if (waitCount < FREAM * eventWaitTime) {// フレーム数 * 秒 = 待機時間　待機時間を超えても前のイベントが実行中なら実行しない
+	if (waitCount < FRAME * eventWaitTime) {// フレーム数 * 秒 = 待機時間　待機時間を超えても前のイベントが実行中なら実行しない
 
 		if (Event == NULL) {//NULL(何もイベントが発生していない)時に生成
 
