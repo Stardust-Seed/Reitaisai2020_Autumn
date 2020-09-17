@@ -2,6 +2,12 @@
 #define _TITLE_H_
 
 #include "BaseScene.h"
+#include "Image.h"
+#include "Define.h"
+#include "FontHandle.h"
+#include "Input.h"
+#include "math.h"
+#include "SE.h"
 
 class Title final :public BaseScene {
 private:
