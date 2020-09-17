@@ -6,6 +6,7 @@
 #include "Input.h"
 
 ItemManager::ItemManager() {
+	//各パラメータの初期化
 	p_Count = 0;
 	s_Count = 0;
 
