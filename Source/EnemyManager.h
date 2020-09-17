@@ -86,18 +86,20 @@ public:
 
 	int Get_ActiveCount();			//アクティブなエネミーの値を返す
 
-	int Get_ActiveFlg(int);			//アクティブかを受け取る
+	bool Get_ActiveFlg(int);			//アクティブかを受け取る
 
-	int Get_AttackFlg(int);			//アタックフラグを受け取る
+	bool Get_AttackFlg(int);			//アタックフラグを受け取る
+
+	eDirection Get_direction(int);		//directionのゲッター
 
 	int Get_Power(int);				//攻撃力を受け取る
 
-	int Get_x(int);					//x座標を受け取る
+	float Get_x(int);					//x座標を受け取る
 
-	int Get_y(int);					//y座標を受け取る
+	float Get_y(int);					//y座標を受け取る
 
-	int Get_width(int);				//幅を受け取る
+	float Get_width(int);				//幅を受け取る
 
-	int Get_height(int);			//高さを受け取る
+	float Get_height(int);			//高さを受け取る
 };
 #endif // !_ENEMYMANAGER_H

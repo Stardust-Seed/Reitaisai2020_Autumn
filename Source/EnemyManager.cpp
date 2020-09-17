@@ -96,8 +96,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					if (enemyType == 0) {				//ƒXƒs[ƒhŒ^
 
-						_speed = 1.5;
-						_power = 10;
+						_speed = 1.5f;
+						_power = 10.0f;
 						_durability = 50;
 
 						Enemys[num] = new Fairy_Speed(_speed, _power, _durability, direction);        //¶¬ˆ—
@@ -108,8 +108,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					if (enemyType == 1) {				//‘Ì—ÍŒ^
 
-						_speed = 1;
-						_power =10;
+						_speed = 1.0f;
+						_power =10.0f;
 						_durability = 100;
 
 						Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, direction);        //¶¬ˆ—
@@ -126,7 +126,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 				direction = static_cast<eDirection>(_direction);	//intŒ^‚©‚çenumƒNƒ‰ƒXŒ^‚É•ÏŠ·
 
-				if (_castle->Get_IsActive(static_cast<int>(direction)) == false) {
+				if (_castle->Get_IsActive(_direction) == false) {
 
 					if (Enemys[num] == NULL) {      //NULL‚Ìê‡¶¬ŠJn
 
@@ -134,8 +134,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 						if (enemyType == 0) {            //ƒXƒs[ƒhŒ^
 
-							_speed = 1.5;
-							_power = 10;
+							_speed = 1.5f;
+							_power = 10.0f;
 							_durability = 50;
 
 							Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _castle->Get_CastleDirection(_direction),
@@ -147,8 +147,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 						if (enemyType == 1) {            //‘Ï‹vŒ^
 
-							_speed = 1;
-							_power = 10;
+							_speed = 1.0f;
+							_power = 10.0f;
 							_durability = 100;
 
 							Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _castle->Get_CastleDirection(_direction),
@@ -214,18 +214,25 @@ int EnemyManager::Get_ActiveCount() {
 	return activeCount;
 }
 
-int EnemyManager::Get_ActiveFlg(int num) {
+bool EnemyManager::Get_ActiveFlg(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->GetIsActive();	
 	}
-	return 0;
+	return false;
 }
 
-int EnemyManager::Get_AttackFlg(int num) {
+bool EnemyManager::Get_AttackFlg(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->GetIsAttack();
 	}
-	return 0;
+	return false;
+}
+
+eDirection EnemyManager::Get_direction(int num) {
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->GetDirection();
+	}
+	return eDirection::None;
 }
 
 int EnemyManager::Get_Power(int num) {
@@ -235,28 +242,28 @@ int EnemyManager::Get_Power(int num) {
 	return 0;
 }
 
-int EnemyManager::Get_x(int num) {
+float EnemyManager::Get_x(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->Get_X();
 	}
 	return 0;
 }
 
-int EnemyManager::Get_y(int num) {
+float EnemyManager::Get_y(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->Get_Y();
 	}
 	return 0;
 }
 
-int EnemyManager::Get_width(int num) {
+float EnemyManager::Get_width(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->Get_Width();
 	}
 	return 0;
 }
 
-int EnemyManager::Get_height(int num) {
+float EnemyManager::Get_height(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->Get_Height();
 	}
