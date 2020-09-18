@@ -119,6 +119,18 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 					}
 				}
 			}
+		}
+		/*******************
+		‚±‚±‚©‚ç’Ç‰Á¶¬ˆ—
+		*******************/
+
+		if ((rand() % 100) == 0) {	//oŒ»Šm—¦
+
+			SRand;					//—”‰Šú‰»
+
+			_direction = 0;			//•ûŒü‰Šú‰»
+
+			enemyType = GetRand(ENEMY_TYPES - 1);	//ƒ‰ƒ“ƒ_ƒ€‚È“G‚Ìí—Ş
 
 			for (int num = enemyNum; num < enemyNum + addEnemyNum; num++) {    //’Ç‰Á•ª“®‚©‚·
 
@@ -161,6 +173,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 				}
 			}
 		}
+
 	}
 }
 
