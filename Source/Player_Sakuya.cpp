@@ -29,7 +29,7 @@ void Sakuya::Ability()
 		}
 	}
 }
-void Sakuya::abilityClock()
+void Sakuya::AbilityClock()
 {
 	DrawFormatString(10, 100, color, "咲夜スキル時間：%d", abilityTimer);
 }
@@ -38,7 +38,7 @@ void Sakuya::Update()
 	Ability();                             //スキル
 	if (Get_isAbility() == true) {
 
-		abilityClock();                    //スキルタイマーの表示
+		AbilityClock();                    //スキルタイマーの表示
 
 		if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
 			abilityTimer -= 1;
