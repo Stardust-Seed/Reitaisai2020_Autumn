@@ -19,10 +19,9 @@ private:
 public:
 
 	Fran();			   //コンストラクタ
-	~Fran();             //デストラクタ
-	void Update();         //更新処理
-	void SkilClock();      //スキルタイマー描画処理
-	void Ability();        //スキル処理
+	~Fran();           //デストラクタ
+	void Update();     //更新処理
+	void Ability();    //スキル処理
 
 };
 
