@@ -1,6 +1,7 @@
 #ifndef _EVENTMANAGER_H
 #define _EVENTMANAGER_H
 
+#include "Define.h"
 #include "DarknessEvent.h"
 
 class BaseEvent;
@@ -16,8 +17,6 @@ private:
 	static const int ACTIVEEVENT_HARD = 30;
 
 	static const int EVENT_TYPES = 2;			//イベントの種類
-
-	static const int FREAM = 60;				//フレームレート
 
 	int eventWaitTime;		//難易度よって変わるイベントの発生間隔
 
