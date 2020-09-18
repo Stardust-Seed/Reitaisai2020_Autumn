@@ -8,8 +8,9 @@ SukimaEvent::SukimaEvent() {
 
 	warpPosX = 0;
     warpPosY = 0;
-	width = 60;
+	width = 48;
 	height = width;
+	addSize = 12;
 	cnt = 0;
 	isHit = false;
 
@@ -74,7 +75,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			switch (type)
 			{
 			case 0:    //ç∂ë§
-				enemy->Set_x(num, LEFT_X+100);
+				enemy->Set_x(num, LEFT_X+50);
 				enemy->Set_y(num, LEFT_Y);
 				enemy->Set_direction(num, eDirection::Left);
 				warpPosX = LEFT_X;
@@ -82,7 +83,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 				break;
 
 			case 1:    //âEë§
-				enemy->Set_x(num, RIGHT_X-100);
+				enemy->Set_x(num, RIGHT_X-50);
 				enemy->Set_y(num, RIGHT_Y);
 				enemy->Set_direction(num, eDirection::Right);
 				warpPosX = RIGHT_X;
@@ -91,7 +92,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 
 			case 2:    //è„ë§
 				enemy->Set_x(num, UP_X);
-				enemy->Set_y(num, UP_Y + 100);
+				enemy->Set_y(num, UP_Y + 50);
 				enemy->Set_direction(num, eDirection::Up);
 				warpPosX = UP_X;
 				warpPosY = UP_Y;
@@ -99,7 +100,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 
 			case 3:    //â∫ë§
 				enemy->Set_x(num, DOWN_X);
-				enemy->Set_y(num, DOWN_Y - 100);
+				enemy->Set_y(num, DOWN_Y - 50);
 				enemy->Set_direction(num, eDirection::Down);
 				warpPosX = DOWN_X;
 				warpPosY = DOWN_Y;
@@ -139,6 +140,6 @@ void SukimaEvent::Animation()
 	//å„Ç≈í≤êÆ
 	if (cnt < 50)
 	{
-		DrawBoxAA(warpPosX-10, warpPosY-10, warpPosX + width+20, warpPosY + height+20, GetColor(255, 255, 255), TRUE);
+		DrawBoxAA(warpPosX- width / 2-addSize / 2, warpPosY- height / 2-addSize / 2, warpPosX + width / 2+addSize / 2, warpPosY + height / 2+addSize / 2, GetColor(255, 255, 255), TRUE);
 	}
 }
