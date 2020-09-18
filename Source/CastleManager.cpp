@@ -46,7 +46,7 @@ void CastleManager::Update(EnemyManager*_enemy)
 		{
 			Castles[i]->Update(_enemy);		      //XVˆ—
 
-			if (Castles[i]->GetIsActive() == false)
+			if (Castles[i]->GetIsActive() == false && i != 0)
 			{
 				//ˆê‰ñ‚¾‚¯ˆ—‚³‚¹‚½‚¢‚Ì‚Å
 				if (activeCountFlg[i] == true)
