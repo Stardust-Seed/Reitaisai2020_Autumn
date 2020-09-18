@@ -15,13 +15,18 @@ const float BaseEnemy::ENEMY_SPAWNYDOWN = GAME_HEIHGT + 48;
 
 //通常スポーン用のコンストラクタ
 BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction) {
+	//各パラメータの初期化
 	speed = _speed;
 	power = _power;
 	durability = _durability;
 	direction = _direction;
+
+	isCoolDown = false;
+
 	isActive = true;
 	isAttack = false;
 	isHit = false;
+
 	inactiveType = eInactiveType::None;
 
 	if (direction == eDirection::Left) {
@@ -49,14 +54,20 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _di
 }
 
 //サブ拠点用のコンストラクタ
-BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction, float _x, float _y) {
+BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction,
+	float _x, float _y) {
+	//各パラメータの初期化
 	speed = _speed;
 	power = _power;
 	durability = _durability;
 	direction = _direction;
+
+	isCoolDown = false;
+
 	isActive = true;
 	isAttack = false;
 	isHit = false;
+
 	inactiveType = eInactiveType::None;
 	x = _x;
 	y = _y;
@@ -76,7 +87,7 @@ void BaseEnemy::Move() {
 		x += speed;
 	}
 
-	if (direction == eDirection::Down) {
+	if (direction == eDirection::Right) {
 		x -= speed;
 	}
 
@@ -101,8 +112,9 @@ void BaseEnemy::JudgeActive() {
 void BaseEnemy::AttackProc() {
 	static int attackTime = 0;
 
-	if (attackTime == 30) {
+	if (attackTime == 120) {
 		isAttack = false;
+		isCoolDown = true;
 		attackTime = 0;
 		return;
 	}
@@ -120,13 +132,60 @@ void BaseEnemy::DamageProc(int _damage) {
 敵が遠距離攻撃を行うようにする際は判定式を変更する必要性がある
 */
 void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePlayer* _player) {
-	if (x + width >= _px && x <= _px + _pw && y + height >= _py && y <= _py + _ph) {
-		//プレイヤーがスタンしてる場合攻撃を行わない
-		if (_player->Get_isStan()) {
-			return;
-		}
 
-		isAttack = true;
+	if (_player->Get_isStan() || isAttack == true || isCoolDown == true) {
+		return;
+	}
+
+	switch (direction) {
+	case eDirection::Left:
+		/*******************************************************************************
+		エネミーのx座標 + エネミーの横幅 + 参照する先の座標 <= プレイヤーのx座標 &&
+		エネミーのx座標 + 参照する先の座標 <= プレイヤーのx座標 + プレイヤーの横幅 &&
+		エネミーのy座標 + エネミーの縦幅 >= プレイヤーのy座標 &&
+		エネミーのy座標 <= プレイヤーのx座標 + プレイヤーの縦幅
+		*******************************************************************************/
+		if (x + (width * 2) >= _px && x + width <= _px + _pw &&
+			y + height >= _py && y <= _py + _ph) {
+			isAttack = true;
+		}
+		break;
+	case eDirection::Right:
+		/*******************************************************************************
+		エネミーのx座標 + エネミーの横幅 <= プレイヤーのx座標 &&
+		エネミーのx座標 - 参照する先の座標 <= プレイヤーのx座標 + プレイヤーの横幅 &&
+		エネミーのy座標 + エネミーの縦幅 >= プレイヤーのy座標 &&
+		エネミーのy座標 <= プレイヤーのx座標 + プレイヤーの縦幅
+		*******************************************************************************/
+		if (x + width >= _px && x - width <= _px + _pw &&
+			y + height >= _py && y <= _py + _ph) {
+			isAttack = true;
+		}
+		break;
+	case eDirection::Up:
+		/*******************************************************************************
+		エネミーのx座標 + エネミーの横幅 <= プレイヤーのx座標 &&
+		エネミーのx座標 <= プレイヤーのx座標 + プレイヤーの横幅 &&
+		エネミーのy座標 + エネミーの縦幅 + 参照する先の座標 >= プレイヤーのy座標 &&
+		エネミーのy座標 + 参照する先の座標 <= プレイヤーのx座標 + プレイヤーの縦幅
+		*******************************************************************************/
+		if (x + width >= _px && x <= _px + _pw &&
+			y + (height * 2) >= _py && y + height <= _py + _ph) {
+			isAttack = true;
+		}
+		break;
+	case eDirection::Down:
+		/*******************************************************************************
+		エネミーのx座標 + エネミーの横幅 <= プレイヤーのx座標 &&
+		エネミーのx座標 <= プレイヤーのx座標 + プレイヤーの横幅 &&
+		エネミーのy座標 + エネミーの縦幅 + 参照する先の座標 >= プレイヤーのy座標 &&
+		エネミーのy座標 + エネミーの縦幅 <= プレイヤーのx座標 - 参照する先の座標
+		*******************************************************************************/
+		if (x + width >= _px && x <= _px + _pw &&
+			y + height >= _py && y - height <= _py + _ph) {
+			isAttack = true;
+		}
+		break;
 	}
 }
 
@@ -136,6 +195,20 @@ void BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _i
 		&& _isActive == true) {
 		isAttack = true;
 	}
+}
+
+//クールダウン処理
+void BaseEnemy::SearchCoolDownTime() {
+	static int coolDownCount = 0;	//クールダウンカウンタ
+
+	//180フレーム目クールダウンを終了する
+	if (coolDownCount == 180) {
+		coolDownCount = 0;
+		isCoolDown = false;
+	}
+
+	//クールダウンカウントを加算する
+	coolDownCount++;
 }
 
 //当たり判定処理

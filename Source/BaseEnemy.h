@@ -31,17 +31,17 @@ protected:
 	static const float ENEMY_SPAWNXDOWN;	//エネミーの初期位置X下
 	static const float ENEMY_SPAWNYDOWN;	//エネミーの初期位置Y下
 
-	float speed;		//エネミーの移動速度
-	float power;		//エネミーの攻撃力
-	int durability;		//エネミーの体力
-	//int direction;		//エネミーの進行方向
+	float speed;			//エネミーの移動速度
+	float power;			//エネミーの攻撃力
+	int durability;			//エネミーの体力
 	eDirection direction;	//エネミーの進行方向
+
+	bool isCoolDown;	//クールダウンフラグ
 
 	bool isAttack;		//エネミーの攻撃フラグ
 	bool isActive;		//エネミーの生存フラグ
 
 	eInactiveType inactiveType;	//非アクティブのタイプ
-
 public:
 	BaseEnemy(){}
 	virtual ~BaseEnemy(){}
@@ -57,6 +57,7 @@ public:
 	void SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _isActive);	//城の範囲内かサーチ
 	void SearchPlayer(float _px, float _py, float _pw, float _ph,
 		BasePlayer* _player);										//プレイヤーが攻撃範囲内かサーチ
+	void SearchCoolDownTime();		//サーチのクールダウン
 	void JudgeActive();				//アクティブかを判断する
 	void AttackProc();				//攻撃中の時間処理
 	void DamageProc(int _damage);	//ダメージ処理
@@ -76,6 +77,7 @@ public:
 	float GetPower() { return power; }							//エネミーの攻撃力を取得する
 	bool GetIsActive() { return isActive; }						//生存フラグを取得する
 	bool GetIsAttack() { return isAttack; }						//アタックフラグを取得する
+	//bool GetTset() { return isCoolDown; }
 	eDirection GetDirection() { return direction; }				//方向を取得する
 	eInactiveType GetInactiveType() { return inactiveType; }	//非アクティブのタイプを取得する
 	
