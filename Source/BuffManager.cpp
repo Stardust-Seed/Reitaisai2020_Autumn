@@ -4,6 +4,7 @@
 #include <DxLib.h>
 
 BuffManager::BuffManager() {
+	//各パラメータの初期化
 	powerLevel = 0;
 	speedLevel = 0;
 	isPowerLevelMax = false;
@@ -98,6 +99,7 @@ int BuffManager::PowerBuff_LevelUpCheck(int _powerCount) {
 	if (_powerCount >= 15 && isPowerLevelMax == false) {
 		powerLevel++;
 
+		//パワーバフがレベルマックスだった場合
 		if (powerLevel == MAX_BUFFLEVEL) {
 			isPowerLevelMax = true;
 		}
@@ -113,6 +115,7 @@ int BuffManager::SpeedBuff_LevelUpCheck(int _speedCount) {
 	if (_speedCount >= 15 && isSpeedLevelMax == false) {
 		speedLevel++;
 
+		//パワーバフレベルがレベルマックスだった場合
 		if (speedLevel == MAX_BUFFLEVEL) {
 			isSpeedLevelMax = true;
 		}
