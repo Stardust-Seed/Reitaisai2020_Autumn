@@ -1,14 +1,9 @@
 #include "Dxlib.h"
-#include "Define.h"
-#include "FontHandle.h"
-#include "Input.h"
-#include "math.h"
-#include "SE.h"
 #include "Title.h"
 
 /*コンストラクタ*/
 Title::Title(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
-
+	SRand;					//乱数初期化
 	textPosition = 875;
 	deg = 0;
 	rad = 0;
@@ -30,12 +25,34 @@ void Title::Update()
 
 void Title::Draw()
 {
-	//タイトル表示
-	DrawStringToHandle(GAME_WIDTH / 2 - 56 * 5 - sin(rad) * 0.5f + textPosition, GAME_HEIHGT / 2 - 200 - cos(rad) * 16, "東        ", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 56 * 5 - sin(rad) * 0.5f + textPosition, GAME_HEIHGT / 2 - 200 - sin(rad) * 18, "  方      ", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 56 * 5 - sin(rad) * 0.5f + textPosition, GAME_HEIHGT / 2 - 200 - cos(rad) * 10, "    河    ", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 56 * 5 - sin(rad) * 0.5f + textPosition, GAME_HEIHGT / 2 - 200 - sin(rad) * 18, "      本  ", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 56 * 5 - sin(rad) * 0.5f + textPosition, GAME_HEIHGT / 2 - 200 - cos(rad) * 25, "        録", GetColor(255, 255, 255), FontHandle::Instance()->Get_MS_GOTHIC_112_3());
+	//タイトル表示(コメントアウト中)
+	//DrawGraph(GAME_WIDTH / 8, GAME_HEIHGT/16, Image::Instance()->GetGraph(eImageType_Title), TRUE);
+
+	//キャラ表示(コメントアウト中)
+	//GetGraphのeImageTypeの名前は確定してないのでそれっぽいのを入れてる
+	int type = GetRand(3);
+	switch (type)
+	{
+	case 0:
+		//DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType_Sakuya01), TRUE);
+		break;
+
+	case 1:
+		//DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType_Sakuya02), TRUE);
+		break;
+
+	case 2:
+		//DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType_Fran01), TRUE);
+		break;
+
+	case 3:
+		//DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType_Fran02), TRUE);
+		break;
+
+
+	default:
+		break;
+	}
 
 	//プレススペースの表示処理
 	if(cnt == 250)
@@ -51,9 +68,6 @@ void Title::Draw()
 		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 1.4f, "         C ", GetColor(r, b, g), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
 		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 1.2f, "          E", GetColor(r, b, g), FontHandle::Instance()->Get_MS_GOTHIC_32_3());
 	}
-
-	//画像表示今は四角表示
-	DrawBox(GAME_WIDTH -250, GAME_HEIHGT - 400, GAME_WIDTH, GAME_HEIHGT, GetColor(255, 255, 255), true);
 }
 
 //文字の動きの処理
