@@ -10,7 +10,8 @@ Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, eDirection
 
 }
 
-Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, eDirection _direction, int _x, int _y)
+Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, eDirection _direction,
+	float _x, float _y)
 	: BaseEnemy(_speed, _power, _durability, _direction, _x, _y) {
 
 }
@@ -31,6 +32,10 @@ void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, Bul
 
 	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
 		_player);
+
+	if (isCoolDown == true) {
+		SearchCoolDownTime();
+	}
 
 	for (int i = 0; i < _castleManager->Get_CastleNum(); i++) {
 		SearchCastle(_castleManager->Get_X(i), _castleManager->Get_Y(i),
