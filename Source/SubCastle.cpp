@@ -7,77 +7,89 @@ SubCastle::SubCastle(int _durability,int _type)
 	:BaseCastle(_durability) {
 	durability = _durability;
 	SRand;					//乱数初期化
-
-	width =  60;
+	
+	width =  48;
 	height = width;
+
+	addPosX = 0;
+	addPosY = 0;
+	addSize = 12;
+
+	int posType = GetRand(1);
 
 	//座標設定
 	switch (_type)
 	{
 	case 1:    //左側
-		//右か左か(上か下か)
-		posType = GetRand(1);
-		x = 250 + GetRand(50) - width;
+
+		x = GAME_WIDTH / 2 - width / 2 - 200 - GetRand(50);
+		y = GAME_HEIHGT / 2 - height / 2;
 
 		if (posType == 0)    //上
 		{
-			y = 360 - height;
+			addPosY = -60;
 		}
 		else                 //下
 		{
-			y = 348 + height;
+			addPosY = 60;
 		}
+
 		direction = eDirection::Left;
 
 		break;
 
 	case 2:    //右側
-		//右か左か(上か下か)
-		posType = GetRand(1);
-		x = 800 + GetRand(50) - width;
+
+		x = GAME_WIDTH / 2 - width / 2 + 200 + GetRand(50);
+		y = GAME_HEIHGT / 2 - height / 2;
 
 		if (posType == 0)    //上
 		{
-			y = 360 - height;
+			addPosY = -60;
 		}
 		else                 //下
 		{
-			y = 348 + height;
+			addPosY = 60;
 		}
+
 		direction = eDirection::Right;
+
+
 
 		break;
 
 	case 3:    //上側
-		//右か左か(上か下か)
-		posType = GetRand(1);
-		if (posType == 0)    //上
+
+		x = GAME_WIDTH / 2 - width / 2;
+		y = GAME_HEIHGT / 2 - height / 2 - 200 - GetRand(30);
+
+		if (posType == 0)    //左
 		{
-			x = 490 - width;
+			addPosX = -60;
 		}
-		else                 //下
+		else                 //右
 		{
-			x = 475 + width;
+			addPosX = 60;
 		}
 
-		y = 175 + GetRand(75) - height;
 		direction = eDirection::Up;
 
 		break;
 
 	case 4:    //下側
-		//右か左か(上か下か)
-		posType = GetRand(1);
-		if (posType == 0)    //上
+
+		x = GAME_WIDTH / 2 - width / 2;
+		y = GAME_HEIHGT / 2 - height / 2 + 200 + GetRand(30);
+
+		if (posType == 0)    //左
 		{
-			x = 490 - width;
+			addPosX = -60;
 		}
-		else                 //下
+		else                 //右
 		{
-			x = 475 + width;
+			addPosX = 60;
 		}
 
-		y = 575 + GetRand(75) - height;
 		direction = eDirection::Down;
 
 		break;
@@ -111,11 +123,15 @@ void SubCastle::Draw()
 	//適当に表示
 	if (isActive == true)
 	{
-		DrawBox(x, y, x + width, y + height, GetColor(0, 0, 128), true);
+		DrawBox(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
+			    x + addPosX + width + addSize / 2, y + addPosY + height + addSize / 2, 
+			    GetColor(0, 0, 128), true);
 	}
 	else
 	{
-		DrawBox(x, y, x + width, y + height, GetColor(128, 0, 0), true);
+		DrawBox(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
+			    x + addPosX + width + addSize / 2, y + addPosY + height + addSize / 2,
+			    GetColor(128, 0, 0), true);
 	}
 }
 

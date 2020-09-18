@@ -2,6 +2,7 @@
 #define _SUBCASTLE_H
 
 #include "BaseCastle.h"
+#include "Define.h"
 
 /*-------------------------------------------------------------
 オブジェクト名:	SubCastle
@@ -17,7 +18,11 @@ class BaseEnemy;
 class SubCastle :public virtual BaseCastle {
 
 private:
-	int posType;                        //サブ拠点の場所
+	int posType;    //サブ拠点の場所
+	int addPosX;    //追加の座標X(表示部分のみ)  
+	int addPosY;    //追加の座標Y(表示部分のみ)  
+	int addSize;    //追加の大きさ(表示部分のみ)  
+
 public:
 	SubCastle(int,int);
 
