@@ -18,7 +18,7 @@ BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
 	speed = 3;					//移動速度
   
 	power = 25;					//攻撃力
-	abilityCount = 5;		    //スキル回数
+	abilityCount = 0;		    //スキル回数
   
 	stanTime = 0;				//スタンタイム
 	stanTime_stay = 360;		//スタン再発動までの時間

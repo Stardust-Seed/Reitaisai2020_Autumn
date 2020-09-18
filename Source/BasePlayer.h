@@ -99,7 +99,7 @@ public:
 	//当たり判定
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);
-	BasePlayer() {}
+	BasePlayer(PlayerType _pType, AbilityType _pAbility) {}
 	BasePlayer( PlayerType _pType, AbilityType _pAbility);		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
 	void Draw();           //描画処理
