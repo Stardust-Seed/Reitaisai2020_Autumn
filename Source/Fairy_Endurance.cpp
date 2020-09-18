@@ -10,8 +10,9 @@ Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, eD
 
 }
 
-Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, eDirection _direction, int _x, int _y)
-	: BaseEnemy(_speed, _power, _durability, _direction,_x,_y) {
+Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, eDirection _direction,
+	float _x, float _y)
+	: BaseEnemy(_speed, _power, _durability, _direction, _x, _y) {
 
 }
 
@@ -31,6 +32,10 @@ void Fairy_Endurance::Update(CastleManager* _castleManager, BasePlayer* _player,
 
 	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
 		_player);
+
+	if (isCoolDown == true) {
+		SearchCoolDownTime();
+	}
 
 	for (int i = 0; i < _castleManager->Get_CastleNum(); i++) {
 		SearchCastle(_castleManager->Get_X(i), _castleManager->Get_Y(i),
