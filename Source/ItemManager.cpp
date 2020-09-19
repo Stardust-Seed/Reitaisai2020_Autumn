@@ -96,17 +96,17 @@ void ItemManager::Draw() {
 }
 
 void ItemManager::SpawnItem(float _ex,float _ey) {
-	bool isSpawn = false;	//生成判定フラグ
+	bool isSpawn = false;									//生成判定フラグ
+	int spawnPercent = GetRand(ITEM_GENERATION_RANDMAX);	//生成確率
+
+	//50未満の場合生成判定フラグをtrueにする
+	if (spawnPercent % ITEM_RATEDATA <= ITEM_GENERATION_RATE) {
+		isSpawn = true;
+	}
 
 	for (int i = 0; i < MAX_ITEM_NUM; i++) {
 		//items[i]が空の場合
 		if (items[i] == nullptr) {
-			int spawnPercent = GetRand(ITEM_GENERATION_RANDMAX);	//生成確率
-
-			//50未満の場合生成判定フラグをtrueにする
-			if (spawnPercent < ITEM_GENERATION_RATE) {
-				isSpawn = true;
-			}
 
 			//生成判定フラグがtrueの場合
 			if (isSpawn == true) {
@@ -121,6 +121,8 @@ void ItemManager::SpawnItem(float _ex,float _ey) {
 				if (spawnType == static_cast<int>(eItem::Speed)) {
 					items[i] = new Item_S(_ex, _ey, 16, 16, eItem::Speed);
 				}
+
+				return;
 			}
 
 			break;
