@@ -4,6 +4,7 @@
 EventManager::EventManager(int level) {
 
 	Event = NULL;		//イベントの初期化
+	waitCount = 0;		//カウント初期化
 
 	switch (level)				//引数(0～2)で難易度別の生成数を設定
 	{
@@ -30,7 +31,7 @@ EventManager::~EventManager() {
 void EventManager::SpawnEvent() {
 	waitCount++;
 
-	if (waitCount < FRAME * eventWaitTime) {// フレーム数 * 秒 = 待機時間　待機時間を超えても前のイベントが実行中なら実行しない
+	if (waitCount >= FRAME * eventWaitTime) {// フレーム数 * 秒 = 待機時間　待機時間を超えても前のイベントが実行中なら実行しない
 
 		if (Event == NULL) {//NULL(何もイベントが発生していない)時に生成
 
