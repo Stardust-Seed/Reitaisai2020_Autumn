@@ -4,6 +4,7 @@
 #include "BaseEvent.h"
 #include "Define.h"
 #include "Direction.h"
+#include "Image.h"
 
 class EnemyManager;
 
@@ -32,8 +33,22 @@ private:
 	float warpPosX;
 	float warpPosY;
 
-	int cnt;
+	//当たり判定
 	bool isHit;
+
+	//スキマの場所
+	int type;
+
+	//アニメーション再生用
+	bool animationFlg;
+	int  animationCnt;
+	int animationNum[61] = { 0,0,0,0,0,1,1,1,1,1,
+							 2,2,2,2,2,3,3,3,3,3,
+		                     3,3,3,3,3,3,3,3,3,3,
+		                     3,3,3,3,3,3,3,3,3,3,
+							 3,3,3,3,3,2,2,2,2,2,			
+		                     1,1,1,1,1,0,0,0,0,0,4 };
+
 public:
 	SukimaEvent();
 	~SukimaEvent();

@@ -11,10 +11,14 @@ SukimaEvent::SukimaEvent() {
 	width = 48;
 	height = width;
 	addSize = 12;
-	cnt = 0;
+
 	isHit = false;
 
-	int type = GetRand(3);    //乱数取得
+	animationCnt = 0;
+	animationFlg = false;
+
+	type = GetRand(3);    //乱数取得
+
 	//座標設定
 	switch (type)
 	{
@@ -54,9 +58,6 @@ SukimaEvent::~SukimaEvent() {
 void SukimaEvent::Update(EnemyManager* enemy)
 {
 	SRand;
-	cnt++;
-
-	Animation();
 
 	for (int num = 0; num < enemy->Get_enemyNum(); num++)
 	{
@@ -70,37 +71,39 @@ void SukimaEvent::Update(EnemyManager* enemy)
 		//当たったらワープ
 		if (isHit == true)
 		{
-			cnt = 0;
-			int type = GetRand(3);
-			switch (type)
+			animationFlg = true;
+			animationCnt = 0;
+			int _type = GetRand(3);
+			if (type == _type)return;
+			switch (_type)
 			{
 			case 0:    //左側
-				enemy->Set_x(num, LEFT_X+50);
-				enemy->Set_y(num, LEFT_Y);
+				enemy->Set_x(num, LEFT_X - width + 50);
+				enemy->Set_y(num, LEFT_Y - height * 0.5f);
 				enemy->Set_direction(num, eDirection::Left);
 				warpPosX = LEFT_X;
 				warpPosY = LEFT_Y;
 				break;
 
 			case 1:    //右側
-				enemy->Set_x(num, RIGHT_X-50);
-				enemy->Set_y(num, RIGHT_Y);
+				enemy->Set_x(num, RIGHT_X - width + 50);
+				enemy->Set_y(num, RIGHT_Y - height * 0.5f);
 				enemy->Set_direction(num, eDirection::Right);
 				warpPosX = RIGHT_X;
 				warpPosY = RIGHT_Y;
 				break;
 
 			case 2:    //上側
-				enemy->Set_x(num, UP_X);
-				enemy->Set_y(num, UP_Y + 50);
+				enemy->Set_x(num, UP_X - width * 0.5f);
+				enemy->Set_y(num, UP_Y - height + 50);
 				enemy->Set_direction(num, eDirection::Up);
 				warpPosX = UP_X;
 				warpPosY = UP_Y;
 				break;
 
 			case 3:    //下側
-				enemy->Set_x(num, DOWN_X);
-				enemy->Set_y(num, DOWN_Y - 50);
+				enemy->Set_x(num, DOWN_X - width * 0.5f);
+				enemy->Set_y(num, DOWN_Y - height + 50);
 				enemy->Set_direction(num, eDirection::Down);
 				warpPosX = DOWN_X;
 				warpPosY = DOWN_Y;
@@ -112,11 +115,16 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			isHit = false;
 		}
 	}
+
+	if (animationFlg == true)
+	{
+		Animation();
+	}
 }
 //描画
 void SukimaEvent::Draw()
 {
-	DrawBoxAA(x - width/2, y - height/2, x + width/2, y + height/2, GetColor(255, 0, 255), TRUE);
+		DrawGraph(x - width / 2, y - height / 2, Image::Instance()->GetGraph(Sukima03), TRUE);
 }
 //当たり判定
 bool SukimaEvent:: ClisionHit(float mx, float my, float mw, float mh,
@@ -133,13 +141,29 @@ bool SukimaEvent:: ClisionHit(float mx, float my, float mw, float mh,
 	}
 	return isHit;
 }
-//仮置き
+//アニメーション再生
 void SukimaEvent::Animation()
 {
-	//今はただの四角を少しの間表示してるだけ
-	//後で調整
-	if (cnt < 50)
+	animationCnt++;
+	if (animationNum[animationCnt] == 0)
 	{
-		DrawBoxAA(warpPosX- width / 2-addSize / 2, warpPosY- height / 2-addSize / 2, warpPosX + width / 2+addSize / 2, warpPosY + height / 2+addSize / 2, GetColor(255, 255, 255), TRUE);
+		DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(Sukima01), TRUE);
+	}
+	if (animationNum[animationCnt] == 1)
+	{
+		DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(Sukima02), TRUE);
+	}
+	if (animationNum[animationCnt] == 2)
+	{
+		DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(Sukima03), TRUE);
+	}
+	if (animationNum[animationCnt] == 3)
+	{
+		DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(Sukima04), TRUE);
+	}
+	if (animationNum[animationCnt] == 4)
+	{
+		animationCnt = 0;
+		animationFlg = false;
 	}
 }
