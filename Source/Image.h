@@ -8,20 +8,13 @@
 /// 画像のタイプ
 /// </summary>
 enum class eImageType {
-	Title_Logo,			//タイトルロゴ
-	Event_Darkness,		//ダークネスイベントの画像
-	Spicture_Sakuya01,	//立ち絵 咲夜(通常)
-	Spicture_Sakuya02,	//立ち絵 咲夜(笑顔)
-	Spicture_Sakuya03,	//立ち絵 咲夜(焦り)
-	Spicture_Fran01,	//立ち絵 フラン(通常)
-	Spicture_Fran02,	//立ち絵 フラン(笑顔)
-	Spicture_Fran03,	//立ち絵 フラン(焦り？)
-	Gpicture_Sakuya01,	//ゲームの素材 昨夜01
-	Gpicture_Sakuya02,	//ゲームの素材 昨夜02
-	Gpicture_Fran01,	//ゲームの素材 フラン01
-	Gpicture_Fran02,	//ゲームの素材 フラン02
-	Gpicture_Enemy01,	//ゲームの素材 敵01
-	Gpicture_Enemy02	//ゲームの素材 敵02
+	Title_Logo		= 0,	//タイトルロゴ
+	Event_Darkness	= 1,	//ダークネスイベントの画像
+	Spicture_Sakuya = 2,	//立ち絵 昨夜
+	Spicture_Fran	= 5,	//立ち絵 フラン
+	Gpicture_Player = 8,	//ゲームの素材 プレイヤー
+	Gpicture_Enemy	= 12,	//ゲームの素材 エネミー
+	Gpicture_Sukima = 18,	//ゲームの素材 スキマ
 };
 
 /// <summary>
