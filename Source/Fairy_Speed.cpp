@@ -4,19 +4,25 @@
 #include "BasePlayer.h"
 #include "BulletManager.h"
 #include "CastleManager.h"
+#include "Image.h"
 
-Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, eDirection _direction)
-	:BaseEnemy(_speed, _power, _durability, _direction) {
+Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability,
+	eDirection _direction, eEnemyType _enemyType)
+	:BaseEnemy(_speed, _power, _durability, _direction, _enemyType) {
 
 }
 
-Fairy_Speed::Fairy_Speed(float _speed, float _power, int _durability, eDirection _direction,
-	float _x, float _y)
-	: BaseEnemy(_speed, _power, _durability, _direction, _x, _y) {
+Fairy_Speed::Fairy_Speed(float _x, float _y, float _speed, float _power, int _durability,
+	eDirection _direction, eEnemyType _enemyType)
+	: BaseEnemy(_x, _y, _speed, _power, _durability, _direction, _enemyType) {
 
 }
 
 void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager) {
+
+	if (isAttack == true && inactiveType == eInactiveType::Invasion) {
+		isAttack = false;
+	}
 
 	for (int i = 0; i < _bulletManager->Get_MaxBullet(); i++) {
 		if (_bulletManager->Get_IsActive(i) == true) {
@@ -30,9 +36,6 @@ void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, Bul
 
 	JudgeActive();
 
-	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
-		_player);
-
 	if (isCoolDown == true) {
 		SearchCoolDownTime();
 	}
@@ -42,13 +45,16 @@ void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, Bul
 			_castleManager->Get_Width(i), _castleManager->Get_Height(i), _castleManager->Get_IsActive(i));
 	}
 
+	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
+		_player);
+
 	Move();
 
-	if (isAttack) {
+	if (isAttack == true) {
 		AttackProc();
 	}
 }
 
 void Fairy_Speed::Draw() {
-	DrawBoxAA(x, y, x + width, y + height, GetColor(0, 0, 255), TRUE);
+	Animation();
 }
