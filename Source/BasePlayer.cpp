@@ -5,6 +5,7 @@
 #include"BaseEnemy.h"
 #include"BulletManager.h"
 #include"EnemyManager.h"
+#include"Image.h"
 
 BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
 {
@@ -35,6 +36,17 @@ BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
 
 	playerType  = _pType;
 	abilityType = _pAbility;    //まだキャラ選択できないので仮置き
+
+	/*************
+	とりあえず23日まではテストも兼ねてここで読み込む
+	*************/
+	playerGh[0] = LoadGraph("res/Image/sakuya01.png");
+	playerGh[1] = LoadGraph("res/Image/sakuya02.png");
+
+	animWait = ANIMETION_SPEED;
+	graphNo = 0;
+	animNo = 0;
+
 }
 BasePlayer::~BasePlayer()
 {
@@ -42,8 +54,9 @@ BasePlayer::~BasePlayer()
 }
 void BasePlayer::Draw()
 {
-	//自機の描画
-	DrawBox(pos.x, pos.y, pos.x + width, pos.y + height, GetColor(0, 255, 0), TRUE);
+
+	DrawGraph(pos.x, pos.y, playerGh[graphNo], true);
+
 }
 void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 {
@@ -122,21 +135,41 @@ bool BasePlayer::ClisionHit(float mx, float my, float mw, float mh,
 void BasePlayer::Attack()
 {
 
-	if (attackTime < 5)
+	if (attackTime < 5)   //攻撃間隔
 	{
 		attackTime++;
 	}
-
-	//攻撃間隔
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && attackTime >= 5 && isMove == false)
-	{
-		//攻撃flagをtrueにする
-		isAttack = true;
-		//弾を飛ばす
-		bulletManager->Shot(pos, playerPos, isAttack);
-		attackTime = 0;
+	if (isMove == false) {
+		if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && attackTime >= 5)
+		{
+			//攻撃flagをtrueにする
+			isAttack = true;
+			//弾を飛ばす
+			bulletManager->Shot(pos, playerPos, isAttack);
+			attackTime = 0;
+		}
 	}
 
+}
+
+//アニメーション処理
+void BasePlayer::Animation()
+{
+	if (--animWait <= 0) {
+
+		animNo++;
+
+		animWait = ANIMETION_SPEED;  //待ち時間を戻す
+
+		/*************
+		アニメーション番号が、最大より大きければ
+		ANIMETION_MAX分を引いてそれ以下の値にする
+		*************/
+		animNo %= ANIMETION_MAX;
+
+	}
+	//画像番号に、アニメーションの番号を入れる
+	graphNo = playerAnim[animNo];
 }
 //プレイヤーの移動処理
 void BasePlayer::Move()
@@ -189,6 +222,7 @@ void BasePlayer::Move()
 	{
 		isMove = false; //移動してないときはフラグをfalseにする
 	}
+
 }
 
 //上に移動する処理
@@ -197,6 +231,7 @@ void BasePlayer::Move_UP()
 	if (pos.y >= 426 && (pos.x <= 846 || pos.x >= 1026))
 	{
 		pos.y -= speed;
+		Animation();
 	}
 }
 
@@ -206,6 +241,7 @@ void BasePlayer::Move_DOWN()
 	if (pos.y <= 606 && (pos.x <= 846 || pos.x >= 1026))
 	{
 		pos.y += speed;
+		Animation();
 	}
 }
 
@@ -215,6 +251,7 @@ void BasePlayer::Move_LEFT()
 	if (pos.x >= 846 && (pos.y <= 426 || pos.y >= 606))
 	{
 		pos.x -= speed;
+		Animation();
 	}
 }
 //右へ移動する処理
@@ -223,5 +260,6 @@ void BasePlayer::Move_RIGHT()
 	if (pos.x <= 1026 && (pos.y <= 426 || pos.y >= 606))
 	{
 		pos.x += speed;
+		Animation();
 	}
 }
