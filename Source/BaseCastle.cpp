@@ -13,34 +13,21 @@ BaseCastle::BaseCastle(int _durability){
 
 //拠点がダメージを受けたときの処理
 bool BaseCastle::ClisionHit(float ox, float oy, float ow, float oh,
-	int pow, int num, bool attackFlg, bool activeFlg)
+                   int pow, int num, bool attackFlg, bool activeFlg)
 {
-	if (x + width >= ox && x <= ox + ow &&
-		y + height >= oy && y <= oy + oh &&
-		attackFlg == true && activeFlg == true)
-	{
-		//一回だけ処理
-		if (isHit == false)
-		{
-			durability -= pow;
-			isHit = true;
-			return isHit;
-		}
+    if (x + width >= ox && x <= ox + ow &&
+        y + height >= oy && y <= oy + oh &&
+        attackFlg == true && activeFlg == true)
+    {
+        //一回だけ処理
+        if (isHit == false)
+        {
+            durability -= pow;
+            isHit = true;
+            return isHit;
+        }
 
-	}
+    }
 
-	//一回だけ処理する用のフラグ処理
-	if (isHit == true)
-	{
-		isHit = false;
-	}
-
-	//耐久の処理
-	if (durability <= 0)
-	{
-		isActive = false;
-	}
-
-	return isHit;
+    return isHit;
 }
-

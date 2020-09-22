@@ -3,6 +3,9 @@
 
 #include "Object.h"
 #include "Direction.h"
+#include "Define.h"
+#include "Image.h"
+#include "SE.h"
 /*-------------------------------------------------------------
 オブジェクト名    BaseCastle
 概要    拠点の元になるオブジェクト
