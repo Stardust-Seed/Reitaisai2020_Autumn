@@ -70,6 +70,38 @@ public:
 	/// 画像データの開放
 	/// </summary>
 	void Release();
+
+	/*------------------------------------------------------------------------------
+	Beta機能
+	・透過描画(LR反転機能あり)
+	・フェードアウト描画(LR反転機能あり)
+	------------------------------------------------------------------------------*/
+
+	/// <summary>
+	/// 透過描画
+	/// </summary>
+	/// <param name="_x">表示するx座標</param>
+	/// <param name="_y">表示するy座標</param>
+	/// <param name="_gHandle">画像ハンドル</param>
+	/// <param name="_pal">透過度合いのパラメータ</param>
+	/// <param name="_isTurn">LR反転フラグ true:する/false:しない(default)</param>
+	/// <param name="_transFlag">透過フラグ ※基本的に入力しなくて大丈夫</param>
+	void TransparentGraph(float _x, float _y, int _gHandle, int _pal = 255,
+		bool _isTurn = false, int _transFlag = TRUE);
+
+	/// <summary>
+	/// フェードアウト描画
+	/// </summary>
+	/// <param name="_x">表示するx座標</param>
+	/// <param name="_y">表示するy座標</param>
+	/// <param name="_gHandle">画像ハンドル</param>
+	/// <param name="_fadeCnt">現在のカウント</param>
+	/// <param name="_fadeMaxCnt">最大カウント</param>
+	/// <param name="_isTurn">LR反転フラグ true:する/false:しない(default)</param>
+	/// <param name="_transFlag">透過フラグ ※基本的に入力しなくて大丈夫</param>
+	/// <returns>次のカウント</returns>
+	int FadeOutGraph(float _x, float _y, int _gHandle, int _fadeCnt, int _fadeMaxCnt,
+		bool _isTurn = false, int _transFlag = TRUE);
 };
 
 #endif // !_IMAGE_H
