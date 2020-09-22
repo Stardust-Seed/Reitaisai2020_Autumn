@@ -72,6 +72,11 @@ void Image::TransparentGraph(float _x, float _y, int _gHandle, int _pal,
 int Image::FadeOutGraph(float _x, float _y, int _gHandle, int _fadeCnt, int _fadeMaxCnt,
 	bool _isTurn, int _transFlag) {
 
+	//最大カウントより超える場合処理は行われない
+	if (_fadeCnt >= _fadeMaxCnt) {
+		return _fadeCnt;
+	}
+
 	//フェイドカウントを加算する※1～n+1の範囲にするため
 	_fadeCnt++;
 
@@ -91,11 +96,6 @@ int Image::FadeOutGraph(float _x, float _y, int _gHandle, int _fadeCnt, int _fad
 	//描画モード ノーブレンドをセットする
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	//最大カウント+1の場合0を返す
-	if (_fadeCnt == _fadeMaxCnt + 1) {
-		return 0;
-	}
-
-
+	//次のカウントを返す
 	return _fadeCnt;
 }
