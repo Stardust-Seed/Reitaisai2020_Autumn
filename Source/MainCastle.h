@@ -2,8 +2,7 @@
 #define _MAINCASTLE_H
 
 #include "BaseCastle.h"
-#include "Define.h"
-#include "SE.h"
+
 /*-------------------------------------------------------------
 オブジェクト名:	MainCastle
 概要	      : 拠点
