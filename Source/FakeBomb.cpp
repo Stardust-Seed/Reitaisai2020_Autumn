@@ -4,21 +4,43 @@
 FakeBomb::FakeBomb()
 	: BaseBomb()
 {
-	
+	fBomb = LoadGraph("res/Image/bomb.png");
+	fAction = LoadGraph("res/Image/fake.png");
+
+	isFakeAction = false;
 };
 
+//îöî≠ÇµÇΩÇ∆Ç´ÇÃèàóù
 void FakeBomb::FakeMotion()
 {
-	if (isTrigger == true)
+	//ãUîöíeÇ™ãNìÆ
+	if (isFakeTrigger == true)
 	{
+		isFakeAction = true;
+		if (isFakeAction == true)
+		{
+			DrawGraph(x, y + 400, fAction, TRUE);
+			isFakeTrigger = false;
+			isFakeAction = false;
+		}
+
+		if (isFakeAction == false)
+		{
+			DeleteGraph(fAction);
+		}
+
 		damage = 0;
-		DrawFormatString(700, 190, GetColor(255, 255, 255), "%d", damage);
-		DrawString(700, 370, "ãUï®", GetColor(255, 255, 255));
+		//DrawFormatString(700, 190, GetColor(255, 255, 255), "%d", damage);
+		//DrawString(700, 370, "ãUï®", GetColor(255, 255, 255));
 	}
 }
 
 void FakeBomb::Update() 
 {
+	if (type == fakebomb)
+	{
+		SpawnBomb();
+	}
 	Move();
 	JudgeTrigger();
 	FakeMotion();
@@ -26,8 +48,8 @@ void FakeBomb::Update()
 
 void FakeBomb::Draw() 
 {
-	if (isSpown == true)
+	if (isFakeSpown == true)
 	{
-		DrawCircle(x, y, 10, GetColor(0, 0, 255), TRUE);
+		DrawGraph(x, y, fBomb, TRUE);
 	}
 }
