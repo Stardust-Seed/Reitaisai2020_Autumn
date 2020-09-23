@@ -39,6 +39,7 @@ BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
 
 	/*************
 	とりあえず23日まではテストも兼ねてここで読み込む
+	結合したらImageクラスからのに変える予定
 	*************/
 	playerGh[0] = LoadGraph("res/Image/sakuya01.png");
 	playerGh[1] = LoadGraph("res/Image/sakuya02.png");

@@ -57,8 +57,8 @@ protected:
 
 	const float PLAYER_RIGHTPOS = 1026;     //プレイヤーの右の位置
 
-	const int ANIMETION_MAX = 4;            //アニメーション番号の最大
-	const int ANIMETION_SPEED = 10;          //アニメーションのスピード
+	const int ANIMETION_MAX = 4;            //アニメーションの最大数
+	const int ANIMETION_SPEED = 10;         //アニメーションのスピード
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
@@ -66,7 +66,7 @@ protected:
 	int stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
 	int attackTime;                 //攻撃間隔
 
-	int playerGh[2];                //画像 0：左向き 1：左向き歩き  2：右向き  3：右向き歩き
+	int playerGh[4];                //画像 0：左向き 1：左向き歩き  2：右向き  3：右向き歩き
 	int graphNo;                    //画像番号
 	int playerAnim[4] = {0,0,1,1 }; //アニメーション順番
 	int animNo;                     //アニメーション番号
