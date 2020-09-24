@@ -13,7 +13,8 @@ class ItemManager final {
 private:
 	static const int MAX_ITEM_NUM = 50;			//アイテムの画面上最大生成数
 	const int ITEM_GENERATION_RANDMAX = 100;	//アイテムの生成用RANDMAX
-	const int ITEM_GENERATION_RATE = 100;		//アイテムの生成率
+	const int ITEM_RATEDATA = 10;				//アイテムの生成率関連のデータ
+	const int ITEM_GENERATION_RATE = 10;			//アイテムの生成率
 	const int ITEM_TYPE_NUM = 2;				//アイテムの種類の数
 
 	BaseItem* items[MAX_ITEM_NUM];	//アイテム
