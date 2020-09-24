@@ -42,9 +42,6 @@ void MainCastle::Update(EnemyManager* enemy)
 //拠点の描画
 void MainCastle::Draw()
 {
-	//プレイヤーの移動範囲(これUIの方がいいのでは)
-	DrawBox(x - 60.0f, y - 60.0f, x + width + 60.0f, y + height + 60.0f, GetColor(25, 25, 25), true);
-
     //拠点の描画
 	if (isActive == true)
 	{
