@@ -4,19 +4,25 @@
 #include "BasePlayer.h"
 #include "BulletManager.h"
 #include "CastleManager.h"
+#include "Image.h"
 
-Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, eDirection _direction)
-	:BaseEnemy(_speed, _power, _durability, _direction) {
+Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability,
+	eDirection _direction, eEnemyType _enemyType)
+	:BaseEnemy(_speed, _power, _durability, _direction, _enemyType) {
 
 }
 
-Fairy_Endurance::Fairy_Endurance(float _speed, float _power, int _durability, eDirection _direction,
-	float _x, float _y)
-	: BaseEnemy(_speed, _power, _durability, _direction, _x, _y) {
+Fairy_Endurance::Fairy_Endurance(float _x, float _y, float _speed, float _power, int _durability,
+	eDirection _direction, eEnemyType _enemyType)
+	: BaseEnemy(_x, _y, _speed, _power, _durability, _direction, _enemyType) {
 
 }
 
 void Fairy_Endurance::Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager) {
+
+	if (isAttack == true && inactiveType == eInactiveType::Invasion) {
+		isAttack = false;
+	}
 
 	for (int i = 0; i < _bulletManager->Get_MaxBullet(); i++) {
 		if (_bulletManager->Get_IsActive(i) == true) {
@@ -30,6 +36,11 @@ void Fairy_Endurance::Update(CastleManager* _castleManager, BasePlayer* _player,
 
 	JudgeActive();
 
+	for (int i = 0; i < _castleManager->Get_CastleNum(); i++) {
+		SearchCastle(_castleManager->Get_X(i), _castleManager->Get_Y(i),
+			_castleManager->Get_Width(i), _castleManager->Get_Height(i), _castleManager->Get_IsActive(i));
+	}
+
 	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
 		_player);
 
@@ -37,18 +48,13 @@ void Fairy_Endurance::Update(CastleManager* _castleManager, BasePlayer* _player,
 		SearchCoolDownTime();
 	}
 
-	for (int i = 0; i < _castleManager->Get_CastleNum(); i++) {
-		SearchCastle(_castleManager->Get_X(i), _castleManager->Get_Y(i),
-			_castleManager->Get_Width(i), _castleManager->Get_Height(i), _castleManager->Get_IsActive(i));
-	}
-
 	Move();
 
-	if (isAttack) {
+	if (isAttack == true) {
 		AttackProc();
 	}
 }
 
 void Fairy_Endurance::Draw() {
-	DrawBoxAA(x, y, x + width, y + height, GetColor(0, 255, 0), TRUE);
+	Animation();
 }
