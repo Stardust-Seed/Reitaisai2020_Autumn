@@ -25,8 +25,6 @@ private:
 
 	int opacity;		//不透明度
 
-	int darkImage;		//画像格納用
-
 public:
 	DarknessEvent();	//コンストラクタ
 
