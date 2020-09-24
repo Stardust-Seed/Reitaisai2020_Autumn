@@ -4,13 +4,31 @@
 //コンストラクタ
 BaseBomb::BaseBomb()
 {
-	direction = GetRand(3);
+	//SRand;								//乱数の初期化
+	//type = GetRand(MAX_TYPE - 1);		//種類の乱数
+	type = 1;
+
+	switch (type)
+	{
+	case 0:
+		type = bomb;
+		break;
+
+	case 1:
+		type = fakebomb;
+		break;
+	}
+	
+	direction = GetRand(3);					//方向の乱数
+	//direction = 3;
 	speed = 3;
 	countdown = COUNTMAX;						//カウントダウンのセット
-
-	isXplosion = false;							//初期状態
+	
 	isSpown = false;
+	isFakeSpown = false;
+	isXplosion = false;							//初期状態
 	isTrigger = false;
+	isFakeTrigger = false;
 
 	if (direction == DIRECTIONLEFT)			//左
 	{
@@ -43,9 +61,22 @@ BaseBomb::~BaseBomb()
 }
 
 //爆弾生成
-void BaseBomb::SpawnBomb() 
+void BaseBomb::SpawnBomb()
 {
-	isSpown = true;
+
+	//DrawFormatString(10, 300, GetColor(255, 255, 255), "type%d", type);
+	//真
+	if (type == bomb)
+	{
+		isSpown = true;
+	}
+
+	//偽
+	if (type == fakebomb)
+	{
+		isFakeSpown = true;
+	}
+
 }
 
 //爆弾落下
@@ -54,7 +85,7 @@ void BaseBomb::Move()
 	if (direction == DIRECTIONLEFT)			//左
 	{
 		y += speed;
-		if (y > BOMB_SPOWNLR + 356)
+		if (y > BOMB_SPOWNLR + 540)
 		{
 			speed = 0;
 		}
@@ -63,7 +94,7 @@ void BaseBomb::Move()
 	if (direction == DIRECTIONRIGHT)		//右
 	{
 		y += speed;
-		if (y > BOMB_SPOWNLR + 356)
+		if (y > BOMB_SPOWNLR + 540)
 		{
 			speed = 0;
 		}
@@ -72,7 +103,7 @@ void BaseBomb::Move()
 	if (direction == DIRECTIONUP)			//上
 	{
 		y += speed;
-		if (y > BOMB_SPOWNUPY + 264)
+		if (y > BOMB_SPOWNUPY + 455)
 		{
 			speed = 0;
 		}
@@ -81,7 +112,7 @@ void BaseBomb::Move()
 	if (direction == DIRECTIONDOWN)			//下
 	{
 		y -= speed;
-		if (y < BOMB_SPOWNDOWNY - 264)
+		if (y < BOMB_SPOWNDOWNY - 495)
 		{
 			speed = 0;
 		}
@@ -91,21 +122,39 @@ void BaseBomb::Move()
 //爆弾起動
 void BaseBomb::JudgeTrigger()
 {
+	//爆弾のタイマー
 	if (speed == 0)
 	{
-		DrawFormatString(10, 150, GetColor(255, 255, 255), "制限時間%d", countdown / FRAME);	//表示
+		DrawFormatString(10, 150, GetColor(255, 255, 255), "%d", countdown / FRAME);	//表示
 		if (countdown <= FRAME) {								//残り一秒以下は割り算の結果0になるため、表示タイミングの調整
 			isXplosion = true;									//フラグ切替
 		}
+
 		if (countdown >= 0) {									//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
 			countdown -= 1;										//カウントダウン
 		}
 	}
 
-	if (isXplosion == true)
+	if (type == bomb)
 	{
-		DrawString(700, 300, "爆発", GetColor(255, 255, 255));
-		isTrigger = true;
+		if (isXplosion == true)			//爆発する
+		{
+			//DrawString(700, 300, "爆発", GetColor(255, 255, 255));
+			isTrigger = true;
+			isXplosion = false;
+			isSpown = false;
+		}
+	}
+
+	if (type == fakebomb)
+	{
+		if (isXplosion == true)			//爆発する
+		{
+			//DrawString(600, 300, "偽爆発", GetColor(255, 255, 255));
+			isFakeTrigger = true;
+			isXplosion = false;
+			isFakeSpown = false;
+		}
 	}
 }
 
