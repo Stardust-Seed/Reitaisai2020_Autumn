@@ -150,8 +150,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							_power = 10.0f;
 							_durability = 50;
 
-							Enemys[num] = new Fairy_Speed(_speed, _power, _durability, _castle->Get_CastleDirection(_direction),
-								_castle->Get_X(_direction), _castle->Get_Y(_direction));        //¶¬ˆ—
+							Enemys[num] = new Fairy_Speed(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
+								_castle->Get_CastleDirection(_direction));        //¶¬ˆ—
 
 							waitCount = 0;
 							break;      //ˆê‘Ì¶¬‚µ‚½‚ç”²‚¯‚é
@@ -163,8 +163,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							_power = 10.0f;
 							_durability = 100;
 
-							Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, _castle->Get_CastleDirection(_direction),
-								_castle->Get_X(_direction), _castle->Get_Y(_direction));        //¶¬ˆ—
+							Enemys[num] = new Fairy_Endurance(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
+								_castle->Get_CastleDirection(_direction));        //¶¬ˆ—
 
 							waitCount = 0;
 							break;      //ˆê‘Ì¶¬‚µ‚½‚ç”²‚¯‚é
