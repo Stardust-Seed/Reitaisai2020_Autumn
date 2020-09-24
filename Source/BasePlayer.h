@@ -8,6 +8,7 @@ class BulletManager;
 class BuffManager;
 class EnemyManager;
 class BaseEnemy;
+class Image;
 
 enum PlayerType
 {
@@ -48,13 +49,16 @@ protected:
 
 	const float PLAYER_UPDOWNPOSX = 936;    //プレイヤーの上と下の位置X
 
-	const float PLAYER_UPPOSY = 426;    //プレイヤーの上の位置Y
+	const float PLAYER_UPPOSY = 426;        //プレイヤーの上の位置Y
 	const float PLAYER_DOWNPOSY = 606;      //プレイヤーの下の位置Y
 
 	const float PLAYER_LEFTRIGHTPOS = 516;  //プレイヤーの左と右の高さ
 	const float PLAYER_LEFTPOS = 846;       //プレイヤーの左の位置
 
-	const float PLAYER_RIGHTPOS = 1026;      //プレイヤーの右の位置
+	const float PLAYER_RIGHTPOS = 1026;     //プレイヤーの右の位置
+
+	const int ANIMETION_MAX = 4;            //アニメーションの最大数
+	const int ANIMETION_SPEED = 10;         //アニメーションのスピード
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
@@ -62,28 +66,23 @@ protected:
 	int stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
 	int attackTime;                 //攻撃間隔
 
-	bool isAbility;             //スキルが発動している状態かどうか
-	int  abilityCount;                 //スキル回数
+	int playerGh[4];                //画像 0：左向き 1：左向き歩き  2：右向き  3：右向き歩き
+	int graphNo;                    //画像番号
+	int playerAnim[4] = {0,0,1,1 }; //アニメーション順番
+	int animNo;                     //アニメーション番号
+	int animWait;                   //アニメーション待機時間
+
+	bool isAbility;                 //スキルが発動している状態かどうか
+	int  abilityCount;              //スキル回数
 
 	float width;
 	float height;
 
-	int playerPos;                  //プレイヤーのいる場所
+	int playerPos;                  //プレイヤーの向き
 	// 0 = 左         1 = 上        2 = 右         3 = 下
 
-	int isMove;						//プレイヤーの移動の管理
-	// 0 = 左へ移動   1 =上へ移動   2 = 右へ移動   3 = 下へ移動   4 = なし
+	bool isMove;                   //現在移動中のフラグ
 
-	int now_Move;                   //現在移動中のフラグ
-
-	bool isMoveKey;                 //キー入力による移動かをチェックするフラグ。反対移動処理との重複を防ぐため
-	bool isOps;                     //反対移動処理を起動するためのフラグ
-	bool isOps_RUN;                 //反対移動処理を実行するためのフラグ
-	bool isOps_UP;                  //上の反対に移動するためのフラグ
-	bool isOps_DOWN;                //下の反対に移動するためのフラグ
-	bool isOps_LEFT;                //左の反対に移動するためのフラグ
-	bool isOps_RIGHT;               //右の反対に移動するためのフラグ
-	bool isDamage;                  //プレイヤーの被弾フラグ
 	bool isAttack;                  //攻撃フラグ
 	bool isStan;                    //スタン中かどうかのフラグ
 	bool isStan_Next;               //スタンが起こる状態かどうかのフラグ
@@ -112,9 +111,8 @@ public:
 	void Move_DOWN();      //↓移動処理
 	void Move_LEFT();      //←移動処理
 	void Move_RIGHT();     //→移動処理
-	void Move_OPS();       //反対移動処理:起動
-	void Move_OPSRUN();    //反対移動処理:処理
 	void Attack();         //攻撃処理
+	void Animation();      //アニメーション
 
 	//スタン処理
 	void Stan();           
