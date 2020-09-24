@@ -5,6 +5,7 @@ Image::Image() {
 	//画像の読み込み
 	MyLoadGraph("./res/Image/title_rogo.png");
 	MyLoadGraph("./res/Image/darkness.png");
+	MyLoadGraph("./res/Image/koumakan.png");
 
 	//画像を分割して読み込み
 	MyLoadDivGraph("./res/Image/tatie_Sakuya.png", 3, 3, 1, 486, 864);
@@ -12,6 +13,7 @@ Image::Image() {
 	MyLoadDivGraph("./res/Image/player.png", 4, 2, 2, 48, 48);
 	MyLoadDivGraph("./res/Image/enemy.png", 6, 2, 3, 48, 48);
 	MyLoadDivGraph("./res/Image/sukima.png", 4, 4, 1, 48, 48);
+	MyLoadDivGraph("./res/Image/ex.png", 6, 6, 1, 100, 100);
 }
 
 void Image::Release() {
@@ -73,7 +75,7 @@ int Image::FadeOutGraph(float _x, float _y, int _gHandle, int _fadeCnt, int _fad
 	bool _isTurn, int _transFlag) {
 
 	//最大カウントより超える場合処理は行われない
-	if (_fadeCnt >= _fadeMaxCnt) {
+	if (_fadeCnt > _fadeMaxCnt) {
 		return _fadeCnt;
 	}
 
