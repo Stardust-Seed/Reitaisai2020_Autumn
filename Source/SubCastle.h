@@ -2,7 +2,6 @@
 #define _SUBCASTLE_H
 
 #include "BaseCastle.h"
-#include "Define.h"
 
 /*-------------------------------------------------------------
 オブジェクト名:	SubCastle

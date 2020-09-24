@@ -1,4 +1,4 @@
-#include <DxLib.h>
+#include "DxLib.h"
 #include "SubCastle.h"
 #include "EnemyManager.h"
 
@@ -103,18 +103,24 @@ void SubCastle::Update(EnemyManager* enemy)
 {
 	for (int num = 0; num < enemy->Get_enemyNum(); num++)
 	{
-		if (enemy->Get_ActiveFlg(num) == true)
+		if (enemy->Get_ActiveFlg(num) == true && enemy->Get_AttackFlg(num) == true)
 		{
-			ClisionHit(enemy->Get_x(num), enemy->Get_y(num), enemy->Get_width(num),
-				enemy->Get_height(num), enemy->Get_Power(num), num,
-				enemy->Get_AttackFlg(num), enemy->Get_ActiveFlg(num));
+			ClisionHit(enemy->Get_x(num),		  enemy->Get_y(num)         , enemy->Get_width(num),
+				       enemy->Get_height(num),    enemy->Get_Power(num)     , num,
+				       enemy->Get_AttackFlg(num), enemy->Get_ActiveFlg(num));
 		}
+	}
 
-		if (isHit == true)
-		{
-			enemy->Set_IsAttack(num, false);
-			enemy->Set_IsActive(num, false);
-		}
+	//一回だけ処理する用のフラグ処理
+	if (isHit == true)
+	{
+		isHit = false;
+	}
+
+	//耐久の処理
+	if (durability <= 0)
+	{
+		isActive = false;
 	}
 }
 
@@ -123,12 +129,11 @@ void SubCastle::Draw()
 	//適当に表示
 	if (isActive == true)
 	{
-		DrawBox(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
-			    x + addPosX + width + addSize / 2, y + addPosY + height + addSize / 2, 
-			    GetColor(0, 0, 128), true);
+		//DrawGraph(x + addPosX - addSize / 2, y + addPosY - addSize / 2, Image::Instance()->GetGraph(subCastle), TRUE);
 	}
 	else
 	{
+		//まだこっちは適応してない
 		DrawBox(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
 			    x + addPosX + width + addSize / 2, y + addPosY + height + addSize / 2,
 			    GetColor(128, 0, 0), true);
