@@ -87,7 +87,7 @@ public:
 	/// <param name="_isTurn">LR反転フラグ true:する/false:しない(default)</param>
 	/// <param name="_transFlag">透過フラグ ※基本的に入力しなくて大丈夫</param>
 	void TransparentGraph(float _x, float _y, int _gHandle, int _pal = 255,
-		bool _isTurn = false, int _transFlag = TRUE);
+		bool _isTurn = false, int _transFlag = 1);
 
 	/// <summary>
 	/// フェードアウト描画
@@ -101,7 +101,7 @@ public:
 	/// <param name="_transFlag">透過フラグ ※基本的に入力しなくて大丈夫</param>
 	/// <returns>次のカウント</returns>
 	int FadeOutGraph(float _x, float _y, int _gHandle, int _fadeCnt, int _fadeMaxCnt,
-		bool _isTurn = false, int _transFlag = TRUE);
+		bool _isTurn = false, int _transFlag = 1);
 };
 
 #endif // !_IMAGE_H
