@@ -1,8 +1,10 @@
 #include <DxLib.h>
 #include "Define.h"
 #include "BaseEnemy.h"
+
 #include "BasePlayer.h"
 #include "BulletManager.h"
+#include "Image.h"
 
 const float BaseEnemy::ENEMY_SPAWNXLEFT = 420;
 const float BaseEnemy::ENEMY_SPAWNYLEFT = (GAME_HEIHGT / 2) - (48 / 2);
@@ -14,20 +16,10 @@ const float BaseEnemy::ENEMY_SPAWNXDOWN = (GAME_WIDTH / 2) - (48 / 2);
 const float BaseEnemy::ENEMY_SPAWNYDOWN = GAME_HEIHGT + 48;
 
 //通常スポーン用のコンストラクタ
-BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction) {
+BaseEnemy::BaseEnemy(float _speed, float _power, int _durability,
+	eDirection _direction, eEnemyType _enemyType) {
 	//各パラメータの初期化
-	speed = _speed;
-	power = _power;
-	durability = _durability;
-	direction = _direction;
-
-	isCoolDown = false;
-
-	isActive = true;
-	isAttack = false;
-	isHit = false;
-
-	inactiveType = eInactiveType::None;
+	Init(_speed, _power, _durability, _direction, _enemyType);
 
 	if (direction == eDirection::Left) {
 		x = ENEMY_SPAWNXLEFT;
@@ -49,18 +41,32 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _di
 		y = ENEMY_SPAWNYDOWN;
 	}
 
-	width = 48;
-	height = 48;
+	cx = x + (width / 2);
+	cy = y + (height / 2);
+
 }
 
 //サブ拠点用のコンストラクタ
-BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _direction,
-	float _x, float _y) {
+BaseEnemy::BaseEnemy(float _x, float _y, float _speed, float _power, int _durability,
+	eDirection _direction, eEnemyType _enemyType) {
 	//各パラメータの初期化
+	Init(_speed, _power, _durability, _direction, _enemyType);
+
+	x = _x;
+	y = _y;
+	cx = x + (width / 2);
+	cy = y + (height / 2);
+}
+
+void BaseEnemy::Init(float _speed, float _power, int _durability,
+	eDirection _direction, eEnemyType _enemyType) {
 	speed = _speed;
 	power = _power;
 	durability = _durability;
 	direction = _direction;
+	enemyType = _enemyType;
+
+	animationCnt = 0;
 
 	isCoolDown = false;
 
@@ -69,8 +75,6 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _di
 	isHit = false;
 
 	inactiveType = eInactiveType::None;
-	x = _x;
-	y = _y;
 
 	width = 48;
 	height = 48;
@@ -79,7 +83,7 @@ BaseEnemy::BaseEnemy(float _speed, float _power, int _durability, eDirection _di
 //移動処理
 void BaseEnemy::Move() {
 
-	if (isActive == false || isAttack == true) {
+	if (isActive == false || isAttack == true || inactiveType == eInactiveType::Invasion) {
 		return;
 	}
 
@@ -103,23 +107,73 @@ void BaseEnemy::Move() {
 
 //生存判定処理
 void BaseEnemy::JudgeActive() {
+	//durabilityが0以下のとき
 	if (durability <= 0) {
 		inactiveType = eInactiveType::Defeat;
+		isActive = false;
+	}
+
+	//非アクティブタイプが侵入でありアニメーションカウントが最大+1のとき
+	if (inactiveType == eInactiveType::Invasion && animationCnt == 60 + 1) {
 		isActive = false;
 	}
 }
 
 void BaseEnemy::AttackProc() {
-	static int attackTime = 0;
+	static int attackCnt = 0;	//攻撃のカウント
+	float addX = 0;
+	float addY = 0;
 
-	if (attackTime == 120) {
+	switch (direction) {
+	case eDirection::Left:
+		addX = (48.0f / 30.0f);
+		addY = -(20.0f / 15.0f);
+		break;
+	case eDirection::Right:
+		addX = -(48.0f / 30.0f);
+		addY = -(20.0f / 15.0f);
+		break;
+	case eDirection::Up:
+		addX = (48.0f / 30.0f);
+		addY = (20.0f / 15.0f);
+		break;
+	case eDirection::Down:
+		addX = -(48.0f / 30.0f);
+		addY = -(20.0f / 15.0f);
+		break;
+	}
+
+	if (attackCnt == 120) {
 		isAttack = false;
 		isCoolDown = true;
-		attackTime = 0;
+		attackCnt = 0;
 		return;
 	}
 
-	attackTime++;
+	if (attackCnt < 30) {
+		x += addX;
+
+		if (attackCnt < 15) {
+			y += addY;
+		}
+		else if (attackCnt < 30) {
+			y -= addY;
+		}
+
+	}
+	else if (attackCnt >= 50 && attackCnt < 80) {
+
+		x -= addX;
+
+		if (attackCnt < 65) {
+			y += addY;
+		}
+		else if (attackCnt < 80) {
+			y -= addY;
+		}
+	}
+
+	attackCnt++;
 }
 
 void BaseEnemy::DamageProc(int _damage) {
@@ -191,9 +245,18 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 
 //城サーチ処理
 void BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _isActive) {
+
+	//非アクティブタイプが侵入の場合処理を行わない
+	if (inactiveType == eInactiveType::Invasion) {
+		return;
+	}
+
+	//城があった場合
 	if ((x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh)
 		&& _isActive == true) {
 		isAttack = true;
+		inactiveType = eInactiveType::Invasion;
+		animationCnt = 0;
 	}
 }
 
@@ -220,4 +283,44 @@ bool BaseEnemy::ClisionHit(float mx, float my, float mw, float mh,
 	}
 
 	return false;
+}
+
+void BaseEnemy::Animation() {
+	static int imageIndex = 0;		//どの画像を呼び出すかの変数
+	bool isTurn = false;	//LR反転フラグ
+
+	if (direction == eDirection::Left && isTurn != true) {
+		isTurn = true;
+	}
+
+	//非アクティブタイプがNoneの場合
+	if (inactiveType == eInactiveType::None) {
+		//カウントが60の時リセットする
+		if (animationCnt == (ANIMATION_SWITCHING * 2)) {
+			animationCnt = 0;
+		}
+
+		//0～29カウントはimageIndexに1枚目の要素番号を代入する
+		if (animationCnt < ANIMATION_SWITCHING) {
+			imageIndex = static_cast<int>(enemyType);
+		}
+		//30～59カウントはimageIndexに2枚目の要素番号を代入する
+		else if (animationCnt < (ANIMATION_SWITCHING * 2)) {
+			imageIndex = static_cast<int>(enemyType) + 1;
+		}
+
+		Image::Instance()->TransparentGraph(x, y, Image::Instance()->GetGraph(
+			eImageType::Gpicture_Enemy, imageIndex), 255, isTurn);
+	}
+	else if (inactiveType == eInactiveType::Invasion) {
+		animationCnt = Image::Instance()->FadeOutGraph(x, y, Image::Instance()->GetGraph(
+			eImageType::Gpicture_Enemy, imageIndex), animationCnt, 60, isTurn);
+	}
+
+	//エネミーが非アクティブまたは攻撃中の際、animationCutを加算しない
+	if (isActive == false || isAttack == true) {
+		return;
+	}
+
+	animationCnt++;
 }
