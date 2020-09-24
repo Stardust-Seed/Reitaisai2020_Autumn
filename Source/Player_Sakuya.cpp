@@ -12,6 +12,14 @@ Sakuya::Sakuya(){
 	abilityTimer = STOPTIME;        //スキル時間タイマー
 	abilityCount = 3;               //スキル使用回数
 	countDown = FRAME;              //スキルタイマーを減らすのに使う
+
+	/*************
+	キャラが咲夜の場合は咲夜の画像データを入れる
+
+	playerGh[] ← 結合するまでBasePlayerのフューチャーにしかないので今は使えない。
+	　　　　　　  これに咲夜の画像を分割読み込みでぶち込む
+
+	**************/
 }
 Sakuya::~Sakuya()
 {
