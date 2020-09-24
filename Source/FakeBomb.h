@@ -5,6 +5,10 @@
 
 class FakeBomb:public BaseBomb
 {
+private:
+	int fBomb;
+	int fAction;
+	bool isFakeAction;
 public:
 	FakeBomb();
 	void FakeMotion();
