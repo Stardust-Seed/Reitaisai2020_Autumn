@@ -3,10 +3,11 @@
 
 #include "Define.h"
 #include "DarknessEvent.h"
+#include "SukimaEvent.h"
+
+#include "EnemyManager.h"
 
 class BaseEvent;
-
-class DarknessEvent;
 
 class EventManager {
 private:
@@ -26,6 +27,8 @@ private:
 
 	BaseEvent* Event;		//イベントを入れる変数
 
+	SukimaEvent* Sukima;	//スキマイベント格納
+
 public:
 	EventManager(int);			//コンストラクタ
 
@@ -33,10 +36,11 @@ public:
 
 	void SpawnEvent();			//生成
 
-	void Update();				//更新
+	void Update(EnemyManager*);	//更新
 
 	void Draw();				//描画
 
+	void SpawnSukima();			//スキマの生成
 };
 
 
