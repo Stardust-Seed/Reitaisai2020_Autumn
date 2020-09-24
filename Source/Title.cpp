@@ -11,6 +11,8 @@ Title::Title(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
 	r = 0;
 	g = 0;
 	b = 0;
+
+	type = GetRand(3);
 }
 
 void Title::Update()
@@ -26,33 +28,29 @@ void Title::Update()
 void Title::Draw()
 {
 	//タイトル表示(コメントアウト中)
-	//DrawGraph(GAME_WIDTH / 8, GAME_HEIHGT/16, Image::Instance()->GetGraph(eImageType_Title), TRUE);
-
-	//キャラ表示(コメントアウト中)
-	//GetGraphのeImageTypeの名前は確定してないのでそれっぽいのを入れてる
-	int type = GetRand(3);
+	DrawGraph(GAME_WIDTH / 8, GAME_HEIHGT/13, Image::Instance()->GetGraph(eImageType::Title_Logo,0), TRUE);
 	switch (type)
 	{
 	case 0:
-		//DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType_Sakuya01), TRUE);
+		DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType::Spicture_Sakuya, 0), TRUE);
 		break;
 
 	case 1:
-		//DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType_Sakuya02), TRUE);
+		DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType::Spicture_Sakuya, 1), TRUE);
 		break;
 
 	case 2:
-		//DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType_Fran01), TRUE);
+		DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType::Spicture_Fran, 0), TRUE);
 		break;
 
 	case 3:
-		//DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType_Fran02), TRUE);
+		DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType::Spicture_Fran, 1), TRUE);
 		break;
-
 
 	default:
 		break;
 	}
+	DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType::Spicture_Fran, 0), TRUE);
 
 	//プレススペースの表示処理
 	if(cnt == 250)
