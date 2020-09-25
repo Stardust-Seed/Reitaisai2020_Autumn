@@ -22,6 +22,7 @@ public:
 	Sakuya();			   //コンストラクタ
 	~Sakuya();             //デストラクタ
 	void Update();         //更新処理
+	void Draw();           //描画処理
 	void AbilityClock();   //スキルタイマー描画処理
 	void Ability();        //スキル処理
 

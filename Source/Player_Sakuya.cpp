@@ -13,13 +13,6 @@ Sakuya::Sakuya(){
 	abilityCount = 3;               //スキル使用回数
 	countDown = FRAME;              //スキルタイマーを減らすのに使う
 
-	/*************
-	キャラが咲夜の場合は咲夜の画像データを入れる
-
-	playerGh[] ← 結合するまでBasePlayerのフューチャーにしかないので今は使えない。
-	　　　　　　  これに咲夜の画像を分割読み込みでぶち込む
-
-	**************/
 }
 Sakuya::~Sakuya()
 {
@@ -40,6 +33,11 @@ void Sakuya::Ability()
 void Sakuya::AbilityClock()
 {
 	DrawFormatString(10, 100, color, "咲夜スキル時間：%d", abilityTimer);
+}
+void Sakuya::Draw()
+{
+	DrawGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo), true);
+
 }
 void Sakuya::Update()
 {
