@@ -13,7 +13,7 @@ private:
 	int act_frameIndex[12] = { 0, 1, 2, 2, 3, 4, 5, 4, 3, 2, 1, 0};    // ï\é¶Ç∑ÇÈî‘çÜ
 	int m_frameIndex = 0;
 public:
-	Bomb();
+	Bomb(int _power, eBombType _btype);
 	void DamageMotion();
 	void Update();
 	void Draw();

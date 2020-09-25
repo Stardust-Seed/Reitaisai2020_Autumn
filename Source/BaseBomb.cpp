@@ -2,22 +2,21 @@
 #include "BaseBomb.h"
 
 //コンストラクタ
-BaseBomb::BaseBomb()
+BaseBomb::BaseBomb(int _power, eBombType _btype)
 {
 	//SRand;								//乱数の初期化
 	//type = GetRand(MAX_TYPE - 1);		//種類の乱数
-	type = 1;
-
-	switch (type)
+	type = bomb;
+	if (type == bomb)
 	{
-	case 0:
-		type = bomb;
-		break;
-
-	case 1:
-		type = fakebomb;
-		break;
+		power = _power;
 	}
+
+	if (type == fakebomb)
+	{
+		power = _power;
+	}
+	
 	
 	direction = GetRand(3);					//方向の乱数
 	//direction = 3;
@@ -65,6 +64,9 @@ void BaseBomb::SpawnBomb()
 {
 
 	//DrawFormatString(10, 300, GetColor(255, 255, 255), "type%d", type);
+	
+	//DrawFormatString(10, 300, GetColor(255, 255, 255), "type%d", power);
+
 	//真
 	if (type == bomb)
 	{
@@ -157,4 +159,5 @@ void BaseBomb::JudgeTrigger()
 		}
 	}
 }
+
 

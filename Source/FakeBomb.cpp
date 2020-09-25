@@ -1,12 +1,12 @@
 #include <DxLib.h>
 #include "FakeBomb.h"
 
-FakeBomb::FakeBomb()
-	: BaseBomb()
+FakeBomb::FakeBomb(int _power, eBombType _btype)
+	: BaseBomb(_power, _btype)
 {
 	fBomb = LoadGraph("res/Image/bomb.png");
 	fAction = LoadGraph("res/Image/fake.png");
-
+	_power = 0;
 	isFakeAction = false;
 };
 
@@ -29,7 +29,7 @@ void FakeBomb::FakeMotion()
 			DeleteGraph(fAction);
 		}
 
-		damage = 0;
+		power = 0;
 		//DrawFormatString(700, 190, GetColor(255, 255, 255), "%d", damage);
 		//DrawString(700, 370, "‹U•¨", GetColor(255, 255, 255));
 	}

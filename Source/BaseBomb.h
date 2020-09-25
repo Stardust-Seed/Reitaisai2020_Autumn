@@ -1,10 +1,10 @@
 #ifndef _BASEBOMB_H
 #define _BASEBOMB_H
 
-#include "Direction.h"
 #include "Define.h"
 
-	enum eBombType {
+	enum eBombType
+	{
 		bomb,
 		fakebomb,
 	};
@@ -24,7 +24,7 @@
 		const int DIRECTIONUP = 2;
 		const int DIRECTIONDOWN = 3;
 
-		const int MAX_TYPE = 2;
+		const int MAX_TYPE_NUM = 2;
 
 		static const int COUNT = 2;								//実際のカウントダウン
 		static const int COUNTMAX = FRAME * (COUNT + 1) - 1;
@@ -33,8 +33,9 @@
 		float x;
 		float y;
 		int time;
-		int damage;						//爆弾のダメージ
+		int power;						//爆弾のダメージ
 		int countdown;					//カウントダウン
+		int put;
 		int direction;					//爆弾が落ちる方向
 		int type;						//爆弾の種類
 
@@ -45,12 +46,17 @@
 		bool isFakeSpown;				//爆弾の生成したかどうか(偽)
 
 	public:
-		BaseBomb();
+		BaseBomb() {}
 		~BaseBomb();
+		BaseBomb(int _power, eBombType _btype);
 
 		void SpawnBomb();								//爆弾の生成
 		void JudgeTrigger();							//爆発したかの判定
 		void Move();									//爆弾の落下
+		void SetIsTrigger(bool _isTrigger) { isTrigger = _isTrigger; }
+
+		int GetPower() { return power; }							
+		bool GetIsTrigger() { return isTrigger; }
 		virtual void Update() = 0;
 		virtual void Draw() = 0;
 

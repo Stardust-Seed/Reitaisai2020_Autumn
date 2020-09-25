@@ -10,7 +10,7 @@ private:
 	int fAction;
 	bool isFakeAction;
 public:
-	FakeBomb();
+	FakeBomb(int _power, eBombType _btype);
 	void FakeMotion();
 	void Update();
 	void Draw();
