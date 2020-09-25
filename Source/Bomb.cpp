@@ -1,20 +1,20 @@
 #include <DxLib.h>
 #include "Bomb.h"
 
-Bomb::Bomb()
-	: BaseBomb()
+Bomb::Bomb(int _power, eBombType _btype)
+	: BaseBomb(_power, _btype)
 {
 	gBomb = LoadGraph("res/Image/bomb.png");
-	LoadDivGraph("res/Image/ex.png", 6, 6, 1, 98, 100, GHandle);
+	LoadDivGraph("res/Image/ex.png", 6, 6, 1, 100, 100, GHandle);
+
+	_power = BOMBDAMAGE;
 };
 
 //îöî≠ÇµÇΩÇ∆Ç´ÇÃèàóù
 void Bomb::DamageMotion()
 {
 	if (isTrigger == true)
-	{
-		damage = BOMBDAMAGE; 
-		
+	{ 
 		//DrawFormatString(700, 170, GetColor(255, 255, 255), "%d", damage);
 		//DrawString(700, 350, "ñ{ï®", GetColor(255, 255, 255));
 		m_frameIndex++;
