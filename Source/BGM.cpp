@@ -30,14 +30,16 @@ BGM::~BGM() {
 void BGM::Load()
 {
 	//ファイルパス指定
-	bgmNum[BGM_test] = LoadBGM("./res/Sound/BGM/test.wav");
-
+	bgmNum[BGM_title] = LoadBGM("./res/Sound/BGM/gensoukyounohatuaki.wav");
+	bgmNum[BGM_menu] = LoadBGM("./res/Sound/BGM/engawakaranagameru.wav");
+	bgmNum[BGM_gameScene] = LoadBGM("./res/Sound/BGM/youseinoakudoi.wav");
+	bgmNum[BGM_result] = LoadBGM("./res/Sound/BGM/asobiniikuhinoasa_2.wav");
 }
 
 //BGMを再生
 void BGM::PlayBGM(BGMnum _BGMnum, int _type, bool _topFlg)
 {
-	//DrawFormatString(10, 500, GetColor(255, 255, 255), "サウンド再生_番号:%d",_BGMnum);
+	DrawFormatString(10, 500, GetColor(255, 255, 255), "サウンド再生_番号:%d", PlaySoundMem(bgmNum[_BGMnum], _type, TRUE));
 	if (_topFlg == true)
 	{
 		//DrawFormatString(50, 500, GetColor(255, 255, 255), "最初から再生");
@@ -62,7 +64,7 @@ void BGM::VolumeBGM(int _volume)
 	int size = bgmNums.size();
 	for (int i = 0; i < size; i++)
 	{
-		ChangeVolumeSoundMem(255 * (_volume * 10) / 100, bgmNum[BGM_test]);
+		ChangeVolumeSoundMem(255 * (_volume * 10) / 100, bgmNum[i]);
 	}
 }
 
