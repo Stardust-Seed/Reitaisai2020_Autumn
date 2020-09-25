@@ -134,8 +134,6 @@ void BaseEnemy::AttackProc(float _cx,float _cy) {
 	float distanceToPlayerX = abs(cx - _cx) / 30.0f;
 	float distanceToPlayerY = abs(cy - _cy) / 30.0f;
 
-	DrawFormatString(0, 225, GetColor(255, 255, 255), "x:%f y:%f", distanceToPlayerX, distanceToPlayerY);
-
 	switch (direction) {
 	case eDirection::Left:
 		addX = distanceToPlayerX;
