@@ -37,16 +37,9 @@ BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
 	playerType  = _pType;
 	abilityType = _pAbility;    //まだキャラ選択できないので仮置き
 
-	/*************
-	とりあえず23日まではテストも兼ねてここで読み込む
-	結合したらImageクラスからのに変える予定
-	*************/
-	playerGh[0] = LoadGraph("res/Image/sakuya01.png");
-	playerGh[1] = LoadGraph("res/Image/sakuya02.png");
-
 	animWait = ANIMETION_SPEED;
-	graphNo = 0;
-	animNo = 0;
+	graphNo = 2;                //BasePlayerでは咲夜のアニメーションが流れるようにしている
+	animNo = 2;
 
 }
 BasePlayer::~BasePlayer()
@@ -55,8 +48,10 @@ BasePlayer::~BasePlayer()
 }
 void BasePlayer::Draw()
 {
+	DrawGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player,graphNo), true);
 
-	DrawGraph(pos.x, pos.y, playerGh[graphNo], true);
+	DrawFormatString(200, 200, GetColor(255, 255, 255), "GraphNo%d", graphNo);
+
 
 }
 void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
@@ -167,10 +162,9 @@ void BasePlayer::Animation()
 		ANIMETION_MAX分を引いてそれ以下の値にする
 		*************/
 		animNo %= ANIMETION_MAX;
-
 	}
 	//画像番号に、アニメーションの番号を入れる
-	graphNo = playerAnim[animNo];
+	graphNo = sakuyaAnim[animNo];
 }
 //プレイヤーの移動処理
 void BasePlayer::Move()

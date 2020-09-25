@@ -8,7 +8,6 @@ class BulletManager;
 class BuffManager;
 class EnemyManager;
 class BaseEnemy;
-class Image;
 
 enum PlayerType
 {
@@ -42,6 +41,7 @@ class BasePlayer :public virtual Object
 	//キャラのアビリティ
 	AbilityType abilityType;
 
+
 protected:
 
 	const float PLAYER_SPOWNPOSX = 846;	    //プレイヤーの初期位置_X
@@ -57,7 +57,7 @@ protected:
 
 	const float PLAYER_RIGHTPOS = 1026;     //プレイヤーの右の位置
 
-	const int ANIMETION_MAX = 4;            //アニメーションの最大数
+	const int ANIMETION_MAX = 3;            //アニメーションの最大数
 	const int ANIMETION_SPEED = 10;         //アニメーションのスピード
 
 	int speed;		                //プレイヤーの移動速度
@@ -66,9 +66,9 @@ protected:
 	int stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
 	int attackTime;                 //攻撃間隔
 
-	int playerGh[4];                //画像 0：左向き 1：左向き歩き  2：右向き  3：右向き歩き
-	int graphNo;                    //画像番号
-	int playerAnim[4] = {0,0,1,1 }; //アニメーション順番
+	int graphNo;                    //画像番号                0,1:咲夜 2,3:フラン
+	int sakuyaAnim[4] = {2,2,3,3 }; //咲夜アニメーション順番
+	int franAnim[4] = { 0,0,1,1 };  //フランアニメーション番号
 	int animNo;                     //アニメーション番号
 	int animWait;                   //アニメーション待機時間
 
@@ -126,6 +126,8 @@ public:
 
 	float Get_x() { return pos.x; }                         //x座標ゲッター
 	float Get_y() { return pos.y; }                         //y座標ゲッター
+	float Get_cx() { return pos.x + 24; }                   //cx座標ゲッター
+	float Get_cy() { return pos.y + 24; }                   //cy座標ゲッター
 	float Get_width() { return width; }                     //widthゲッター
 	float Get_height() { return height; }                   //heightゲッター
 
