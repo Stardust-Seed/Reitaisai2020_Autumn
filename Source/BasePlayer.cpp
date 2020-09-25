@@ -34,19 +34,14 @@ BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
 	isStan_Next = false;
 	isAbility = false;
 
-	playerType  = _pType;
+	playerType  = SAKUYA;
 	abilityType = _pAbility;    //まだキャラ選択できないので仮置き
 
-	/*************
-	とりあえず23日まではテストも兼ねてここで読み込む
-	結合したらImageクラスからのに変える予定
-	*************/
-	playerGh[0] = LoadGraph("res/Image/sakuya01.png");
-	playerGh[1] = LoadGraph("res/Image/sakuya02.png");
-
 	animWait = ANIMETION_SPEED;
-	graphNo = 0;
-	animNo = 0;
+	graphNo = 2;                //BasePlayerでは咲夜のアニメーションが流れるようにしている
+	animNo = 2;
+
+	animLR = true;              //最初は左向き
 
 }
 BasePlayer::~BasePlayer()
@@ -55,8 +50,19 @@ BasePlayer::~BasePlayer()
 }
 void BasePlayer::Draw()
 {
+	//DrawGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player,graphNo), true);
 
-	DrawGraph(pos.x, pos.y, playerGh[graphNo], true);
+	if (animLR == true) 
+	{
+		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo));
+	}
+	else
+	{
+		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo), 255, true);
+	}
+
+	DrawFormatString(200, 200, GetColor(255, 255, 255), "GraphNo%d", graphNo);
+
 
 }
 void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
@@ -167,10 +173,16 @@ void BasePlayer::Animation()
 		ANIMETION_MAX分を引いてそれ以下の値にする
 		*************/
 		animNo %= ANIMETION_MAX;
-
 	}
 	//画像番号に、アニメーションの番号を入れる
-	graphNo = playerAnim[animNo];
+	if (playerType == SAKUYA)
+	{
+		graphNo = sakuyaAnim[animNo];
+	}
+	if (playerType == FRAN)
+	{
+		graphNo = franAnim[animNo];
+	}
 }
 //プレイヤーの移動処理
 void BasePlayer::Move()
@@ -181,6 +193,7 @@ void BasePlayer::Move()
 		Move_LEFT();    //←移動
 		isMove = true;
 		playerPos = 0;  //←向き状態
+		animLR = true;
 
 	}
 	else
@@ -205,6 +218,7 @@ void BasePlayer::Move()
 		Move_RIGHT();   //→移動
 		isMove = true;
 		playerPos = 2;  //→向き状態
+		animLR = false;
 	
 	}
 	else
