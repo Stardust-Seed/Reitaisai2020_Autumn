@@ -1,9 +1,11 @@
 #include <DxLib.h>
 #include "EventManager.h"
 
+
 EventManager::EventManager(int level) {
 
 	Event = NULL;		//イベントの初期化
+	Sukima = NULL;		//スキマ初期化
 	waitCount = 0;		//カウント初期化
 
 	switch (level)				//引数(0～2)で難易度別の生成数を設定
@@ -26,6 +28,7 @@ EventManager::EventManager(int level) {
 
 EventManager::~EventManager() {
 	delete Event;		//デリート
+	delete Sukima;
 }
 
 void EventManager::SpawnEvent() {
@@ -54,8 +57,9 @@ void EventManager::SpawnEvent() {
 	}
 }
 
-void EventManager::Update() {
+void EventManager::Update(EnemyManager* enemyManager) {
 	SpawnEvent();			//生成
+	SpawnSukima();			//スキマ生成
 
 	if (Event != NULL) {	//何かしらイベントが行われている場合
 		Event->Update();	//更新
@@ -69,10 +73,38 @@ void EventManager::Update() {
 		}
 	}
 
+	if (Sukima != NULL) {	//スキマ用
+		Sukima->Update(enemyManager);	//更新
+
+		if (Sukima->GetIsActive() == false) { //削除、初期化処理
+
+			delete Sukima;
+
+			Sukima = NULL;
+
+		}
+	}
+
 }
 
 void EventManager::Draw() {
 	if (Event != NULL) {	//何かしらイベントが行われている場合
 		Event->Draw();		//描画
+	}
+
+	if (Sukima != NULL) {
+		Sukima->Draw();
+	}
+}
+
+void EventManager::SpawnSukima() {
+
+	if (rand() % 700 == 0) {	//確率
+		if (Sukima == NULL) {	//生成されてない場合
+
+			Sukima = new SukimaEvent();
+
+		}
+
 	}
 }
