@@ -20,6 +20,9 @@ Fairy_Speed::Fairy_Speed(float _x, float _y, float _speed, float _power, int _du
 
 void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager) {
 
+	cx = x + (width / 2);
+	cy = y + (height / 2);
+
 	if (isAttack == true && inactiveType == eInactiveType::Invasion) {
 		isAttack = false;
 	}
@@ -51,7 +54,7 @@ void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, Bul
 	Move();
 
 	if (isAttack == true) {
-		AttackProc();
+		AttackProc(_player->Get_cx(), _player->Get_cy());
 	}
 }
 
