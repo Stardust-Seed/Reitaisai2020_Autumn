@@ -20,6 +20,9 @@ Fairy_Endurance::Fairy_Endurance(float _x, float _y, float _speed, float _power,
 
 void Fairy_Endurance::Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager) {
 
+	cx = x + (width / 2);
+	cy = y + (height / 2);
+
 	if (isAttack == true && inactiveType == eInactiveType::Invasion) {
 		isAttack = false;
 	}
@@ -51,7 +54,7 @@ void Fairy_Endurance::Update(CastleManager* _castleManager, BasePlayer* _player,
 	Move();
 
 	if (isAttack == true) {
-		AttackProc();
+		AttackProc(_player->Get_cx(), _player->Get_cy());
 	}
 }
 
