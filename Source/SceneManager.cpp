@@ -4,6 +4,7 @@
 #include "GameScene.h"
 #include "Menu.h"
 #include "Option.h"
+#include "Charaselect.h"
 #include "Pausemenu.h"
 #include "Title.h"
 
@@ -61,6 +62,7 @@ void SceneManager::SceneChange(eScene _nextScene, const bool _isStack, const boo
 		scenes.push(std::make_shared<Pausemenu>(this));
 		break;
 	case eScene_CHARASELECT:
+		scenes.push(std::make_shared<Charaselect>(this));
 		break;
 	case eScene_LEVELSELECT:
 		break;
