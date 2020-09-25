@@ -50,7 +50,6 @@ void Title::Draw()
 	default:
 		break;
 	}
-	DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType::Spicture_Fran, 0), TRUE);
 
 	//プレススペースの表示処理
 	if(cnt == 250)
