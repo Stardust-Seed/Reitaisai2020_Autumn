@@ -15,6 +15,7 @@ private:
 	float textPosition;         //タイミング調整用
 	int cnt;                    //タイミング調整用
 	int r, g, b;                //色用
+	int type;
 public:
 	Title(ISceneChanger* _sceneChanger);
 	~Title() = default;
