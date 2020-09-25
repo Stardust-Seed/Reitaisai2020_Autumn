@@ -1,15 +1,15 @@
 #include "DarknessEvent.h"
+#include "Image.h"
 
 DarknessEvent::DarknessEvent() {
 	isActive = true;		//開始
 	nowPhase = PHASE_START;	//開始フェーズ
 	darkCount = 0;			//カウント初期化
 	opacity = 0;			//透明度初期化
-	darkImage = LoadGraph("./res/Image/darkness.png");	//画像格納
 }
 
 DarknessEvent::~DarknessEvent() {
-	DeleteGraph(darkImage);	//画像メモリ開放
+
 }
 
 void DarknessEvent::Update() {
@@ -44,7 +44,7 @@ void DarknessEvent::Update() {
 void DarknessEvent::Draw() {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, opacity);		//ブレンドモードを変更
 
-	DrawGraph(0, 0, darkImage, TRUE);					//画像を描画
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Event_Darkness), TRUE);		//画像を描画
 
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);			//ブレンドモードをオフ
 
