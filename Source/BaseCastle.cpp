@@ -15,6 +15,7 @@ BaseCastle::BaseCastle(int _durability){
 bool BaseCastle::ClisionHit(float ox, float oy, float ow, float oh,
                    int pow, int num, bool attackFlg, bool activeFlg)
 {
+
     if (x + width >= ox && x <= ox + ow &&
         y + height >= oy && y <= oy + oh &&
         attackFlg == true && activeFlg == true)
@@ -22,11 +23,11 @@ bool BaseCastle::ClisionHit(float ox, float oy, float ow, float oh,
         //ˆê‰ñ‚¾‚¯ˆ—
         if (isHit == false)
         {
+            SE::Instance()->PlaySE(SE_CastleDamage);
             durability -= pow;
             isHit = true;
             return isHit;
         }
-
     }
 
     return isHit;
