@@ -71,6 +71,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 		//“–‚½‚Á‚½‚çƒ[ƒv
 		if (isHit == true)
 		{
+			SE::Instance()->PlaySE(SE_sukimaWarp);
 			animationFlg = true;
 			animationCnt = 0;
 			int _type = GetRand(3);

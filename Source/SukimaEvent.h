@@ -5,6 +5,7 @@
 #include "Define.h"
 #include "Direction.h"
 #include "Image.h"
+#include "SE.h"
 
 class EnemyManager;
 
