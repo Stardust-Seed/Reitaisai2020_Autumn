@@ -72,6 +72,8 @@ protected:
 	int animNo;                     //アニメーション番号
 	int animWait;                   //アニメーション待機時間
 
+	bool animLR;                    //アニメーションの左右 true :← false :→
+
 	bool isAbility;                 //スキルが発動している状態かどうか
 	int  abilityCount;              //スキル回数
 

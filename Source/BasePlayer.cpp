@@ -41,6 +41,8 @@ BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
 	graphNo = 2;                //BasePlayerでは咲夜のアニメーションが流れるようにしている
 	animNo = 2;
 
+	animLR = true;              //最初は左向き
+
 }
 BasePlayer::~BasePlayer()
 {
@@ -48,7 +50,16 @@ BasePlayer::~BasePlayer()
 }
 void BasePlayer::Draw()
 {
-	DrawGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player,graphNo), true);
+	//DrawGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player,graphNo), true);
+
+	if (animLR == true) 
+	{
+		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo));
+	}
+	else
+	{
+		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo), 255, true);
+	}
 
 	DrawFormatString(200, 200, GetColor(255, 255, 255), "GraphNo%d", graphNo);
 
@@ -182,6 +193,7 @@ void BasePlayer::Move()
 		Move_LEFT();    //←移動
 		isMove = true;
 		playerPos = 0;  //←向き状態
+		animLR = true;
 
 	}
 	else
@@ -206,6 +218,7 @@ void BasePlayer::Move()
 		Move_RIGHT();   //→移動
 		isMove = true;
 		playerPos = 2;  //→向き状態
+		animLR = false;
 	
 	}
 	else
