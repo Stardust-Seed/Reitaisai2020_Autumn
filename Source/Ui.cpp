@@ -27,31 +27,66 @@ void UI::Get_CastleDurability()
 	}
 }
 
-//HPバーの表示と中身の処理(SubCastle) 形だけ
+//HPバーの表示と中身の処理(SubCastle)
 void UI::Get_SubCastleDurability()
 {
-
-	DrawBox(HPMOJI_X + 10, HPMOJI_Y + 200, HPMOJI_X + HPBAR_X, HPMOJI_Y + 20 + 200, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-	DrawString(HPMOJI_X + 20, HPMOJI_Y + 2 + 200, "HP", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-	DrawBox(HPBAR_X, HPBAR_Y + 200, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 20 + 200, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
-	percent = MAX_SABDURABILTY / 3;				//ピンチ時にHPゲージを赤色にするための割合(３割)　＊要調整
-
-	if (CastleDurability <= 0)					//HPゲージが0以下になってもゲージは0で止める
+	for (i = 1; i < 5; i++)
 	{
-		CastleDurability = 0;
+		if (SubCastleDurability[i] <= 0)					//HPゲージが0以下になってもゲージは0で止める
+		{
+			SubCastleDurability[i] = 0;
+		}
 	}
 
-	if (CastleDurability <= percent)			//３割以下でHPゲージが赤になる	
+	//サブ拠点1(左）
+	if (isActive[1] == true)
 	{
-		DrawBox(HPGAUGE_X, HPGAUGE_Y, (HPGAUGE_X1 + 200 * CastleDurability) / 2 / MAX_SABDURABILTY, HPGAUGE_Y1 + 20, GetColor(255, 0, 0), TRUE);		//ピンチ用HPゲージ(赤）
+		DrawBox(HPMOJI_X + 10, HPMOJI_Y + 200, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+
+		DrawString(HPMOJI_X + 20, HPMOJI_Y + 200, "HP1", GetColor(255, 255, 255));						//HPという文字を表示するため
+
+		DrawBox(HPBAR_X, HPBAR_Y + 200, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+
+		DrawBox(HPGAUGE_X, HPGAUGE_Y + 200, HPGAUGE_X1 + 75 * SubCastleDurability[1] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 200, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
-	else
+
+	//サブ拠点2(右)
+	if (isActive[2] == true)
 	{
-		DrawBox(HPGAUGE_X, HPGAUGE_Y + 200, (HPGAUGE_X1 + 250 * CastleDurability / 2) / 2 / MAX_SABDURABILTY, HPGAUGE_Y1 + 20 + 200, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+		DrawBox(HPMOJI_X + 10, HPMOJI_Y + 250, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+
+		DrawString(HPMOJI_X + 20, HPMOJI_Y + 250, "HP2", GetColor(255, 255, 255));						//HPという文字を表示するため
+
+		DrawBox(HPBAR_X, HPBAR_Y + 250, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+
+		DrawBox(HPGAUGE_X, HPGAUGE_Y + 250, HPGAUGE_X1 + 75 * SubCastleDurability[2] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 250, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
+
+	//サブ拠点3(上)
+	if (isActive[3] == true)
+	{
+		DrawBox(HPMOJI_X + 10, HPMOJI_Y + 300, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 300, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+
+		DrawString(HPMOJI_X + 20, HPMOJI_Y + 300, "HP3", GetColor(255, 255, 255));						//HPという文字を表示するため
+
+		DrawBox(HPBAR_X, HPBAR_Y + 300, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 300, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+
+		DrawBox(HPGAUGE_X, HPGAUGE_Y + 300, HPGAUGE_X1 + 75 * SubCastleDurability[3] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 300, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+	}
+
+	//サブ拠点4(下)
+	if (isActive[4] == true)
+	{
+		DrawBox(HPMOJI_X + 10, HPMOJI_Y + 350, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 350, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+
+		DrawString(HPMOJI_X + 20, HPMOJI_Y + 350, "HP4", GetColor(255, 255, 255));						//HPという文字を表示するため
+
+		DrawBox(HPBAR_X, HPBAR_Y + 350, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 350, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+
+		DrawBox(HPGAUGE_X, HPGAUGE_Y + 350, HPGAUGE_X1 + 75 * SubCastleDurability[4] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 350, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+	}
+
+	//DrawFormatString(PMOJI_X - 10, PMOJI_Y - 500, GetColor(255, 255, 255), "%d", SubCastleDurability[i]);
 }
 
 void UI::Get_BuffPoint()
@@ -63,7 +98,7 @@ void UI::Get_BuffPoint()
 	DrawBox(PBAR_X, PBAR_Y, PBAR_X1 + 300, PBAR_Y1 + 20, GetColor(255, 255, 255), FALSE);									//枠
 
 	DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1 + 300 * pBuffPoint / MAX_BUFF, PGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);	//ゲージ
-	DrawFormatString(PMOJI_X - 10, PMOJI_Y - 200, GetColor(255, 255, 255), "%d", pBuffPoint);
+	//DrawFormatString(PMOJI_X - 10, PMOJI_Y - 200, GetColor(255, 255, 255), "%d", pBuffPoint);
 
 	if (pBuffLevel == 3)
 	{
@@ -93,12 +128,18 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 	pBuffLevel = _buffmanager->GetPowerLevel();
 	sBuffLevel = _buffmanager->GetSpeedLevel();
 	CastleDurability = _castlemanager->Get_Durability(0);		//拠点の体力をセットする
+
+	for (i = 1; i < 5; i++)
+	{	
+		SubCastleDurability[i] = _castlemanager->Get_Durability(i);	
+		isActive[i] = _castlemanager->Get_IsActive(i);
+	}
 }
 
 //描画処理
 void UI::Draw()
 {
 	Get_CastleDurability();
-	//Get_SubCastleDurability();
+	Get_SubCastleDurability();
 	Get_BuffPoint();
 }

@@ -50,6 +50,9 @@ private:
 
 	int percent;					//パーセント
 	int CastleDurability;			//拠点の体力
+	int SubCastleDurability[5];
+	int i;
+	bool isActive[5];
 	int pBuffPoint;					//pアイテムのゲージ上昇用
 	int sBuffPoint;					//sアイテムのゲージ上昇用
 	int pBuffLevel;					//pアイテム獲得時のバフレベル
