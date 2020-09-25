@@ -34,7 +34,7 @@ BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
 	isStan_Next = false;
 	isAbility = false;
 
-	playerType  = _pType;
+	playerType  = SAKUYA;
 	abilityType = _pAbility;    //まだキャラ選択できないので仮置き
 
 	animWait = ANIMETION_SPEED;
@@ -164,7 +164,14 @@ void BasePlayer::Animation()
 		animNo %= ANIMETION_MAX;
 	}
 	//画像番号に、アニメーションの番号を入れる
-	graphNo = sakuyaAnim[animNo];
+	if (playerType == SAKUYA)
+	{
+		graphNo = sakuyaAnim[animNo];
+	}
+	if (playerType == FRAN)
+	{
+		graphNo = franAnim[animNo];
+	}
 }
 //プレイヤーの移動処理
 void BasePlayer::Move()
