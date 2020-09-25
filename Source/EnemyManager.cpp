@@ -45,7 +45,7 @@ void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManag
 
 			if (Enemys[num]->GetInactiveType() == eInactiveType::Defeat) {
 
-				_itemManager->SpawnItem(Enemys[num]->Get_X(), Enemys[num]->Get_Y());	//アイテム生成
+				_itemManager->SpawnItem(Enemys[num]->Get_CX(), Enemys[num]->Get_CY());	//アイテム生成
 			}
 
 			if (Enemys[num]->GetIsActive() == false) {
