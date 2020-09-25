@@ -39,7 +39,7 @@ SE::Instance()->StopSE(SE_test);
 enum SEnum {
 	SE_bomb,
 	SE_cursor,
-	SE_sukimaWorp,
+	SE_sukimaWarp,
 	SE_CastleDamage,
 	SE_warning,
 	SE_DarknessStart,
