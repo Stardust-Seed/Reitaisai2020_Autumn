@@ -7,7 +7,7 @@
 #include "FontHandle.h"
 #include "Input.h"
 #include "math.h"
-#include "SE.h"
+#include "BGM.h"
 
 class Title final :public BaseScene {
 private:

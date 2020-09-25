@@ -13,12 +13,15 @@ Title::Title(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
 	b = 0;
 
 	type = GetRand(3);
+
+	BGM::Instance()->PlayBGM(BGM_title, DX_PLAYTYPE_LOOP);
 }
 
 void Title::Update()
 {
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
 	{
+		BGM::Instance()->StopBGM(BGM_title);
 		sceneChanger->SceneChange(eScene_MENU, false, false);
 	}
 
