@@ -27,6 +27,15 @@ enum class eInactiveType {
 };
 
 /// <summary>
+/// 攻撃のタイプ
+/// </summary>
+enum class eAttackType {
+	Invasion,	//侵入時の攻撃
+	Player,		//プレイヤーへの攻撃
+	None		//初期化用
+};
+
+/// <summary>
 /// BaseEnemy class
 /// </summary>
 class BaseEnemy :public virtual Object {
@@ -42,6 +51,9 @@ protected:
 
 	const int ANIMATION_SWITCHING = 30;
 
+	const float ATTACK_ANIMATION_MOVEAMOUNT	= 48.0f / 30.0f;
+	const float ATTACK_ANIMATION_JUNPPOWER	= 15.0f / 15.0f;
+
 	float speed;			//エネミーの移動速度
 	float power;			//エネミーの攻撃力
 	int durability;			//エネミーの体力
@@ -49,12 +61,14 @@ protected:
 	eEnemyType enemyType;	//エネミーの種類
 
 	int animationCnt;	//アニメーションカウンタ
+	int attackCnt;		//攻撃中のカウンタ
+	int coolDownCnt;	//クールダウンカウンタ
 
+	bool isActive;		//エネミーの生存フラグ
+	bool isAttack;		//エネミーの攻撃フラグ
 	bool isCoolDown;	//クールダウンフラグ
 
-	bool isAttack;		//エネミーの攻撃フラグ
-	bool isActive;		//エネミーの生存フラグ
-
+	eAttackType attackType;		//攻撃のタイプ
 	eInactiveType inactiveType;	//非アクティブのタイプ
 
 	/// <summary>
@@ -72,6 +86,11 @@ protected:
 	/// 移動処理
 	/// </summary>
 	void Move();
+
+	/// <summary>
+	/// アニメーション
+	/// </summary>
+	void Animation();
 public:
 	BaseEnemy(){}
 	virtual ~BaseEnemy(){}
@@ -87,12 +106,10 @@ public:
 	void SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _isActive);	//城の範囲内かサーチ
 	void SearchPlayer(float _px, float _py, float _pw, float _ph,
 		BasePlayer* _player);										//プレイヤーが攻撃範囲内かサーチ
-	void SearchCoolDownTime();		//サーチのクールダウン
-	void JudgeActive();				//アクティブかを判断する
-	void AttackProc();				//攻撃中の時間処理
-	void DamageProc(int _damage);	//ダメージ処理
-
-	void Animation();	//アニメーション
+	void SearchCoolDownTime();				//サーチのクールダウン
+	void JudgeActive();						//アクティブかを判断する
+	void AttackProc(float _cx, float _cy);	//攻撃中の時間処理
+	void DamageProc(int _damage);			//ダメージ処理
 
 	void Set_X(float _x) { x = _x; }										//x座標を設定する
 	void Set_Y(float _y) { y = _y; }										//y座標を設定する

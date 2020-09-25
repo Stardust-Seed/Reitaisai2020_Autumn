@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include <cmath>
 #include "Define.h"
 #include "BaseEnemy.h"
 
@@ -67,13 +68,15 @@ void BaseEnemy::Init(float _speed, float _power, int _durability,
 	enemyType = _enemyType;
 
 	animationCnt = 0;
-
-	isCoolDown = false;
+	attackCnt = 0;
+	coolDownCnt = 0;
 
 	isActive = true;
 	isAttack = false;
+	isCoolDown = false;
 	isHit = false;
 
+	attackType = eAttackType::None;
 	inactiveType = eInactiveType::None;
 
 	width = 48;
@@ -119,57 +122,95 @@ void BaseEnemy::JudgeActive() {
 	}
 }
 
-void BaseEnemy::AttackProc() {
-	static int attackCnt = 0;	//攻撃のカウント
-	float addX = 0;
-	float addY = 0;
+void BaseEnemy::AttackProc(float _cx,float _cy) {
 
-	switch (direction) {
-	case eDirection::Left:
-		addX = (48.0f / 30.0f);
-		addY = -(20.0f / 15.0f);
-		break;
-	case eDirection::Right:
-		addX = -(48.0f / 30.0f);
-		addY = -(20.0f / 15.0f);
-		break;
-	case eDirection::Up:
-		addX = (48.0f / 30.0f);
-		addY = (20.0f / 15.0f);
-		break;
-	case eDirection::Down:
-		addX = -(48.0f / 30.0f);
-		addY = -(20.0f / 15.0f);
-		break;
-	}
-
-	if (attackCnt == 120) {
-		isAttack = false;
-		isCoolDown = true;
-		attackCnt = 0;
+	if (attackType == eAttackType::Invasion) {
 		return;
 	}
 
-	if (attackCnt < 30) {
-		x += addX;
+	float addX = 0;
+	float addY = 0;
 
-		if (attackCnt < 15) {
-			y += addY;
-		}
-		else if (attackCnt < 30) {
-			y -= addY;
-		}
+	float distanceToPlayerX = abs(cx - _cx) / 30.0f;
+	float distanceToPlayerY = abs(cy - _cy) / 30.0f;
 
+	DrawFormatString(0, 225, GetColor(255, 255, 255), "x:%f y:%f", distanceToPlayerX, distanceToPlayerY);
+
+	switch (direction) {
+	case eDirection::Left:
+		addX = distanceToPlayerX;
+		addY = -(ATTACK_ANIMATION_JUNPPOWER);
+		break;
+	case eDirection::Right:
+		addX = -(distanceToPlayerX);
+		addY = -(ATTACK_ANIMATION_JUNPPOWER);
+		break;
+	case eDirection::Up:
+		addX = ATTACK_ANIMATION_JUNPPOWER;
+		addY = distanceToPlayerY;
+		break;
+	case eDirection::Down:
+		addX = -(ATTACK_ANIMATION_JUNPPOWER);
+		addY = -(distanceToPlayerY);
+		break;
 	}
-	else if (attackCnt >= 50 && attackCnt < 80) {
 
-		x -= addX;
+	if (attackCnt == 100) {
+		isAttack = false;
+		isCoolDown = true;
+		attackCnt = 0;
+		attackType = eAttackType::None;
+		return;
+	}
 
-		if (attackCnt < 65) {
-			y += addY;
+	//方向が左右の場合
+	if (direction == eDirection::Left || direction == eDirection::Right) {
+		if (attackCnt < 30) {
+			x += addX;
+
+			if (attackCnt < 15) {
+				y += addY;
+			}
+			else if (attackCnt < 30) {
+				y -= addY;
+			}
+
 		}
-		else if (attackCnt < 80) {
+		else if (attackCnt >= 50 && attackCnt < 80) {
+
+			x -= addX;
+
+			if (attackCnt < 65) {
+				y += addY;
+			}
+			else if (attackCnt < 80) {
+				y -= addY;
+			}
+		}
+	}
+	//方向が上下の場合
+	else if (direction == eDirection::Up || direction == eDirection::Down) {
+		if (attackCnt < 30) {
+			y += addY;
+
+			if (attackCnt < 15) {
+				x += addX;
+			}
+			else if (attackCnt < 30) {
+				x -= addX;
+			}
+
+		}
+		else if (attackCnt >= 50 && attackCnt < 80) {
+
 			y -= addY;
+
+			if (attackCnt < 65) {
+				x += addX;
+			}
+			else if (attackCnt < 80) {
+				x -= addX;
+			}
 		}
 	}
 
@@ -181,10 +222,10 @@ void BaseEnemy::DamageProc(int _damage) {
 }
 
 //プレイヤーサーチ処理
-/*
+/*------------------------------------------------------------------------------
 現状敵側は遠距離攻撃を想定してない判定式となってるので
 敵が遠距離攻撃を行うようにする際は判定式を変更する必要性がある
-*/
+------------------------------------------------------------------------------*/
 void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePlayer* _player) {
 
 	if (_player->Get_isStan() || isAttack == true || isCoolDown == true) {
@@ -202,7 +243,9 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 		if (x + (width * 2) >= _px && x + width <= _px + _pw &&
 			y + height >= _py && y <= _py + _ph) {
 			isAttack = true;
+			attackType = eAttackType::Player;
 		}
+		DrawBoxAA(x + width, y, x + (width * 2), y + height, GetColor(255, 0, 0), FALSE);
 		break;
 	case eDirection::Right:
 		/*******************************************************************************
@@ -214,7 +257,9 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 		if (x + width >= _px && x - width <= _px + _pw &&
 			y + height >= _py && y <= _py + _ph) {
 			isAttack = true;
+			attackType = eAttackType::Player;
 		}
+		DrawBoxAA(x, y, x - width, y + height, GetColor(255, 0, 0), FALSE);
 		break;
 	case eDirection::Up:
 		/*******************************************************************************
@@ -226,7 +271,9 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 		if (x + width >= _px && x <= _px + _pw &&
 			y + (height * 2) >= _py && y + height <= _py + _ph) {
 			isAttack = true;
+			attackType = eAttackType::Player;
 		}
+		DrawBoxAA(x, y + height, x + width, y + (width * 2), GetColor(255, 255, 255), FALSE);
 		break;
 	case eDirection::Down:
 		/*******************************************************************************
@@ -238,7 +285,9 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 		if (x + width >= _px && x <= _px + _pw &&
 			y + height >= _py && y - height <= _py + _ph) {
 			isAttack = true;
+			attackType = eAttackType::Player;
 		}
+		DrawBoxAA(x, y, x + width, y - width, GetColor(255, 255, 255), FALSE);
 		break;
 	}
 }
@@ -247,7 +296,7 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 void BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _isActive) {
 
 	//非アクティブタイプが侵入の場合処理を行わない
-	if (inactiveType == eInactiveType::Invasion) {
+	if (inactiveType == eInactiveType::Invasion || attackType == eAttackType::Player) {
 		return;
 	}
 
@@ -256,22 +305,21 @@ void BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _i
 		&& _isActive == true) {
 		isAttack = true;
 		inactiveType = eInactiveType::Invasion;
+		attackType = eAttackType::Invasion;
 		animationCnt = 0;
 	}
 }
 
 //クールダウン処理
 void BaseEnemy::SearchCoolDownTime() {
-	static int coolDownCount = 0;	//クールダウンカウンタ
-
 	//180フレーム目クールダウンを終了する
-	if (coolDownCount == 180) {
-		coolDownCount = 0;
+	if (coolDownCnt == 180) {
+		coolDownCnt = 0;
 		isCoolDown = false;
 	}
 
 	//クールダウンカウントを加算する
-	coolDownCount++;
+	coolDownCnt++;
 }
 
 //当たり判定処理
@@ -286,8 +334,8 @@ bool BaseEnemy::ClisionHit(float mx, float my, float mw, float mh,
 }
 
 void BaseEnemy::Animation() {
-	static int imageIndex = 0;		//どの画像を呼び出すかの変数
-	bool isTurn = false;	//LR反転フラグ
+	int imageIndex = static_cast<int>(enemyType);	//どの画像を呼び出すかの変数
+	bool isTurn = false;							//LR反転フラグ
 
 	if (direction == eDirection::Left && isTurn != true) {
 		isTurn = true;
@@ -311,16 +359,17 @@ void BaseEnemy::Animation() {
 
 		Image::Instance()->TransparentGraph(x, y, Image::Instance()->GetGraph(
 			eImageType::Gpicture_Enemy, imageIndex), 255, isTurn);
+
+		//エネミーが非アクティブまたは攻撃中の際、animationCutを加算しない
+		if (isActive == false || isAttack == true) {
+			return;
+		}
+
+		animationCnt++;
 	}
+	//非アクティブタイプが侵入の場合
 	else if (inactiveType == eInactiveType::Invasion) {
 		animationCnt = Image::Instance()->FadeOutGraph(x, y, Image::Instance()->GetGraph(
 			eImageType::Gpicture_Enemy, imageIndex), animationCnt, 60, isTurn);
 	}
-
-	//エネミーが非アクティブまたは攻撃中の際、animationCutを加算しない
-	if (isActive == false || isAttack == true) {
-		return;
-	}
-
-	animationCnt++;
 }
