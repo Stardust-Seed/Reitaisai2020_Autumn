@@ -41,6 +41,11 @@ void Sakuya::AbilityClock()
 {
 	DrawFormatString(10, 100, color, "咲夜スキル時間：%d", abilityTimer);
 }
+void Sakuya::Draw()
+{
+	DrawGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo), true);
+
+}
 void Sakuya::Update()
 {
 	Ability();                             //スキル
