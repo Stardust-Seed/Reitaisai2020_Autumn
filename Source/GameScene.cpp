@@ -19,6 +19,7 @@ GameScene::GameScene(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger)
 	//弾管理のアドレスを取得
 	player->SetBulletManager(bulletManager);
 
+	BGM::Instance()->PlayBGM(BGM_gameScene, DX_PLAYTYPE_LOOP);
 }
 
 //更新
@@ -67,6 +68,7 @@ void GameScene::ChangeScene()
 		//制限時間に達した
 		if (timeLimit->Get_finishTime() == true && castleManager->Get_IsActive(0) == true)
 		{
+			BGM::Instance()->StopBGM(BGM_gameScene);
 			sceneChanger->SceneChange(eScene_CLAER, false, false);
 			return;
 		}
@@ -77,6 +79,7 @@ void GameScene::ChangeScene()
 		//制限時間に達する前に拠点が壊された
 		if (timeLimit->Get_finishTime() == false && castleManager->Get_IsActive(0) == false)
 		{
+			BGM::Instance()->StopBGM(BGM_gameScene);
 			sceneChanger->SceneChange(eScene_GAMEOVER, false, false);
 			return;
 		}
