@@ -23,12 +23,11 @@ bool BaseCastle::ClisionHit(float ox, float oy, float ow, float oh,
         //ˆê‰ñ‚¾‚¯ˆ—
         if (isHit == false)
         {
-            SE::Instance()->PlaySE(SE_subCastleDamage);
+            SE::Instance()->PlaySE(SE_CastleDamage);
             durability -= pow;
             isHit = true;
             return isHit;
         }
-
     }
 
     return isHit;
