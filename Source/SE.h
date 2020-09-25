@@ -37,8 +37,13 @@ SE::Instance()->StopSE(SE_test);
 // SEナンバー
 //追加するときは名前でお願いします
 enum SEnum {
-	SE_test,
-
+	SE_bomb,
+	SE_cursor,
+	SE_sukimaWorp,
+	SE_CastleDamage,
+	SE_warning,
+	SE_DarknessStart,
+	SE_DarknessEnd
 };
 
 class SE :public Singleton <SE> {
@@ -49,7 +54,7 @@ private:
 
 	std::vector<int> seNums;
 	//追加するときはこの配列の数字も増やしてね
-	int seNum[1];                         //格納するための配列
+	int seNum[7];                         //格納するための配列
 	int LoadSE(const char* _filePath);    //読み込み用に
 
 public:
