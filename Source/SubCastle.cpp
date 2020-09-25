@@ -129,14 +129,13 @@ void SubCastle::Draw()
 	//“K“–‚É•\Ž¦
 	if (isActive == true)
 	{
-		//DrawGraph(x + addPosX - addSize / 2, y + addPosY - addSize / 2, Image::Instance()->GetGraph(subCastle), TRUE);
+		DrawGraph(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
+		Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 0), TRUE);
 	}
 	else
 	{
-		//‚Ü‚¾‚±‚Á‚¿‚Í“K‰ž‚µ‚Ä‚È‚¢
-		DrawBox(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
-			    x + addPosX + width + addSize / 2, y + addPosY + height + addSize / 2,
-			    GetColor(128, 0, 0), true);
+		DrawGraph(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
+		Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
 	}
 }
 
