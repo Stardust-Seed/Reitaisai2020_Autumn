@@ -15,8 +15,9 @@ enum class eImageType {
 	Spicture_Fran		= 6,	//立ち絵 フラン
 	Gpicture_Player		= 9,	//ゲームの素材 プレイヤー
 	Gpicture_Enemy		= 13,	//ゲームの素材 エネミー
-	Gpicture_Sukima		= 19,	//ゲームの素材 スキマ
-	Gpicture_Explosion	= 23	//ゲームの素材 爆破エフェクト
+	Gpicture_SubCastle	= 19,	//ゲームの素材 サブ拠点
+	Gpicture_Sukima		= 21,	//ゲームの素材 スキマ
+	Gpicture_Explosion	= 25	//ゲームの素材 爆破エフェクト
 };
 
 /// <summary>
