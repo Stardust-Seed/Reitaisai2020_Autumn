@@ -2,7 +2,8 @@
 #include "Title.h"
 
 /*コンストラクタ*/
-Title::Title(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
+Title::Title(ISceneChanger* _sceneChanger, Parameter* _parameter)
+	:BaseScene(_sceneChanger, _parameter) {
 	SRand;					//乱数初期化
 	textPosition = 875;
 	deg = 0;
@@ -19,7 +20,7 @@ void Title::Update()
 {
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
 	{
-		sceneChanger->SceneChange(eScene_MENU, false, false);
+		sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
 	}
 
 	Move();

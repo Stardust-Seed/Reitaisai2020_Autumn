@@ -17,7 +17,7 @@ private:
 	int r, g, b;                //色用
 	int type;
 public:
-	Title(ISceneChanger* _sceneChanger);
+	Title(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	~Title() = default;
 	void Update();				//更新処理
 	void Draw();				//描画処理
