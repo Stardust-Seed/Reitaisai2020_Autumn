@@ -5,22 +5,35 @@
 
 //キャラクタータイプ
 enum SelectCharacter {
-	select_NOON,       //なし
 	select_SAKUYA,     //咲夜
-	select_FRAN        //フラン
+	select_FRAN,       //フラン
+	select_BACK,       //戻る
+	select_NUM         //項目数
+};
+
+//選択項目の描画の為の構造体
+struct SelectMenu {
+	int x, y;    //表示座標
+	char isMenu[128]; //項目名
 };
 
 class Charaselect :public BaseScene {
 private:
 
-	SelectCharacter charaType;	//選択したキャラタイプ
+	int charaSelect;         //選択したキャラタイプ
+    //SelectCharacter charaType;	//選択したキャラタイプ
+
+	SelectMenu selectMenu[2] = {
+		{660,700,"十六夜 咲夜"},
+		{1200,700,"フランドール・S"},
+	};
 
 public:
 	Charaselect(ISceneChanger* _sceneChanger);
 	void Update();
 	void Draw();
 
-	SelectCharacter Get_selectChara() { return charaType; }
+	int Get_selectChara() { return charaSelect; }
 
 };
 
