@@ -2,7 +2,7 @@
 #define _FONTHANDLE_H
 
 #include "Singleton.h"
-
+#include <Windows.h>
 /*********************************************************************************************************************
 
 CreateFontToHandle("w’è‚·‚éƒtƒHƒ“ƒg–¼", •¶š‚ÌƒTƒCƒY, •¶š‚Ì‘¾‚³);
@@ -20,11 +20,14 @@ DrawFormatStringToHandle(x,y,GetColor(255,255,255),FontHandle‚Ì•Ï”–¼,"%d",%d‚Å
 
 “o˜^—á)
 FontHandle.h‚Å
+LPCSTR urabe;    
 int urabeFont;
 int Get_urabe(){ return urabeFont; }
+ã‹L‚Ì‚æ‚¤‚È‚â‚Â‚ğ‚Ì’Ç‰Á‚ğ‚µ‚Ä‚à‚ç‚¢A
 
 FontHandle.cpp‚Å
-urabeFont = CreateFontToHandle("‚l‚r ƒSƒVƒbƒN",32,3);
+urabeFont = CreateFontToHandle("urabeƒtƒHƒ“ƒg‚Ì–¼‘O(MS ƒSƒVƒbƒN‚Æ‚©)",32(ƒtƒHƒ“ƒgƒTƒCƒY),3(ƒtƒHƒ“ƒg‚Ì‘¾‚³));
+‚Æ“ü‚ê‚ê‚Î’Ç‰Áo—ˆ‚Ü‚·B
 
 g—p—á)
 	•¶š•\¦
@@ -40,20 +43,12 @@ class FontHandle :public Singleton <FontHandle> {
 	friend Singleton < FontHandle >;
 
 private:
+	LPCSTR snoutCrayon;    //“Ç‚İ‚ŞƒtƒHƒ“ƒg•Ï”
 
 	//•Ï”–¼¬•¶š‚¾‚Æ‚È‚ñ‚©‹C‚¿ˆ«‚©‚Á‚½‚©‚ç‘å•¶šƒAƒ“ƒ_[ƒo[ƒIƒ“ƒŠ[
-	/*-MS ƒSƒVƒbƒN ƒtƒHƒ“ƒg’è‹`ê-*/
-	int MS_GOTHIC_112_3;
-	int MS_GOTHIC_64_3;
-	int MS_GOTHIC_32_3;
-	int MS_GOTHIC_16_3;
-	/*----------------------------*/
+	//‰£‚è‘‚«ƒtƒHƒ“ƒg
+	int SnoutCrayon_16_3;
 
-	/*-MS –¾’© ƒtƒHƒ“ƒg’è‹`ê-----*/
-	int MS_MINCHO_64_3;
-	int MS_MINCHO_32_3;
-	int MS_MINCHO_16_3;
-	/*----------------------------*/
 public:
 
 	FontHandle();     //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
@@ -62,14 +57,8 @@ public:
 	void Init();      //‰Šú‰»
 
 	//ƒQƒbƒ^[
-	int Get_MS_GOTHIC_112_3() { return MS_GOTHIC_112_3; }
-	int Get_MS_GOTHIC_64_3() { return MS_GOTHIC_64_3; }
-	int Get_MS_GOTHIC_32_3() { return MS_GOTHIC_32_3; }
-	int Get_MS_GOTHIC_16_3() { return MS_GOTHIC_16_3; }
 
-	int Get_MS_MINCHO_64_3() { return MS_MINCHO_64_3; }
-	int Get_MS_MINCHO_32_3() { return MS_MINCHO_32_3; }
-	int Get_MS_MINCHO_16_3() { return MS_MINCHO_16_3; }
+	int Get_SnoutCrayon_16_3() { return SnoutCrayon_16_3; }
 };
 
 #endif //FONTHANDLE_H_
