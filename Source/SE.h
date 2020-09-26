@@ -40,6 +40,7 @@ enum SEnum {
 	SE_bomb,
 	SE_cursor,
 	SE_sukimaWarp,
+	SE_CastleBreak,
 	SE_CastleDamage,
 	SE_warning,
 	SE_DarknessStart,
@@ -54,7 +55,7 @@ private:
 
 	std::vector<int> seNums;
 	//’Ç‰Á‚·‚é‚Æ‚«‚Í‚±‚Ì”z—ñ‚Ì”š‚à‘‚â‚µ‚Ä‚Ë
-	int seNum[7];                         //Ši”[‚·‚é‚½‚ß‚Ì”z—ñ
+	int seNum[8];                         //Ši”[‚·‚é‚½‚ß‚Ì”z—ñ
 	int LoadSE(const char* _filePath);    //“Ç‚İ‚İ—p‚É
 
 public:

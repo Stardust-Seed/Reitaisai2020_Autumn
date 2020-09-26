@@ -33,6 +33,7 @@ void SE::Load()
 	seNum[SE_cursor] = LoadSE("./res/Sound/SE/cursor2.wav");
 	seNum[SE_sukimaWarp] = LoadSE("./res/Sound/SE/magic-worp1.wav");
 	seNum[SE_CastleDamage] = LoadSE("./res/Sound/SE/stone-break1.wav");
+	seNum[SE_CastleBreak] = LoadSE("./res/Sound/SE/glass-break4.wav");
 	seNum[SE_warning] = LoadSE("./res/Sound/SE/warning1.wav");
 	seNum[SE_DarknessStart] = LoadSE("./res/Sound/SE/buun1.wav");
 	seNum[SE_DarknessEnd] = LoadSE("./res/Sound/SE/buun1_reverse.wav");
