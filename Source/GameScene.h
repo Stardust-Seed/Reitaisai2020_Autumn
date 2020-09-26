@@ -11,6 +11,7 @@
 #include "ItemManager.h"
 #include "BuffManager.h"
 #include "CastleManager.h"
+
 #include "TimeLimit.h"
 #include "Ui.h"
 
@@ -28,7 +29,7 @@ private:
 	UI* ui;
 
 public:
-	GameScene(ISceneChanger* _sceneChanger);
+	GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	void Update();				//更新処理
 	void Draw();				//描画処理
 	void ChangeScene();         //シーン変更処理

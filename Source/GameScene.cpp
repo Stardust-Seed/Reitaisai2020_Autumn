@@ -5,7 +5,7 @@
 #include "BGM.h"
 
 //コンストラクタ
-GameScene::GameScene(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger)
+GameScene::GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseScene(_sceneChanger, _parameter)
 {
 	timeLimit = new TimeLimit();
 	player = new BasePlayer(static_cast<PlayerType>(0), static_cast<AbilityType>(0));
@@ -69,7 +69,7 @@ void GameScene::ChangeScene()
 		if (timeLimit->Get_finishTime() == true && castleManager->Get_IsActive(0) == true)
 		{
 			BGM::Instance()->StopBGM(BGM_gameScene);
-			sceneChanger->SceneChange(eScene_CLAER, false, false);
+			sceneChanger->SceneChange(eScene_CLAER, parameter, false, false);
 			return;
 		}
 	}
@@ -80,7 +80,7 @@ void GameScene::ChangeScene()
 		if (timeLimit->Get_finishTime() == false && castleManager->Get_IsActive(0) == false)
 		{
 			BGM::Instance()->StopBGM(BGM_gameScene);
-			sceneChanger->SceneChange(eScene_GAMEOVER, false, false);
+			sceneChanger->SceneChange(eScene_GAMEOVER, parameter, false, false);
 			return;
 		}
 	}
@@ -89,7 +89,7 @@ void GameScene::ChangeScene()
 	{
 		if (Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1)
 		{
-			sceneChanger->SceneChange(eScene_PAUSEMENU, true, false);
+			sceneChanger->SceneChange(eScene_PAUSEMENU, parameter, true, false);
 		}
 	}
 }
