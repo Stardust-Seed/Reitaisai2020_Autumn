@@ -51,6 +51,7 @@ void CastleManager::Update(EnemyManager*_enemy)
 				//一回だけ処理させたいので
 				if (activeCountFlg[i] == true)
 				{
+					SE::Instance()->PlaySE(SE_CastleBreak);
 					occupiedNum++;                //アクティブな拠点の数を減らす
 					activeCountFlg[i] = false;    //一回以上処理させない用のフラグ
 				}
