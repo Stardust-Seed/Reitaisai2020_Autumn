@@ -30,10 +30,10 @@ BGM::~BGM() {
 void BGM::Load()
 {
 	//ファイルパス指定
-	bgmNum[BGM_title] = LoadBGM("./res/Sound/BGM/gensoukyounohatuaki.wav");
-	bgmNum[BGM_menu] = LoadBGM("./res/Sound/BGM/engawakaranagameru.wav");
-	bgmNum[BGM_gameScene] = LoadBGM("./res/Sound/BGM/youseinoakudoi.wav");
-	bgmNum[BGM_result] = LoadBGM("./res/Sound/BGM/asobiniikuhinoasa_2.wav");
+	bgmNum[BGM_title] = LoadBGM("./res/Sound/BGM/gensoukyounohatuaki.ogg");
+	bgmNum[BGM_menu] = LoadBGM("./res/Sound/BGM/engawakaranagameru.ogg");
+	bgmNum[BGM_gameScene] = LoadBGM("./res/Sound/BGM/youseinoakudoi.ogg");
+	bgmNum[BGM_result] = LoadBGM("./res/Sound/BGM/asobiniikuhinoasa_2.ogg");
 }
 
 //BGMを再生
