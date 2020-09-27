@@ -4,6 +4,8 @@
 Image::Image() {
 	//‰æ‘œ‚Ì“Ç‚İ‚İ
 	MyLoadGraph("./res/Image/title_rogo.png");
+	MyLoadGraph("./res/Image/background_Menu.png");
+	MyLoadGraph("./res/Image/star.png");
 	MyLoadGraph("./res/Image/darkness.png");
 	MyLoadGraph("./res/Image/koumakan.png");
 
