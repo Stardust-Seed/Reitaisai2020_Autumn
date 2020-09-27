@@ -77,9 +77,6 @@ protected:
 	bool isAbility;                 //スキルが発動している状態かどうか
 	int  abilityCount;              //スキル回数
 
-	float width;
-	float height;
-
 	int playerPos;                  //プレイヤーの向き
 	// 0 = 左         1 = 上        2 = 右         3 = 下
 
