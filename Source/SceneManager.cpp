@@ -10,7 +10,7 @@
 
 /*コンストラクタ*/
 SceneManager::SceneManager() {
-	scenes.push(std::make_shared<GameScene>(this));
+	scenes.push(std::make_shared<Charaselect>(this));
 }
 
 /*更新処理*/
