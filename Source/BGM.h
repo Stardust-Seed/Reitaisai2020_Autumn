@@ -16,7 +16,7 @@ int BGMNum[2];
 BGM.cppで
 Load()に項目追加
 
-BGMNum[BGM_urabe] = LoadSE("./res/Sound/BGM/urabe.wav");
+bgmNum[BGM_urabe] = LoadBGM("./res/Sound/BGM/urabe.wav");
 
 使用例
 
@@ -47,8 +47,10 @@ BGM::Instance()->StopBGM(BGM_test);
 // BGMナンバー
 //追加するときは名前でお願いします
 enum BGMnum {
-	BGM_test,
-
+	BGM_title,
+	BGM_menu,
+	BGM_gameScene,
+	BGM_result
 };
 
 class BGM :public Singleton <BGM> {
@@ -59,7 +61,7 @@ private:
 
 	std::vector<int> bgmNums;
 	//追加するときはこの配列の数字も増やしてね
-	int bgmNum[1];                                              //格納するための配列
+	int bgmNum[5];                                              //格納するための配列
 	int LoadBGM(const char* _filePath);                         //読み込み用に
 
 public:
