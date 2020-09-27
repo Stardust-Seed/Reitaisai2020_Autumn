@@ -24,6 +24,7 @@ protected:
 	int durability;		                    //拠点の体力
 	eDirection direction;
 	bool isActive;		                    //拠点の生存フラグ
+	bool dyingFlg;                          //瀕死フラグ
 
 public:
 	BaseCastle(int);                        //コンストラクタ
