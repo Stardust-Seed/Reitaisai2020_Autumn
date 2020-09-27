@@ -48,7 +48,7 @@ private:
 	void LoadConfigFile();
 	void SaveConfigFile();
 public:
-	Option(ISceneChanger* _sceneChanger);
+	Option(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	void Update();
 	void Draw();
 };
