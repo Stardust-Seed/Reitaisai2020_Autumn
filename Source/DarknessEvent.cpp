@@ -1,5 +1,6 @@
 #include "DarknessEvent.h"
 #include "Image.h"
+#include "SE.h"
 
 DarknessEvent::DarknessEvent() {
 	isActive = true;		//開始
@@ -15,6 +16,9 @@ DarknessEvent::~DarknessEvent() {
 void DarknessEvent::Update() {
 
 	if (nowPhase == PHASE_START && opacity <= MAX_OPACITY) {	//開始フェーズ　不透明度を上げる
+		if (opacity == 0) {
+			SE::Instance()->PlaySE(SE_DarknessStart);
+		}
 		opacity += 2;	//不透明度加算
 	}
 	else if (nowPhase == PHASE_START && opacity >= MAX_OPACITY) {
@@ -25,6 +29,9 @@ void DarknessEvent::Update() {
 	if (nowPhase == PHASE_DARK) {								//維持フェーズ
 		if (darkCount <= MAX_DARKNESSTIME) {
 			darkCount++;									//カウント加算
+			if (darkCount == 14 * FRAME) {
+				SE::Instance()->PlaySE(SE_DarknessEnd);
+			}
 		}
 		else if (darkCount > MAX_DARKNESSTIME) {
 			nowPhase = PHASE_END;								//次のフェーズ
