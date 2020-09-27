@@ -6,7 +6,7 @@ const int GameOver::GAME_Y = 440;
 const int GameOver::MENU_Y = 460;
 
 //コンストラクタ
-GameOver::GameOver(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger)
+GameOver::GameOver(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseScene(_sceneChanger, _parameter)
 {
 	nowCursor = Continuity_Yes;
 	y = GAME_Y;
@@ -79,11 +79,11 @@ void GameOver::Select()
 			switch (nowCursor)
 			{
 			case Continuity_Yes:    //コンティニューする
-				sceneChanger->SceneChange(eScene_GAME, false, false);
+				sceneChanger->SceneChange(eScene_GAME, parameter, false, false);
 				break;
 
 			case Continuity_No:   	//コンティニューしない
-				sceneChanger->SceneChange(eScene_MENU, false, false);
+				sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
 				break;
 			}
 		}

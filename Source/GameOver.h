@@ -21,7 +21,7 @@ private:
 	int nowCursor;              //現在選択中のカーソル
 	int y;                      //カーソル表示用のY座標
 public:
-	GameOver(ISceneChanger* _sceneChanger);
+	GameOver(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	void Update();				//更新処理
 	void Draw();				//描画処理
 	void Select();              //選択処理
