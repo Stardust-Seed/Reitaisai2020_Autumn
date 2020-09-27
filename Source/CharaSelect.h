@@ -29,7 +29,7 @@ private:
 	};
 
 public:
-	CharaSelect(ISceneChanger* _sceneChanger);
+	CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	void Update();
 	void Draw();
 

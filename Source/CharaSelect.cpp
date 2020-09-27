@@ -3,7 +3,7 @@
 #include "Charaselect.h"
 
 /*コンストラクタ*/
-CharaSelect::CharaSelect(ISceneChanger* _sceneChanger):BaseScene(_sceneChanger) {
+CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter):BaseScene(_sceneChanger,parameter) {
 
 
 	//最初は咲夜が選択されている状態
