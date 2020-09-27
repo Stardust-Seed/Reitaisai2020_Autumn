@@ -1,6 +1,10 @@
 #include "BaseScene.h"
 
-/*コンストラクタ*/
-BaseScene::BaseScene(ISceneChanger* _sceneChanger) :sceneChanger(_sceneChanger) {
+const char* BaseScene::LevelSelectTag = "LevelSelect";
+const char* BaseScene::CharaSelectTag = "CharaSelect";
 
+/*コンストラクタ*/
+BaseScene::BaseScene(ISceneChanger* _sceneChanger, Parameter* _parameter)
+	:sceneChanger(_sceneChanger) {
+	parameter = _parameter;
 }
