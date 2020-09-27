@@ -10,31 +10,31 @@
 #include "Pausemenu.h"
 #include "Title.h"
 
-/*�R���X�g���N�^*/
+/*コンストラクタ*/
 SceneManager::SceneManager() {
 	scenes.push(std::make_shared<GameScene>(this, &parameter));
 }
 
-/*�X�V����*/
+/*更新処理*/
 void SceneManager::Update() {
 	scenes.top()->Update();
 }
 
-/*�`�揈��*/
+/*描画処理*/
 void SceneManager::Draw() {
 	scenes.top()->Draw();
 }
 
-/*�V�[���؂�ւ�����*/
+/*シーン切り替え処理*/
 void SceneManager::SceneChange(eScene _nextScene, Parameter* _parameter,
 	const bool _isStack, const bool _isBack) {
-	//��O�̃V�[���ɂ��鏈��
+	//一つ前のシーンにする処理
 	if (_isBack) {
 		scenes.pop();
 		return;
 	}
 
-	//scenes�̒��g�����ׂč폜����
+	//scenesの中身をすべて削除する
 	if (!_isStack) {
 		while (!scenes.empty()) {
 			scenes.pop();

@@ -1,9 +1,11 @@
 #include <DxLib.h>
+#include "BGM.h"
 #include "Input.h"
 #include "Menu.h"
 
-Menu::Menu(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
-
+Menu::Menu(ISceneChanger* _sceneChanger, Parameter* _parameter)
+	:BaseScene(_sceneChanger, _parameter) {
+	BGM::Instance()->PlayBGM(BGM_menu, DX_PLAYTYPE_LOOP);
 }
 
 //‘I‘ð‚³‚ê‚Ä‚é‰æ–Ê
@@ -30,15 +32,17 @@ void Menu::Update()
 		switch (NowSelect)
 		{
 		case eMenutype_Game:
-			sceneChanger->SceneChange(eScene_GAME, false, false);
+			BGM::Instance()->StopBGM(BGM_menu);
+			sceneChanger->SceneChange(eScene_CHARASELECT, parameter, true, false);
 			break;
 
 		case eMenutype_Option:
-			sceneChanger->SceneChange(eScene_OPTION, true, false);
+			sceneChanger->SceneChange(eScene_OPTION, parameter, true, false);
 			break;
 
 		case eMenutype_Title:
-			sceneChanger->SceneChange(eScene_TITLE, false, false);
+			BGM::Instance()->StopBGM(BGM_menu);
+			sceneChanger->SceneChange(eScene_TITLE, parameter, false, false);
 			break;
 		}
 	}

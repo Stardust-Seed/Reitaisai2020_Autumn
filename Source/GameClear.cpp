@@ -2,14 +2,14 @@
 #include "GameClear.h"
 #include "Input.h"
 
-GameClear::GameClear(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
-
+GameClear::GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter)
+	:BaseScene(_sceneChanger, _parameter) {
 }
 
 /*XVˆ—*/
 void GameClear::Update() {
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1) {
-		sceneChanger->SceneChange(eScene_MENU, false, false);
+		sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
 	}
 }
 

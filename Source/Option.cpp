@@ -36,7 +36,8 @@ const int Option::BUF_SIZE = 256;
 const int Option::CONFIGFILE_NUM = 2;
 
 /*コンストラクタ*/
-Option::Option(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
+Option::Option(ISceneChanger* _sceneChanger, Parameter* _parameter)
+	:BaseScene(_sceneChanger, _parameter) {
 	LoadConfigFile();
 
 	//bgmVolume = 5;
@@ -55,7 +56,7 @@ void Option::Update() {
 	}
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
-		sceneChanger->SceneChange(eScene_MENU, false, true);
+		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
 	}
 
 	//変更項目の変更処理

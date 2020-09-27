@@ -2,14 +2,16 @@
 #define _BASEBOMB_H
 
 #include "Define.h"
+#include "BaseEvent.h"
+#include "SE.h"
 
 	enum eBombType
 	{
-		bomb,
-		fakebomb,
+		bomb = 1,
+		fakebomb = 2,
 	};
 	
-	class BaseBomb
+	class BaseBomb : public virtual BaseEvent
 	{
 	protected:
 		const float BOMB_SPOWNUPDOWNX = GAME_WIDTH / 2 - 25;				//ã‰ºx
@@ -44,21 +46,21 @@
 		bool isFakeTrigger;				//”š”­‚µ‚Ä‚é‚©‚µ‚Ä‚È‚¢‚©(‹U)
 		bool isSpown;					//”š’e‚Ì¶¬‚µ‚½‚©‚Ç‚¤‚©
 		bool isFakeSpown;				//”š’e‚Ì¶¬‚µ‚½‚©‚Ç‚¤‚©(‹U)
+		bool isCount;					//ƒJƒEƒ“ƒgƒ_ƒEƒ“‚ğ‰æ‘œ‚Å•\¦‚³‚¹‚é‚½‚ß
 
 	public:
 		BaseBomb() {}
 		~BaseBomb();
-		BaseBomb(int _power, eBombType _btype);
+		BaseBomb(int _power, int _speed, eBombType _bombType);
 
 		void SpawnBomb();								//”š’e‚Ì¶¬
 		void JudgeTrigger();							//”š”­‚µ‚½‚©‚Ì”»’è
 		void Move();									//”š’e‚Ì—‰º
-		void SetIsTrigger(bool _isTrigger) { isTrigger = _isTrigger; }
 
 		int GetPower() { return power; }							
-		bool GetIsTrigger() { return isTrigger; }
-		virtual void Update() = 0;
-		virtual void Draw() = 0;
+		bool GetIsTriggerFlg() { return isTrigger; }
+		virtual void Update() {}
+		virtual void Draw() {}
 
 	};
 #endif // !_BASEBOMB_H

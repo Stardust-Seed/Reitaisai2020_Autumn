@@ -2,6 +2,7 @@
 #define _BASESCENE_H
 
 #include "ISceneChanger.h"
+#include "Parameter.h"
 
 class ISceneChanger;
 
@@ -20,9 +21,13 @@ enum eScene
 
 class BaseScene {
 protected:
+	const static char* LevelSelectTag;	//レベル選択タグ
+	const static char* CharaSelectTag;	//キャラ選択タグ
+
 	ISceneChanger* sceneChanger;	//シーン切り替えのインターフェイスクラス
+	Parameter* parameter;
 public:
-	BaseScene(ISceneChanger* _sceneChanger);
+	BaseScene(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	virtual ~BaseScene() = default;
 	virtual void Draw() = 0;		//描画処理
 	virtual void Update() = 0;		//更新処理
