@@ -17,7 +17,7 @@ struct SelectMenu {
 	char isMenu[128]; //項目名
 };
 
-class Charaselect :public BaseScene {
+class CharaSelect :public BaseScene {
 private:
 
 	int charaSelect;         //選択したキャラタイプ
@@ -29,7 +29,7 @@ private:
 	};
 
 public:
-	Charaselect(ISceneChanger* _sceneChanger);
+	CharaSelect(ISceneChanger* _sceneChanger);
 	void Update();
 	void Draw();
 

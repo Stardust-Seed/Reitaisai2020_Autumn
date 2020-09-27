@@ -3,7 +3,7 @@
 #include "Charaselect.h"
 
 /*コンストラクタ*/
-Charaselect::Charaselect(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
+CharaSelect::CharaSelect(ISceneChanger* _sceneChanger):BaseScene(_sceneChanger) {
 
 
 	//最初は咲夜が選択されている状態
@@ -11,7 +11,7 @@ Charaselect::Charaselect(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger)
 }
 
 /*更新処理*/
-void Charaselect::Update()
+void CharaSelect::Update()
 {
 	/****選択****/
 	/************/
@@ -52,7 +52,7 @@ void Charaselect::Update()
 }
 
 /*描画処理*/
-void Charaselect::Draw()
+void CharaSelect::Draw()
 {
 	DrawFormatString(200, 200, GetColor(255, 255, 255), "選択項目:%d", charaSelect);
 
