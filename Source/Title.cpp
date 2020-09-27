@@ -5,21 +5,21 @@
 Title::Title(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	:BaseScene(_sceneChanger, _parameter) {
 	SRand;					//乱数初期化
-	textPosition = 875;
 	deg = 0;
 	rad = 0;
 	cnt = 0;
-	r = 0;
-	g = 0;
-	b = 0;
+	alpha = 0;
 
 	type = GetRand(3);
+	BGM::Instance()->PlayBGM(BGM_title);
 }
 
 void Title::Update()
 {
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
 	{
+		SE::Instance()->PlaySE(SE_cursor);
+		BGM::Instance()->StopBGM(BGM_title);
 		sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
 	}
 
@@ -28,13 +28,17 @@ void Title::Update()
 
 void Title::Draw()
 {
-	//タイトル表示
-	DrawGraph(GAME_WIDTH / 8, GAME_HEIHGT / 13, Image::Instance()->GetGraph(eImageType::Title_Logo, 0), TRUE);
+	//背景表示
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
 
+	//タイトル表示
+	DrawGraph(GAME_WIDTH / 4.25f, GAME_HEIHGT / 13, Image::Instance()->GetGraph(eImageType::Title_Logo, 0), TRUE);
+
+	//キャラ表示
 	switch (type)
 	{
 	case 0:
-		DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType::Spicture_Sakuya, 0), TRUE);
+		DrawGraph(1300, 300, Image::Instance()->GetGraph(eImageType::Spicture_Sakuya, 2), TRUE);
 		break;
 
 	case 1:
@@ -52,20 +56,25 @@ void Title::Draw()
 	default:
 		break;
 	}
-	//プレススペースの表示処理
-	if (cnt == 250)
-	{
-		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 1.2f, "P          ", GetColor(r, b, g), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 1.4f, " R         ", GetColor(r, b, g), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 1.6f, "  E        ", GetColor(r, b, g), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 1.8f, "   S       ", GetColor(r, b, g), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 2,    "    S      ", GetColor(r, b, g), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 2,    "      S    ", GetColor(r, b, g), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 1.8f, "       P   ", GetColor(r, b, g), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 1.6f, "        A  ", GetColor(r, b, g), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 1.4f, "         C ", GetColor(r, b, g), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-		DrawStringToHandle(GAME_WIDTH / 2 - 16 * 5.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 1.2f, "          E", GetColor(r, b, g), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-	}
+
+	//プレススペースの表示
+	//ブレンドモードを乗算済みα用のαブレンドにする
+	SetDrawBlendMode(DX_BLENDMODE_PMA_ALPHA, alpha);
+
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3, "P          ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.2f, " R         ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.4f, "  E        ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.6f, "   S       ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.8f, "    S      ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.8f, "      S    ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.6f, "       P   ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.4f, "        A  ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.2f, "         C ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3, "          E", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+
+	//ブレンドモードを通常に戻す
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, alpha);
+	//DrawLine(GAME_WIDTH / 2, 0, GAME_WIDTH / 2, GAME_HEIHGT, GetColor(0,0,0));    // 線を描画
 }
 
 //文字の動きの処理
@@ -75,28 +84,18 @@ void Title::Move()
 	if (deg >= 360)deg = 0;
 	rad = deg * 3.14 / 180;
 
-	//画面中央まで横移動させる
+	//少し待つ
 	if (cnt < 250)
 	{
 		cnt++;
-		deg += 1.75f;
-		textPosition -= 3.5f;
 	}
 	else
 	{
-		deg += 1.25f;
-		//文字が浮かび上がるような感じにする
-		if (r < 255 && b < 255 && g < 255)
+		deg += 1;
+		//文字が浮かび上がるようにする
+		if (alpha < 255)
 		{
-			r++;
-			b++;
-			g++;
-		}
-		else
-		{
-			r = 255;
-			b = 255;
-			g = 255;
+			alpha++;
 		}
 	}
 }
