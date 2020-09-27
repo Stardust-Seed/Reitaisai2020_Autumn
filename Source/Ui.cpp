@@ -19,7 +19,7 @@ void UI::Get_CastleDurability()
 
 	if (CastleDurability <= percent)			//３割以下でHPゲージが赤になる	
 	{
-		SE::Instance()->PlaySE(SE_warning);
+		//SE::Instance()->PlaySE(SE_warning);
 		DrawBox(HPGAUGE_X, HPGAUGE_Y, HPGAUGE_X1 + 200 * CastleDurability / MAX_DURABILTY, HPGAUGE_Y1 + 20, GetColor(255, 0, 0), TRUE);		//ピンチ用HPゲージ(赤）
 	}
 	else
