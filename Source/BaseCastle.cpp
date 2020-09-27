@@ -8,7 +8,7 @@ BaseCastle::BaseCastle(int _durability){
 	durability = _durability;
 	isActive = true;
 	isHit = false;
-
+    dyingFlg = false;
 }
 
 //拠点がダメージを受けたときの処理
@@ -26,7 +26,12 @@ bool BaseCastle::ClisionHit(float ox, float oy, float ow, float oh,
             SE::Instance()->PlaySE(SE_CastleDamage);
             durability -= pow;
             isHit = true;
-            return isHit;
+        }
+
+        if (durability <= MAX_DURABILITY / 3 && dyingFlg == false)
+        {
+            SE::Instance()->PlaySE(SE_warning);
+            dyingFlg = true;
         }
     }
 
