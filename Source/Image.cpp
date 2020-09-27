@@ -4,12 +4,16 @@
 Image::Image() {
 	//‰æ‘œ‚Ì“Ç‚İ‚İ
 	MyLoadGraph("./res/Image/title_rogo.png");
+	MyLoadGraph("./res/Image/Title.png");
+	MyLoadGraph("./res/Image/background_Menu.png");
+	MyLoadGraph("./res/Image/star.png");
 	MyLoadGraph("./res/Image/darkness.png");
 	MyLoadGraph("./res/Image/koumakan.png");
 
 	//‰æ‘œ‚ğ•ªŠ„‚µ‚Ä“Ç‚İ‚İ
 	MyLoadDivGraph("./res/Image/tatie_Sakuya.png", 3, 3, 1, 486, 864);
 	MyLoadDivGraph("./res/Image/tatie_Fran.png", 3, 3, 1, 486, 864);
+	MyLoadDivGraph("./res/Image/select_Player.png", 2, 2, 1, 275, 399);
 	MyLoadDivGraph("./res/Image/player.png", 4, 2, 2, 48, 48);
 	MyLoadDivGraph("./res/Image/enemy.png", 6, 2, 3, 48, 48);
 	MyLoadDivGraph("./res/Image/SubCastle.png", 2, 2, 1, 55, 55);
