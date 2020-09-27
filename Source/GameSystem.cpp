@@ -34,7 +34,7 @@ void GameSystem::Main() {
 		if (!gMain.GameLoop())break;
 
 		fps.Update();
-		fps.Draw();
+		//fps.Draw();
 
 		ScreenFlip();
 		fps.Wait();
