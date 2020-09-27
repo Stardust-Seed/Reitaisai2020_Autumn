@@ -2,25 +2,15 @@
 #include "BaseBomb.h"
 
 //コンストラクタ
-BaseBomb::BaseBomb(int _power, eBombType _btype)
+BaseBomb::BaseBomb(int _power, int _speed, eBombType _bombType)
 {
-	//SRand;								//乱数の初期化
-	//type = GetRand(MAX_TYPE - 1);		//種類の乱数
-	type = bomb;
-	if (type == bomb)
-	{
-		power = _power;
-	}
-
-	if (type == fakebomb)
-	{
-		power = _power;
-	}
-	
+	SRand;
+	speed = _speed;
+	power = _power;
+	type = _bombType;
 	
 	direction = GetRand(3);					//方向の乱数
-	//direction = 3;
-	speed = 3;
+	
 	countdown = COUNTMAX;						//カウントダウンのセット
 	
 	isSpown = false;
@@ -28,6 +18,7 @@ BaseBomb::BaseBomb(int _power, eBombType _btype)
 	isXplosion = false;							//初期状態
 	isTrigger = false;
 	isFakeTrigger = false;
+	isCount == false;
 
 	if (direction == DIRECTIONLEFT)			//左
 	{
@@ -62,11 +53,6 @@ BaseBomb::~BaseBomb()
 //爆弾生成
 void BaseBomb::SpawnBomb()
 {
-
-	//DrawFormatString(10, 300, GetColor(255, 255, 255), "type%d", type);
-	
-	//DrawFormatString(10, 300, GetColor(255, 255, 255), "type%d", power);
-
 	//真
 	if (type == bomb)
 	{
@@ -127,24 +113,36 @@ void BaseBomb::JudgeTrigger()
 	//爆弾のタイマー
 	if (speed == 0)
 	{
-		DrawFormatString(10, 150, GetColor(255, 255, 255), "%d", countdown / FRAME);	//表示
-		if (countdown <= FRAME) {								//残り一秒以下は割り算の結果0になるため、表示タイミングの調整
-			isXplosion = true;									//フラグ切替
-		}
+		isCount = true;
+		if (isCount == true)
+		{
+			DrawFormatString(10, 150, GetColor(255, 255, 255), "%d", countdown / FRAME);	//表示
 
-		if (countdown >= 0) {									//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
-			countdown -= 1;										//カウントダウン
+			if (countdown <= FRAME) {								//残り一秒以下は割り算の結果0になるため、表示タイミングの調整
+				isXplosion = true;                                  //フラグ切替
+				isCount = false;
+			}
+
+			if (countdown >= 0) {									//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+				countdown -= 1;										//カウントダウン
+			}
 		}
+	}
+
+	if (isCount == false)
+	{
+		
 	}
 
 	if (type == bomb)
 	{
 		if (isXplosion == true)			//爆発する
 		{
-			//DrawString(700, 300, "爆発", GetColor(255, 255, 255));
+			//SE::Instance()->PlaySE(SE_bomb);		//爆発の音
 			isTrigger = true;
 			isXplosion = false;
 			isSpown = false;
+			
 		}
 	}
 
@@ -152,12 +150,13 @@ void BaseBomb::JudgeTrigger()
 	{
 		if (isXplosion == true)			//爆発する
 		{
-			//DrawString(600, 300, "偽爆発", GetColor(255, 255, 255));
-			isFakeTrigger = true;
+			isTrigger = true;
 			isXplosion = false;
+			//isCount = false;
 			isFakeSpown = false;
 		}
 	}
 }
+
 
 

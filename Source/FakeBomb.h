@@ -3,14 +3,15 @@
 
 #include "BaseBomb.h"
 
-class FakeBomb:public BaseBomb
+class FakeBomb : public virtual BaseBomb
 {
 private:
 	int fBomb;
 	int fAction;
 	bool isFakeAction;
 public:
-	FakeBomb(int _power, eBombType _btype);
+	FakeBomb() = default;
+	FakeBomb(int _power, int _speed, eBombType _bombType);
 	void FakeMotion();
 	void Update();
 	void Draw();
