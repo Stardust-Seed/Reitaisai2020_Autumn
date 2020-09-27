@@ -17,9 +17,8 @@ class Pausemenu :public BaseScene {
 private:
 	int NowSelect = 0;				//現在選択されている項目
 	int y;
-
 public:
-	Pausemenu(ISceneChanger* _sceneChanger);
+	Pausemenu(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	void Pause();					//ゲーム画面の中断
 	void PauseAll();				//ポーズ画面時の処理
 	void Update();					//更新処理
