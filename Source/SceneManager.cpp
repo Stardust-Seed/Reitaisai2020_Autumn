@@ -1,5 +1,5 @@
 #include "SceneManager.h"
-#include "Charaselect.h"
+#include "CharaSelect.h"
 #include "GameClear.h"
 #include "GameOver.h"
 #include "GameScene.h"
@@ -65,7 +65,7 @@ void SceneManager::SceneChange(eScene _nextScene, Parameter* _parameter,
 		scenes.push(std::make_shared<Pausemenu>(this, _parameter));
 		break;
 	case eScene_CHARASELECT:
-		scenes.push(std::make_shared<Charaselect>(this, _parameter));
+		scenes.push(std::make_shared<CharaSelect>(this, _parameter));
 		break;
 	case eScene_LEVELSELECT:
 		scenes.push(std::make_shared<LevelSelect>(this, _parameter));
