@@ -39,7 +39,7 @@ void BGM::Load()
 //BGMを再生
 void BGM::PlayBGM(BGMnum _BGMnum, int _type, bool _topFlg)
 {
-	DrawFormatString(10, 500, GetColor(255, 255, 255), "サウンド再生_番号:%d", PlaySoundMem(bgmNum[_BGMnum], _type, TRUE));
+	//DrawFormatString(10, 500, GetColor(255, 255, 255), "サウンド再生_番号:%d", PlaySoundMem(bgmNum[_BGMnum], _type, TRUE));
 	if (_topFlg == true)
 	{
 		//DrawFormatString(50, 500, GetColor(255, 255, 255), "最初から再生");
