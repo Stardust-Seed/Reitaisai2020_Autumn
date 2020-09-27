@@ -2,8 +2,8 @@
 #include "Pausemenu.h"
 #include "Input.h"
 
-Pausemenu::Pausemenu(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger) {
-
+Pausemenu::Pausemenu(ISceneChanger* _sceneChanger, Parameter* _parameter)
+	:BaseScene(_sceneChanger, _parameter) {
 }
 
 //‰æ‘œ‚Æ‚©”wŒiH(–¢ŽÀ‘•)
@@ -51,12 +51,12 @@ void Pausemenu::Update()
 		{
 		case ePausetype_Game:															//ƒQ[ƒ€‰æ–Ê‚É–ß‚é€–Ú
 			DrawString(100, 0, "ƒQ[ƒ€‰æ–Ê", GetColor(255, 255, 255));
-			sceneChanger->SceneChange(eScene_GAME, false, true);											
+			sceneChanger->SceneChange(eScene_GAME, parameter, false, true);
 			break;
 
 		case ePausetype_Menu:															//ƒQ[ƒ€I—¹‚Ì€–Ú
 			DrawString(100, 0, "ƒƒjƒ…[‰æ–Ê", GetColor(255, 255, 255));
-			sceneChanger->SceneChange(eScene_MENU, false, false);
+			sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
 			break;
 		}
 	}
