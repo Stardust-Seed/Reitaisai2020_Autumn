@@ -21,7 +21,7 @@ class Charaselect :public BaseScene {
 private:
 
 	int charaSelect;         //選択したキャラタイプ
-    //SelectCharacter charaType;	//選択したキャラタイプ
+	//SelectCharacter charaType;	//選択したキャラタイプ
 
 	SelectMenu selectMenu[2] = {
 		{660,700,"十六夜 咲夜"},

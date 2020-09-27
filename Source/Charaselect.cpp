@@ -11,7 +11,7 @@ Charaselect::Charaselect(ISceneChanger* _sceneChanger) :BaseScene(_sceneChanger)
 }
 
 /*更新処理*/
-void Charaselect::Update() 
+void Charaselect::Update()
 {
 	/****選択****/
 	/************/
@@ -32,7 +32,7 @@ void Charaselect::Update()
 	/************/
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_RETURN) == 1))
 	{
-		switch (charaSelect){
+		switch (charaSelect) {
 		case select_SAKUYA:   //咲夜を選択
 			//確か次難易度選択画面だったっけ？
 			//sceneChanger->SceneChange(難易度画面, parameter, true, false);
@@ -44,8 +44,7 @@ void Charaselect::Update()
 			break;
 		case select_BACK:
 			//前のシーン(画面)に戻る
-			sceneChanger->SceneChange(eScene_MENU, false, false);
-			//sceneChanger->SceneChange(eScene_MENU, parameter, true, false); //新
+			sceneChanger->SceneChange(eScene_MENU, parameter, false, true); //新
 			break;
 		}
 	}
@@ -55,7 +54,7 @@ void Charaselect::Update()
 /*描画処理*/
 void Charaselect::Draw()
 {
-	DrawFormatString(200, 200, GetColor(255, 255, 255),"選択項目:%d",charaSelect );
+	DrawFormatString(200, 200, GetColor(255, 255, 255), "選択項目:%d", charaSelect);
 
 	/***テスト用***/
 	static int select_Sakuya = LoadGraph("res/Image/select_Sakuya.png");
