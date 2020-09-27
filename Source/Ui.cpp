@@ -19,6 +19,7 @@ void UI::Get_CastleDurability()
 
 	if (CastleDurability <= percent)			//ÇRäÑà»â∫Ç≈HPÉQÅ[ÉWÇ™ê‘Ç…Ç»ÇÈ	
 	{
+		//SE::Instance()->PlaySE(SE_warning);
 		DrawBox(HPGAUGE_X, HPGAUGE_Y, HPGAUGE_X1 + 200 * CastleDurability / MAX_DURABILTY, HPGAUGE_Y1 + 20, GetColor(255, 0, 0), TRUE);		//ÉsÉìÉ`ópHPÉQÅ[ÉW(ê‘Åj
 	}
 	else
@@ -85,8 +86,6 @@ void UI::Get_SubCastleDurability()
 
 		DrawBox(HPGAUGE_X, HPGAUGE_Y + 350, HPGAUGE_X1 + 75 * SubCastleDurability[4] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 350, GetColor(0, 255, 0), TRUE);		//í èÌópHPÉQÅ[ÉW(óŒ)
 	}
-
-	//DrawFormatString(PMOJI_X - 10, PMOJI_Y - 500, GetColor(255, 255, 255), "%d", SubCastleDurability[i]);
 }
 
 void UI::Get_BuffPoint()
@@ -97,8 +96,7 @@ void UI::Get_BuffPoint()
 
 	DrawBox(PBAR_X, PBAR_Y, PBAR_X1 + 300, PBAR_Y1 + 20, GetColor(255, 255, 255), FALSE);									//òg
 
-	DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1 + 300 * pBuffPoint / MAX_BUFF, PGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);	//ÉQÅ[ÉW
-	//DrawFormatString(PMOJI_X - 10, PMOJI_Y - 200, GetColor(255, 255, 255), "%d", pBuffPoint);
+	DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1 + 300 * pBuffPoint / MAX_BUFF, PGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);		//ÉQÅ[ÉW
 
 	if (pBuffLevel == 3)
 	{
@@ -111,7 +109,7 @@ void UI::Get_BuffPoint()
 
 	DrawBox(SBAR_X, SBAR_Y, SBAR_X1 + 300, SBAR_Y1 + 20, GetColor(255, 255, 255), FALSE);									//òg
 
-	DrawBox(SGAUGE_X, SGAUGE_Y, SGAUGE_X1 + 300 * sBuffPoint / MAX_BUFF, SGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);	//ÉQÅ[ÉW
+	DrawBox(SGAUGE_X, SGAUGE_Y, SGAUGE_X1 + 300 * sBuffPoint / MAX_BUFF, SGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);		//ÉQÅ[ÉW
 
 	if (sBuffLevel == 3)
 	{
