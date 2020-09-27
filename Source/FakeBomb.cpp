@@ -1,12 +1,11 @@
 #include <DxLib.h>
 #include "FakeBomb.h"
 
-FakeBomb::FakeBomb(int _power, eBombType _btype)
-	: BaseBomb(_power, _btype)
+FakeBomb::FakeBomb(int _power, int _speed, eBombType _bombType)
+	: BaseBomb(_power, _speed, _bombType)
 {
 	fBomb = LoadGraph("res/Image/bomb.png");
 	fAction = LoadGraph("res/Image/fake.png");
-	_power = 0;
 	isFakeAction = false;
 };
 
@@ -14,13 +13,13 @@ FakeBomb::FakeBomb(int _power, eBombType _btype)
 void FakeBomb::FakeMotion()
 {
 	//‹U”š’e‚ª‹N“®
-	if (isFakeTrigger == true)
+	if (isTrigger == true)
 	{
 		isFakeAction = true;
 		if (isFakeAction == true)
 		{
-			DrawGraph(x, y + 400, fAction, TRUE);
-			isFakeTrigger = false;
+			DrawGraph(x, y, fAction, TRUE);
+			isTrigger = false;
 			isFakeAction = false;
 		}
 
@@ -29,8 +28,6 @@ void FakeBomb::FakeMotion()
 			DeleteGraph(fAction);
 		}
 
-		power = 0;
-		//DrawFormatString(700, 190, GetColor(255, 255, 255), "%d", damage);
 		//DrawString(700, 370, "‹U•¨", GetColor(255, 255, 255));
 	}
 }
@@ -50,6 +47,7 @@ void FakeBomb::Draw()
 {
 	if (isFakeSpown == true)
 	{
+		//DrawString(700, 370, "‹U•¨", GetColor(255, 255, 255));
 		DrawGraph(x, y, fBomb, TRUE);
 	}
 }
