@@ -4,6 +4,7 @@
 #include"BasePlayer.h"
 #include"BaseEnemy.h"
 #include"BulletManager.h"
+#include"BuffManager.h"
 #include"EnemyManager.h"
 #include"Image.h"
 
@@ -50,8 +51,6 @@ BasePlayer::~BasePlayer()
 }
 void BasePlayer::Draw()
 {
-	//DrawGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player,graphNo), true);
-
 	if (animLR == true) 
 	{
 		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo));
@@ -63,12 +62,11 @@ void BasePlayer::Draw()
 
 	DrawFormatString(200, 200, GetColor(255, 255, 255), "GraphNo%d", graphNo);
 
-
 }
 void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 {
-	//power *= _bManager->GetPowerBuff();   バフによる攻撃力増加
-	//speed *= _bManager->GetSpeedBuff();   バフによるスピード増加
+    power *= _bManager->GetPowerBuff();   //バフによる攻撃力増加
+	speed *= _bManager->GetSpeedBuff();   //バフによるスピード増加
 
 	//スタン状態でない時
 	if (isStan == 0) {
@@ -89,7 +87,7 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 	if (isStan == true && isStan_Next == true)
 	{
 		Stan();
-	  //_bManager->DownBuffLevel();  バフレベルダウン
+	    _bManager->DownBuffLevel();  //バフレベルダウン
 	}
 	//スタンが解除されたら次にスタンが起こる時間をプラス
 	if (isStan == false)
@@ -111,9 +109,7 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 //プレイヤーのスタン処理
 void BasePlayer::Stan()
 {
-
 	//スタンタイムを加算
-	DrawFormatString(0, 100, GetColor(255, 255, 255), "しびれ浦部", 0);
 	if (stanTime < 120) {
 		stanTime++;
 	}
