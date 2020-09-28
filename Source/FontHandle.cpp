@@ -6,7 +6,9 @@ FontHandle::FontHandle(){
 	//Initに処理を入れてコンストラクタに入れるとなんか実行されます
 	Init();
 	snoutCrayon = "./res/Font/crayon_1-1.ttf";        //読み込むフォントファイルのパス
+	natumemozi = "./res/Font/natumemozi.ttf";        //読み込むフォントファイルのパス
 	AddFontResourceEx(snoutCrayon, FR_PRIVATE, NULL);     //フォントを読み込む
+	AddFontResourceEx(natumemozi, FR_PRIVATE, NULL);     //フォントを読み込む
 }
 
 //デストラクタ
@@ -26,6 +28,7 @@ void FontHandle::Init()
 	//フォント名をNULLにすればデフォルトフォントになる
 
 	//登録
-	SnoutCrayon_16_3 = CreateFontToHandle("殴り書きクレヨン", 48, 3);
+	snoutCrayon_48_3 = CreateFontToHandle("殴り書きクレヨン", 48, 3);
+	natumemozi_48_3 = CreateFontToHandle("なつめもじ", 48, 3);
 }
 
