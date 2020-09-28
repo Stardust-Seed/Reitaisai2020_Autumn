@@ -90,6 +90,8 @@ public:
 
 	bool Get_AttackFlg(int);			//アタックフラグを受け取る
 
+	eAttackType Get_AttackType(int);		//アタックタイプのゲッター
+
 	eDirection Get_direction(int);		//directionのゲッター
 
 	int Get_Power(int);				//攻撃力を受け取る

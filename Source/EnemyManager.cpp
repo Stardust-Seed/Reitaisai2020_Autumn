@@ -18,7 +18,7 @@ EnemyManager::EnemyManager(int level) {
 		enemyNum = POPENEMY_HARD;
 		break;
 	default:					//例外
-		enemyNum = 4;
+		enemyNum = POPENEMY_HARD;
 		break;
 	}
 
@@ -74,7 +74,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 	addEnemyNum = 2 * _castle->Get_OccupiedNum();
 	waitCount++;				//カウント加算
 
-	if (waitCount >= 30) {		//0.5秒間は待機
+	if (waitCount >= (FRAME / 2) ) {		//0.5秒間は待機
 
 		if ((rand() % 100) == 0) {	//出現確率
 
@@ -97,8 +97,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 					if (enemyType == 0) {				//スピード型
 
 						_speed = 1.5f;
-						_power = 10.0f;
-						_durability = 50;
+						_power = 7.0f;
+						_durability = 25;
 
 						Enemys[num] = new Fairy_Speed(_speed, _power, _durability, direction);        //生成処理
 
@@ -108,7 +108,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					if (enemyType == 1) {				//体力型
 
-						_speed = 1.0f;
+						_speed = 0.8f;
 						_power =10.0f;
 						_durability = 100;
 
@@ -124,7 +124,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 		ここから追加生成処理
 		*******************/
 
-		if ((rand() % 100) == 0) {	//出現確率
+		if ((rand() % 400) == 0) {	//出現確率
 
 			SRand;					//乱数初期化
 
@@ -147,8 +147,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						if (enemyType == 0) {            //スピード型
 
 							_speed = 1.5f;
-							_power = 10.0f;
-							_durability = 50;
+							_power = 7.0f;
+							_durability = 25;
 
 							Enemys[num] = new Fairy_Speed(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
 								_castle->Get_CastleDirection(_direction));        //生成処理
@@ -159,7 +159,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 						if (enemyType == 1) {            //耐久型
 
-							_speed = 1.0f;
+							_speed = 0.8f;
 							_power = 10.0f;
 							_durability = 100;
 
@@ -239,6 +239,13 @@ bool EnemyManager::Get_AttackFlg(int num) {
 		return Enemys[num]->GetIsAttack();
 	}
 	return false;
+}
+
+eAttackType EnemyManager::Get_AttackType(int num) {
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->GetAttackType();
+	}
+	return eAttackType::None;
 }
 
 eDirection EnemyManager::Get_direction(int num) {
