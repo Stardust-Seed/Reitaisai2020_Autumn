@@ -29,7 +29,8 @@ void DarknessEvent::Update() {
 	if (nowPhase == PHASE_DARK) {								//維持フェーズ
 		if (darkCount <= MAX_DARKNESSTIME) {
 			darkCount++;									//カウント加算
-			if (darkCount == 14 * FRAME) {
+
+			if (darkCount == MAX_DARKNESSTIME - FRAME) {	//維持フェーズ終了一秒前にSEが鳴るように(SEのタイミング調整)
 				SE::Instance()->PlaySE(SE_DarknessEnd);
 			}
 		}

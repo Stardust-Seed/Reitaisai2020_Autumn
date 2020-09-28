@@ -9,7 +9,7 @@
 class DarknessEvent : public virtual BaseEvent {
 private:
 
-	static const int MAX_DARKNESSTIME = 15 * FRAME;	//暗闇時間　秒 * フレーム数
+	static const int MAX_DARKNESSTIME = 10 * FRAME;	//暗闇時間　秒 * フレーム数
 
 	static const int MAX_OPACITY = 255;		//最大不透明度
 
