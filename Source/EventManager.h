@@ -11,11 +11,11 @@ class BaseEvent;
 
 class EventManager {
 private:
-	static const int ACTIVEEVENT_EASY = 60;		//難易度によって変わるイベントの発生間隔(秒)
+	static const int ACTIVEEVENT_EASY = 45;		//難易度によって変わるイベントの発生間隔(秒)
 
-	static const int ACTIVEEVENT_NORMAL = 45;
+	static const int ACTIVEEVENT_NORMAL = 35;
 
-	static const int ACTIVEEVENT_HARD = 30;
+	static const int ACTIVEEVENT_HARD = 25;
 
 	static const int EVENT_TYPES = 2;			//イベントの種類
 
