@@ -61,16 +61,16 @@ void Title::Draw()
 	//ブレンドモードを乗算済みα用のαブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_PMA_ALPHA, alpha);
 
-	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3, "P          ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.2f, " R         ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.4f, "  E        ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.6f, "   S       ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.8f, "    S      ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.8f, "      S    ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.6f, "       P   ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.4f, "        A  ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.2f, "         C ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
-	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3, "          E", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_16_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3, "P          ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_48_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.2f, " R         ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_48_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.4f, "  E        ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_48_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.6f, "   S       ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_48_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.8f, "    S      ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_48_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.8f, "      S    ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_48_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.6f, "       P   ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_48_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.4f, "        A  ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_48_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.2f, "         C ", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_48_3());
+	DrawStringToHandle(GAME_WIDTH / 2 - 16 * 6.5f, GAME_HEIHGT / 2 + 175 - sin(rad) * 3, "          E", GetColor(255, 255, 255), FontHandle::Instance()->Get_SnoutCrayon_48_3());
 
 	//ブレンドモードを通常に戻す
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, alpha);
