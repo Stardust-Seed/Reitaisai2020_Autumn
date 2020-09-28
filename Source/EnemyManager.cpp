@@ -112,7 +112,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 					if (enemyType == 0) {				//スピード型
 
 						_speed = 1.5f;
-						_power = 7.0f;
+						_power = 5.0f;
 						_durability = 25;
 
 						Enemys[num] = new Fairy_Speed(_speed, _power, _durability, direction);        //生成処理
@@ -124,14 +124,28 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 					if (enemyType == 1) {				//体力型
 
 						_speed = 0.8f;
-						_power =10.0f;
-						_durability = 100;
+						_power =8.0f;
+						_durability = 125;
 
 						Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
 					}
+
+					/*
+					if (enemyType == 2) {				//パワー型
+
+						_speed = 0.8f;
+						_power = 10.0f;
+						_durability = 75;
+
+						Enemys[num] = new Fairy_Power(_speed, _power, _durability, direction);        //生成処理
+
+						waitCount = 0;
+						break;								//一体生成したら抜ける
+					}
+					*/
 				}
 			}
 		}
@@ -162,7 +176,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						if (enemyType == 0) {            //スピード型
 
 							_speed = 1.5f;
-							_power = 7.0f;
+							_power = 5.0f;
 							_durability = 25;
 
 							Enemys[num] = new Fairy_Speed(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
@@ -175,8 +189,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						if (enemyType == 1) {            //耐久型
 
 							_speed = 0.8f;
-							_power = 10.0f;
-							_durability = 100;
+							_power = 8.0f;
+							_durability = 125;
 
 							Enemys[num] = new Fairy_Endurance(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
 								_castle->Get_CastleDirection(_direction));        //生成処理
@@ -184,6 +198,21 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							waitCount = 0;
 							break;      //一体生成したら抜ける
 						}
+
+						/*
+						if (enemyType == 2) {				//パワー型
+
+							_speed = 0.8f;
+							_power = 10.0f;
+							_durability = 75;
+
+							Enemys[num] = new Fairy_Endurance(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
+								_castle->Get_CastleDirection(_direction));        //生成処理
+
+							waitCount = 0;
+							break;								//一体生成したら抜ける
+						}
+						*/
 					}
 				}
 			}
