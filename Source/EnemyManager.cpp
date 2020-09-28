@@ -241,6 +241,13 @@ bool EnemyManager::Get_AttackFlg(int num) {
 	return false;
 }
 
+eAttackType EnemyManager::Get_AttackType(int num) {
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->GetAttackType();
+	}
+	return None;
+}
+
 eDirection EnemyManager::Get_direction(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->GetDirection();
