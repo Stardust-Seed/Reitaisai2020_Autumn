@@ -243,7 +243,6 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 			isAttack = true;
 			attackType = eAttackType::Player;
 		}
-		DrawBoxAA(x + width, y, x + (width * 2), y + height, GetColor(255, 0, 0), FALSE);
 		break;
 	case eDirection::Right:
 		/*******************************************************************************
@@ -257,7 +256,6 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 			isAttack = true;
 			attackType = eAttackType::Player;
 		}
-		DrawBoxAA(x, y, x - width, y + height, GetColor(255, 0, 0), FALSE);
 		break;
 	case eDirection::Up:
 		/*******************************************************************************
@@ -271,7 +269,6 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 			isAttack = true;
 			attackType = eAttackType::Player;
 		}
-		DrawBoxAA(x, y + height, x + width, y + (width * 2), GetColor(255, 255, 255), FALSE);
 		break;
 	case eDirection::Down:
 		/*******************************************************************************
@@ -285,7 +282,6 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 			isAttack = true;
 			attackType = eAttackType::Player;
 		}
-		DrawBoxAA(x, y, x + width, y - width, GetColor(255, 255, 255), FALSE);
 		break;
 	}
 }
