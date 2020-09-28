@@ -7,8 +7,10 @@ Image::Image() {
 	MyLoadGraph("./res/Image/Title.png");
 	MyLoadGraph("./res/Image/background_Menu.png");
 	MyLoadGraph("./res/Image/star.png");
+	MyLoadGraph("./res/Image/Game01.png");
 	MyLoadGraph("./res/Image/darkness.png");
 	MyLoadGraph("./res/Image/koumakan.png");
+	MyLoadGraph("./res/Image/Game02.png");
 
 	//‰æ‘œ‚ğ•ªŠ„‚µ‚Ä“Ç‚İ‚İ
 	MyLoadDivGraph("./res/Image/tatie_Sakuya.png", 3, 3, 1, 486, 864);
