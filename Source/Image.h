@@ -12,16 +12,18 @@ enum class eImageType {
 	Background_Title		= 1,	//タイトル背景
 	Background_Menu			= 2,	//メニュー背景
 	Background_Star			= 3,	//メニュー素材
-	Event_Darkness			= 4,	//ダークネスイベントの画像
-	Gpicture_MainCastle		= 5,	//ゲームの素材 紅魔館
-	Spicture_Sakuya			= 6,	//立ち絵 咲夜
-	Spicture_Fran			= 9,	//立ち絵 フラン
-	Spicture_SelectPlayer	= 12,	//立ち絵 選択されたプレイヤー
-	Gpicture_Player			= 14,	//ゲームの素材 プレイヤー
-	Gpicture_Enemy			= 18,	//ゲームの素材 エネミー
-	Gpicture_SubCastle		= 24,	//ゲームの素材 サブ拠点
-	Gpicture_Sukima			= 26,	//ゲームの素材 スキマ
-	Gpicture_Explosion		= 30	//ゲームの素材 爆破エフェクト
+	Background_Game			= 4,	//ゲーム背景
+	Event_Darkness			= 5,	//ダークネスイベントの画像
+	Gpicture_MainCastle		= 6,	//ゲームの素材 紅魔館
+	Gpicture_Forest			= 7,	//ゲームの素材 森
+	Spicture_Sakuya			= 8,	//立ち絵 咲夜
+	Spicture_Fran			= 11,	//立ち絵 フラン
+	Spicture_SelectPlayer	= 14,	//立ち絵 選択されたプレイヤー
+	Gpicture_Player			= 16,	//ゲームの素材 プレイヤー
+	Gpicture_Enemy			= 20,	//ゲームの素材 エネミー
+	Gpicture_SubCastle		= 26,	//ゲームの素材 サブ拠点
+	Gpicture_Sukima			= 28,	//ゲームの素材 スキマ
+	Gpicture_Explosion		= 32	//ゲームの素材 爆破エフェクト
 };
 
 /// <summary>
