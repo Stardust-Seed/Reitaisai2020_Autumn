@@ -245,7 +245,7 @@ eAttackType EnemyManager::Get_AttackType(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->GetAttackType();
 	}
-	return None;
+	return eAttackType::None;
 }
 
 eDirection EnemyManager::Get_direction(int num) {
