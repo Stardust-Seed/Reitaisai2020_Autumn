@@ -51,7 +51,9 @@ void Fairy_Endurance::Update(CastleManager* _castleManager, BasePlayer* _player,
 		SearchCoolDownTime();
 	}
 
-	Move();
+	if (_player->Get_AbilityType() != SAKUYA_Ability) {
+		Move();
+	}
 
 	if (isAttack == true) {
 		AttackProc(_player->Get_cx(), _player->Get_cy());
