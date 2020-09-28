@@ -4,7 +4,7 @@
 Bomb::Bomb(int _power, int _speed, eBombType _bombType)
 	: BaseBomb(_power, _speed, _bombType)
 {
-	gBomb = LoadGraph("res/Image/bomb.png");
+	LoadDivGraph("res/Image/bomb.png", 2, 2, 1, 50, 50, gBomb);
 };
 
 //îöî≠ÇµÇΩÇ∆Ç´ÇÃèàóù
@@ -33,7 +33,8 @@ void Bomb::Draw()
 	if (isSpown == true)
 	{
 		//DrawString(700, 350, "ñ{ï®", GetColor(255, 255, 255));
-		DrawGraph(x, y, gBomb, TRUE);
+		//DrawGraph(x, y, gBomb, TRUE);
+		DrawGraph(x, y, gBomb[0], TRUE);
 	}
 }
 
