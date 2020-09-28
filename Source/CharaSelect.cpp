@@ -39,11 +39,11 @@ void CharaSelect::Update()
 	{
 		switch (charaSelect) {
 		case select_SAKUYA:   //咲夜を選択
-			//sceneChanger->SceneChange(難易度画面, parameter, false, true);
+			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, false, true);
 			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
 			break;
 		case select_FRAN:     //フランを選択
-			//sceneChanger->SceneChange(難易度画面, parameter,false, true);
+			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter,false, true);
 			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
 			break;
 		case select_BACK:
