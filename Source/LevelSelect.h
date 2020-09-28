@@ -19,6 +19,7 @@ enum class eSelectLevel {
 class LevelSelect final :public BaseScene {
 private:
 	Background background;
+	eSelectLevel selectLevel;
 public:
 	/// <summary>
 	/// コンストラクタ
