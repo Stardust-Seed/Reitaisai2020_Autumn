@@ -43,11 +43,10 @@ class FontHandle :public Singleton <FontHandle> {
 	friend Singleton < FontHandle >;
 
 private:
-	LPCSTR snoutCrayon;    //読み込むフォント変数
-
-	//変数名小文字だとなんか気持ち悪かったから大文字アンダーバーオンリー
-	//殴り書きフォント
-	int SnoutCrayon_16_3;
+	LPCSTR snoutCrayon;      //読み込むフォント変数
+	LPCSTR natumemozi;      //読み込むフォント変数
+	int snoutCrayon_48_3;    //殴り書きフォント
+	int natumemozi_48_3;     //なつめもじフォント
 
 public:
 
@@ -57,8 +56,8 @@ public:
 	void Init();      //初期化
 
 	//ゲッター
-
-	int Get_SnoutCrayon_16_3() { return SnoutCrayon_16_3; }
+	int Get_SnoutCrayon_48_3() { return snoutCrayon_48_3; }
+	int Get_natumemozi_48_3() { return natumemozi_48_3; }
 };
 
 #endif //FONTHANDLE_H_
