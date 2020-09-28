@@ -130,6 +130,7 @@ public:
 	bool GetIsAttack() { return isAttack; }						//アタックフラグを取得する
 	eDirection GetDirection() { return direction; }				//方向を取得する
 	eInactiveType GetInactiveType() { return inactiveType; }	//非アクティブのタイプを取得する
+	eAttackType GetAttackType() { return attackType; }			//攻撃タイプを取得する
 	
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);			// m = my 自分   o = opnet 相手	//当たり判定処理
