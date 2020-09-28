@@ -51,7 +51,9 @@ void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, Bul
 	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
 		_player);
 
-	Move();
+	if (_player->Get_AbilityType() != SAKUYA_Ability) {
+		Move();
+	}
 
 	if (isAttack == true) {
 		AttackProc(_player->Get_cx(), _player->Get_cy());
