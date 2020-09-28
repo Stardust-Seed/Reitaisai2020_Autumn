@@ -20,7 +20,7 @@ EventManager::EventManager(int level) {
 		eventWaitTime = ACTIVEEVENT_HARD;
 		break;
 	default:					//例外
-		eventWaitTime = 4;
+		eventWaitTime = ACTIVEEVENT_HARD;
 		break;
 	}
 
@@ -44,12 +44,10 @@ void EventManager::SpawnEvent() {
 
 			if (eventType == 0) {
 				Event = new DarknessEvent();	//生成
-				waitCount = 0;
 			}
 
 			if (eventType == 1) {
 			//	Event = new BaseEvent();	//test用生成
-				waitCount = 0;
 			}
 
 		}
@@ -67,9 +65,9 @@ void EventManager::Update(EnemyManager* enemyManager) {
 		if (Event->GetIsActive() == false) {//イベントのアクティブ状態がfalseの場合
 
 			delete Event;					//デリート
-
 			Event = NULL;					//初期化
 
+			waitCount = 0;					//待機カウント初期化
 		}
 	}
 
@@ -88,18 +86,19 @@ void EventManager::Update(EnemyManager* enemyManager) {
 }
 
 void EventManager::Draw() {
-	if (Event != NULL) {	//何かしらイベントが行われている場合
-		Event->Draw();		//描画
+
+	if (Sukima != NULL) {	//スキマが生成されている場合
+		Sukima->Draw();		//描画
 	}
 
-	if (Sukima != NULL) {
-		Sukima->Draw();
+	if (Event != NULL) {	//何かしらイベントが行われている場合
+		Event->Draw();		//描画
 	}
 }
 
 void EventManager::SpawnSukima() {
 
-	if (rand() % 700 == 0) {	//確率
+	if (rand() % 600 == 0) {	//確率
 		if (Sukima == NULL) {	//生成されてない場合
 
 			Sukima = new SukimaEvent();
