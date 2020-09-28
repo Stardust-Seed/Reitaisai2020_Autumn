@@ -20,11 +20,15 @@ enum class eBackgroundType {
 /// </summary>
 class Background final {
 private:
-	const int MAX_STAR = 25;	//最大の星の数
-	Star* stars[25];			//星クラス
+	const int MAX_STAR = 30;	//最大の星の数
+	Star* stars[30];			//星クラス
 	
-	array<double, 7> starsExtData;
+	array<double, 5> starsExtData;
+	array<float, 6> starsXData;
+	array<float, 20> starsYData;
 	int extCnt;
+	int xCnt;
+	int yCnt;
 public:
 	/// <summary>
 	/// コンストラクタ
