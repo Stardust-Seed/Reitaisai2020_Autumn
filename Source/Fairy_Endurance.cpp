@@ -51,13 +51,15 @@ void Fairy_Endurance::Update(CastleManager* _castleManager, BasePlayer* _player,
 		SearchCoolDownTime();
 	}
 
-	if (_player->Get_AbilityType() != SAKUYA_Ability) {
-		Move();
-	}
-
 	if (isAttack == true) {
 		AttackProc(_player->Get_cx(), _player->Get_cy());
 	}
+
+	if (_player->Get_isAbility() == true && _player->Get_AbilityType() == SAKUYA_Ability) {
+		return;
+	}
+
+	Move();
 }
 
 void Fairy_Endurance::Draw() {
