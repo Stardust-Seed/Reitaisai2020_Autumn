@@ -91,7 +91,7 @@ void CharaSelect::Draw_Charaname()
 
 	/**描画 前**/
 	//キャラクター名の表示
-	DrawStringToHandle(560, 700, "十六夜 咲夜", GetColor(255, 255, 255), FontHandle::Instance()->Get_NatumeMozi_16_3());
-	DrawStringToHandle(1100, 700, "フランドール・Ｓ", GetColor(255, 255, 255), FontHandle::Instance()->Get_NatumeMozi_16_3());
-	DrawStringToHandle(830, 900, "メニューに戻る", GetColor(255, 255, 255), FontHandle::Instance()->Get_NatumeMozi_16_3());
+	DrawStringToHandle(560, 700, "十六夜 咲夜", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_3());
+	DrawStringToHandle(1100, 700, "フランドール・Ｓ", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_3());
+	DrawStringToHandle(830, 900, "メニューに戻る", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_3());
 }
