@@ -8,14 +8,14 @@
 #include "Input.h"
 #include "math.h"
 #include "BGM.h"
+#include "SE.h"
 
 class Title final :public BaseScene {
 private:
 	float deg, rad;             //sin、cosの計算用
-	float textPosition;         //タイミング調整用
 	int cnt;                    //タイミング調整用
-	int r, g, b;                //色用
-	int type;
+	int alpha;                  //透明度
+	int type;                   //表示キャラ用
 public:
 	Title(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	~Title() = default;
