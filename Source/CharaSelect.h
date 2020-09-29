@@ -38,8 +38,8 @@ public:
 	CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	void Update();
 	void Draw();
-	void Draw_Charaname();
-	void Draw_Charagraph();
+	void Draw_CharaName();
+	void Draw_CharaGraph();
 	void Draw_Waku();
 
 	int Get_selectChara() { return charaSelect; }

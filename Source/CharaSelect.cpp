@@ -63,11 +63,11 @@ void CharaSelect::Draw()
 {
 
 	Draw_Waku();
-	Draw_Charagraph();
-	Draw_Charaname();
+	Draw_CharaGraph();
+	Draw_CharaName();
 
 }
-void CharaSelect::Draw_Charagraph()
+void CharaSelect::Draw_CharaGraph()
 {
 	/**描画 中**/
 	//キャラクター画像の表示
@@ -88,7 +88,7 @@ void CharaSelect::Draw_Waku()
 	DrawOvalAA(selectMenu[charaSelect].x, selectMenu[charaSelect].y,
 		selectMenu[charaSelect].rx, selectMenu[charaSelect].ry, 100, color, false, 5.0f);
 }
-void CharaSelect::Draw_Charaname()
+void CharaSelect::Draw_CharaName()
 {
 
 	/**描画 前**/
