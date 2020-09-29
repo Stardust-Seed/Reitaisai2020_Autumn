@@ -19,6 +19,12 @@ SceneManager::SceneManager() {
 
 /*XVˆ—*/
 void SceneManager::Update() {
+
+	if (isChange == true) {
+		isChange = false;
+		return;
+	}
+
 	scenes.top()->Update();
 }
 

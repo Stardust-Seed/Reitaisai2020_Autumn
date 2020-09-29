@@ -16,14 +16,13 @@ Title::Title(ISceneChanger* _sceneChanger, Parameter* _parameter)
 
 void Title::Update()
 {
+	Move();
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
 	{
 		SE::Instance()->PlaySE(SE_cursor);
 		BGM::Instance()->StopBGM(BGM_title);
 		sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
 	}
-
-	Move();
 }
 
 void Title::Draw()
