@@ -55,16 +55,16 @@ void FakeBomb::Animation()
 
 	if (act_frameIndex[m_frameIndex] == 0)
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_fake, 0), TRUE);
+		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 0), TRUE);
 	}
 
 	if (act_frameIndex[m_frameIndex] == 1)
 	{
-		DrawGraph(x, y - 30, Image::Instance()->GetGraph(eImageType::Gpicture_fake, 1), TRUE);		
+		DrawGraph(x, y - 30, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 1), TRUE);		
 	}
 	if (act_frameIndex[m_frameIndex] == 2)
 	{
-		DrawGraph(x, y -50, Image::Instance()->GetGraph(eImageType::Gpicture_fake, 2), TRUE);
+		DrawGraph(x, y -50, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 2), TRUE);
 	}
 
 	if (act_frameIndex[m_frameIndex] == 3)
