@@ -3,7 +3,7 @@
 #include "Charaselect.h"
 
 /*コンストラクタ*/
-CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter):BaseScene(_sceneChanger,parameter) {
+CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseScene(_sceneChanger, _parameter) {
 
 	//最初は咲夜が選択されている状態
 	charaSelect = select_SAKUYA;
@@ -39,19 +39,19 @@ void CharaSelect::Update()
 	{
 		switch (charaSelect) {
 		case select_SAKUYA:   //咲夜を選択
-			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, false, true);
 			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
 			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
+			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
 			break;
 		case select_FRAN:     //フランを選択
-			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter,false, true);
 			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
 			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
+			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
 			break;
 		case select_BACK:
+			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
 			//前のシーン(画面)に戻る
 			sceneChanger->SceneChange(eScene_MENU, parameter, false, true); //新
-			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
 			break;
 		}
 	}

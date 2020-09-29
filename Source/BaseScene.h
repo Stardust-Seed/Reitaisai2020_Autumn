@@ -21,8 +21,8 @@ enum eScene
 
 class BaseScene {
 protected:
-	const static char* LevelSelectTag;	//レベル選択タグ
-	const static char* CharaSelectTag;	//キャラ選択タグ
+	const static string LevelSelectTag;	//レベル選択タグ
+	const static string CharaSelectTag;	//キャラ選択タグ
 
 	ISceneChanger* sceneChanger;	//シーン切り替えのインターフェイスクラス
 	Parameter* parameter;
