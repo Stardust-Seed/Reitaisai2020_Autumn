@@ -1,6 +1,5 @@
 ﻿#include "DxLib.h"
 #include "GameOver.h"
-#include "Charaselect.h"
 
 //コンストラクタ
 GameOver::GameOver(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseScene(_sceneChanger, _parameter)

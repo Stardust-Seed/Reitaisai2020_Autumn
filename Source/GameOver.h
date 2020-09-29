@@ -8,8 +8,6 @@
 #include "SE.h"
 #include "Define.h"
 
-class CharaSelect;
-
 enum Continuity                 //選択させるのに使います
 {
 	//後々、項目が増えてもいいようにmin,maxの項目を設定しておく
