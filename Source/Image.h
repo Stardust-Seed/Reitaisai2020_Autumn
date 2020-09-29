@@ -16,6 +16,7 @@ enum class eImageType {
 	Event_Darkness			= 5,	//ダークネスイベントの画像
 	Gpicture_MainCastle		= 6,	//ゲームの素材 紅魔館
 	Gpicture_Forest			= 7,	//ゲームの素材 森
+	UI_MessageBox			= 8,	//UIの素材 メッセージボックス
 	Spicture_Sakuya			= 8,	//立ち絵 咲夜
 	Spicture_Fran			= 11,	//立ち絵 フラン
 	Spicture_SelectPlayer	= 14,	//立ち絵 選択されたプレイヤー
@@ -25,7 +26,8 @@ enum class eImageType {
 	Gpicture_Sukima			= 28,	//ゲームの素材 スキマ
 	Gpicture_Explosion		= 32,	//ゲームの素材 爆破エフェクト
 	Gpicture_Bomb			= 38,	//ゲームの素材 爆弾
-	Gpicture_FakeBomb		= 40	//ゲームの素材 爆弾(偽物)
+	Gpicture_FakeBomb		= 40,	//ゲームの素材 爆弾(偽物)
+	UI_CursorFrame			= 43,	//UIの素材 カーソルのフレーム
 };
 
 /// <summary>
