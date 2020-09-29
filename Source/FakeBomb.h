@@ -6,11 +6,9 @@
 class FakeBomb : public virtual BaseBomb
 {
 private:
-	int fBomb;
-	int GHandle[3];      // 格納用画像ハンドル
-	int act_frameIndex[8] = { 0, 1, 1, 1, 2, 2, 2 };   // 表示する番号
+	int act_frameIndex[16] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	                           2, 2, 2, 3};   // 表示する番号
 	int m_frameIndex = 0;
-
 	bool isFakeAction;
 public:
 	FakeBomb() = default;

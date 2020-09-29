@@ -14,10 +14,8 @@ BaseBomb::BaseBomb(int _power, int _speed, eBombType _bombType)
 	countdown = COUNTMAX;						//カウントダウンのセット
 	
 	isSpown = false;
-	isFakeSpown = false;
 	isXplosion = false;							//初期状態
 	isTrigger = false;
-	isFakeTrigger = false;
 	isCount == false;
 
 	if (direction == DIRECTIONLEFT)			//左
@@ -62,7 +60,7 @@ void BaseBomb::SpawnBomb()
 	//偽
 	if (type == fakebomb)
 	{
-		isFakeSpown = true;
+		isSpown = true;
 	}
 
 }
@@ -116,46 +114,49 @@ void BaseBomb::JudgeTrigger()
 		isCount = true;
 		if (isCount == true)
 		{
-			DrawFormatString(10, 150, GetColor(255, 255, 255), "%d", countdown / FRAME);	//表示
-
-			if (countdown <= FRAME) {								//残り一秒以下は割り算の結果0になるため、表示タイミングの調整
+			//カウントダウン
+			DrawFormatStringToHandle(x + 5, y - 50, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_3(), "%d", countdown / FRAME);
+			
+			if (countdown <= FRAME)
+			{								//残り一秒以下は割り算の結果0になるため、表示タイミングの調整
 				isXplosion = true;                                  //フラグ切替
-				isCount = false;
 			}
 
-			if (countdown >= 0) {									//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+			if (countdown >= 0)
+			{									//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
 				countdown -= 1;										//カウントダウン
 			}
 		}
-	}
 
-	if (isCount == false)
-	{
-		
-	}
-
-	if (type == bomb)
-	{
-		if (isXplosion == true)			//爆発する
+		if (type == bomb)
 		{
-			//SE::Instance()->PlaySE(SE_bomb);		//爆発の音
-			isTrigger = true;
-			isXplosion = false;
-			isSpown = false;
-			
+			if (isXplosion == true)			//爆発する
+			{
+				//SE::Instance()->PlaySE(SE_bomb);		//爆発の音
+				isCount = false;
+				isTrigger = true;
+				isXplosion = false;
+				isSpown = false;
+			}
 		}
 	}
 
-	if (type == fakebomb)
-	{
-		if (isXplosion == true)			//爆発する
+		if (type == fakebomb)
 		{
-			isTrigger = true;
-			isXplosion = false;
-			//isCount = false;
-			isFakeSpown = false;
+			if (isXplosion == true)			//爆発する
+			{
+				//SE::Instance()->PlaySE(SE_bomb);		//爆発の音
+				isTrigger = true;
+				isXplosion = false;
+				isCount = false;
+				isSpown = false;
+			}
 		}
-	}
+
+		if (isCount == false)
+		{
+			InitFontToHandle();
+		}
 }
 
 
