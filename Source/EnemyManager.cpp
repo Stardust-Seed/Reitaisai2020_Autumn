@@ -62,9 +62,7 @@ void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManag
 
 	if (_player->Get_isAbility() == true && _player->Get_AbilityType() == FRAN_Ability) {	//フランがスキルを使った時
 		for (int num = 0; num < MAX_ENEMY_NUM; num++) {		
-
-			if (Enemys[num]->GetIsActive() == true) {	//生存している敵を
-
+			if (Enemys[num] != NULL) {					//何か入ってる場合
 				delete Enemys[num];						//デリートして
 				Enemys[num] = NULL;						//NULLを入れる
 
