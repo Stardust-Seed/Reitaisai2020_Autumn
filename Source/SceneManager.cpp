@@ -12,7 +12,8 @@
 
 /*コンストラクタ*/
 SceneManager::SceneManager() {
-	scenes.push(std::make_shared<GameScene>(this, &parameter));
+	scenes.push(std::make_shared<Title>(this, &parameter));
+	scenes.top()->Init();
 }
 
 /*更新処理*/

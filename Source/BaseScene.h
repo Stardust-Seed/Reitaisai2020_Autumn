@@ -29,6 +29,7 @@ protected:
 public:
 	BaseScene(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	virtual ~BaseScene() = default;
+	void Init();
 	virtual void Draw() = 0;		//•`‰æˆ—
 	virtual void Update() = 0;		//XVˆ—
 };
