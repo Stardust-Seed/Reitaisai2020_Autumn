@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "EnemyManager.h"
+#include "BasePlayer.h"
 
 EnemyManager::EnemyManager(int level) {
 	for (int num = 0; num < MAX_ENEMY_NUM; num++) {
@@ -58,6 +59,20 @@ void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManag
 			}
 		}
 	}
+
+	if (_player->Get_isAbility() == true && _player->Get_AbilityType() == FRAN_Ability) {	//フランがスキルを使った時
+		for (int num = 0; num < MAX_ENEMY_NUM; num++) {		
+
+			if (Enemys[num]->GetIsActive() == true) {	//生存している敵を
+
+				delete Enemys[num];						//デリートして
+				Enemys[num] = NULL;						//NULLを入れる
+
+				activeCount--;							//生成カウント減算
+			}
+		}
+	}
+
 }
 
 void EnemyManager::Draw() {
@@ -97,7 +112,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 					if (enemyType == 0) {				//スピード型
 
 						_speed = 1.5f;
-						_power = 7.0f;
+						_power = 5.0f;
 						_durability = 25;
 
 						Enemys[num] = new Fairy_Speed(_speed, _power, _durability, direction);        //生成処理
@@ -109,14 +124,27 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 					if (enemyType == 1) {				//体力型
 
 						_speed = 0.8f;
-						_power =10.0f;
-						_durability = 100;
+						_power =8.0f;
+						_durability = 125;
 
 						Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
 					}
+
+					if (enemyType == 2) {				//パワー型
+
+						_speed = 0.8f;
+						_power = 10.0f;
+						_durability = 75;
+
+						Enemys[num] = new Fairy_Power(_speed, _power, _durability, direction);        //生成処理
+
+						waitCount = 0;
+						break;								//一体生成したら抜ける
+					}
+
 				}
 			}
 		}
@@ -147,7 +175,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						if (enemyType == 0) {            //スピード型
 
 							_speed = 1.5f;
-							_power = 7.0f;
+							_power = 5.0f;
 							_durability = 25;
 
 							Enemys[num] = new Fairy_Speed(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
@@ -160,8 +188,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						if (enemyType == 1) {            //耐久型
 
 							_speed = 0.8f;
-							_power = 10.0f;
-							_durability = 100;
+							_power = 8.0f;
+							_durability = 125;
 
 							Enemys[num] = new Fairy_Endurance(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
 								_castle->Get_CastleDirection(_direction));        //生成処理
@@ -169,6 +197,20 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							waitCount = 0;
 							break;      //一体生成したら抜ける
 						}
+
+						if (enemyType == 2) {				//パワー型
+
+							_speed = 0.8f;
+							_power = 10.0f;
+							_durability = 75;
+
+							Enemys[num] = new Fairy_Power(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
+								_castle->Get_CastleDirection(_direction));        //生成処理
+
+							waitCount = 0;
+							break;								//一体生成したら抜ける
+						}
+						
 					}
 				}
 			}

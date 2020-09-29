@@ -33,7 +33,7 @@ private:
 
 	static const int MAX_ENEMY_NUM = POPENEMY_HARD + POPENEMY_ADD;			//エネミーの最大生成数分の要素数
 
-	static const int ENEMY_TYPES = 2;		//現在のエネミーの種類
+	static const int ENEMY_TYPES = 3;		//現在のエネミーの種類
 
 	BaseEnemy* Enemys[MAX_ENEMY_NUM];			//エネミーオブジェクト配列
 
