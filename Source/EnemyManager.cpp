@@ -133,7 +133,6 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						break;								//一体生成したら抜ける
 					}
 
-					/*
 					if (enemyType == 2) {				//パワー型
 
 						_speed = 0.8f;
@@ -145,7 +144,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						waitCount = 0;
 						break;								//一体生成したら抜ける
 					}
-					*/
+
 				}
 			}
 		}
@@ -199,20 +198,19 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 							break;      //一体生成したら抜ける
 						}
 
-						/*
 						if (enemyType == 2) {				//パワー型
 
 							_speed = 0.8f;
 							_power = 10.0f;
 							_durability = 75;
 
-							Enemys[num] = new Fairy_Endurance(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
+							Enemys[num] = new Fairy_Power(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
 								_castle->Get_CastleDirection(_direction));        //生成処理
 
 							waitCount = 0;
 							break;								//一体生成したら抜ける
 						}
-						*/
+						
 					}
 				}
 			}
