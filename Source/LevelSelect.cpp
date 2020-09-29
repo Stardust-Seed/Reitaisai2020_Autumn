@@ -159,7 +159,7 @@ void LevelSelect::DrawUIBox(float _x1, float _y1, float _x2, float _y2, unsigned
 
 	//文字の描画
 	DrawStringToHandle(_x1, _y1, _text, GetColor(255, 255, 255),
-		FontHandle::Instance()->Get_natumemozi_100_5());
+		FontHandle::Instance()->Get_natumemozi_100_3());
 
 	//ブレンドモードをノーブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
