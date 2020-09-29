@@ -5,110 +5,114 @@
 #include "Singleton.h"
 
 /// <summary>
-/// ç”»åƒã®ã‚¿ã‚¤ãƒ—
+/// ‰æ‘œ‚Ìƒ^ƒCƒv
 /// </summary>
 enum class eImageType {
-	Title_Logo				= 0,	//ã‚¿ã‚¤ãƒˆãƒ«ãƒ­ã‚´
-	Background_Title		= 1,	//ã‚¿ã‚¤ãƒˆãƒ«èƒŒæ™¯
-	Background_Menu			= 2,	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼èƒŒæ™¯
-	Background_Star			= 3,	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç´ æ
-	Background_Game			= 4,	//ã‚²ãƒ¼ãƒ èƒŒæ™¯
-	Event_Darkness			= 5,	//ãƒ€ãƒ¼ã‚¯ãƒã‚¹ã‚¤ãƒ™ãƒ³ãƒˆã®ç”»åƒ
-	Gpicture_MainCastle		= 6,	//ã‚²ãƒ¼ãƒ ã®ç´ æ ç´…é­”é¤¨
-	Gpicture_Forest			= 7,	//ã‚²ãƒ¼ãƒ ã®ç´ æ æ£®
-	Spicture_Sakuya			= 8,	//ç«‹ã¡çµµ å’²å¤œ
-	Spicture_Fran			= 11,	//ç«‹ã¡çµµ ãƒ•ãƒ©ãƒ³
-	Spicture_SelectPlayer	= 14,	//ç«‹ã¡çµµ é¸æŠã•ã‚ŒãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
-	Gpicture_Player			= 16,	//ã‚²ãƒ¼ãƒ ã®ç´ æ ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
-	Gpicture_Enemy			= 20,	//ã‚²ãƒ¼ãƒ ã®ç´ æ ã‚¨ãƒãƒŸãƒ¼
-	Gpicture_SubCastle		= 26,	//ã‚²ãƒ¼ãƒ ã®ç´ æ ã‚µãƒ–æ‹ ç‚¹
-	Gpicture_Sukima			= 28,	//ã‚²ãƒ¼ãƒ ã®ç´ æ ã‚¹ã‚­ãƒ
-	Gpicture_Explosion		= 32	//ã‚²ãƒ¼ãƒ ã®ç´ æ çˆ†ç ´ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+	Title_Logo				= 0,	//ƒ^ƒCƒgƒ‹ƒƒS
+	Background_Title		= 1,	//ƒ^ƒCƒgƒ‹”wŒi
+	Background_Menu			= 2,	//ƒƒjƒ…[”wŒi
+	Background_Star			= 3,	//ƒƒjƒ…[‘fŞ
+	Background_Game			= 4,	//ƒQ[ƒ€”wŒi
+	Event_Darkness			= 5,	//ƒ_[ƒNƒlƒXƒCƒxƒ“ƒg‚Ì‰æ‘œ
+	Gpicture_MainCastle		= 6,	//ƒQ[ƒ€‚Ì‘fŞ g–‚ŠÙ
+	Gpicture_Forest			= 7,	//ƒQ[ƒ€‚Ì‘fŞ X
+	UI_MessageBox			= 8,	//UI‚Ì‘fŞ ƒƒbƒZ[ƒWƒ{ƒbƒNƒX
+	Spicture_Sakuya			= 8,	//—§‚¿ŠG ç–é
+	Spicture_Fran			= 11,	//—§‚¿ŠG ƒtƒ‰ƒ“
+	Spicture_SelectPlayer	= 14,	//—§‚¿ŠG ‘I‘ğ‚³‚ê‚½ƒvƒŒƒCƒ„[
+	Gpicture_Player			= 16,	//ƒQ[ƒ€‚Ì‘fŞ ƒvƒŒƒCƒ„[
+	Gpicture_Enemy			= 20,	//ƒQ[ƒ€‚Ì‘fŞ ƒGƒlƒ~[
+	Gpicture_SubCastle		= 26,	//ƒQ[ƒ€‚Ì‘fŞ ƒTƒu‹’“_
+	Gpicture_Sukima			= 28,	//ƒQ[ƒ€‚Ì‘fŞ ƒXƒLƒ}
+	Gpicture_Explosion		= 32,	//ƒQ[ƒ€‚Ì‘fŞ ”š”jƒGƒtƒFƒNƒg
+	Gpicture_Bomb			= 38,	//ƒQ[ƒ€‚Ì‘fŞ ”š’e
+	Gpicture_FakeBomb		= 40,	//ƒQ[ƒ€‚Ì‘fŞ ”š’e(‹U•¨)
+	UI_CursorFrame			= 43,	//UI‚Ì‘fŞ ƒJ[ƒ\ƒ‹‚ÌƒtƒŒ[ƒ€
 };
 
 /// <summary>
-/// ç”»åƒã‚¯ãƒ©ã‚¹
+/// ‰æ‘œƒNƒ‰ƒX
 /// </summary>
 class Image final :public Singleton<Image> {
 private:
-	std::vector<int> images;	//ç”»åƒãƒ‡ãƒ¼ã‚¿
+	std::vector<int> images;	//‰æ‘œƒf[ƒ^
 
 	/// <summary>
-	/// ç”»åƒã‚’èª­ã¿è¾¼ã‚€
+	/// ‰æ‘œ‚ğ“Ç‚İ‚Ş
 	/// </summary>
-	/// <param name="_filePath">èª­ã¿è¾¼ã‚€ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+	/// <param name="_filePath">“Ç‚İ‚Ş‰æ‘œ‚Ìƒtƒ@ƒCƒ‹ƒpƒX</param>
 	void MyLoadGraph(const char* _filePath);
 
 	/// <summary>
-	/// ç”»åƒã‚’åˆ†å‰²ã—ã¦èª­ã¿è¾¼ã‚€
+	/// ‰æ‘œ‚ğ•ªŠ„‚µ‚Ä“Ç‚İ‚Ş
 	/// </summary>
-	/// <param name="_filePath">èª­ã¿è¾¼ã‚€ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
-	/// <param name="_allNum">åˆ†å‰²ã™ã‚‹ç·æ•°</param>
-	/// <param name="_xNum">æ¨ªæ–¹å‘ã®åˆ†å‰²æ•°</param>
-	/// <param name="_yNum">ç¸¦æ–¹å‘ã®åˆ†å‰²æ•°</param>
-	/// <param name="_xSize">åˆ†å‰²ã—ãŸç”»åƒã®æ¨ªå¹…</param>
-	/// <param name="_ySize">åˆ†å‰²ã—ãŸç”»åƒã®ç¸¦å¹…</param>
+	/// <param name="_filePath">“Ç‚İ‚Ş‰æ‘œ‚Ìƒtƒ@ƒCƒ‹ƒpƒX</param>
+	/// <param name="_allNum">•ªŠ„‚·‚é‘”</param>
+	/// <param name="_xNum">‰¡•ûŒü‚Ì•ªŠ„”</param>
+	/// <param name="_yNum">c•ûŒü‚Ì•ªŠ„”</param>
+	/// <param name="_xSize">•ªŠ„‚µ‚½‰æ‘œ‚Ì‰¡•</param>
+	/// <param name="_ySize">•ªŠ„‚µ‚½‰æ‘œ‚Ìc•</param>
 	void MyLoadDivGraph(const char* _filePath, int _allNum, int _xNum, int _yNum,
 		int _xSize, int _ySize);
 public:
 	/// <summary>
-	/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	/// </summary>
 	/// <returns></returns>
 	Image();
 
 	/// <summary>
-	/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	/// ƒfƒXƒgƒ‰ƒNƒ^
 	/// </summary>
 	~Image() = default;
 
 	/// <summary>
-	/// ç”»åƒã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
+	/// ‰æ‘œ‚ğƒ[ƒh‚·‚é
 	/// </summary>
-	void Load(){}
+	void Load() {}
 
 	/// <summary>
-	/// ç”»åƒã‚’å–å¾—ã™ã‚‹
+	/// ‰æ‘œ‚ğæ“¾‚·‚é
 	/// </summary>
-	/// <param name="_imageType">ç”»åƒã®ç¨®é¡</param>
-	/// <param name="_num">åˆ†å‰²ã—ãŸç”»åƒã®ç•ªå·</param>
-	/// <returns>é¸æŠã•ã‚ŒãŸç”»åƒ</returns>
+	/// <param name="_imageType">‰æ‘œ‚Ìí—Ş</param>
+	/// <param name="_num">•ªŠ„‚µ‚½‰æ‘œ‚Ì”Ô†</param>
+	/// <returns>‘I‘ğ‚³‚ê‚½‰æ‘œ</returns>
 	int GetGraph(eImageType _imageType, int _num = 0);
 
 	/// <summary>
-	/// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®é–‹æ”¾
+	/// ‰æ‘œƒf[ƒ^‚ÌŠJ•ú
 	/// </summary>
 	void Release();
 
 	/*------------------------------------------------------------------------------
-	Betaæ©Ÿèƒ½
-	ãƒ»é€éæç”»(LRåè»¢æ©Ÿèƒ½ã‚ã‚Š)
-	ãƒ»ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆæç”»(LRåè»¢æ©Ÿèƒ½ã‚ã‚Š)
+	Beta‹@”\
+	E“§‰ß•`‰æ(LR”½“]‹@”\‚ ‚è)
+	EƒtƒF[ƒhƒAƒEƒg•`‰æ(LR”½“]‹@”\‚ ‚è)
 	------------------------------------------------------------------------------*/
 
 	/// <summary>
-	/// é€éæç”»
+	/// “§‰ß•`‰æ
 	/// </summary>
-	/// <param name="_x">è¡¨ç¤ºã™ã‚‹xåº§æ¨™</param>
-	/// <param name="_y">è¡¨ç¤ºã™ã‚‹yåº§æ¨™</param>
-	/// <param name="_gHandle">ç”»åƒãƒãƒ³ãƒ‰ãƒ«</param>
-	/// <param name="_pal">é€éåº¦åˆã„ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿</param>
-	/// <param name="_isTurn">LRåè»¢ãƒ•ãƒ©ã‚° true:ã™ã‚‹/false:ã—ãªã„(default)</param>
-	/// <param name="_transFlag">é€éãƒ•ãƒ©ã‚° â€»åŸºæœ¬çš„ã«å…¥åŠ›ã—ãªãã¦å¤§ä¸ˆå¤«</param>
+	/// <param name="_x">•\¦‚·‚éxÀ•W</param>
+	/// <param name="_y">•\¦‚·‚éyÀ•W</param>
+	/// <param name="_gHandle">‰æ‘œƒnƒ“ƒhƒ‹</param>
+	/// <param name="_pal">“§‰ß“x‡‚¢‚Ìƒpƒ‰ƒ[ƒ^</param>
+	/// <param name="_isTurn">LR”½“]ƒtƒ‰ƒO true:‚·‚é/false:‚µ‚È‚¢(default)</param>
+	/// <param name="_transFlag">“§‰ßƒtƒ‰ƒO ¦Šî–{“I‚É“ü—Í‚µ‚È‚­‚Ä‘åä•v</param>
 	void TransparentGraph(float _x, float _y, int _gHandle, int _pal = 255,
 		bool _isTurn = false, int _transFlag = 1);
 
 	/// <summary>
-	/// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆæç”»
+	/// ƒtƒF[ƒhƒAƒEƒg•`‰æ
 	/// </summary>
-	/// <param name="_x">è¡¨ç¤ºã™ã‚‹xåº§æ¨™</param>
-	/// <param name="_y">è¡¨ç¤ºã™ã‚‹yåº§æ¨™</param>
-	/// <param name="_gHandle">ç”»åƒãƒãƒ³ãƒ‰ãƒ«</param>
-	/// <param name="_fadeCnt">ç¾åœ¨ã®ã‚«ã‚¦ãƒ³ãƒˆ</param>
-	/// <param name="_fadeMaxCnt">æœ€å¤§ã‚«ã‚¦ãƒ³ãƒˆ</param>
-	/// <param name="_isTurn">LRåè»¢ãƒ•ãƒ©ã‚° true:ã™ã‚‹/false:ã—ãªã„(default)</param>
-	/// <param name="_transFlag">é€éãƒ•ãƒ©ã‚° â€»åŸºæœ¬çš„ã«å…¥åŠ›ã—ãªãã¦å¤§ä¸ˆå¤«</param>
-	/// <returns>æ¬¡ã®ã‚«ã‚¦ãƒ³ãƒˆ</returns>
+	/// <param name="_x">•\¦‚·‚éxÀ•W</param>
+	/// <param name="_y">•\¦‚·‚éyÀ•W</param>
+	/// <param name="_gHandle">‰æ‘œƒnƒ“ƒhƒ‹</param>
+	/// <param name="_fadeCnt">Œ»İ‚ÌƒJƒEƒ“ƒg</param>
+	/// <param name="_fadeMaxCnt">Å‘åƒJƒEƒ“ƒg</param>
+	/// <param name="_isTurn">LR”½“]ƒtƒ‰ƒO true:‚·‚é/false:‚µ‚È‚¢(default)</param>
+	/// <param name="_transFlag">“§‰ßƒtƒ‰ƒO ¦Šî–{“I‚É“ü—Í‚µ‚È‚­‚Ä‘åä•v</param>
+	/// <returns>Ÿ‚ÌƒJƒEƒ“ƒg</returns>
 	int FadeOutGraph(float _x, float _y, int _gHandle, int _fadeCnt, int _fadeMaxCnt,
 		bool _isTurn = false, int _transFlag = 1);
 };

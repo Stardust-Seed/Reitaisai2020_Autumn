@@ -11,6 +11,7 @@ Image::Image() {
 	MyLoadGraph("./res/Image/darkness.png");
 	MyLoadGraph("./res/Image/koumakan.png");
 	MyLoadGraph("./res/Image/Game02.png");
+	MyLoadGraph("./res/Image/mes.png");
 
 	//‰æ‘œ‚ğ•ªŠ„‚µ‚Ä“Ç‚İ‚İ
 	MyLoadDivGraph("./res/Image/tatie_Sakuya.png", 3, 3, 1, 486, 864);
@@ -21,6 +22,9 @@ Image::Image() {
 	MyLoadDivGraph("./res/Image/SubCastle.png", 2, 2, 1, 55, 55);
 	MyLoadDivGraph("./res/Image/sukima.png", 4, 4, 1, 48, 48);
 	MyLoadDivGraph("./res/Image/ex.png", 6, 6, 1, 100, 100);
+	MyLoadDivGraph("./res/Image/bomb.png", 2, 2, 1, 50, 50);
+	MyLoadDivGraph("./res/Image/fake.png", 3, 3, 1, 50, 50);
+	MyLoadDivGraph("./res/Image/CursorFrame.png", 4, 4, 1, 650, 250);
 }
 
 void Image::Release() {
