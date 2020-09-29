@@ -8,12 +8,12 @@
 GameScene::GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseScene(_sceneChanger, _parameter)
 {
 	timeLimit = new TimeLimit();
-	player = new BasePlayer(static_cast<PlayerType>(0), static_cast<AbilityType>(0));
+	player = new BasePlayer(_parameter->Get(BaseScene::CharaSelectTag));
 	bulletManager = new BulletManager();
 	itemManager = new ItemManager();
 	buffManager = new BuffManager();
 	castleManager = new CastleManager();
-	enemyManager = new EnemyManager(2);
+	enemyManager = new EnemyManager(_parameter->Get(BaseScene::LevelSelectTag));
 	ui = new UI();
 
 	//’eŠÇ—‚ÌƒAƒhƒŒƒX‚ğæ“¾
