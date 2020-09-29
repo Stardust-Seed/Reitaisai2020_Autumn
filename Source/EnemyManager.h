@@ -3,6 +3,7 @@
 
 #include "Fairy_Endurance.h"
 #include "Fairy_Speed.h"
+#include "Fairy_Power.h"
 #include "CastleManager.h"
 #include "ItemManager.h"
 #include "Direction.h"
@@ -16,10 +17,6 @@ class BulletManager;
 class ItemManager;
 
 class BaseEnemy;
-
-class Fairy_Endurance;
-
-class Fairy_Speed;
 
 class EnemyManager {
 private:
