@@ -20,7 +20,7 @@ DrawFormatStringToHandle(x,y,GetColor(255,255,255),FontHandle‚Ì•Ï”–¼,"%d",%d‚Å
 
 “o˜^—á)
 FontHandle.h‚Å
-LPCSTR urabe;    
+LPCSTR urabe;
 int urabeFont;
 int Get_urabe(){ return urabeFont; }
 ã‹L‚Ì‚æ‚¤‚È‚â‚Â‚ğ‚Ì’Ç‰Á‚ğ‚µ‚Ä‚à‚ç‚¢A
@@ -44,9 +44,13 @@ class FontHandle :public Singleton <FontHandle> {
 
 private:
 	LPCSTR snoutCrayon;      //“Ç‚İ‚ŞƒtƒHƒ“ƒg•Ï”
-	LPCSTR natumemozi;      //“Ç‚İ‚ŞƒtƒHƒ“ƒg•Ï”
+	LPCSTR natumemozi;       //“Ç‚İ‚ŞƒtƒHƒ“ƒg•Ï”
+	LPCSTR weakForce;        //“Ç‚İ‚ŞƒtƒHƒ“ƒg•Ï”
 	int snoutCrayon_48_3;    //‰£‚è‘‚«ƒtƒHƒ“ƒg
 	int natumemozi_48_3;     //‚È‚Â‚ß‚à‚¶ƒtƒHƒ“ƒg
+	int natumemozi_100_3;    //‚È‚Â‚ß‚à‚¶ƒtƒHƒ“ƒg
+	int weakForce_48_8;      //851ƒ`ƒJƒ‰ƒˆƒƒN
+	int weakForce_222_16;    //851ƒ`ƒJƒ‰ƒˆƒƒN
 
 public:
 
@@ -58,6 +62,9 @@ public:
 	//ƒQƒbƒ^[
 	int Get_SnoutCrayon_48_3() { return snoutCrayon_48_3; }
 	int Get_natumemozi_48_3() { return natumemozi_48_3; }
+	int Get_natumemozi_100_3() { return natumemozi_100_3; }
+	int Get_weakForce_48_8() { return weakForce_48_8; }
+	int Get_weakForce_222_16() { return weakForce_222_16; }
 };
 
 #endif //FONTHANDLE_H_

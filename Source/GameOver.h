@@ -7,6 +7,7 @@
 #include "BGM.h"
 #include "SE.h"
 #include "Define.h"
+#include "FontHandle.h"
 
 enum Continuity                 //‘I‘ð‚³‚¹‚é‚Ì‚ÉŽg‚¢‚Ü‚·
 {
