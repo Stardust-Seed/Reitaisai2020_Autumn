@@ -10,6 +10,8 @@ class SceneManager final :public ISceneChanger {
 private:
 	Parameter parameter;
 	std::stack<std::shared_ptr<BaseScene>> scenes;
+
+	bool isChange;
 public:
 	SceneManager();
 	void Update();

@@ -14,6 +14,7 @@
 SceneManager::SceneManager() {
 	scenes.push(std::make_shared<Title>(this, &parameter));
 	scenes.top()->Init();
+	isChange = false;
 }
 
 /*XVˆ—*/
@@ -23,6 +24,12 @@ void SceneManager::Update() {
 
 /*•`‰æˆ—*/
 void SceneManager::Draw() {
+
+	if (isChange == true) {
+		isChange = false;
+		return;
+	}
+
 	scenes.top()->Draw();
 }
 
@@ -41,7 +48,6 @@ void SceneManager::SceneChange(eScene _nextScene, Parameter* _parameter,
 			scenes.pop();
 		}
 	}
-
 
 	switch (_nextScene) {
 	case eScene_TITLE:
@@ -72,4 +78,6 @@ void SceneManager::SceneChange(eScene _nextScene, Parameter* _parameter,
 		scenes.push(std::make_shared<LevelSelect>(this, _parameter));
 		break;
 	}
+
+	isChange = true;
 }
