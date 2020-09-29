@@ -40,7 +40,7 @@ public:
 	void Draw();
 	void Draw_Charaname();
 	void Draw_Charagraph();
-	void Draw_waku();
+	void Draw_Waku();
 
 	int Get_selectChara() { return charaSelect; }
 
