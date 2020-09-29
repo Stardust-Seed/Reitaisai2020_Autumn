@@ -8,41 +8,55 @@
 #include"EnemyManager.h"
 #include"Image.h"
 
-BasePlayer::BasePlayer(PlayerType _pType, AbilityType _pAbility)
+BasePlayer::BasePlayer(PlayerType _pType)
 {
-
 	pos = VGet(PLAYER_LEFTPOS, PLAYER_LEFTRIGHTPOS, 0);
 	vPos = VGet(0, 0, 0);
 
 	width = 48;
 	height = 48;
 
-	speed = 3;					//移動速度
-  
-	power = 25;					//攻撃力
-	abilityCount = 0;		    //スキル回数
-  
+	playerType = _pType;       //使用してるキャラクタータイプ
+
+	if (playerType == SAKUYA)
+	{
+		speed = 5;					//移動速度
+		power = 25;					//攻撃力
+		abilityCount = 3;		    //スキル回数
+		graphNo = 2;                
+		animNo = 2;
+		attackTime = 10;
+	}
+	if (playerType == FRAN)
+	{
+		speed = 2;					//移動速度
+		power = 100;			    //攻撃力
+		abilityCount = 2;		    //スキル回数
+		graphNo = 0;
+		animNo = 0;
+		attackTime = 0;
+	}
+
 	stanTime = 0;				//スタンタイム
 	stanTime_stay = 360;		//スタン再発動までの時間
-
-	attackTime = 0;
 
 	playerPos = 0;			    //プレイヤーの向き。最初は左
 
 	isMove = false;				//移動している：true  移動していない：false
-	isAttack = false;
-	isStan = false;
-	isStan_Next = false;
-	isAbility = false;
+	isAttack = false;           //攻撃してるかどうか
+	isStan = false;             //スタンしてるかどうか
+	isStan_Next = false;        //次のスタンが起きるかどうか
+	isAbility = false;          //スキルが発動しているかどうか
 
-	playerType  = SAKUYA;
-	abilityType = _pAbility;    //まだキャラ選択できないので仮置き
-
-	animWait = ANIMETION_SPEED;
-	graphNo = 2;                //BasePlayerでは咲夜のアニメーションが流れるようにしている
-	animNo = 2;
+	animWait = ANIMETION_SPEED; //アニメーション速度
 
 	animLR = true;              //最初は左向き
+
+	abilityCount = 3;               //スキル使用回数
+
+	//咲夜用
+	abilityTimer = STOPTIME;        //スキル時間タイマー
+	countDown = FRAME;              //スキルタイマーを減らすのに使う
 
 }
 BasePlayer::~BasePlayer()
@@ -68,11 +82,45 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
     power *= _bManager->GetPowerBuff();   //バフによる攻撃力増加
 	speed *= _bManager->GetSpeedBuff();   //バフによるスピード増加
 
+	AbilityCount();    //スキル回数表示
+
 	//スタン状態でない時
 	if (isStan == 0) {
 
-		Move();    //移動処理
-		Attack();  //攻撃処理
+		Move();        //移動処理
+		Attack();      //攻撃処理
+		Ability();     //スキル
+
+		/***咲夜のスキル処理***/
+		if (Get_isAbility() == true && playerType == SAKUYA_Ability) {
+
+			AbilityClock();                    //スキルタイマーの表示
+
+			if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+				abilityTimer -= 1;
+				countDown = FRAME;
+			}
+			if (abilityTimer <= 0)
+			{
+				isAbility = false;
+			}
+			countDown -= 1;
+		}
+		/**********************/
+
+		/***フランスキル処理***/
+		if (Get_isAbility() == true && playerType == FRAN_Ability) {
+
+			if (abilityTimer == 1) {    //フランのスキルは発動したらすぐ終了する
+				isAbility = false;
+				abilityTimer = 0;
+			}
+			if (Get_isAbility() == true && abilityTimer < 1)
+			{
+				abilityTimer += 1;
+			}
+		}
+		/***********************/
 
 		for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
 
@@ -138,23 +186,29 @@ bool BasePlayer::ClisionHit(float mx, float my, float mw, float mh,
 void BasePlayer::Attack()
 {
 
-	if (attackTime < 5)   //攻撃間隔
+	if (attackTime < 15)   //攻撃間隔
 	{
 		attackTime++;
 	}
 	if (isMove == false) {
-		if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && attackTime >= 5)
+		if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && attackTime >= 15)
 		{
 			//攻撃flagをtrueにする
 			isAttack = true;
 			//弾を飛ばす
 			bulletManager->Shot(pos, playerPos, isAttack);
-			attackTime = 0;
+			if (playerType == FRAN)
+			{
+				attackTime = 0;
+			}
+			else
+			{
+				attackTime = 10;
+			}
 		}
 	}
 
 }
-
 //アニメーション処理
 void BasePlayer::Animation()
 {
@@ -180,6 +234,30 @@ void BasePlayer::Animation()
 		graphNo = franAnim[animNo];
 	}
 }
+void BasePlayer::Ability()
+{
+	//スキル回数がまだ残っている時
+	if (abilityCount > 0 && Get_isAbility() == false) {
+		//スペースキーを押すとスキル発動
+		if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
+		{
+			isAbility = true;
+			abilityCount -= 1;
+		}
+	}
+}
+void BasePlayer::AbilityCount()
+{
+
+	DrawFormatStringToHandle(100, 800, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_3(), "%d", abilityCount);
+
+}
+void BasePlayer::AbilityClock()
+{
+
+	DrawFormatStringToHandle(100, 700, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_3(), "%d", abilityTimer);
+
+}
 //プレイヤーの移動処理
 void BasePlayer::Move()
 {
@@ -192,10 +270,6 @@ void BasePlayer::Move()
 		animLR = true;
 
 	}
-	else
-	{
-		isMove = false; //移動してないときはフラグをfalseにする
-	}
 	//↑キーを押したとき
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_UP) >= 1)) {
 
@@ -203,10 +277,6 @@ void BasePlayer::Move()
 		isMove = true;
 		playerPos = 1;  //↑向き状態
 		
-	}
-	else
-	{
-		isMove = false; //移動してないときはフラグをfalseにする
 	}
 	//→キーを押したとき
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) >= 1)) {
@@ -217,10 +287,6 @@ void BasePlayer::Move()
 		animLR = false;
 	
 	}
-	else
-	{
-		isMove = false; //移動してないときはフラグをfalseにする
-	}
 	//↓キーを押したとき
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_DOWN) >= 1)) {
 
@@ -229,7 +295,8 @@ void BasePlayer::Move()
 		playerPos = 3;  //↓向き状態
 
 	}
-	else
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_DOWN) <= 0) && (Input::Instance()->GetPressCount(KEY_INPUT_UP) <= 0) &&
+		(Input::Instance()->GetPressCount(KEY_INPUT_LEFT) <= 0) && (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) <= 0))
 	{
 		isMove = false; //移動してないときはフラグをfalseにする
 	}
