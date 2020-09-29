@@ -74,15 +74,11 @@ void BasePlayer::Draw()
 		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo), 255, true);
 	}
 
-	DrawFormatString(200, 200, GetColor(255, 255, 255), "GraphNo%d", graphNo);
-
 }
 void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 {
     power *= _bManager->GetPowerBuff();   //バフによる攻撃力増加
 	speed *= _bManager->GetSpeedBuff();   //バフによるスピード増加
-
-	AbilityCount();    //スキル回数表示
 
 	//スタン状態でない時
 	if (isStan == 0) {
@@ -93,8 +89,6 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 
 		/***咲夜のスキル処理***/
 		if (Get_isAbility() == true && playerType == SAKUYA_Ability) {
-
-			AbilityClock();                    //スキルタイマーの表示
 
 			if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
 				abilityTimer -= 1;
@@ -245,18 +239,6 @@ void BasePlayer::Ability()
 			abilityCount -= 1;
 		}
 	}
-}
-void BasePlayer::AbilityCount()
-{
-
-	DrawFormatStringToHandle(100, 800, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_3(), "%d", abilityCount);
-
-}
-void BasePlayer::AbilityClock()
-{
-
-	DrawFormatStringToHandle(100, 700, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_3(), "%d", abilityTimer);
-
 }
 //プレイヤーの移動処理
 void BasePlayer::Move()

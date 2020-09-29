@@ -118,9 +118,6 @@ public:
 	void Attack();         //攻撃処理
 	void Animation();      //アニメーション
 	void Ability();        //スキル処理
-	void AbilityCount();   //スキル回数表示
-
-	void AbilityClock();   //咲夜スキルタイマー描画処理
 
 	//スタン処理
 	void Stan();           
@@ -140,14 +137,17 @@ public:
 	float Get_height() { return height; }                   //heightゲッター
 
 	int  Get_power() { return power; }                      //攻撃力ゲッター
-	int  Get_abilityCount() { return abilityCount; }              //スキル時間のゲッター
 
 	bool Get_isStan() { return isStan; }                    //スタン状態ゲッター
-	bool Get_isAbility() { return isAbility; }           //スキルのActiveのゲッター
+	bool Get_isAbility() { return isAbility; }              //スキルのActiveのゲッター
 	
 	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }//bulletManagerのアドレスを取得
 
-	int Get_AbilityType() { return playerType; }  //スキルタイプのゲッター
+	int Get_AbilityType() { return playerType; }            //スキルタイプのゲッター
+
+	
+	int Get_AbilityCount() { return abilityCount; }         //スキル回数のゲッター
+	int Get_abilityClock() { return abilityTimer; }        //スキル時間のゲッター
 };
 
 
