@@ -18,11 +18,12 @@ void MainCastle::Update(EnemyManager* enemy)
 {
     for (int num = 0; num < enemy->Get_enemyNum(); num++)
     {
-        if (enemy->Get_ActiveFlg(num) == true && enemy->Get_AttackFlg(num) == true)
+        if (enemy->Get_ActiveFlg(num) == true && enemy->Get_AttackFlg(num) == true &&
+            enemy->Get_AttackType(num) != eAttackType::Player)
         {
             ClisionHit(enemy->Get_x(num)        , enemy->Get_y(num)         , enemy->Get_width(num),
                        enemy->Get_height(num)   , enemy->Get_Power(num)     , num,
-                       enemy->Get_AttackFlg(num), enemy->Get_ActiveFlg(num));
+                       enemy->Get_AttackFlg(num), enemy->Get_ActiveFlg(num) );
         }
     }
 
