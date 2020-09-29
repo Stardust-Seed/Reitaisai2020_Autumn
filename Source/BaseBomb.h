@@ -3,7 +3,11 @@
 
 #include "Define.h"
 #include "BaseEvent.h"
+#include "CastleManager.h"
+#include "FontHandle.h"
 #include "SE.h"
+
+class castleManager;
 
 	enum eBombType
 	{
@@ -36,17 +40,19 @@
 		float y;
 		int time;
 		int power;						//爆弾のダメージ
+		int damage;
 		int countdown;					//カウントダウン
 		int put;
 		int direction;					//爆弾が落ちる方向
 		int type;						//爆弾の種類
 
+		int alpha;
+		int rad;
+
 		bool isXplosion;				//爆発したかどうか
 		bool isTrigger;					//爆発してるかしてないか
-		bool isFakeTrigger;				//爆発してるかしてないか(偽)
 		bool isSpown;					//爆弾の生成したかどうか
-		bool isFakeSpown;				//爆弾の生成したかどうか(偽)
-		bool isCount;					//カウントダウンを画像で表示させるため
+		bool isCount;					//カウントダウンを表示させるため
 
 	public:
 		BaseBomb() {}

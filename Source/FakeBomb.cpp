@@ -1,12 +1,10 @@
 #include <DxLib.h>
 #include "FakeBomb.h"
+#include "Image.h"
 
 FakeBomb::FakeBomb(int _power, int _speed, eBombType _bombType)
 	: BaseBomb(_power, _speed, _bombType)
 {
-	fBomb = LoadGraph("res/Image/fakebomb.png");
-	//fAction = LoadGraph("res/Image/fake.png");
-	LoadDivGraph("res/Image/smog.png", 3, 3, 1, 50, 50, GHandle);
 	isFakeAction = false;
 };
 
@@ -16,6 +14,7 @@ void FakeBomb::FakeMotion()
 	//‹U”š’e‚ª‹N“®
 	if (isTrigger == true)
 	{
+		damage -= power;
 		isFakeAction = true;
 		if (isFakeAction == true)
 		{
@@ -28,7 +27,7 @@ void FakeBomb::FakeMotion()
 	}
 }
 
-void FakeBomb::Update() 
+void FakeBomb::Update()
 {
 	if (type == fakebomb)
 	{
@@ -41,10 +40,9 @@ void FakeBomb::Update()
 
 void FakeBomb::Draw() 
 {
-	if (isFakeSpown == true)
+	if (isSpown == true)
 	{
-		//DrawString(700, 370, "‹U•¨", GetColor(255, 255, 255));
-		DrawGraph(x, y, fBomb, TRUE);
+		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 1), TRUE);
 	}
 }
 
@@ -54,22 +52,24 @@ void FakeBomb::Animation()
 
 	if (act_frameIndex[m_frameIndex] == 0)
 	{
-		DrawGraph(x, y, GHandle[0], TRUE);
-		DeleteGraph(GHandle[0]);
+		
+		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_fake, 0), TRUE);
+	
 	}
 
 	if (act_frameIndex[m_frameIndex] == 1)
 	{
-		DrawGraph(x, y , GHandle[1], TRUE);
-			
-		DeleteGraph(GHandle[1]);
-			
+		
+		DrawGraph(x, y - 30, Image::Instance()->GetGraph(eImageType::Gpicture_fake, 1), TRUE);
+				
 	}
-
 	if (act_frameIndex[m_frameIndex] == 2)
 	{
-
-		DrawGraph(x, y + 5, GHandle[2], TRUE);
-		DeleteGraph(GHandle[2]);
+		
+		DrawGraph(x, y -50, Image::Instance()->GetGraph(eImageType::Gpicture_fake, 2), TRUE);
+		
+		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_fake, 0));
+		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_fake, 1));
+		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_fake, 2));
 	}
 }

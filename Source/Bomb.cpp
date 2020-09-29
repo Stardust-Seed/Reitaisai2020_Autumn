@@ -4,7 +4,7 @@
 Bomb::Bomb(int _power, int _speed, eBombType _bombType)
 	: BaseBomb(_power, _speed, _bombType)
 {
-	LoadDivGraph("res/Image/bomb.png", 2, 2, 1, 50, 50, gBomb);
+	
 };
 
 //”š”­‚µ‚½‚Æ‚«‚Ìˆ—
@@ -32,9 +32,7 @@ void Bomb::Draw()
 {
 	if (isSpown == true)
 	{
-		//DrawString(700, 350, "–{•¨", GetColor(255, 255, 255));
-		//DrawGraph(x, y, gBomb, TRUE);
-		DrawGraph(x, y, gBomb[0], TRUE);
+		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 0), TRUE);
 	}
 }
 
@@ -45,38 +43,37 @@ void Bomb::Animation()
 	if (act_frameIndex[m_frameIndex] == 0)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 0), TRUE);
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 0));
 	}
 
 	if (act_frameIndex[m_frameIndex] == 1)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 1), TRUE);
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 1));
 	}
 
-	if (act_frameIndex[m_frameIndex] == 2) 
+	if (act_frameIndex[m_frameIndex] == 2)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 2), TRUE);
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 2));
 	}
 
 	if (act_frameIndex[m_frameIndex] == 3)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 3), TRUE);
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 3));
 	}
 
 	if (act_frameIndex[m_frameIndex] == 4)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 4), TRUE);
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 4));
 	}
 
 	if (act_frameIndex[m_frameIndex] == 5)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 5), TRUE);
+
+		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 0));
+		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 1));
+		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 2));
+		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 3));
+		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 4));
 		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 5));
 	}
 }
-
-
