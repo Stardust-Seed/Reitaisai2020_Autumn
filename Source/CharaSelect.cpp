@@ -41,10 +41,12 @@ void CharaSelect::Update()
 		case select_SAKUYA:   //咲夜を選択
 			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, false, true);
 			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
+			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
 			break;
 		case select_FRAN:     //フランを選択
 			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter,false, true);
 			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
+			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
 			break;
 		case select_BACK:
 			//前のシーン(画面)に戻る
@@ -60,19 +62,19 @@ void CharaSelect::Update()
 void CharaSelect::Draw()
 {
 
-	Draw_waku();
-	Draw_Charagraph();
-	Draw_Charaname();
+	Draw_Waku();
+	Draw_CharaGraph();
+	Draw_CharaName();
 
 }
-void CharaSelect::Draw_Charagraph()
+void CharaSelect::Draw_CharaGraph()
 {
 	/**描画 中**/
 	//キャラクター画像の表示
 	DrawGraph(555, 200, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 0), true);
 	DrawGraph(1105, 200, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 1), true);
 }
-void CharaSelect::Draw_waku()
+void CharaSelect::Draw_Waku()
 {
 	/**描画 奥**/
 	//キャラクター画像の枠組み
@@ -86,7 +88,7 @@ void CharaSelect::Draw_waku()
 	DrawOvalAA(selectMenu[charaSelect].x, selectMenu[charaSelect].y,
 		selectMenu[charaSelect].rx, selectMenu[charaSelect].ry, 100, color, false, 5.0f);
 }
-void CharaSelect::Draw_Charaname()
+void CharaSelect::Draw_CharaName()
 {
 
 	/**描画 前**/
