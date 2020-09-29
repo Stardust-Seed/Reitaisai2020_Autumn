@@ -13,6 +13,7 @@ GameScene::GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseS
 	itemManager = new ItemManager();
 	buffManager = new BuffManager();
 	castleManager = new CastleManager();
+	eventManager = new EventManager(_parameter->Get(BaseScene::LevelSelectTag));
 	enemyManager = new EnemyManager(_parameter->Get(BaseScene::LevelSelectTag));
 	ui = new UI();
 
@@ -35,6 +36,7 @@ void GameScene::Update()
 
 	//•\Ž¦‚·‚é‚Ì‚ª‘O‚Ì•û‚Ì“z‚ç
 	itemManager->Update(player, buffManager);
+	eventManager->Update(enemyManager);
 	buffManager->Update(itemManager,enemyManager);
 	timeLimit->Update();
 	ui->Update(castleManager, itemManager, buffManager);
@@ -56,6 +58,7 @@ void GameScene::Draw()
 
 	//•\Ž¦‚·‚é‚Ì‚ª‘O‚Ì•û‚Ì“z‚ç
 	itemManager->Draw();
+	eventManager->Draw();
 	timeLimit->Draw();
 	ui->Draw();
 }

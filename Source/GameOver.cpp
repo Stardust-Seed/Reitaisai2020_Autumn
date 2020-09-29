@@ -23,7 +23,7 @@ void GameOver::Update()
 void GameOver::Draw()
 {
 	DrawGraph(GAME_WIDTH / 1.45f, GAME_HEIHGT / 9, Image::Instance()->GetGraph(eImageType::Spicture_Fran, 0), TRUE);
-	DrawGraph(0, GAME_HEIHGT - 450, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
+	DrawGraph(0, GAME_HEIHGT - 450, Image::Instance()->GetGraph(eImageType::UI_MessageBox), TRUE);
 	
 	//ブレンドモードを乗算済みα用のαブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_PMA_ALPHA, alpha);
@@ -34,10 +34,10 @@ void GameOver::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, alpha);
 
 	//カーソルフレームの表示
-	DrawGraph(x, GAME_HEIHGT / 2 + 25, Image::Instance()->GetGraph(eImageType::Title_Logo), TRUE);
+	DrawGraph(x, GAME_HEIHGT / 2 + 25, Image::Instance()->GetGraph(eImageType::UI_CursorFrame,3), TRUE);
 
-	DrawGraph(GAME_X, GAME_HEIHGT / 2 + 25, Image::Instance()->GetGraph(eImageType::Title_Logo), TRUE);
-	DrawGraph(MENU_X, GAME_HEIHGT / 2 + 25, Image::Instance()->GetGraph(eImageType::Title_Logo), TRUE);
+	DrawGraph(GAME_X, GAME_HEIHGT / 2 + 25, Image::Instance()->GetGraph(eImageType::UI_CursorFrame,0), TRUE);
+	DrawGraph(MENU_X, GAME_HEIHGT / 2 + 25, Image::Instance()->GetGraph(eImageType::UI_CursorFrame,0), TRUE);
 
 	DrawStringToHandle(GAME_WIDTH / 7.5f, GAME_HEIHGT / 2 + 50, "コンティニューする  ", GetColor(128,0,0), FontHandle::Instance()->Get_weakForce_48_8());
 	DrawStringToHandle(GAME_WIDTH / 2.5f, GAME_HEIHGT / 2 + 50,  "コンティニューしない", GetColor(128, 0, 0), FontHandle::Instance()->Get_weakForce_48_8());

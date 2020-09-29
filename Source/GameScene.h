@@ -5,6 +5,7 @@
 #include "BaseScene.h"
 
 #include "EnemyManager.h"
+#include "EventManager.h"
 
 #include "BasePlayer.h"
 #include "BulletManager.h"
@@ -21,6 +22,7 @@ private:
 	//‚»‚ê‚¼‚ê‚Ìˆ—‚ğŒÄ‚Ño‚·‚½‚ß‚Ì“z
 	BasePlayer* player;
 	BulletManager* bulletManager;
+	EventManager* eventManager;
 	EnemyManager* enemyManager;
 	ItemManager* itemManager;
 	BuffManager* buffManager;
