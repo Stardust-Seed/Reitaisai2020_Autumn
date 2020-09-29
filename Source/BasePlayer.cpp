@@ -26,6 +26,8 @@ BasePlayer::BasePlayer(int _pType)
 		graphNo = 2;                
 		animNo = 2;
 		attackTime = 10;
+		//咲夜用
+		abilityTimer = STOPTIME;        //スキル時間タイマー
 	}
 	if (playerType == FRAN)
 	{
@@ -35,6 +37,7 @@ BasePlayer::BasePlayer(int _pType)
 		graphNo = 0;
 		animNo = 0;
 		attackTime = 0;
+		abilityTimer = 0;
 	}
 
 	stanTime = 0;				//スタンタイム
@@ -54,8 +57,6 @@ BasePlayer::BasePlayer(int _pType)
 
 	abilityCount = 3;               //スキル使用回数
 
-	//咲夜用
-	abilityTimer = STOPTIME;        //スキル時間タイマー
 	countDown = FRAME;              //スキルタイマーを減らすのに使う
 
 }
