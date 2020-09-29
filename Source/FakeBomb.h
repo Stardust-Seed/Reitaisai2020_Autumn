@@ -6,8 +6,8 @@
 class FakeBomb : public virtual BaseBomb
 {
 private:
-	int act_frameIndex[15] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	                           2, 2, 2,};   // ï\é¶Ç∑ÇÈî‘çÜ
+	int act_frameIndex[16] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	                           2, 2, 2, 3};   // ï\é¶Ç∑ÇÈî‘çÜ
 	int m_frameIndex = 0;
 	bool isFakeAction;
 public:

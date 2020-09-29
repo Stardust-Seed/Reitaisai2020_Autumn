@@ -4,7 +4,7 @@
 Bomb::Bomb(int _power, int _speed, eBombType _bombType)
 	: BaseBomb(_power, _speed, _bombType)
 {
-	
+	AnimationFlg = false;
 };
 
 //”š”­‚µ‚½‚Æ‚«‚Ìˆ—
@@ -12,8 +12,13 @@ void Bomb::DamageMotion()
 {
 	if (isTrigger == true)
 	{ 
-		Animation();
+		AnimationFlg = true;
 		isTrigger = false;
+		if (AnimationFlg == true)
+		{
+			Animation();
+		}
+		
 	}
 }
 
@@ -39,7 +44,6 @@ void Bomb::Draw()
 void Bomb::Animation()
 {
 	m_frameIndex++;
-
 	if (act_frameIndex[m_frameIndex] == 0)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 0), TRUE);
@@ -68,12 +72,11 @@ void Bomb::Animation()
 	if (act_frameIndex[m_frameIndex] == 5)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 5), TRUE);
+	}
 
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 0));
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 1));
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 2));
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 3));
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 4));
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 5));
+	if (act_frameIndex[m_frameIndex] == 6)
+	{
+		AnimationFlg = false;
+		m_frameIndex = 0;
 	}
 }

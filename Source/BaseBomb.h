@@ -46,8 +46,7 @@ class castleManager;
 		int direction;					//”š’e‚ª—Ž‚¿‚é•ûŒü
 		int type;						//”š’e‚ÌŽí—Þ
 
-		int alpha;
-		int rad;
+		bool AnimationFlg;
 
 		bool isXplosion;				//”š”­‚µ‚½‚©‚Ç‚¤‚©
 		bool isTrigger;					//”š”­‚µ‚Ä‚é‚©‚µ‚Ä‚È‚¢‚©

@@ -18,8 +18,11 @@ void FakeBomb::FakeMotion()
 		isFakeAction = true;
 		if (isFakeAction == true)
 		{
-			//DrawGraph(x, y, fAction, TRUE);
-			Animation();
+			AnimationFlg = true;
+			if (AnimationFlg == true)
+			{
+				Animation();
+			}
 			isTrigger = false;
 			isFakeAction = false;
 		}
@@ -52,24 +55,21 @@ void FakeBomb::Animation()
 
 	if (act_frameIndex[m_frameIndex] == 0)
 	{
-		
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_fake, 0), TRUE);
-	
 	}
 
 	if (act_frameIndex[m_frameIndex] == 1)
 	{
-		
-		DrawGraph(x, y - 30, Image::Instance()->GetGraph(eImageType::Gpicture_fake, 1), TRUE);
-				
+		DrawGraph(x, y - 30, Image::Instance()->GetGraph(eImageType::Gpicture_fake, 1), TRUE);		
 	}
 	if (act_frameIndex[m_frameIndex] == 2)
 	{
-		
 		DrawGraph(x, y -50, Image::Instance()->GetGraph(eImageType::Gpicture_fake, 2), TRUE);
-		
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_fake, 0));
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_fake, 1));
-		DeleteGraph(Image::Instance()->GetGraph(eImageType::Gpicture_fake, 2));
+	}
+
+	if (act_frameIndex[m_frameIndex] == 3)
+	{
+		AnimationFlg = false;
+		m_frameIndex = 0;
 	}
 }
