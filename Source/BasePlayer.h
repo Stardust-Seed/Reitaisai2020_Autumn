@@ -37,7 +37,7 @@ class BasePlayer :public virtual Object
 	BaseEnemy* baseEnemy;
 
 	//キャラクター選択
-	PlayerType playerType;
+	int playerType;
 
 
 protected:
@@ -103,7 +103,7 @@ public:
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);
 	BasePlayer() {}
-	BasePlayer( PlayerType _pType);		   //コンストラクタ
+	BasePlayer( int _pType);		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
 	void Draw();           //描画処理
 
@@ -147,7 +147,7 @@ public:
 	
 	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }//bulletManagerのアドレスを取得
 
-	PlayerType Get_AbilityType() { return playerType; }  //スキルタイプのゲッター
+	int Get_AbilityType() { return playerType; }  //スキルタイプのゲッター
 };
 
 

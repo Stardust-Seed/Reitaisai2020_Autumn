@@ -8,7 +8,7 @@
 #include"EnemyManager.h"
 #include"Image.h"
 
-BasePlayer::BasePlayer(PlayerType _pType)
+BasePlayer::BasePlayer(int _pType)
 {
 	pos = VGet(PLAYER_LEFTPOS, PLAYER_LEFTRIGHTPOS, 0);
 	vPos = VGet(0, 0, 0);
