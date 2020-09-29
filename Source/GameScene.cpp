@@ -8,7 +8,7 @@
 GameScene::GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseScene(_sceneChanger, _parameter)
 {
 	timeLimit = new TimeLimit();
-	player = new BasePlayer(_parameter->Get(BaseScene::CharaSelectTag), _parameter->Get(BaseScene::CharaSelectTag));
+	player = new BasePlayer(_parameter->Get(BaseScene::CharaSelectTag));
 	bulletManager = new BulletManager();
 	itemManager = new ItemManager();
 	buffManager = new BuffManager();
