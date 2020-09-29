@@ -17,17 +17,17 @@ enum class eImageType {
 	Gpicture_MainCastle		= 6,	//ゲームの素材 紅魔館
 	Gpicture_Forest			= 7,	//ゲームの素材 森
 	UI_MessageBox			= 8,	//UIの素材 メッセージボックス
-	Spicture_Sakuya			= 8,	//立ち絵 咲夜
-	Spicture_Fran			= 11,	//立ち絵 フラン
-	Spicture_SelectPlayer	= 14,	//立ち絵 選択されたプレイヤー
-	Gpicture_Player			= 16,	//ゲームの素材 プレイヤー
-	Gpicture_Enemy			= 20,	//ゲームの素材 エネミー
-	Gpicture_SubCastle		= 26,	//ゲームの素材 サブ拠点
-	Gpicture_Sukima			= 28,	//ゲームの素材 スキマ
-	Gpicture_Explosion		= 32,	//ゲームの素材 爆破エフェクト
-	Gpicture_Bomb			= 38,	//ゲームの素材 爆弾
-	Gpicture_FakeBomb		= 40,	//ゲームの素材 爆弾(偽物)
-	UI_CursorFrame			= 43,	//UIの素材 カーソルのフレーム
+	Spicture_Sakuya			= 9,	//立ち絵 咲夜
+	Spicture_Fran			= 12,	//立ち絵 フラン
+	Spicture_SelectPlayer	= 15,	//立ち絵 選択されたプレイヤー
+	Gpicture_Player			= 17,	//ゲームの素材 プレイヤー
+	Gpicture_Enemy			= 21,	//ゲームの素材 エネミー
+	Gpicture_SubCastle		= 27,	//ゲームの素材 サブ拠点
+	Gpicture_Sukima			= 29,	//ゲームの素材 スキマ
+	Gpicture_Explosion		= 33,	//ゲームの素材 爆破エフェクト
+	Gpicture_Bomb			= 39,	//ゲームの素材 爆弾
+	Gpicture_FakeBomb		= 41,	//ゲームの素材 爆弾(偽物)
+	UI_CursorFrame			= 44,	//UIの素材 カーソルのフレーム
 };
 
 /// <summary>
