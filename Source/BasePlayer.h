@@ -3,6 +3,7 @@
 
 #include"Object.h"
 #include"DxLib.h"
+#include "FontHandle.h"
 
 class BulletManager;
 class BuffManager;
@@ -36,10 +37,7 @@ class BasePlayer :public virtual Object
 	BaseEnemy* baseEnemy;
 
 	//キャラクター選択
-	PlayerType playerType;
-
-	//キャラのアビリティ
-	AbilityType abilityType;
+	int playerType;
 
 
 protected:
@@ -59,6 +57,13 @@ protected:
 
 	const int ANIMETION_MAX = 3;            //アニメーションの最大数
 	const int ANIMETION_SPEED = 10;         //アニメーションのスピード
+
+	//咲夜スキル用
+	const int STOPTIME = 5;         //時止めスキルの時間
+	int abilityTimer;               //スキル発動時間
+	int countDown;                  //スキルタイマーのカウントダウンに使用
+
+	//フランスキル用
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
@@ -98,7 +103,7 @@ public:
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);
 	BasePlayer() {}
-	BasePlayer( PlayerType _pType, AbilityType _pAbility);		   //コンストラクタ
+	BasePlayer( int _pType);		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
 	void Draw();           //描画処理
 
@@ -112,6 +117,7 @@ public:
 	void Move_RIGHT();     //→移動処理
 	void Attack();         //攻撃処理
 	void Animation();      //アニメーション
+	void Ability();        //スキル処理
 
 	//スタン処理
 	void Stan();           
@@ -131,14 +137,17 @@ public:
 	float Get_height() { return height; }                   //heightゲッター
 
 	int  Get_power() { return power; }                      //攻撃力ゲッター
-	int  Get_abilityCount() { return abilityCount; }              //スキル時間のゲッター
 
 	bool Get_isStan() { return isStan; }                    //スタン状態ゲッター
-	bool Get_isAbility() { return isAbility; }           //スキルのActiveのゲッター
+	bool Get_isAbility() { return isAbility; }              //スキルのActiveのゲッター
 	
 	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }//bulletManagerのアドレスを取得
 
-	AbilityType Get_AbilityType() { return abilityType; }  //スキルタイプのゲッター
+	int Get_AbilityType() { return playerType; }            //スキルタイプのゲッター
+
+	
+	int Get_AbilityCount() { return abilityCount; }         //スキル回数のゲッター
+	int Get_abilityClock() { return abilityTimer; }        //スキル時間のゲッター
 };
 
 
