@@ -13,7 +13,7 @@ GameScene::GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseS
 	itemManager = new ItemManager();
 	buffManager = new BuffManager();
 	castleManager = new CastleManager();
-	enemyManager = new EnemyManager(2);
+	enemyManager = new EnemyManager(_parameter->Get(BaseScene::LevelSelectTag));
 	ui = new UI();
 
 	//’eŠÇ—‚ÌƒAƒhƒŒƒX‚ğæ“¾
