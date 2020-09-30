@@ -10,7 +10,7 @@ SukimaEvent::SukimaEvent() {
 	height = width;
 	addSize = 12;
 	popFlg = true;
-	daleteFlg = false;
+	deleteFlg = false;
 
 	isHit = false;
 	isActive = true;
@@ -61,8 +61,6 @@ SukimaEvent::~SukimaEvent() {
 void SukimaEvent::Update(EnemyManager* enemy)
 {
 	SRand;
-	DrawFormatString(150, 500, GetColor(255, 255, 255), "pop  %d", popAnimationCnt);
-	DrawFormatString(130, 500, GetColor(255, 255, 255), "\nwarp %d", warpAnimationCnt);
 	for (int num = 0; num < enemy->Get_enemyNum(); num++)
 	{
 		//“–‚½‚è”»’è
@@ -76,7 +74,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 		if (isHit == true)
 		{
 			SE::Instance()->PlaySE(SE_sukimaWarp);
-			daleteFlg = true;
+			deleteFlg = true;
 			animationFlg = true;
 			warpAnimationCnt = 0;
 			int _type = GetRand(3);
@@ -131,17 +129,12 @@ void SukimaEvent::Draw()
 			Animation();
 		}
 
-		if (popFlg == true)
+		if (popFlg == false)
 		{
-			DrawFormatString(130, 500, GetColor(255, 255, 255), "on");
-		}
-		else
-		{
-			if (daleteFlg == false)
+			if (deleteFlg == false)
 			{
 				DrawGraph(x - width / 2 - addSize / 2, y - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 3), TRUE);
 			}
-	        DrawFormatString(130, 500, GetColor(255, 255, 255), "off");
 		}
 }
 //“–‚½‚è”»’è
@@ -188,7 +181,7 @@ void SukimaEvent::Animation()
 			isActive = false;
 		}
 
-		if (daleteFlg == true)
+		if (deleteFlg == true)
 		{
 			if (popAnimationCnt > 0)
 			{
@@ -217,7 +210,7 @@ void SukimaEvent::Animation()
 	}
 	else
 	{
-		if (daleteFlg == false)
+		if (deleteFlg == false)
 		{
 			popAnimationCnt++;
 		if (animation[popAnimationCnt] == 0)

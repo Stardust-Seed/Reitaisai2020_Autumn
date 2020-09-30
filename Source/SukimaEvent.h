@@ -42,7 +42,7 @@ private:
 
 	//アニメーション再生用
 	bool popFlg;
-	bool daleteFlg;
+	bool deleteFlg;
 	bool animationFlg;
 	int warpAnimationCnt;
 	int popAnimationCnt;
