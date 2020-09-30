@@ -39,6 +39,7 @@ public:
 	void Update();
 	void Draw();
 	void Draw_CharaName();
+	void Draw_CharaAbility();
 	void Draw_CharaGraph();
 	void Draw_Waku();
 
