@@ -2,7 +2,6 @@
 #define _LEVELSELECT_H
 
 #include "BaseScene.h"
-#include "Background.h"
 
 /// <summary>
 /// ‘I‘ð’†‚ÌƒŒƒxƒ‹
