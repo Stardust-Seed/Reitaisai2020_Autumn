@@ -3,8 +3,16 @@
 #include "BasePlayer.h"
 
 EnemyManager::EnemyManager(int level) {
-	for (int num = 0; num < MAX_ENEMY_NUM; num++) {
-		Enemys[num] = NULL;		//EnemysのポインタにNULL
+	
+	addEnemyNum = 0;				//初期化
+	activeCount = 0;
+	waitCount = 0;
+	enemyType = 0;
+	_direction = 0;
+	direction = eDirection::None;
+
+	for (int num = 0; num < MAX_ENEMY_NUM; num++) {//配列初期化
+		Enemys[num] = NULL;		
 	}
 
 	switch (level)				//引数(0～2)で難易度別の生成数を設定
@@ -23,10 +31,6 @@ EnemyManager::EnemyManager(int level) {
 		break;
 	}
 
-	addEnemyNum = 0;				//最初なので追加分はなし
-	activeCount = 0;				//生成カウント初期化
-	waitCount = 0;					//待機カウント初期化
-
 }
 
 EnemyManager::~EnemyManager() {
@@ -41,16 +45,13 @@ void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManag
 	for (int num = 0; num < enemyNum + addEnemyNum; num++) {
 
 		if (Enemys[num] != NULL) {		//NULLでない場合
-
 			Enemys[num]->Update(_castle, _player, _bulletManager);		//更新処理
 
 			if (Enemys[num]->GetInactiveType() == eInactiveType::Defeat) {
-
 				_itemManager->SpawnItem(Enemys[num]->Get_CX(), Enemys[num]->Get_CY());	//アイテム生成
 			}
 
 			if (Enemys[num]->GetIsActive() == false) {
-
 				delete Enemys[num];		//アクティブでない場合デリートして
 				Enemys[num] = NULL;		//NULLを入れる
 
@@ -59,10 +60,15 @@ void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManag
 			}
 		}
 	}
+	/*********************************************************
+		フランのスキル使用時の処理
+		エネミーが全滅します
+	*********************************************************/
+	if (_player->Get_isAbility() == true && _player->Get_AbilityType() == FRAN_Ability) {
 
-	if (_player->Get_isAbility() == true && _player->Get_AbilityType() == FRAN_Ability) {	//フランがスキルを使った時
 		for (int num = 0; num < MAX_ENEMY_NUM; num++) {		
 			if (Enemys[num] != NULL) {					//何か入ってる場合
+
 				delete Enemys[num];						//デリートして
 				Enemys[num] = NULL;						//NULLを入れる
 
@@ -91,8 +97,6 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 		if ((rand() % 100) == 0) {	//出現確率
 
-			SRand;					//乱数初期化
-
 			_direction = 0;			//方向初期化
 
 			enemyType = GetRand(ENEMY_TYPES - 1);	//ランダムな敵の種類
@@ -109,11 +113,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					if (enemyType == 0) {				//スピード型
 
-						_speed = 1.5f;
-						_power = 5.0f;
-						_durability = 25;
-
-						Enemys[num] = new Fairy_Speed(_speed, _power, _durability, direction);        //生成処理
+						Enemys[num] = new Fairy_Speed(SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
@@ -121,11 +121,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					if (enemyType == 1) {				//体力型
 
-						_speed = 0.8f;
-						_power =8.0f;
-						_durability = 125;
-
-						Enemys[num] = new Fairy_Endurance(_speed, _power, _durability, direction);        //生成処理
+						Enemys[num] = new Fairy_Endurance(SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
@@ -133,11 +129,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					if (enemyType == 2) {				//パワー型
 
-						_speed = 0.8f;
-						_power = 10.0f;
-						_durability = 75;
-
-						Enemys[num] = new Fairy_Power(_speed, _power, _durability, direction);        //生成処理
+						Enemys[num] = new Fairy_Power(SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
@@ -151,8 +143,6 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 		*******************/
 
 		if ((rand() % 400) == 0) {	//出現確率
-
-			SRand;					//乱数初期化
 
 			_direction = 0;			//方向初期化
 
@@ -168,15 +158,12 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					if (Enemys[num] == NULL) {      //NULLの場合生成開始
 
-						activeCount++;				//生成カウント加
+						activeCount++;				//生成カウント加算
 
 						if (enemyType == 0) {            //スピード型
 
-							_speed = 1.5f;
-							_power = 5.0f;
-							_durability = 25;
-
-							Enemys[num] = new Fairy_Speed(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
+							Enemys[num] = new Fairy_Speed(_castle->Get_X(_direction), _castle->Get_Y(_direction),
+								SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType],
 								_castle->Get_CastleDirection(_direction));        //生成処理
 
 							waitCount = 0;
@@ -185,11 +172,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 						if (enemyType == 1) {            //耐久型
 
-							_speed = 0.8f;
-							_power = 8.0f;
-							_durability = 125;
-
-							Enemys[num] = new Fairy_Endurance(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
+							Enemys[num] = new Fairy_Endurance(_castle->Get_X(_direction), _castle->Get_Y(_direction),
+								SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType],
 								_castle->Get_CastleDirection(_direction));        //生成処理
 
 							waitCount = 0;
@@ -198,11 +182,8 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 						if (enemyType == 2) {				//パワー型
 
-							_speed = 0.8f;
-							_power = 10.0f;
-							_durability = 75;
-
-							Enemys[num] = new Fairy_Power(_castle->Get_X(_direction), _castle->Get_Y(_direction),_speed, _power, _durability,
+							Enemys[num] = new Fairy_Power(_castle->Get_X(_direction), _castle->Get_Y(_direction),
+								SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType],
 								_castle->Get_CastleDirection(_direction));        //生成処理
 
 							waitCount = 0;

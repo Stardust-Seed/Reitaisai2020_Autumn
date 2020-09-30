@@ -8,15 +8,6 @@
 #include "ItemManager.h"
 #include "Direction.h"
 
-class CastleManager;
-
-class BasePlayer;
-
-class BulletManager;
-
-class ItemManager;
-
-class BaseEnemy;
 
 class EnemyManager {
 private:
@@ -32,6 +23,18 @@ private:
 
 	static const int ENEMY_TYPES = 3;		//現在のエネミーの種類
 
+	/*******************************************************************
+		各エネミーのステータス
+
+		左からスピード/体力/パワーの順
+	*******************************************************************/
+
+	const float SPEED[ENEMY_TYPES] = { 1.5f, 0.8f, 0.8f};	//各エネミーの速度
+
+	const float POWER[ENEMY_TYPES] = { 5.0f, 8.0f, 10.0f};	//各エネミーのパワー
+
+	const int DURABILITY[ENEMY_TYPES] = { 25, 125, 75};	//各エネミーの体力
+
 	BaseEnemy* Enemys[MAX_ENEMY_NUM];			//エネミーオブジェクト配列
 
 	eDirection direction;						//方向の列挙クラス
@@ -45,14 +48,8 @@ private:
 	int addEnemyNum;				//追加されるエネミーの数
 
 	int activeCount;				//アクティブなエネミーの数を入れる
-
-	int _durability;				//体力
 	
 	int _direction;					//方向
-	
-	float _speed;					//速度
-	
-	float _power;					//パワー
 
 public:
 	EnemyManager(int);					//コンストラクタ
