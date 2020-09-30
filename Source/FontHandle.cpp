@@ -31,7 +31,10 @@ void FontHandle::Init()
 
 	//登録
 	snoutCrayon_48_3 = CreateFontToHandle("殴り書きクレヨン", 48, 3);
+	natumemozi_38_8 = CreateFontToHandle("なつめもじ", 38, 8, DX_FONTTYPE_ANTIALIASING);
 	natumemozi_48_3 = CreateFontToHandle("なつめもじ", 48, 3);
+	natumemozi_48_8 = CreateFontToHandle("なつめもじ", 48, 8, DX_FONTTYPE_ANTIALIASING);
+	natumemozi_64_8 = CreateFontToHandle("なつめもじ", 64, 8, DX_FONTTYPE_ANTIALIASING);
 	natumemozi_100_3 = CreateFontToHandle("なつめもじ", 100, 3, DX_FONTTYPE_ANTIALIASING);
 	weakForce_48_8 = CreateFontToHandle("851チカラヨワク", 48, 8, DX_FONTTYPE_ANTIALIASING);
 	weakForce_222_16 = CreateFontToHandle("851チカラヨワク", 222, 16, DX_FONTTYPE_ANTIALIASING);
