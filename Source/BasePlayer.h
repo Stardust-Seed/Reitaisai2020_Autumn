@@ -81,6 +81,7 @@ protected:
 
 	bool isAbility;                 //スキルが発動している状態かどうか
 	int  abilityCount;              //スキル回数
+	int  bulletCount;               //弾のカウント
 
 	int playerPos;                  //プレイヤーの向き
 	// 0 = 左         1 = 上        2 = 右         3 = 下
@@ -106,6 +107,7 @@ public:
 	BasePlayer( int _pType);		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
 	void Draw();           //描画処理
+	void Draw_Arow();      //矢印描画
 
 	//更新処理
 	void Update(EnemyManager* _eManager,BuffManager* _bManager);

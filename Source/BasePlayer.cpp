@@ -36,9 +36,11 @@ BasePlayer::BasePlayer(int _pType)
 		abilityCount = 2;		    //スキル回数
 		graphNo = 0;
 		animNo = 0;
-		attackTime = 0;
+		attackTime = 5;
 		abilityTimer = 0;
 	}
+
+	bulletCount = 0;            //弾のカウント
 
 	stanTime = 0;				//スタンタイム
 	stanTime_stay = 360;		//スタン再発動までの時間
@@ -75,11 +77,37 @@ void BasePlayer::Draw()
 		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo), 255, true);
 	}
 
+	Draw_Arow();  //矢印描画
+	
+}
+void BasePlayer::Draw_Arow()
+{
+	if (playerPos == 0)
+	{
+		//左向き矢印
+		DrawTriangle(pos.x - 30, pos.y + 24, pos.x - 5, pos.y + 48, pos.x - 5, pos.y, GetColor(0, 255, 0), TRUE);
+	}
+	if (playerPos == 1)
+	{
+		//上向き矢印
+		DrawTriangle(pos.x + 24, pos.y - 30, pos.x, pos.y - 5, pos.x + 48, pos.y - 5, GetColor(0, 255, 0), TRUE);
+	}
+	if (playerPos == 2)
+	{
+		//右向き矢印
+		DrawTriangle(pos.x + 78, pos.y + 24, pos.x + 53, pos.y, pos.x + 53, pos.y + 48, GetColor(0, 255, 0), TRUE);
+	}
+	if (playerPos == 3)
+	{
+		//右向き矢印
+		DrawTriangle(pos.x + 24, pos.y + 78, pos.x, pos.y + 53, pos.x + 48, pos.y + 53, GetColor(0, 255, 0), TRUE);
+	}
 }
 void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 {
-    power *= _bManager->GetPowerBuff();   //バフによる攻撃力増加
-	speed *= _bManager->GetSpeedBuff();   //バフによるスピード増加
+
+	power = power * _bManager->GetPowerBuff();   //バフによる攻撃力増加
+	speed = speed * _bManager->GetSpeedBuff();   //バフによるスピード増加
 
 	//スタン状態でない時
 	if (isStan == 0) {
@@ -91,6 +119,8 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 		/***咲夜のスキル処理***/
 		if (Get_isAbility() == true && playerType == SAKUYA_Ability) {
 
+			//SEを鳴らす
+			SE::Instance()->PlaySE(SE_SakuyaAbility, DX_PLAYTYPE_LOOP);
 			if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
 				abilityTimer -= 1;
 				countDown = FRAME;
@@ -98,6 +128,8 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 			if (abilityTimer <= 0)
 			{
 				isAbility = false;
+				//再生を止めるとき
+				SE::Instance()->StopSE(SE_SakuyaAbility);
 			}
 			countDown -= 1;
 		}
@@ -106,6 +138,8 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 		/***フランスキル処理***/
 		if (Get_isAbility() == true && playerType == FRAN_Ability) {
 
+			//SEを鳴らす
+			SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
 			if (abilityTimer == 1) {    //フランのスキルは発動したらすぐ終了する
 				isAbility = false;
 				abilityTimer = 0;
@@ -181,20 +215,30 @@ bool BasePlayer::ClisionHit(float mx, float my, float mw, float mh,
 void BasePlayer::Attack()
 {
 
-	if (attackTime < 15)   //攻撃間隔
+	if (attackTime < 20)   //攻撃間隔
 	{
 		attackTime++;
 	}
 	if (isMove == false) {
-		if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && attackTime >= 15)
+		if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && attackTime >= 20)
 		{
 			//攻撃flagをtrueにする
 			isAttack = true;
 			//弾を飛ばす
 			bulletManager->Shot(pos, playerPos, isAttack);
+			if (playerType == SAKUYA)
+			{
+				//SEを鳴らす
+				SE::Instance()->PlaySE(SE_SakuyaAttack, DX_PLAYTYPE_BACK);
+			}
+			else
+			{
+				//SEを鳴らす
+				SE::Instance()->PlaySE(SE_FranAttack, DX_PLAYTYPE_BACK);
+			}
 			if (playerType == FRAN)
 			{
-				attackTime = 0;
+				attackTime = 5;
 			}
 			else
 			{
