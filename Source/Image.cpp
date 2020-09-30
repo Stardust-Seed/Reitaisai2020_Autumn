@@ -5,12 +5,12 @@ Image::Image() {
 	//‰æ‘œ‚Ì“Ç‚İ‚İ
 	MyLoadGraph("./res/Image/title_rogo.png");
 	MyLoadGraph("./res/Image/Title.png");
-	MyLoadGraph("./res/Image/background_Menu.png");
-	MyLoadGraph("./res/Image/star.png");
+	MyLoadGraph("./res/Image/BackFiliter.png");
 	MyLoadGraph("./res/Image/Game01.png");
 	MyLoadGraph("./res/Image/darkness.png");
 	MyLoadGraph("./res/Image/koumakan.png");
 	MyLoadGraph("./res/Image/Game02.png");
+	MyLoadGraph("./res/Image/mountain.png");
 	MyLoadGraph("./res/Image/mes.png");
 
 	//‰æ‘œ‚ğ•ªŠ„‚µ‚Ä“Ç‚İ‚İ
@@ -24,6 +24,7 @@ Image::Image() {
 	MyLoadDivGraph("./res/Image/ex.png", 6, 6, 1, 100, 100);
 	MyLoadDivGraph("./res/Image/bomb.png", 2, 2, 1, 50, 50);
 	MyLoadDivGraph("./res/Image/fake.png", 3, 3, 1, 50, 50);
+	MyLoadDivGraph("./res/Image/Attack.png", 2, 2, 1, 25, 25);
 	MyLoadDivGraph("./res/Image/CursorFrame.png", 4, 4, 1, 650, 250);
 }
 
