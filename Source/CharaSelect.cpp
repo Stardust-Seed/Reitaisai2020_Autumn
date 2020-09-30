@@ -35,7 +35,7 @@ void CharaSelect::Update()
 
 	/****Œˆ’è****/
 	/************/
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_RETURN) == 1))
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1))
 	{
 		switch (charaSelect) {
 		case select_SAKUYA:   //ç–é‚ğ‘I‘ğ
