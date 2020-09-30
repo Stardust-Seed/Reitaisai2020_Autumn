@@ -1,7 +1,10 @@
 #ifndef _LEVELSELECT_H
 #define _LEVELSELECT_H
 
+#include <string>
 #include "BaseScene.h"
+
+using namespace std;
 
 /// <summary>
 /// 選択中のレベル
@@ -20,44 +23,32 @@ private:
 	const int CURSOR_UP		= 0;	//カーソルが上がった(定数)
 	const int CURSOR_DOWN	= 1;	//カーソルが下がった(定数)
 
+	string EASY		= "Easy";
+	string NORMAL	= "Normal";
+	string HARD		= "Hard";
+
 	eLevelType selectLevel;	//選択されたレベル
 	eLevelType tmpLevel;	//変更前のレベル
 
 	//Easy座標
-	float easyX1;
-	float easyX2;
-	float easyY1;
-	float easyY2;
+	float easyX;
+	float easyY;
 
 	//Normal座標
-	float normalX1;
-	float normalX2;
-	float normalY1;
-	float normalY2;
+	float normalX;
+	float normalY;
 
 	//Hard座標
-	float hardX1;
-	float hardX2;
-	float hardY1;
-	float hardY2;
+	float hardX;
+	float hardY;
 
 	int animationCnt;	//アニメーションカウント
 	bool isChange;		//切り替えフラグ
 
-	void ChangeLevel();
+	void ChangeLevel(int _changeMode);
 
-	/// <summary>
-	/// UIの描画処理
-	/// </summary>
-	/// <param name="_x1">始点のx座標</param>
-	/// <param name="_y1">始点のy座標</param>
-	/// <param name="_x2">終点のx座標</param>
-	/// <param name="_y2">終点のy座標</param>
-	/// <param name="_color">UIの色</param>
-	/// <param name="_text">表示するテキスト</param>
-	/// <param name="_levelType">このUIのレベル</param>
-	void DrawUIBox(float _x1, float _y1, float _x2, float _y2, unsigned int _color,
-		const char* _text, eLevelType _levelType);
+	void DrawUIBox(float _x, float _y, string _text,
+		eLevelType _levelType, Cursor _cursor);
 
 	/// <summary>
 	/// UIの切り替えアニメーション
