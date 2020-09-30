@@ -6,15 +6,16 @@
 SukimaEvent::SukimaEvent() {
 	SRand;					//乱数初期化
 
-	warpPosX = 0;
-    warpPosY = 0;
 	width = 48;
 	height = width;
 	addSize = 12;
+	popFlg = true;
+	daleteFlg = false;
 
 	isHit = false;
-
-	animationCnt = 0;
+	isActive = true;
+	warpAnimationCnt = 0;
+	popAnimationCnt = 0;
 	animationFlg = false;
 
 	type = GetRand(3);    //乱数取得
@@ -49,6 +50,8 @@ SukimaEvent::SukimaEvent() {
 	default:
 		break;
 	}
+	warpPosX = x;
+    warpPosY = y;
 }
 //デストラクタ
 SukimaEvent::~SukimaEvent() {
@@ -58,11 +61,12 @@ SukimaEvent::~SukimaEvent() {
 void SukimaEvent::Update(EnemyManager* enemy)
 {
 	SRand;
-
+	DrawFormatString(150, 500, GetColor(255, 255, 255), "pop  %d", popAnimationCnt);
+	DrawFormatString(130, 500, GetColor(255, 255, 255), "\nwarp %d", warpAnimationCnt);
 	for (int num = 0; num < enemy->Get_enemyNum(); num++)
 	{
 		//当たり判定
-		if (enemy->Get_ActiveFlg(num) == true)
+		if (enemy->Get_ActiveFlg(num) == true && animationFlg==false)
 		{
 			ClisionHit(x,y,width,height,
 				enemy->Get_x(num), enemy->Get_y(num),
@@ -72,8 +76,9 @@ void SukimaEvent::Update(EnemyManager* enemy)
 		if (isHit == true)
 		{
 			SE::Instance()->PlaySE(SE_sukimaWarp);
+			daleteFlg = true;
 			animationFlg = true;
-			animationCnt = 0;
+			warpAnimationCnt = 0;
 			int _type = GetRand(3);
 			if (type == _type)return;
 			switch (_type)
@@ -120,11 +125,23 @@ void SukimaEvent::Update(EnemyManager* enemy)
 //描画
 void SukimaEvent::Draw()
 {
-	    DrawGraph(x - width / 2, y - height / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 3), TRUE);
 
-		if (animationFlg == true)
+		if ( popFlg ||animationFlg == true)
 		{
 			Animation();
+		}
+
+		if (popFlg == true)
+		{
+			DrawFormatString(130, 500, GetColor(255, 255, 255), "on");
+		}
+		else
+		{
+			if (daleteFlg == false)
+			{
+				DrawGraph(x - width / 2 - addSize / 2, y - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 3), TRUE);
+			}
+	        DrawFormatString(130, 500, GetColor(255, 255, 255), "off");
 		}
 }
 //当たり判定
@@ -145,26 +162,86 @@ bool SukimaEvent:: ClisionHit(float mx, float my, float mw, float mh,
 //アニメーション再生
 void SukimaEvent::Animation()
 {
-	animationCnt++;
-	if (animationNum[animationCnt] == 0)
+	if (popFlg == false)
 	{
-	 	DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 0), TRUE);
+		warpAnimationCnt++;
+		if (animation[warpAnimationCnt] == 0)
+		{
+			DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 0), TRUE);
+		}
+		if (animation[warpAnimationCnt] == 1)
+		{
+			DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 1), TRUE);
+		}
+		if (animation[warpAnimationCnt] == 2)
+		{
+			DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 2), TRUE);
+		}
+		if (animation[warpAnimationCnt] == 3)
+		{
+			DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 3), TRUE);
+		}
+		if (animation[warpAnimationCnt] == 4)
+		{
+			warpAnimationCnt = 0;
+			animationFlg = false;
+			isActive = false;
+		}
+
+		if (daleteFlg == true)
+		{
+			if (popAnimationCnt > 0)
+			{
+				popAnimationCnt--;
+			}
+
+			if (animation[popAnimationCnt] == 0)
+			{
+				DrawGraph(x - width / 2 - addSize / 2, y - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 0), TRUE);
+			}
+			if (animation[popAnimationCnt] == 1)
+			{
+				DrawGraph(x - width / 2 - addSize / 2, y - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 1), TRUE);
+			}
+			if (animation[popAnimationCnt] == 2)
+			{
+				DrawGraph(x - width / 2 - addSize / 2, y - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 2), TRUE);
+			}
+			if (animation[popAnimationCnt] == 3)
+			{
+				popFlg = false;
+				DrawGraph(x - width / 2 - addSize / 2, y - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 3), TRUE);
+			}
+		}
+
 	}
-	if (animationNum[animationCnt] == 1)
+	else
 	{
-	 	DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 1), TRUE);
-	}
-	if (animationNum[animationCnt] == 2)
-	{
-	    DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 2), TRUE);
-	}
-	if (animationNum[animationCnt] == 3)
-	{
-	    DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 3), TRUE);
-	}
-	if (animationNum[animationCnt] == 4)
-	{
-		animationCnt = 0;
-		animationFlg = false;
+		if (daleteFlg == false)
+		{
+			popAnimationCnt++;
+		if (animation[popAnimationCnt] == 0)
+		{
+			DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 0), TRUE);
+		}
+		if (animation[popAnimationCnt] == 1)
+		{
+			DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 1), TRUE);
+		}
+		if (animation[popAnimationCnt] == 2)
+		{
+			DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 2), TRUE);
+		}
+		if (animation[popAnimationCnt] == 3)
+		{
+			popFlg = false;
+			DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 3), TRUE);
+		}
+		if (animation[popAnimationCnt] == 4)
+		{
+			animationFlg = false;
+		}
+
+		}
 	}
 }
