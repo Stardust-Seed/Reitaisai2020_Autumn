@@ -6,10 +6,10 @@
 class FakeBomb : public virtual BaseBomb
 {
 private:
-	int act_frameIndex[16] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	                           2, 2, 2, 3};   // ï\é¶Ç∑ÇÈî‘çÜ
-	int m_frameIndex = 0;
+	int fake_Animation[18] = { 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 
+	                           2, 2, 2, 2, 2, 2, 3};   // ï\é¶Ç∑ÇÈî‘çÜ
 	bool isFakeAction;
+
 public:
 	FakeBomb() = default;
 	FakeBomb(int _power, int _speed, eBombType _bombType);

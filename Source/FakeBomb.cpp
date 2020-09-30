@@ -6,6 +6,7 @@ FakeBomb::FakeBomb(int _power, int _speed, eBombType _bombType)
 	: BaseBomb(_power, _speed, _bombType)
 {
 	isFakeAction = false;
+	AnimationFlg = false;
 };
 
 //”š”­‚µ‚½‚Æ‚«‚Ìˆ—
@@ -14,19 +15,21 @@ void FakeBomb::FakeMotion()
 	//‹U”š’e‚ª‹N“®
 	if (isTrigger == true)
 	{
-		damage -= power;
 		isFakeAction = true;
 		if (isFakeAction == true)
 		{
+			isTrigger = false;
 			AnimationFlg = true;
 			if (AnimationFlg == true)
 			{
+				isFakeAction = false;
 				Animation();
 			}
-			isTrigger = false;
-			isFakeAction = false;
+			else
+			{
+				DrawGraph(x, y - 30, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 2), TRUE);
+			}
 		}
-
 	}
 }
 
@@ -52,24 +55,25 @@ void FakeBomb::Draw()
 void FakeBomb::Animation()
 {
 	m_frameIndex++;
+	m_frameIndex %= 18;
 
-	if (act_frameIndex[m_frameIndex] == 0)
+	if (fake_Animation[m_frameIndex] == 0)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 0), TRUE);
 	}
 
-	if (act_frameIndex[m_frameIndex] == 1)
+	if (fake_Animation[m_frameIndex] == 1)
 	{
-		DrawGraph(x, y - 30, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 1), TRUE);		
+		DrawGraph(x, y - 10, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 1), TRUE);		
 	}
-	if (act_frameIndex[m_frameIndex] == 2)
+	if (fake_Animation[m_frameIndex] == 2)
 	{
-		DrawGraph(x, y -50, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 2), TRUE);
+		DrawGraph(x, y -30, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 2), TRUE);
 	}
 
-	if (act_frameIndex[m_frameIndex] == 3)
+	if (fake_Animation[m_frameIndex] == 3)
 	{
 		AnimationFlg = false;
-		m_frameIndex = 0;
+		m_frameIndex--;
 	}
 }
