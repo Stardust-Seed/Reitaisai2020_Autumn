@@ -39,7 +39,7 @@ void GameScene::Update()
 	eventManager->Update(enemyManager);
 	buffManager->Update(itemManager,enemyManager);
 	timeLimit->Update();
-	ui->Update(castleManager, itemManager, buffManager);
+	ui->Update(castleManager, itemManager, buffManager,player);
 
 	//ゲームシーンのシーン処理
 	ChangeScene();

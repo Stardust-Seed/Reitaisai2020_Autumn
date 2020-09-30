@@ -3,7 +3,7 @@
 
 #include <string>
 #include "BaseScene.h"
-
+#include "Cursor.h"
 using namespace std;
 
 /// <summary>
