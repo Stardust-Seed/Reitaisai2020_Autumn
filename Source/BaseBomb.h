@@ -42,16 +42,15 @@ class castleManager;
 		int power;						//爆弾のダメージ
 		int damage;
 		int countdown;					//カウントダウン
-		int put;
 		int direction;					//爆弾が落ちる方向
 		int type;						//爆弾の種類
-
-		bool AnimationFlg;
+		int m_frameIndex = 0;
 
 		bool isXplosion;				//爆発したかどうか
 		bool isTrigger;					//爆発してるかしてないか
 		bool isSpown;					//爆弾の生成したかどうか
 		bool isCount;					//カウントダウンを表示させるため
+		bool AnimationFlg;
 
 	public:
 		BaseBomb() {}

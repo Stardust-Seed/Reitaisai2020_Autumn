@@ -18,7 +18,6 @@ void Bomb::DamageMotion()
 		{
 			Animation();
 		}
-		
 	}
 }
 
@@ -44,39 +43,39 @@ void Bomb::Draw()
 void Bomb::Animation()
 {
 	m_frameIndex++;
-	if (act_frameIndex[m_frameIndex] == 0)
+	if (bomb_Animation[m_frameIndex] == 0)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 0), TRUE);
 	}
 
-	if (act_frameIndex[m_frameIndex] == 1)
+	if (bomb_Animation[m_frameIndex] == 1)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 1), TRUE);
 	}
 
-	if (act_frameIndex[m_frameIndex] == 2)
+	if (bomb_Animation[m_frameIndex] == 2)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 2), TRUE);
 	}
 
-	if (act_frameIndex[m_frameIndex] == 3)
+	if (bomb_Animation[m_frameIndex] == 3)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 3), TRUE);
 	}
 
-	if (act_frameIndex[m_frameIndex] == 4)
+	if (bomb_Animation[m_frameIndex] == 4)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 4), TRUE);
 	}
 
-	if (act_frameIndex[m_frameIndex] == 5)
+	if (bomb_Animation[m_frameIndex] == 5)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 5), TRUE);
 	}
 
-	if (act_frameIndex[m_frameIndex] == 6)
+	if (bomb_Animation[m_frameIndex] == 6)
 	{
 		AnimationFlg = false;
-		m_frameIndex = 0;
+		m_frameIndex--;
 	}
 }

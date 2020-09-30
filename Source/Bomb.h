@@ -8,9 +8,10 @@ private:
 	const int BOMBDAMAGE = 10;
 	
 	
-	int act_frameIndex[21] = { 0, 1, 1, 2, 2, 3, 3, 3, 4, 4,
+	int bomb_Animation[21] = { 0, 1, 1, 2, 2, 3, 3, 3, 4, 4,
 		                      4, 5, 5, 4, 4, 3, 3, 2, 1, 0, 6 };    // ï\é¶Ç∑ÇÈî‘çÜ
-	int m_frameIndex = 0;
+	
+	
 public:
 	Bomb() = default;
 	Bomb(int _power, int _speed, eBombType _bombType);

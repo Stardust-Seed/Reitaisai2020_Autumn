@@ -10,13 +10,11 @@ BaseBomb::BaseBomb(int _power, int _speed, eBombType _bombType)
 	type = _bombType;
 	
 	direction = GetRand(3);					//方向の乱数
-	
 	countdown = COUNTMAX;						//カウントダウンのセット
 	
 	isSpown = false;
 	isXplosion = false;							//初期状態
 	isTrigger = false;
-	isCount == false;
 
 	if (direction == DIRECTIONLEFT)			//左
 	{
