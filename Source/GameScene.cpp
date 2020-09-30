@@ -48,6 +48,9 @@ void GameScene::Update()
 //描画
 void GameScene::Draw()
 {
+	//背景表示
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Game), TRUE);
+
 	//表示するのが奥の方の奴ら
 	castleManager->Draw();
 
@@ -58,9 +61,15 @@ void GameScene::Draw()
 
 	//表示するのが前の方の奴ら
 	itemManager->Draw();
+
+	//森表示
+	DrawTurnGraph(-25, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
+	DrawGraph(GAME_WIDTH - 505, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
+
 	eventManager->Draw();
 	timeLimit->Draw();
 	ui->Draw();
+
 }
 
 //シーン変更

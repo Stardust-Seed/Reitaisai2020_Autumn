@@ -2,6 +2,7 @@
 #define _GAMESCENE_H_
 
 //インクルードするやつが多いのでグループ分けして間を分けてる
+#include "Define.h"
 #include "BaseScene.h"
 
 #include "EnemyManager.h"
