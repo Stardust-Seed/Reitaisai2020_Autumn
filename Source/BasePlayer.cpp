@@ -278,7 +278,7 @@ void BasePlayer::Ability()
 	//スキル回数がまだ残っている時
 	if (abilityCount > 0 && Get_isAbility() == false) {
 		//スペースキーを押すとスキル発動
-		if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
+		if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1)
 		{
 			isAbility = true;
 			abilityCount -= 1;
