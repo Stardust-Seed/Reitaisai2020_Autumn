@@ -37,6 +37,10 @@ void SE::Load()
 	seNum[SE_warning] = LoadSE("./res/Sound/SE/warning1.wav");
 	seNum[SE_DarknessStart] = LoadSE("./res/Sound/SE/buun1.wav");
 	seNum[SE_DarknessEnd] = LoadSE("./res/Sound/SE/buun1_reverse.wav");
+	seNum[SE_SakuyaAttack] = LoadSE("./res/Sound/SE/sakuya.wav");
+	seNum[SE_SakuyaAbility] = LoadSE("./res/Sound/SE/sakuya_ab.wav");
+	seNum[SE_FranAttack] = LoadSE("./res/Sound/SE/fran.wav");
+	seNum[SE_FranAbility] = LoadSE("./res/Sound/SE/fran_ab.wav");
 }
 
 //SE‚ğÄ¶
