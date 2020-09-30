@@ -8,6 +8,11 @@ EventManager::EventManager(int level) {
 	Sukima = NULL;		//スキマ初期化
 	waitCount = 0;		//カウント初期化
 
+	eventType = 0;
+	bombType = 0;
+	bpower = 0;
+	bspeed = 0;
+
 	for (int num = 0; num < BOMB_TYPES; num++) {
 		Bombs[num] = NULL;	//ボム初期化
 	}
@@ -46,8 +51,6 @@ void EventManager::SpawnEvent() {
 
 		if (Event == NULL) {//NULL(何もイベントが発生していない)時に生成
 
-			SRand;			//乱数初期化
-
 			eventType = GetRand(EVENT_TYPES - 1);		//イベント数
 
 			if (eventType == 0) {
@@ -66,7 +69,7 @@ void EventManager::SpawnEvent() {
 void EventManager::Update(EnemyManager* enemyManager) {
 	SpawnEvent();			//生成
 	SpawnSukima();			//スキマ生成
-	SpawnBombs();  //ボム生成
+	SpawnBombs();			//ボム生成
 
 	if (Event != NULL) {	//何かしらイベントが行われている場合
 		Event->Update();	//更新
@@ -145,7 +148,6 @@ void EventManager::SpawnBombs() {
 	//if (rand() % 700 == 0) {	//確率
 	if (waitCount >= 50) {
 		if (rand() % 100 == 0) {
-			SRand;
 			//bombType = GetRand(BOMB_TYPES);
 			bombType = fakebomb;
 			//bombType = bomb;

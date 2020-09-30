@@ -10,7 +10,7 @@
 
 #include "EnemyManager.h"
 
-class BaseEvent;
+
 
 class EventManager {
 private:
