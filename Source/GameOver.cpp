@@ -4,7 +4,7 @@
 //コンストラクタ
 GameOver::GameOver(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseScene(_sceneChanger, _parameter)
 {
-	nowCursor = Continuity_Yes;
+	nowCursor = Cursor::Cursor_0;
 	x = 0;
 	alpha = 0;
 	charaType = _parameter->Get(BaseScene::CharaSelectTag);
@@ -22,9 +22,24 @@ void GameOver::Update()
 //描画
 void GameOver::Draw()
 {
-	DrawGraph(GAME_WIDTH / 1.45f, GAME_HEIHGT / 9, Image::Instance()->GetGraph(eImageType::Spicture_Fran, 0), TRUE);
+	//キャラの表示
+	switch (charaType)
+	{
+	case 0:
+		DrawGraph(GAME_WIDTH / 1.45f, GAME_HEIHGT / 9, Image::Instance()->GetGraph(eImageType::Spicture_Sakuya, 2), TRUE);
+		break;
+
+	case 1:
+		DrawGraph(GAME_WIDTH / 1.45f, GAME_HEIHGT / 9, Image::Instance()->GetGraph(eImageType::Spicture_Fran, 2), TRUE);
+		break;
+
+	default:
+		break;
+	}
+
+	//メッセージウインドウ表示
 	DrawGraph(0, GAME_HEIHGT - 450, Image::Instance()->GetGraph(eImageType::UI_MessageBox), TRUE);
-	
+
 	//ブレンドモードを乗算済みα用のαブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_PMA_ALPHA, alpha);
 
@@ -34,25 +49,35 @@ void GameOver::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, alpha);
 
 	//カーソルフレームの表示
-	DrawGraph(x, GAME_HEIHGT / 2 + 25, Image::Instance()->GetGraph(eImageType::UI_CursorFrame,3), TRUE);
+	if (x != GAME_X)
+	{
+		DrawRotaGraph(GAME_X, GAME_HEIHGT / 2 + 75, 0.6f, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
+	}
+	else
+	{
+		DrawRotaGraph(MENU_X, GAME_HEIHGT / 2 + 75, 0.6f, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
+	}
 
-	DrawGraph(GAME_X, GAME_HEIHGT / 2 + 25, Image::Instance()->GetGraph(eImageType::UI_CursorFrame,0), TRUE);
-	DrawGraph(MENU_X, GAME_HEIHGT / 2 + 25, Image::Instance()->GetGraph(eImageType::UI_CursorFrame,0), TRUE);
+	//選択されてるカーソルフレームの表示
+	DrawRotaGraph(x, GAME_HEIHGT / 2 + 75, 0.6f, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 3), TRUE);
 
-	DrawStringToHandle(GAME_WIDTH / 7.5f, GAME_HEIHGT / 2 + 50, "コンティニューする  ", GetColor(128,0,0), FontHandle::Instance()->Get_weakForce_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2.5f, GAME_HEIHGT / 2 + 50,  "コンティニューしない", GetColor(128, 0, 0), FontHandle::Instance()->Get_weakForce_48_8());
+	//テキスト表示
+	DrawStringToHandle(GAME_WIDTH / 7.5f + 5, GAME_HEIHGT / 2 + 55, "コンティニューする  ", GetColor(255,64,0), FontHandle::Instance()->Get_natumemozi_38_8());
+	DrawStringToHandle(GAME_WIDTH / 2.5f, GAME_HEIHGT / 2 + 55, "コンティニューしない", GetColor(255,64, 0), FontHandle::Instance()->Get_natumemozi_38_8());
 
-
-	//キャラの表示
+	//キャラ名とセリフ表示
 	switch (charaType)
 	{
-	//ケース文はenumにするかもしれない
-	case 1:
-		DrawGraph(GAME_WIDTH / 1.5f, GAME_HEIHGT / 1.75f, Image::Instance()->GetGraph(eImageType::Spicture_Sakuya, 0), TRUE);
+	case 0:
+		DrawStringToHandle(GAME_WIDTH - 500, GAME_HEIHGT - 340, "十六夜 咲夜", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+
+		DrawStringToHandle(GAME_WIDTH / 13, GAME_HEIHGT - 260, "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 		break;
 
-	case 2:
-		DrawGraph(GAME_WIDTH / 1.5f, GAME_HEIHGT / 1.75f, Image::Instance()->GetGraph(eImageType::Spicture_Fran, 0), TRUE);
+	case 1:
+		DrawStringToHandle(GAME_WIDTH / 1.5f + 10, GAME_HEIHGT - 340, "フランドール・スカーレット", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+
+		DrawStringToHandle(GAME_WIDTH / 13, GAME_HEIHGT - 260, "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 		break;
 
 	default:
@@ -75,12 +100,15 @@ void GameOver::Select()
 	{
 		switch (nowCursor)
 		{
-		case Continuity_Yes:
+		case Cursor::Cursor_0:
 			x = GAME_X;
 			break;
 
-		case Continuity_No:
+		case Cursor::Cursor_1:
 			x = MENU_X;
+			break;
+
+		default:
 			break;
 		}
 	}
@@ -90,11 +118,8 @@ void GameOver::Select()
 		if (Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1)
 		{
 			SE::Instance()->PlaySE(SE_cursor);
-			nowCursor -= 1;
+			nowCursor = Cursor::Cursor_0;
 		}
-
-		//nowCursorの番号が最低値含め下なら実行
-		if (Continuity_Min >= nowCursor)nowCursor = Continuity_Max - 1;
 	}
 
 	//右キーが押された時の処理
@@ -102,27 +127,27 @@ void GameOver::Select()
 		if (Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) == 1 )
 		{
 			SE::Instance()->PlaySE(SE_cursor);
-			nowCursor += 1;
+			nowCursor = Cursor::Cursor_1;
 		}
-
-		//nowCursorの番号が最大値含め上なら実行
-		if (Continuity_Max <= nowCursor)nowCursor = Continuity_Min + 1;
 	}
 
 	//Enterキーが押された時の処理
 	{
-		if (Input::Instance()->GetPressCount(KEY_INPUT_RETURN) == 1)
+		if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1)
 		{
 			BGM::Instance()->StopBGM(BGM_result);
 			//カーソルの場所によって行うシーン変更処理を決める
 			switch (nowCursor)
 			{
-			case Continuity_Yes:    //コンティニューする
+			case Cursor::Cursor_0:    //コンティニューする
 				sceneChanger->SceneChange(eScene_GAME, parameter, false, false);
 				break;
 
-			case Continuity_No:   	//コンティニューしない
+			case Cursor::Cursor_1:    //コンティニューしない
 				sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
+				break;
+
+			default:
 				break;
 			}
 		}
