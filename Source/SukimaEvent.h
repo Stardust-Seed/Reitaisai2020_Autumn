@@ -41,15 +41,17 @@ private:
 	int type;
 
 	//アニメーション再生用
+	bool popFlg;
+	bool deleteFlg;
 	bool animationFlg;
-	int  animationCnt;
-	int animationNum[61] = { 0,0,0,0,0,1,1,1,1,1,
-							 2,2,2,2,2,3,3,3,3,3,
-		                     3,3,3,3,3,3,3,3,3,3,
-		                     3,3,3,3,3,3,3,3,3,3,
-							 3,3,3,3,3,2,2,2,2,2,			
-		                     1,1,1,1,1,0,0,0,0,0,4 };
-
+	int warpAnimationCnt;
+	int popAnimationCnt;
+	int animation[62] = { 4,0,0,0,0,0,1,1,1,1,1,
+						  2,2,2,2,2,3,3,3,3,3,
+		                  3,3,3,3,3,3,3,3,3,3,
+		                  3,3,3,3,3,3,3,3,3,3,
+				       	  3,3,3,3,3,2,2,2,2,2,
+		                  1,1,1,1,1,0,0,0,0,0,4 };
 public:
 	SukimaEvent();
 	~SukimaEvent();
