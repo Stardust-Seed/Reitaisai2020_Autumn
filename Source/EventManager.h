@@ -4,10 +4,13 @@
 #include "Define.h"
 #include "DarknessEvent.h"
 #include "SukimaEvent.h"
+#include "BaseBomb.h"
+#include "Bomb.h"
+#include "FakeBomb.h"
 
 #include "EnemyManager.h"
 
-class BaseEvent;
+
 
 class EventManager {
 private:
@@ -19,11 +22,21 @@ private:
 
 	static const int EVENT_TYPES = 2;			//イベントの種類
 
+	static const int BOMB_TYPES = 2;			//ボムの種類
+
+	const int BPOWER[BOMB_TYPES] = { 10, 0};
+
+	const int BSPEED[BOMB_TYPES] = { 3, 3};
+
 	int eventWaitTime;		//難易度よって変わるイベントの発生間隔
 
 	int eventType;			//発生するイベントの乱数
 
 	int waitCount;			//イベント発生の待機カウント
+
+	int bombType;
+
+	BaseBomb* sBomb;
 
 	BaseEvent* Event;		//イベントを入れる変数
 
@@ -41,6 +54,14 @@ public:
 	void Draw();				//描画
 
 	void SpawnSukima();			//スキマの生成
+
+	void SpawnBombs();
+
+	int Get_BombType();
+
+	int Get_Power(int);			//攻撃力を受け取る
+
+	bool Get_IsActive(int);		//アクティブなのかを受け取る
 };
 
 
