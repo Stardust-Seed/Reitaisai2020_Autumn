@@ -22,7 +22,11 @@ private:
 
 	static const int EVENT_TYPES = 2;			//イベントの種類
 
-	static const int BOMB_TYPES = 2;
+	static const int BOMB_TYPES = 2;			//ボムの種類
+
+	const int BPOWER[BOMB_TYPES] = { 10, 0};
+
+	const int BSPEED[BOMB_TYPES] = { 3, 3};
 
 	int eventWaitTime;		//難易度よって変わるイベントの発生間隔
 
@@ -32,11 +36,7 @@ private:
 
 	int bombType;
 
-	int bpower;
-
-	int bspeed;
-
-	BaseBomb* Bombs[BOMB_TYPES];
+	BaseBomb* sBomb;
 
 	BaseEvent* Event;		//イベントを入れる変数
 

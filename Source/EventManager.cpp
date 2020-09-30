@@ -6,16 +6,11 @@ EventManager::EventManager(int level) {
 
 	Event = NULL;		//イベントの初期化
 	Sukima = NULL;		//スキマ初期化
+	sBomb = NULL;		//ボム初期化
+
 	waitCount = 0;		//カウント初期化
-
-	eventType = 0;
-	bombType = 0;
-	bpower = 0;
-	bspeed = 0;
-
-	for (int num = 0; num < BOMB_TYPES; num++) {
-		Bombs[num] = NULL;	//ボム初期化
-	}
+	eventType = 0;		//イベントタイプ初期化
+	bombType = 0;		//ボムタイプ初期化
 
 	switch (level)				//引数(0～2)で難易度別の生成数を設定
 	{
@@ -38,10 +33,7 @@ EventManager::EventManager(int level) {
 EventManager::~EventManager() {
 	delete Event;		//デリート
 	delete Sukima;
-
-	for (int num = 0; num < BOMB_TYPES; num++) {
-		delete Bombs[num];
-	}
+	delete sBomb;
 }
 
 void EventManager::SpawnEvent() {
@@ -49,16 +41,17 @@ void EventManager::SpawnEvent() {
 
 	if (waitCount >= FRAME * eventWaitTime) {// フレーム数 * 秒 = 待機時間　待機時間を超えても前のイベントが実行中なら実行しない
 
-		if (Event == NULL) {//NULL(何もイベントが発生していない)時に生成
+		if (Event == NULL && sBomb == NULL) {//NULL(何もイベントが発生していない)時に生成
 
-			eventType = GetRand(EVENT_TYPES - 1);		//イベント数
+			eventType = GetRand(EVENT_TYPES - 1);		//乱数で生成するイベントを選択
 
 			if (eventType == 0) {
 				Event = new DarknessEvent();	//生成
 			}
 
 			if (eventType == 1) {
-			//	Event = new BaseEvent();	//test用生成
+				SpawnBombs();			//ボム生成
+				waitCount = 0;			//カウント初期化
 			}
 
 		}
@@ -69,7 +62,7 @@ void EventManager::SpawnEvent() {
 void EventManager::Update(EnemyManager* enemyManager) {
 	SpawnEvent();			//生成
 	SpawnSukima();			//スキマ生成
-	SpawnBombs();			//ボム生成
+
 
 	if (Event != NULL) {	//何かしらイベントが行われている場合
 		Event->Update();	//更新
@@ -95,20 +88,18 @@ void EventManager::Update(EnemyManager* enemyManager) {
 		}
 	}
 
-	for (int num = 0; num < BOMB_TYPES; num++) {
+	if (sBomb != NULL) {		//NULLでない場合
 
-		if (Bombs[num] != NULL) {		//NULLでない場合
+		sBomb->Update();  //更新
 
-			Bombs[num]->Update();  //更新
+		if (sBomb->GetIsActive() == false)	 //初期化
+		{
+			delete sBomb;
 
-			if (Bombs[num]->GetIsActive() == false)	 //初期化
-			{
-				delete Bombs[num];
-
-				Bombs[num] = NULL;
-			}
+			sBomb = NULL;
 		}
 	}
+
 
 }
 
@@ -122,11 +113,10 @@ void EventManager::Draw() {
 		Event->Draw();		//描画
 	}
 
-	for (int num = 0; num < BOMB_TYPES; num++) {
-		if (Bombs[num] != NULL) {
-			Bombs[num]->Draw();	//描画
-		}
+	if (sBomb != NULL) {
+		sBomb->Draw();	//描画
 	}
+
 }
 
 void EventManager::SpawnSukima() {
@@ -143,39 +133,14 @@ void EventManager::SpawnSukima() {
 
 
 void EventManager::SpawnBombs() {
+	bombType = GetRand(BOMB_TYPES - 1) +1;	//eBombに合わせるために1を加算
 
-	waitCount++;
-	//if (rand() % 700 == 0) {	//確率
-	if (waitCount >= 50) {
-		if (rand() % 100 == 0) {
-			//bombType = GetRand(BOMB_TYPES);
-			bombType = fakebomb;
-			//bombType = bomb;
+	if (bombType == bomb) {
+		sBomb = new Bomb(BPOWER[bombType - 1], BSPEED[bombType - 1], static_cast<eBombType>(bomb));
+	}
 
-			for (int num = 0; num < BOMB_TYPES - 1; num++) {
-
-				if (Bombs[num] == NULL) {	//生成されてない場合
-
-					DrawFormatString(10, 600, GetColor(255, 255, 255), "type%d", bombType);
-
-					if (bombType == bomb) {
-						bpower = 10;
-						bspeed = 3;
-						Bombs[num] = new Bomb(bpower, bspeed, static_cast<eBombType>(bomb));
-						waitCount = 0;
-						break;
-					}
-
-					if (bombType == fakebomb) {
-						bpower = 0;
-						bspeed = 3;
-						Bombs[num] = new FakeBomb(bpower, bspeed, static_cast<eBombType>(fakebomb));
-						waitCount = 0;
-						break;
-					}
-				}
-			}
-		}
+	if (bombType == fakebomb) {
+		sBomb = new FakeBomb(BPOWER[bombType - 1], BSPEED[bombType - 1], static_cast<eBombType>(fakebomb));
 	}
 }
 
@@ -185,15 +150,15 @@ int EventManager::Get_BombType() {
 
 
 int EventManager::Get_Power(int num) {
-	if (Bombs[num] != NULL) {
-		return Bombs[num]->GetPower();
+	if (sBomb != NULL) {
+		return sBomb->GetPower();
 	}
 	return 0;
 }
 
 bool EventManager::Get_IsActive(int num) {
-	if (Bombs[num] != NULL) {
-		return Bombs[num]->GetIsTriggerFlg();
+	if (sBomb != NULL) {
+		return sBomb->GetIsTriggerFlg();
 	}
 	return 0;
 }
