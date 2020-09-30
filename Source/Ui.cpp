@@ -117,9 +117,23 @@ void UI::Get_BuffPoint()
 	}
 }
 
+void UI::AbilityUi()
+{
+	DrawFormatString(0, 100, GetColor(255, 255, 255), "Skill‰ñ”%d", skillcount);
+
+	if (skilltype == SAKUYA_Ability)
+	{
+		if (skillactive == true)
+		{
+			DrawString(0, 150, "SkillTime", GetColor(255, 255, 255));
+			DrawBox(SKILLBAR_X, SKILLBAR_Y, SKILLBAR_X1 + 200, SKILLBAR_Y1 + 10, GetColor(255, 255, 255), FALSE);									//˜g
+			DrawBox(SKILLGAUGE_X, SKILLGAUGE_Y, SKILLGAUGE_X1 + 200 * skillclock / MAX_STOPTIME, SKILLGAUGE_Y1 + 10, GetColor(0, 255, 255), TRUE);	//ƒQ[ƒW
+		}
+    }
+}
 
 //XV
-void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager)
+void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer)
 {
 	pBuffPoint = _itemmanager->Get_P_Count();
 	sBuffPoint = _itemmanager->Get_S_Count();
@@ -132,6 +146,11 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 		SubCastleDurability[i] = _castlemanager->Get_Durability(i);	
 		isActive[i] = _castlemanager->Get_IsActive(i);
 	}
+
+	skillcount = _baseplayer->Get_AbilityCount();
+	skillclock = _baseplayer->Get_abilityClock();
+	skillactive = _baseplayer->Get_isAbility();
+	skilltype = _baseplayer->Get_AbilityType();
 }
 
 //•`‰æˆ—
@@ -140,4 +159,5 @@ void UI::Draw()
 	Get_CastleDurability();
 	Get_SubCastleDurability();
 	Get_BuffPoint();
+	AbilityUi();
 }

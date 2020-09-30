@@ -4,10 +4,12 @@
 #include "CastleManager.h"
 #include "ItemManager.h"
 #include "BuffManager.h"
+#include "BasePlayer.h"
 
 class CastleManager;
 class ItemManager;
 class BuffManager;
+class BasePlayer;
 class UI
 {
 private:
@@ -48,21 +50,40 @@ private:
 
 	const int MAX_BUFF = 15;				//バフゲージの最大数
 
+	static const int SKILLBAR_X = 0;				//枠のｘ始点
+	static const int SKILLBAR_Y = 175;
+	static const int SKILLBAR_X1 = 0;			   //枠のｘ終点
+	static const int SKILLBAR_Y1 = 175;
+	static const int SKILLGAUGE_X = 0;			   //バーのｘ始点
+	static const int SKILLGAUGE_Y = 175;
+	static const int SKILLGAUGE_X1 = 0;			   //バーのｘ終点
+	static const int SKILLGAUGE_Y1 = 175;
+
+	const int MAX_STOPTIME = 5;				//咲夜さんの時止め最大タイム
+
 	int percent;					//パーセント
 	int CastleDurability;			//拠点の体力
-	int SubCastleDurability[5];
+	int SubCastleDurability[5];		//拠点の数
 	int i;
-	bool isActive[5];
+	
 	int pBuffPoint;					//pアイテムのゲージ上昇用
 	int sBuffPoint;					//sアイテムのゲージ上昇用
 	int pBuffLevel;					//pアイテム獲得時のバフレベル
 	int sBuffLevel;					//sアイテム獲得時のバフレベル
+	int skillcount;					//スキル使用回数
+	int skillclock;					//スキルの使用タイム
+	int skilltype;
+
+	bool isActive[5];
+	bool skillactive;
+
 
 public:
 	void Get_CastleDurability();		//メイン拠点の体力UI
-	void Get_BuffPoint();
+	void Get_BuffPoint();				//アイテムポイントのUI
 	void Get_SubCastleDurability();		//サブ拠点の体力UI 
-	void Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager);		//更新処理
+	void AbilityUi();					//アビリティのUI
+	void Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer);		//更新処理
 	void Draw();						//描画処理
 };
 
