@@ -72,10 +72,11 @@ private:
 	int sBuffLevel;					//sアイテム獲得時のバフレベル
 	int skillcount;					//スキル使用回数
 	int skillclock;					//スキルの使用タイム
-	int skillactive;
 	int skilltype;
 
 	bool isActive[5];
+	bool skillactive;
+
 
 public:
 	void Get_CastleDurability();		//メイン拠点の体力UI
