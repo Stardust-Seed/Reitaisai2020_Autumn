@@ -68,6 +68,7 @@ void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManag
 
 		for (int num = 0; num < MAX_ENEMY_NUM; num++) {		
 			if (Enemys[num] != NULL) {					//何か入ってる場合
+				_itemManager->SpawnItem(Enemys[num]->Get_CX(), Enemys[num]->Get_CY());	//アイテム生成
 
 				delete Enemys[num];						//デリートして
 				Enemys[num] = NULL;						//NULLを入れる
