@@ -83,22 +83,22 @@ void BasePlayer::Draw_Arow()
 	if (playerPos == 0)
 	{
 		//左向き矢印
-		DrawTriangle(pos.x - 30, pos.y + 24, pos.x - 5, pos.y + 48, pos.x - 5, pos.y, GetColor(0, 255, 0), TRUE);
+		DrawTriangle(pos.x - 30, pos.y + 24, pos.x - 5, pos.y + 32, pos.x - 5, pos.y+16, GetColor(255, 255, 255), TRUE);
 	}
 	if (playerPos == 1)
 	{
 		//上向き矢印
-		DrawTriangle(pos.x + 24, pos.y - 30, pos.x, pos.y - 5, pos.x + 48, pos.y - 5, GetColor(0, 255, 0), TRUE);
+		DrawTriangle(pos.x + 24, pos.y - 30, pos.x+16, pos.y - 5, pos.x + 32, pos.y - 5, GetColor(255, 255, 255), TRUE);
 	}
 	if (playerPos == 2)
 	{
 		//右向き矢印
-		DrawTriangle(pos.x + 78, pos.y + 24, pos.x + 53, pos.y, pos.x + 53, pos.y + 48, GetColor(0, 255, 0), TRUE);
+		DrawTriangle(pos.x + 78, pos.y + 24, pos.x + 53, pos.y+16, pos.x + 53, pos.y + 32, GetColor(255, 255, 255), TRUE);
 	}
 	if (playerPos == 3)
 	{
-		//右向き矢印
-		DrawTriangle(pos.x + 24, pos.y + 78, pos.x, pos.y + 53, pos.x + 48, pos.y + 53, GetColor(0, 255, 0), TRUE);
+		//下向き矢印
+		DrawTriangle(pos.x + 24, pos.y + 78, pos.x+16, pos.y + 53, pos.x + 32, pos.y + 53, GetColor(255, 255, 255), TRUE);
 	}
 }
 void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
@@ -121,7 +121,7 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 		Ability();     //スキル
 
 		/***咲夜のスキル処理***/
-		if (Get_isAbility() == true && playerType == SAKUYA_Ability) {
+		if (Get_isAbility() == true && playerType == SAKUYA) {
 
 			//SEを鳴らす
 			SE::Instance()->PlaySE(SE_SakuyaAbility, DX_PLAYTYPE_LOOP);
@@ -132,6 +132,7 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 			if (abilityTimer <= 0)
 			{
 				isAbility = false;
+				abilityTimer = STOPTIME;
 				//再生を止めるとき
 				SE::Instance()->StopSE(SE_SakuyaAbility);
 			}
@@ -140,7 +141,7 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 		/**********************/
 
 		/***フランスキル処理***/
-		if (Get_isAbility() == true && playerType == FRAN_Ability) {
+		if (Get_isAbility() == true && playerType == FRAN) {
 
 			//SEを鳴らす
 			SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
