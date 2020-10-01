@@ -4,6 +4,7 @@
 #include <string>
 #include "BaseScene.h"
 #include "Cursor.h"
+#include "Define.h"
 using namespace std;
 
 /// <summary>
@@ -20,40 +21,25 @@ enum class eLevelType {
 /// </summary>
 class LevelSelect final :public BaseScene {
 private:
-	const int CURSOR_UP		= 0;	//カーソルが上がった(定数)
-	const int CURSOR_DOWN	= 1;	//カーソルが下がった(定数)
-
-	string EASY		= "Easy";
-	string NORMAL	= "Normal";
-	string HARD		= "Hard";
+	const float UI_X = (GAME_WIDTH / 2);	//UIのx座標
+	const float UI_Y[3] = {					//UIのy座標
+		(GAME_HEIHGT / 2) - 300,	//Easy
+		(GAME_HEIHGT / 2),			//Normal
+		(GAME_HEIHGT / 2) + 300		//Hard
+	};
+	const double UI_EXT = 1.0;				//UIの拡大率
+	const int UI_PAL = 255;					//UIのブレンドのパラメータ
+	const int UI_FONTSIZE = 100;			//UIのフォントサイズ
 
 	eLevelType selectLevel;	//選択されたレベル
-	eLevelType tmpLevel;	//変更前のレベル
-
-	//Easy座標
-	float easyX;
-	float easyY;
-
-	//Normal座標
-	float normalX;
-	float normalY;
-
-	//Hard座標
-	float hardX;
-	float hardY;
-
-	int animationCnt;	//アニメーションカウント
-	bool isChange;		//切り替えフラグ
-
-	void ChangeLevel(int _changeMode);
-
-	void DrawUIBox(float _x, float _y, string _text,
-		eLevelType _levelType, Cursor _cursor);
+	Cursor cursor[3];		//カーソルの色
+	bool isChange;			//切り替えフラグ
 
 	/// <summary>
-	/// UIの切り替えアニメーション
+	/// 選択レベルを切り替える
 	/// </summary>
-	void Animation();
+	/// <param name="_changeMode"></param>
+	void ChangeLevel(int _changeMode);
 public:
 	/// <summary>
 	/// コンストラクタ

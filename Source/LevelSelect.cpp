@@ -1,8 +1,9 @@
 #include <DxLib.h>
 #include "LevelSelect.h"
 
-#include "Define.h"
+#include "BGM.h"
 #include "FontHandle.h"
+#include "KuronekoLib.h"
 #include "Image.h"
 #include "Input.h"
 #include "SE.h"
@@ -12,39 +13,48 @@ LevelSelect::LevelSelect(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	//初期化処理
 	selectLevel = eLevelType::Easy;
 
-	//Easyの初期座標
-	easyX = (GAME_WIDTH / 2);
-	easyY = (GAME_HEIHGT / 2) - 300;
+	//UIフレームの色を初期設定
+	cursor[static_cast<int>(eLevelType::Easy)] = Cursor::Cursor_2;
+	cursor[static_cast<int>(eLevelType::Normal)] = Cursor::Cursor_0;
+	cursor[static_cast<int>(eLevelType::Hard)] = Cursor::Cursor_0;
 
-	//Normalの初期座標
-	normalX = (GAME_WIDTH / 2);
-	normalY = (GAME_HEIHGT / 2);
-
-	//Hardの初期座標
-	hardX = (GAME_WIDTH / 2);
-	hardY = (GAME_HEIHGT / 2) + 300;
-
-	//アニメーションカウントの初期化
-	animationCnt = 0;
-
-	//切り替えフラグの初期化
+	//切り替えるフラグを初期化
 	isChange = false;
 }
 
 void LevelSelect::Update() {
-	/*------------------------------------------
-	↓キーが押されたとき
-	※↑キーが入力されている場合は処理を行わない
-	------------------------------------------*/
+
+	//選択された項目に色を付けて、それ以外は灰色に設定する
+	if (isChange == true) {
+		switch (selectLevel) {
+		case eLevelType::Easy:
+			cursor[static_cast<int>(eLevelType::Easy)] = Cursor::Cursor_2;
+			cursor[static_cast<int>(eLevelType::Normal)] = Cursor::Cursor_0;
+			cursor[static_cast<int>(eLevelType::Hard)] = Cursor::Cursor_0;
+			break;
+		case eLevelType::Normal:
+			cursor[static_cast<int>(eLevelType::Easy)] = Cursor::Cursor_0;
+			cursor[static_cast<int>(eLevelType::Normal)] = Cursor::Cursor_3;
+			cursor[static_cast<int>(eLevelType::Hard)] = Cursor::Cursor_0;
+			break;
+		case eLevelType::Hard:
+			cursor[static_cast<int>(eLevelType::Easy)] = Cursor::Cursor_0;
+			cursor[static_cast<int>(eLevelType::Normal)] = Cursor::Cursor_0;
+			cursor[static_cast<int>(eLevelType::Hard)] = Cursor::Cursor_1;
+			break;
+		}
+
+		//切り替えフラグをfalseにする
+		isChange = false;
+	}
+
+	//↓キーが押されたとき
 	if (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) % 16 == 1 &&
 		Input::Instance()->GetPressCount(KEY_INPUT_UP) == 0) {
 		ChangeLevel(CURSOR_DOWN);
 	}
 
-	/*------------------------------------------
-	↑キーが押されたとき
-	※↓キーが入力されている場合は処理を行わない
-	------------------------------------------*/
+	//↑キーが押されたとき
 	if (Input::Instance()->GetPressCount(KEY_INPUT_UP) % 16 == 1 &&
 		Input::Instance()->GetPressCount(KEY_INPUT_DOWN) == 0) {
 		ChangeLevel(CURSOR_UP);
@@ -65,106 +75,75 @@ void LevelSelect::Update() {
 			break;
 		}
 
+		//メニューのBGMを止める
+		BGM::Instance()->StopBGM(BGM_menu);
+
 		//シーンをゲームシーンに切り替える
 		sceneChanger->SceneChange(eScene_GAME, parameter, false, false);
 	}
 
-	//切り替えのアニメーション処理
-	if (isChange == true) {
-		Animation();
+	//xキーが押されたとき
+	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
+		sceneChanger->SceneChange(eScene_CHARASELECT, parameter, true, false);
 	}
 }
 
 //描画処理
 void LevelSelect::Draw() {
-	/*-----------------------------------------------------------------------
-	UIの描画
-	-----------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------
+背景の描画
+------------------------------------------------------------------------------*/
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter), TRUE);
+/*------------------------------------------------------------------------------
+UIの描画
+------------------------------------------------------------------------------*/
 	//Easy
-	DrawUIBox(easyX, easyY, EASY, eLevelType::Easy, Cursor::Cursor_2);
+	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eLevelType::Easy)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
+		UI_EXT, UI_EXT, 0, UI_PAL, GetColor(255, 255, 255),
+		static_cast<int>(cursor[static_cast<int>(eLevelType::Easy)]), eDrawType::Center,
+		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "Easy");
 
 	//Normal
-	DrawUIBox(normalX, normalY, NORMAL, eLevelType::Normal, Cursor::Cursor_3);
+	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eLevelType::Normal)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
+		UI_EXT, UI_EXT, 0, UI_PAL, GetColor(255, 255, 255),
+		static_cast<int>(cursor[static_cast<int>(eLevelType::Normal)]), eDrawType::Center,
+		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "Normal");
 
 	//Hard
-	DrawUIBox(hardX, hardY, HARD, eLevelType::Hard, Cursor::Cursor_1);
+	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eLevelType::Hard)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
+		UI_EXT, UI_EXT, 0, UI_PAL, GetColor(255, 255, 255),
+		static_cast<int>(cursor[static_cast<int>(eLevelType::Hard)]), eDrawType::Center,
+		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "Hard");
 }
 
 void LevelSelect::ChangeLevel(int _changeMode) {
-	//フラグを切り替える
-	isChange = true;
-
 	//SEを鳴らす
 	SE::Instance()->PlaySE(SE_cursor);
 
-	//選択されたレベルを返す
-	switch (selectLevel) {
-	case eLevelType::Easy:
-		//カーソルUPのとき
-		if (_changeMode == CURSOR_UP) {
-			selectLevel = eLevelType::Hard;
-		}
-		//カーソルDOWNのとき
-		else if (_changeMode == CURSOR_DOWN) {
-			selectLevel = eLevelType::Normal;
-		}
-		break;
-	case eLevelType::Normal:
-		//カーソルUPのとき
-		if (_changeMode == CURSOR_UP) {
+	//切り替えフラグをtrueにする
+	isChange = true;
+
+	//切り替えモードがDOWNの場合
+	if (_changeMode == CURSOR_DOWN) {
+		//一番下の項目のとき、一番上の項目へ
+		if (selectLevel == eLevelType::Hard) {
 			selectLevel = eLevelType::Easy;
 		}
-		//カーソルDOWNのとき
-		else if (_changeMode == CURSOR_DOWN) {
+		//上記条件外のとき、一つ下の項目へ
+		else {
+			selectLevel = static_cast<eLevelType>(static_cast<int>(selectLevel) + 1);
+		}
+	}
+	//切り替えモードがUPの場合
+	else if (_changeMode == CURSOR_UP) {
+		//一番上の項目のとき、一番下の項目へ
+		if (selectLevel == eLevelType::Easy) {
 			selectLevel = eLevelType::Hard;
 		}
-		break;
-	case eLevelType::Hard:
-		//カーソルUPのとき
-		if (_changeMode == CURSOR_UP) {
-			selectLevel = eLevelType::Normal;
+		//上記条件外のとき、一つ上の項目へ
+		else {
+			selectLevel = static_cast<eLevelType>(static_cast<int>(selectLevel) - 1);
 		}
-		//カーソルDOWNのとき
-		else if (_changeMode == CURSOR_DOWN) {
-			selectLevel = eLevelType::Easy;
-		}
-		break;
 	}
-}
-
-//UIの描画処理
-void LevelSelect::DrawUIBox(float _x, float _y, string _text,
-	eLevelType _levelType, Cursor _cursor) {
-
-	int textSize = _text.size();
-
-	//選択されていないレベルだったら灰色にする
-	if (selectLevel != _levelType) {
-		_cursor = Cursor::Cursor_0;
-	}
-
-	//ブレンドモードをアルファブレンドにする
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 125);
-
-	//四角形の描画
-	DrawRotaGraph3F(_x, _y, 650 / 2, 250 / 2, 1.0, 1.0, (0 * PAI) / 180,
-		Image::Instance()->GetGraph(eImageType::UI_CursorFrame, static_cast<int>(_cursor)),
-		FALSE);
-
-	//文字の描画
-	DrawStringToHandle(_x - ((100 / 2) * (textSize / 2)), _y - (100 / 2),
-		_text.c_str(), GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_100_3());
-
-	//ブレンドモードをノーブレンドにする
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-}
-
-//切り替えアニメーションの処理
-void LevelSelect::Animation() {
-	if (animationCnt >= 16) {
-		animationCnt = 0;
-		isChange = false;
-	}
-
-	animationCnt++;
 }
