@@ -20,8 +20,8 @@ BasePlayer::BasePlayer(int _pType)
 
 	if (playerType == SAKUYA)
 	{
-		speed = 5;					//移動速度
-		power = 25;					//攻撃力
+		speed = 7;					//移動速度
+		power = 15;					//攻撃力
 		abilityCount = 3;		    //スキル回数
 		graphNo = 2;                
 		animNo = 2;
@@ -31,7 +31,7 @@ BasePlayer::BasePlayer(int _pType)
 	}
 	if (playerType == FRAN)
 	{
-		speed = 2;					//移動速度
+		speed = 4;					//移動速度
 		power = 75;			    //攻撃力
 		abilityCount = 2;		    //スキル回数
 		graphNo = 0;
@@ -159,7 +159,7 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 		for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
 
 			//プレイヤーが敵に当たったらisStanをtrueにする
-			if (ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
+			if (ClisionHit(Get_x()+6, Get_y(), Get_width()-6, Get_height(),
 				_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
 			{
 				isStan = true;   //スタンは少ししてから解除されるので
