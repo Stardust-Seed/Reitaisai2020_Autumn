@@ -25,6 +25,9 @@ class CharaSelect :public BaseScene {
 private:
 
 	int charaSelect;                    //選択したキャラタイプ
+	int select_Sakuya;                  //項目枠：咲夜
+	int select_Fran;                    //項目枠：フラン
+	int select_Menu;                    //項目枠：メニュー
 
 	int color;    //色
 

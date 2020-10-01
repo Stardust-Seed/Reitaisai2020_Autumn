@@ -8,6 +8,11 @@ CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter) :B
 	//最初は咲夜が選択されている状態
 	charaSelect = select_SAKUYA;
 
+	//最初は咲夜が選択されている状態
+	select_Sakuya= 0;
+	select_Fran = 0;
+	select_Menu = 0;
+
 	//色
 	color = GetColor(0, 0, 255);
 
@@ -56,6 +61,25 @@ void CharaSelect::Update()
 		}
 	}
 
+	if (charaSelect == select_SAKUYA)
+	{
+		select_Sakuya = 3;
+		select_Fran = 0;
+		select_Menu = 0;
+	}
+	else if (charaSelect == select_FRAN)
+	{
+		select_Fran = 1;
+		select_Sakuya = 0;
+		select_Menu = 0;
+	}
+	else
+	{
+		select_Menu = 2;
+		select_Sakuya = 0;
+		select_Fran = 0;
+	}
+
 }
 
 /*描画処理*/
@@ -91,17 +115,18 @@ void CharaSelect::Draw_Waku()
 }
 void CharaSelect::Draw_CharaName()
 {
-	//枠
-	//咲夜
-	DrawRotaGraph(690,725,0.6,0.0,Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 3),TRUE);
+	//咲夜枠
+	DrawRotaGraph(690,725,0.6,0.0,Image::Instance()->GetGraph(eImageType::UI_CursorFrame, select_Sakuya),TRUE);
+	//スキル枠
 	DrawExtendGraph(125, 200, 530, 600, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
 
-	//フラン
-	DrawRotaGraph(1250, 725, 0.6, 0.0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 1), TRUE);
+	//フラン枠
+	DrawRotaGraph(1250, 725, 0.6, 0.0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, select_Fran), TRUE);
+	//スキル枠
 	DrawExtendGraph(1410, 200, 1800, 600, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
 
-	//メニュー
-	DrawRotaGraph(975, 925, 0.6, 0.0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
+	//メニュー枠
+	DrawRotaGraph(975, 925, 0.6, 0.0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, select_Menu), TRUE);
 
 	/**描画 前**/
 	//キャラクター名の表示
