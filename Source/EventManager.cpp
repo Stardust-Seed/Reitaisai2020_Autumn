@@ -59,7 +59,7 @@ void EventManager::SpawnEvent() {
 	}
 }
 
-void EventManager::Update(EnemyManager* enemyManager) {
+void EventManager::Update(EnemyManager* enemyManager,BasePlayer* basePlayer) {
 	SpawnEvent();			//生成
 	SpawnSukima();			//スキマ生成
 
@@ -90,7 +90,7 @@ void EventManager::Update(EnemyManager* enemyManager) {
 
 	if (sBomb != NULL) {		//NULLでない場合
 
-		sBomb->Update();  //更新
+		sBomb->Update(basePlayer);  //更新
 
 		if (sBomb->GetIsActive() == false)	 //初期化
 		{
