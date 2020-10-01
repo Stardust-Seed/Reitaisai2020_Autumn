@@ -6,7 +6,8 @@ GameClear::GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	nowCursor = Cursor::Cursor_0;
 	x = 0;
 	alpha = 0;
-	charaType = 1;
+	alpha = 0;
+	charaType = _parameter->Get(BaseScene::CharaSelectTag);
 	BGM::Instance()->PlayBGM(BGM_result, DX_PLAYTYPE_LOOP);
 }
 
@@ -18,6 +19,13 @@ void GameClear::Update() {
 
 /*•`‰æˆ—*/
 void GameClear::Draw() {
+
+	//”wŒi•\Ž¦
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
+
+	//”wŒi•\Ž¦
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter), TRUE);
+
 	//ƒLƒƒƒ‰‚Ì•\Ž¦
 	switch (charaType)
 	{
