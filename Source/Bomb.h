@@ -2,6 +2,9 @@
 #define _BOMB_H
 
 #include "BaseBomb.h"
+#include "BasePlayer.h"
+
+class BasePlayer;
 
 class Bomb : public virtual BaseBomb {
 private:
@@ -17,7 +20,7 @@ public:
 	Bomb(int _power, int _speed, eBombType _bombType);
 	void Animation();
 	void DamageMotion();
-	void Update();
+	void Update(BasePlayer*player);
 	void Draw();
 };
 

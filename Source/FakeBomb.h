@@ -2,6 +2,9 @@
 #define _FAKEBOMB_H
 
 #include "BaseBomb.h"
+#include "BasePlayer.h"
+
+class BasePlayer;
 
 class FakeBomb : public virtual BaseBomb
 {
@@ -15,7 +18,7 @@ public:
 	FakeBomb(int _power, int _speed, eBombType _bombType);
 	void FakeMotion();
 	void Animation();
-	void Update();
+	void Update(BasePlayer* player);
 	void Draw();
 };
 

@@ -10,8 +10,10 @@ BaseBomb::BaseBomb(int _power, int _speed, eBombType _bombType)
 	type = _bombType;
 	
 	direction = GetRand(3);					//方向の乱数
-	countdown = COUNTMAX;						//カウントダウンのセット
 	
+	countDown = COUNTMAX;						//カウントダウンのセット
+	
+	isActive = true;
 	isSpown = false;
 	isXplosion = false;							//初期状態
 	isTrigger = false;
@@ -19,26 +21,31 @@ BaseBomb::BaseBomb(int _power, int _speed, eBombType _bombType)
 	if (direction == DIRECTIONLEFT)			//左
 	{
 		x = BOMB_SPOWNLEFTHX;
-		y = BOMB_SPOWNLR;
+		y = BOMB_SPOWNLEFTY;
 	}
 
 	if (direction == DIRECTIONRIGHT)		//右
 	{
 		x = BOMB_SPOWNRIGHTX;
-		y = BOMB_SPOWNLR;
+		y = BOMB_SPOWNRIGHTY;
 	}
 
 	if (direction == DIRECTIONUP)			//上
 	{
-		x = BOMB_SPOWNUPDOWNX;
+		x = BOMB_SPOWNUPX;
 		y = BOMB_SPOWNUPY;
 	}
 
 	if (direction == DIRECTIONDOWN)			//下
 	{
-		x = BOMB_SPOWNUPDOWNX;
+		x = BOMB_SPOWNDOWNX;
 		y = BOMB_SPOWNDOWNY;
 	}
+	cx = x + (width / 2);
+	cy = y + (height / 2);
+
+	width = 50;
+	height = 50;
 }
 
 BaseBomb::~BaseBomb() 
@@ -68,8 +75,13 @@ void BaseBomb::Move()
 {
 	if (direction == DIRECTIONLEFT)			//左
 	{
-		y += speed;
-		if (y > BOMB_SPOWNLR + 540)
+		y++;
+		if (y == GAME_WIDTH / 2 - 450)
+		{
+			y --;
+		}
+		x += speed;
+		if (x > BOMB_SPOWNLEFTHX + 920)
 		{
 			speed = 0;
 		}
@@ -77,8 +89,16 @@ void BaseBomb::Move()
 
 	if (direction == DIRECTIONRIGHT)		//右
 	{
-		y += speed;
-		if (y > BOMB_SPOWNLR + 540)
+		y--;
+
+		if (y == GAME_HEIHGT / 2)
+		{
+			y++;
+		}
+
+		x -= speed;
+
+		if (x < BOMB_SPOWNRIGHTX - 980)
 		{
 			speed = 0;
 		}
@@ -86,6 +106,12 @@ void BaseBomb::Move()
 
 	if (direction == DIRECTIONUP)			//上
 	{
+		x++;
+		if (x == GAME_WIDTH / 2 - 25)
+		{
+			x--;
+		}
+	
 		y += speed;
 		if (y > BOMB_SPOWNUPY + 455)
 		{
@@ -95,34 +121,38 @@ void BaseBomb::Move()
 
 	if (direction == DIRECTIONDOWN)			//下
 	{
+		x--;
+		if (x == GAME_WIDTH / 2 - 25)
+		{
+			x++;
+		}
 		y -= speed;
-		if (y < BOMB_SPOWNDOWNY - 495)
+		if (y < BOMB_SPOWNDOWNY - 675)
 		{
 			speed = 0;
 		}
-	}	
+	}
 }
 
 //爆弾起動
 void BaseBomb::JudgeTrigger()
 {
 	//爆弾のタイマー
-	if (speed == 0)
+	if (speed == 0 && isPAbility == false && pType == SAKUYA_Ability)
 	{
 		isCount = true;
 		if (isCount == true)
 		{
 			//カウントダウン
-			DrawFormatStringToHandle(x + 5, y - 50, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_3(), "%d", countdown / FRAME);
-			
-			if (countdown <= FRAME)
+			DrawFormatStringToHandle(x + 5, y - 50, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", countDown / FRAME);
+			if (countDown <= FRAME)
 			{								//残り一秒以下は割り算の結果0になるため、表示タイミングの調整
 				isXplosion = true;                                  //フラグ切替
 			}
 
-			if (countdown >= 0)
+			if (countDown >= 0)
 			{									//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
-				countdown -= 1;										//カウントダウン
+				countDown -= 1;										//カウントダウン
 			}
 		}
 
@@ -137,7 +167,7 @@ void BaseBomb::JudgeTrigger()
 				isSpown = false;
 			}
 		}
-	}
+
 
 		if (type == fakebomb)
 		{
@@ -151,10 +181,41 @@ void BaseBomb::JudgeTrigger()
 			}
 		}
 
-		if (isCount == false)
+	}
+}
+
+void BaseBomb::SkillStop()
+{
+	if (pType == SAKUYA_Ability)
+	{
+		if (isPAbility == true)
 		{
-			InitFontToHandle();
+			sTime = countDown / FRAME;
+		
+			if (speed == 0)
+			{
+				DrawFormatStringToHandle(x + 5, y - 50, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", sTime);
+			}
 		}
+	}
+}
+
+
+//当たり判定
+bool BaseBomb::ClisionHit(float mx, float my, float mw, float mh,
+	float ox, float oy, float ow, float oh)
+{
+	if (x + width >= ox && x <= ox + ow &&
+		y + height >= oy && y <= oy + oh)
+	{
+		isHit = true;
+		isCount == false;
+	}
+	else
+	{
+		isHit = false;
+	}
+	return isHit;
 }
 
 

@@ -20,36 +20,65 @@ void FakeBomb::FakeMotion()
 		{
 			isTrigger = false;
 			AnimationFlg = true;
-			if (AnimationFlg == true)
-			{
-				isFakeAction = false;
-				Animation();
-			}
-			else
-			{
-				DrawGraph(x, y - 30, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 2), TRUE);
-			}
+			isActive = false;
 		}
 	}
 }
 
-void FakeBomb::Update()
+void FakeBomb::Update(BasePlayer* player)
 {
-	if (type == fakebomb)
+	pType = player->Get_AbilityType();
+
+	isPAbility = player->Get_isAbility();
+
+	if (isHit == true)
 	{
-		SpawnBomb();
+		isSpown = false;
+		isCount = false;
+		isTrigger = false;
+		isXplosion = false;
+		isActive = false;
 	}
-	Move();
-	JudgeTrigger();
-	FakeMotion();
+	else
+	{
+		if (type == fakebomb)
+		{
+			SpawnBomb();
+		}
+
+		if (isPAbility == false)
+		{
+			Move();
+		}
+
+		JudgeTrigger();
+		SkillStop();
+		FakeMotion();
+
+		//“–‚½‚è”»’è
+		ClisionHit(x, y, width, height,
+			player->Get_x(), player->Get_y(),
+			player->Get_width(), player->Get_height());
+	}
 }
 
-void FakeBomb::Draw() 
+void FakeBomb::Draw()
 {
+
 	if (isSpown == true)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 1), TRUE);
 	}
+	
+	JudgeTrigger();
+	SkillStop();
+
+	if (AnimationFlg == true)
+	{
+		isFakeAction = false;
+		Animation();
+	}
+
 }
 
 void FakeBomb::Animation()

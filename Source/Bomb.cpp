@@ -14,22 +14,46 @@ void Bomb::DamageMotion()
 	{ 
 		AnimationFlg = true;
 		isTrigger = false;
-		if (AnimationFlg == true)
-		{
-			Animation();
-		}
+		isActive = false;
 	}
 }
 
-void Bomb::Update()
+void Bomb::Update(BasePlayer*player)
 {
-	if (type == bomb)
+	pType = player->Get_AbilityType();
+
+	isPAbility = player->Get_isAbility();
+
+	//“–‚½‚Á‚½‚çÁ‚¦‚é
+	if (isHit == true)
 	{
-		SpawnBomb();
+		isSpown = false;
+		isCount = false;
+		isTrigger = false;
+		isXplosion = false;
+		isActive = false;
 	}
-	Move();
-	JudgeTrigger();
-	DamageMotion();
+	else
+	{
+		if (type == bomb)
+		{
+			SpawnBomb();
+		}
+
+		if (isPAbility == false)
+		{
+			Move();
+		}
+
+		JudgeTrigger();
+		SkillStop();
+		DamageMotion();
+
+		//“–‚½‚è”»’è
+		ClisionHit(x, y, width, height,
+			player->Get_x(), player->Get_y(),
+			player->Get_width(), player->Get_height());
+	}
 }
 
 void Bomb::Draw()
@@ -37,6 +61,14 @@ void Bomb::Draw()
 	if (isSpown == true)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 0), TRUE);
+	}
+
+	JudgeTrigger();
+	SkillStop();
+
+	if (AnimationFlg == true)
+	{
+		Animation();
 	}
 }
 
