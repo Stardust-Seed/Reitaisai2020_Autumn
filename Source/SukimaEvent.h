@@ -40,6 +40,9 @@ private:
 	//スキマの場所
 	int type;
 
+	//自然消滅用カウント
+	int deleteCnt;
+
 	//アニメーション再生用
 	bool popFlg;
 	bool deleteFlg;
