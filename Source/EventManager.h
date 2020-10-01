@@ -49,7 +49,7 @@ public:
 
 	void SpawnEvent();			//生成
 
-	void Update(EnemyManager*);	//更新
+	void Update(EnemyManager*,BasePlayer*);	//更新
 
 	void Draw();				//描画
 
