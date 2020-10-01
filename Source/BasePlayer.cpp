@@ -105,13 +105,13 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 {
 	if (playerType == SAKUYA)
 	{
-		power = 25 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
-		speed = 5 * _bManager->GetSpeedBuff();   //バフによるスピード増加
+		power = 15 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
+		speed = 7 * _bManager->GetSpeedBuff();   //バフによるスピード増加
 	}
 	if (playerType == FRAN)
 	{
-		power = 50 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
-		speed = 2 * _bManager->GetSpeedBuff();   //バフによるスピード増加
+		power = 75 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
+		speed = 4 * _bManager->GetSpeedBuff();   //バフによるスピード増加
 	}
 	//スタン状態でない時
 	if (isStan == 0) {
