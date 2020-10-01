@@ -8,7 +8,6 @@ GameOver::GameOver(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseSce
 	x = 0;
 	alpha = 0;
 	charaType = _parameter->Get(BaseScene::CharaSelectTag);
-
 	BGM::Instance()->PlayBGM(BGM_result, DX_PLAYTYPE_LOOP);
 }
 
@@ -22,6 +21,12 @@ void GameOver::Update()
 //描画
 void GameOver::Draw()
 {
+	//背景表示
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
+
+	//背景表示
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter), TRUE);
+
 	//キャラの表示
 	switch (charaType)
 	{
