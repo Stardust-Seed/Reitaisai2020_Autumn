@@ -3,31 +3,63 @@
 
 #include "BaseScene.h"
 
-const static int GAME_Y = 240;		//「ゲーム」文字のy位置
-const static int OPTOIN_Y = 270;    //「オプション」文字のy位置
-const static int END_Y = 300;		//「ゲーム終了」文字のy位置
+#include "Define.h"
 
-enum eMenutype
-{
-	eMenutype_Game,		//ゲーム画面
-	eMenutype_Option,	//オプション
-	eMenutype_Title,	//タイトル画面
-	eMenutype_Num,		//項目の数
+/// <summary>
+/// メニュータイプ
+/// </summary>
+enum class  eMenuType {
+	Game,		//ゲーム画面
+	Option,		//オプション画面
+	Title,		//タイトル画面
+	GameExit	//ゲーム終了
 };
 
-class Menu:public virtual BaseScene
-{
+/// <summary>
+/// メニュークラス
+/// </summary>
+class Menu :public BaseScene {
 private:
-	int NowSelect = 0;				//今、選択されてる項目
-	int y = 0;					
+	const float UI_X = (GAME_WIDTH / 2);	//UIのx座標
+	const float UI_Y[4]{					//UIのy座標
+		(GAME_HEIHGT / 2) - 300,	//プレイ
+		(GAME_HEIHGT / 2) - 100,	//オプション
+		(GAME_HEIHGT / 2) + 100,	//タイトルへ戻る
+		(GAME_HEIHGT / 2) + 300		//ゲーム終了
+	};
+	const double UI_EXT[2]{					//UIの拡大率
+		1.5,	//x
+		0.7		//y
+	};
+	const int UI_PAL		= 255;			//UIのブレンドのパラメータ
+	const int UI_FONTSIZE	= 100;			//UIのフォントサイズ
+
+	eMenuType selectMenu;	//選択された項目
+	Cursor cursor[4];		//カーソルの色
+	int fadeCnt;			//フェードカウント
+
+	/// <summary>
+	/// 選択メニューを切り替える
+	/// </summary>
+	/// <param name="_changeMode">切り替えモード</param>
+	void SelectMenu(int _changeMode);
 public:
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name="_sceneChanger">シーンチェンジャー</param>
+	/// <param name="_parameter">パラメータ</param>
 	Menu(ISceneChanger* _sceneChanger, Parameter* _parameter);
 
-	void SelectMenu();			//メニュー項目の選択
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	void Update();
 
-	void Update();				//更新処理
-
-	void Draw();				//描画処理
+	/// <summary>
+	/// 描画処理
+	/// </summary>
+	void Draw();
 };
 
 #endif
