@@ -4,6 +4,8 @@
 #include "SE.h"
 #include "BGM.h"
 #include "Option.h"
+#include "Image.h"
+#include "FontHandle.h"
 
 const float Option::BGMBAR_WIDTH = 76.9f;
 const float Option::BGMBAR_HEIGHT = 17.9f;
@@ -15,21 +17,21 @@ const float Option::SEBAR_HEIGHT = 17.9f;
 const float Option::SEBAR_INTERVAL = 5.0f;
 const int Option::SE_MAXVOLUME = 10;
 
-const float Option::SELECTBAR_X1 = 105.0f;
-const float Option::SELECTBAR_X2 = 195.0f;
+const float Option::SELECTBAR_X1 = 555.0f;
+const float Option::SELECTBAR_X2 = 645.0f;
 const float Option::SELECTBAR_YBGM = 120.0f;
 const float Option::SELECTBAR_YSE = 454.0f;
 
-const float Option::UIAREA_X1 = 100.0f;
-const float Option::UIAREA_X2 = 924.0f;
+const float Option::UIAREA_X1 = 550.0f;
+const float Option::UIAREA_X2 = 1374.0f;
 const float Option::UIAREA_Y1BGM = 100.0f;
-const float Option::UIAREA_Y2BGM = 334.0f;
+const float Option::UIAREA_Y2BGM = 414.0f;
 const float Option::UIAREA_Y1SE = 434.0f;
-const float Option::UIAREA_Y2SE = 668.0f;
+const float Option::UIAREA_Y2SE = 748.0f;
 
-const int Option::STRING_XBGM = 105;
+const int Option::STRING_XBGM = 555;
 const int Option::STRING_YBGM = 105;
-const int Option::STRING_XSE = 105;
+const int Option::STRING_XSE = 555;
 const int Option::STRING_YSE = 439;
 
 const int Option::BUF_SIZE = 256;
@@ -42,6 +44,9 @@ Option::Option(ISceneChanger* _sceneChanger, Parameter* _parameter)
 
 	//bgmVolume = 5;
 	//seVolume = 5;
+
+	bColor = GetColor(255, 100, 100);
+	sColor = GetColor(0, 0, 0);
 
 	selectType = select_BGM;
 }
@@ -121,40 +126,54 @@ void Option::Update() {
 /*描画処理*/
 void Option::Draw() {
 	//BGM関連のUIの表示
-	DrawBoxAA(UIAREA_X1, UIAREA_Y1BGM, UIAREA_X2, UIAREA_Y2BGM, GetColor(255, 255, 255), TRUE);
-	DrawString(STRING_XBGM, STRING_YBGM, "BGM Volume", GetColor(0, 0, 0));
+
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);		//画像を描画
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter), TRUE);		//画像を描画
+
+	//DrawBoxAA(UIAREA_X1, UIAREA_Y1BGM, UIAREA_X2, UIAREA_Y2BGM, GetColor(255, 255, 255), TRUE);
+	DrawExtendGraph(UIAREA_X1 -50, UIAREA_Y1BGM -50, UIAREA_X2 +50, UIAREA_Y2BGM +50, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, cNum[0]), TRUE);
+	DrawStringToHandle(STRING_XBGM, STRING_YBGM, "BGM Volume", bColor, FontHandle::Instance()->Get_natumemozi_48_8());
 
 	for (int i = 0; i < bgmVolume; i++) {
-		DrawBoxAA(100 + (i * BGMBAR_WIDTH) + ((i + 1) * BGMBAR_INTERVAL),
-			329 - BGMBAR_HEIGHT - (BGMBAR_HEIGHT * i),
-			(100 + BGMBAR_WIDTH) + (i * BGMBAR_WIDTH) + ((i + 1) * BGMBAR_INTERVAL),
-			329, GetColor(0, 0, 0), TRUE);
+		DrawBoxAA(550 + (i * BGMBAR_WIDTH) + ((i + 1) * BGMBAR_INTERVAL),
+			379 - BGMBAR_HEIGHT - ((BGMBAR_HEIGHT + 10) * i),
+			(550 + BGMBAR_WIDTH) + (i * BGMBAR_WIDTH) + ((i + 1) * BGMBAR_INTERVAL),
+			409, GetColor(100, 230, 0), TRUE);
 	}
 
 	//SE関連のUIの表示
-	DrawBoxAA(UIAREA_X1, UIAREA_Y1SE, UIAREA_X2, UIAREA_Y2SE, GetColor(255, 255, 255), TRUE);
-	DrawString(STRING_XSE, STRING_YSE, "SE Volume", GetColor(0, 0, 0));
+	//DrawBoxAA(UIAREA_X1, UIAREA_Y1SE, UIAREA_X2, UIAREA_Y2SE, GetColor(255, 255, 255), TRUE);
+	DrawExtendGraph(UIAREA_X1 -50,UIAREA_Y1SE, UIAREA_X2 +50, UIAREA_Y2SE +100, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, cNum[1]), TRUE);
+	DrawStringToHandle(STRING_XSE, STRING_YSE +50, "SE Volume", sColor, FontHandle::Instance()->Get_natumemozi_48_8());
 
 	for (int i = 0; i < seVolume; i++) {
-		DrawBoxAA(100 + (i * SEBAR_WIDTH) + ((i + 1) * SEBAR_INTERVAL),
-			663 - SEBAR_HEIGHT - (SEBAR_HEIGHT * i),
-			(100 + SEBAR_WIDTH) + (i * SEBAR_WIDTH) + ((i + 1) * SEBAR_INTERVAL),
-			663, GetColor(0, 0, 0), TRUE);
+		DrawBoxAA(550 + (i * SEBAR_WIDTH) + ((i + 1) * SEBAR_INTERVAL),
+			763 - SEBAR_HEIGHT - ((SEBAR_HEIGHT + 10) * i),
+			(550 + SEBAR_WIDTH) + (i * SEBAR_WIDTH) + ((i + 1) * SEBAR_INTERVAL),
+			793, GetColor(100, 230, 0), TRUE);
 	}
 
 	//キー関連のUIの表示処理
-	DrawBoxAA(919, 713, 1019, 763, GetColor(255, 255, 255), TRUE);
-	DrawString(965-28, 738 - 7, "戻る:X", GetColor(0, 0, 0), TRUE);
-	DrawBoxAA(814, 713, 914, 763, GetColor(255, 255, 255), TRUE);
-	DrawString(864-28, 738 - 7, "保存:Z", GetColor(0, 0, 0), TRUE);
+	//DrawBoxAA(834, 793, 1070, 843, GetColor(255, 255, 255), TRUE);
+	DrawExtendGraph(822, 840,1080, 898, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 2), TRUE);
+	DrawStringToHandle(965, 858 - 7, "戻る:X", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8());
+	DrawStringToHandle(834, 858 - 7, "保存:Z", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8());
 
 	//選択してる項目のUIの表示
 	if (selectType == select_BGM) {
-		DrawLineAA(SELECTBAR_X1, SELECTBAR_YBGM, SELECTBAR_X2, SELECTBAR_YBGM, GetColor(0, 0, 0));
+		bColor = GetColor(255, 100, 100);
+		sColor = GetColor(0, 0, 0);
+		cNum[0] = 3;
+		cNum[1] = 0;
+		DrawLineAA(SELECTBAR_X1, SELECTBAR_YBGM + 32, SELECTBAR_X2+200, SELECTBAR_YBGM + 32, GetColor(255, 100, 100),3);
 	}
 
 	if (selectType == select_SE) {
-		DrawLineAA(SELECTBAR_X1, SELECTBAR_YSE, SELECTBAR_X2, SELECTBAR_YSE, GetColor(0, 0, 0));
+		bColor = GetColor(0, 0, 0);
+		sColor = GetColor(255, 100, 100);
+		cNum[0] = 0;
+		cNum[1] = 3;
+		DrawLineAA(SELECTBAR_X1, SELECTBAR_YSE + 82, SELECTBAR_X2+200, SELECTBAR_YSE + 82, GetColor(255, 100, 100),3);
 	}
 }
 

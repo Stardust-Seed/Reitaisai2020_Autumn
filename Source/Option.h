@@ -43,6 +43,11 @@ private:
 	int bgmVolume;	//BGMの音量
 	int seVolume;	//SEの音量
 
+	int bColor;
+	int sColor;
+
+	int cNum[2] = {0,0};
+
 	SelectOptionType selectType;	//現在選択してるタイプ
 
 	void LoadConfigFile();
