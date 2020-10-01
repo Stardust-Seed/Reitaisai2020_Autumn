@@ -1,72 +1,164 @@
 #include <DxLib.h>
 #include "BGM.h"
+
+#include "FontHandle.h"
+#include "KuronekoLib.h"
+#include "Image.h"
 #include "Input.h"
 #include "Menu.h"
+#include "SE.h"
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_sceneChanger">シーンチェンジャー</param>
+/// <param name="_parameter">パラメータ</param>
 Menu::Menu(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	:BaseScene(_sceneChanger, _parameter) {
+	//BGMを再生する
 	BGM::Instance()->PlayBGM(BGM_menu, DX_PLAYTYPE_LOOP);
+
+	//初期選択をプレイに設定
+	selectMenu = eMenuType::Game;
+
+	//UIフレームの色を初期設定
+	cursor[static_cast<int>(eMenuType::Game)] = Cursor::Cursor_3;
+	cursor[static_cast<int>(eMenuType::Option)] = Cursor::Cursor_0;
+	cursor[static_cast<int>(eMenuType::Title)] = Cursor::Cursor_0;
+	cursor[static_cast<int>(eMenuType::GameExit)] = Cursor::Cursor_0;
+
+	//フェードカウントを初期化
+	fadeCnt = 0;
 }
 
-//選択されてる画面
-void Menu::SelectMenu()
-{
-	NowSelect = eMenutype_Num;		//現在選択されている項目
-}
-
-//更新
-void Menu::Update()
-{
-	if (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) == 1)			//下キーが押されていたら
-	{
-		NowSelect = (NowSelect + 1) % eMenutype_Num;					//選択状態を下げる
+/// <summary>
+/// 更新処理
+/// </summary>
+void Menu::Update() {
+	//↓キーが入力された場合
+	if (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) % 16 == 1 &&
+		Input::Instance()->GetPressCount(KEY_INPUT_UP) == 0) {
+		SelectMenu(CURSOR_DOWN);
 	}
 
-	if (Input::Instance()->GetPressCount(KEY_INPUT_UP) == 1)			//上キーが押されていたら
-	{
-		NowSelect = (NowSelect+(eMenutype_Num-1))% eMenutype_Num;		//選択状態を上げる
+	//↑キーが入力された場合
+	if (Input::Instance()->GetPressCount(KEY_INPUT_UP) % 16 == 1 &&
+		Input::Instance()->GetPressCount(KEY_INPUT_DOWN) == 0) {
+		SelectMenu(CURSOR_UP);
 	}
-	
-	if (Input::Instance()->GetPressCount(KEY_INPUT_RETURN) == 1)		//Enterキーが押された場所の処理
-	{
-		switch (NowSelect)
-		{
-		case eMenutype_Game:
-			BGM::Instance()->StopBGM(BGM_menu);
+
+	//zキーを入力された場合
+	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) {
+		//SEを鳴らす
+		SE::Instance()->PlaySE(SE_cursor);
+
+		//シーンを切り替える
+		switch (selectMenu) {
+		case eMenuType::Game:
+			//キャラ選択画面へ
 			sceneChanger->SceneChange(eScene_CHARASELECT, parameter, true, false);
 			break;
-
-		case eMenutype_Option:
+		case eMenuType::Option:
+			//オプション画面へ
 			sceneChanger->SceneChange(eScene_OPTION, parameter, true, false);
 			break;
-
-		case eMenutype_Title:
+		case eMenuType::Title:
+			//BGMを止める
 			BGM::Instance()->StopBGM(BGM_menu);
+
+			//タイトル画面へ
 			sceneChanger->SceneChange(eScene_TITLE, parameter, false, false);
+			break;
+		case eMenuType::GameExit:
+			//ゲームを終了する
+			exit(EXIT_SUCCESS);
 			break;
 		}
 	}
 }
 
-//描画
-void Menu::Draw()
-{
-	DrawString(500, GAME_Y, "ゲーム画面", GetColor(255, 255, 255));
-	DrawString(500, OPTOIN_Y, "オプション", GetColor(255, 255, 255));
-	DrawString(500, END_Y, "ゲーム終了", GetColor(255, 255, 255));
-	
-	switch (NowSelect) {									//現在の選択状態に従って処理を分岐
-	case eMenutype_Game:									//ゲーム選択中なら
-		y = GAME_Y;											//ゲームの座標を格納
-		break;
+/// <summary>
+/// 描画処理
+/// </summary>
+void Menu::Draw() {
+/*------------------------------------------------------------------------------
+背景の描画
+------------------------------------------------------------------------------*/
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
 
-	case eMenutype_Option:									//設定選択中なら
-		y = OPTOIN_Y;										//設定の座標を格納
-		break;
-
-	case eMenutype_Title:
-		y = END_Y;
-		break;
+	//シーンに入った際だけフェードイン処理を行う
+	if (fadeCnt != 60 + 1) {
+		fadeCnt = Image::Instance()->FadeInGraph(0.0f, 0.0f,
+			Image::Instance()->GetGraph(eImageType::Background_Filter), fadeCnt, 60);
 	}
-	DrawString(450, y, "■", GetColor(255, 255, 255));		//選択カーソル
+	else {
+		DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter), TRUE);
+	}
+
+/*------------------------------------------------------------------------------
+UIの描画
+------------------------------------------------------------------------------*/
+
+	//プレイ
+	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::Game)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		static_cast<int>(cursor[static_cast<int>(eMenuType::Game)]), eDrawType::Center,
+		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "プレイ");
+
+	//オプション
+	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::Option)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		static_cast<int>(cursor[static_cast<int>(eMenuType::Option)]), eDrawType::Center,
+		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "オプション");
+
+	//タイトルへ戻る
+	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::Title)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		static_cast<int>(cursor[static_cast<int>(eMenuType::Title)]), eDrawType::Center,
+		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "タイトルへ戻る");
+
+	//ゲーム終了
+	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::GameExit)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		static_cast<int>(cursor[static_cast<int>(eMenuType::GameExit)]), eDrawType::Center,
+		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "ゲーム終了");
+}
+
+/// <summary>
+/// 選択メニューを切り替える
+/// </summary>
+/// <param name="_changeMode">切り替えモード</param>
+void Menu::SelectMenu(int _changeMode) {
+
+	//SEを鳴らす
+	SE::Instance()->PlaySE(SE_cursor);
+
+	//現在選択されてる項目のカーソルフレームを灰色に
+	cursor[static_cast<int>(selectMenu)] = Cursor::Cursor_0;
+
+	//切り替えモードがDOWNの場合
+	if (_changeMode == CURSOR_DOWN) {
+		//一番下の項目のとき、一番上の項目へ
+		if (selectMenu == eMenuType::GameExit) {
+			selectMenu = eMenuType::Game;
+		}
+		//上記条件外のとき、一つ下の項目へ
+		else {
+			selectMenu = static_cast<eMenuType>(static_cast<int>(selectMenu) + 1);
+		}
+	}
+	//切り替えモードがUPの場合
+	else if (_changeMode == CURSOR_UP) {
+		//一番上の項目のとき、一番下の項目へ
+		if (selectMenu == eMenuType::Game) {
+			selectMenu = eMenuType::GameExit;
+		}
+		//上記条件外のとき、一つ上の項目へ
+		else {
+			selectMenu = static_cast<eMenuType>(static_cast<int>(selectMenu) - 1);
+		}
+	}
+
+	//現在選択されてる項目のカーソルフレームを青色に
+	cursor[static_cast<int>(selectMenu)] = Cursor::Cursor_3;
 }
