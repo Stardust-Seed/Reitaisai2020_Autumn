@@ -20,8 +20,8 @@ BasePlayer::BasePlayer(int _pType)
 
 	if (playerType == SAKUYA)
 	{
-		speed = 5;					//移動速度
-		power = 25;					//攻撃力
+		speed = 7;					//移動速度
+		power = 15;					//攻撃力
 		abilityCount = 3;		    //スキル回数
 		graphNo = 2;                
 		animNo = 2;
@@ -31,8 +31,8 @@ BasePlayer::BasePlayer(int _pType)
 	}
 	if (playerType == FRAN)
 	{
-		speed = 2;					//移動速度
-		power = 100;			    //攻撃力
+		speed = 4;					//移動速度
+		power = 75;			    //攻撃力
 		abilityCount = 2;		    //スキル回数
 		graphNo = 0;
 		animNo = 0;
@@ -57,9 +57,7 @@ BasePlayer::BasePlayer(int _pType)
 
 	animLR = true;              //最初は左向き
 
-	abilityCount = 3;               //スキル使用回数
-
-	countDown = FRAME;              //スキルタイマーを減らすのに使う
+	countDown = FRAME;          //スキルタイマーを減らすのに使う
 
 }
 BasePlayer::~BasePlayer()
@@ -85,30 +83,36 @@ void BasePlayer::Draw_Arow()
 	if (playerPos == 0)
 	{
 		//左向き矢印
-		DrawTriangle(pos.x - 30, pos.y + 24, pos.x - 5, pos.y + 48, pos.x - 5, pos.y, GetColor(0, 255, 0), TRUE);
+		DrawTriangle(pos.x - 30, pos.y + 24, pos.x - 5, pos.y + 32, pos.x - 5, pos.y+16, GetColor(255, 255, 255), TRUE);
 	}
 	if (playerPos == 1)
 	{
 		//上向き矢印
-		DrawTriangle(pos.x + 24, pos.y - 30, pos.x, pos.y - 5, pos.x + 48, pos.y - 5, GetColor(0, 255, 0), TRUE);
+		DrawTriangle(pos.x + 24, pos.y - 30, pos.x+16, pos.y - 5, pos.x + 32, pos.y - 5, GetColor(255, 255, 255), TRUE);
 	}
 	if (playerPos == 2)
 	{
 		//右向き矢印
-		DrawTriangle(pos.x + 78, pos.y + 24, pos.x + 53, pos.y, pos.x + 53, pos.y + 48, GetColor(0, 255, 0), TRUE);
+		DrawTriangle(pos.x + 78, pos.y + 24, pos.x + 53, pos.y+16, pos.x + 53, pos.y + 32, GetColor(255, 255, 255), TRUE);
 	}
 	if (playerPos == 3)
 	{
-		//右向き矢印
-		DrawTriangle(pos.x + 24, pos.y + 78, pos.x, pos.y + 53, pos.x + 48, pos.y + 53, GetColor(0, 255, 0), TRUE);
+		//下向き矢印
+		DrawTriangle(pos.x + 24, pos.y + 78, pos.x+16, pos.y + 53, pos.x + 32, pos.y + 53, GetColor(255, 255, 255), TRUE);
 	}
 }
 void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 {
-
-	power = power * _bManager->GetPowerBuff();   //バフによる攻撃力増加
-	speed = speed * _bManager->GetSpeedBuff();   //バフによるスピード増加
-
+	if (playerType == SAKUYA)
+	{
+		power = 15 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
+		speed = 7 * _bManager->GetSpeedBuff();   //バフによるスピード増加
+	}
+	if (playerType == FRAN)
+	{
+		power = 75 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
+		speed = 4 * _bManager->GetSpeedBuff();   //バフによるスピード増加
+	}
 	//スタン状態でない時
 	if (isStan == 0) {
 
@@ -117,7 +121,7 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 		Ability();     //スキル
 
 		/***咲夜のスキル処理***/
-		if (Get_isAbility() == true && playerType == SAKUYA_Ability) {
+		if (Get_isAbility() == true && playerType == SAKUYA) {
 
 			//SEを鳴らす
 			SE::Instance()->PlaySE(SE_SakuyaAbility, DX_PLAYTYPE_LOOP);
@@ -128,6 +132,7 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 			if (abilityTimer <= 0)
 			{
 				isAbility = false;
+				abilityTimer = STOPTIME;
 				//再生を止めるとき
 				SE::Instance()->StopSE(SE_SakuyaAbility);
 			}
@@ -136,7 +141,7 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 		/**********************/
 
 		/***フランスキル処理***/
-		if (Get_isAbility() == true && playerType == FRAN_Ability) {
+		if (Get_isAbility() == true && playerType == FRAN) {
 
 			//SEを鳴らす
 			SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
@@ -154,7 +159,7 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 		for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
 
 			//プレイヤーが敵に当たったらisStanをtrueにする
-			if (ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
+			if (ClisionHit(Get_x()+6, Get_y(), Get_width()-6, Get_height(),
 				_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
 			{
 				isStan = true;   //スタンは少ししてから解除されるので
