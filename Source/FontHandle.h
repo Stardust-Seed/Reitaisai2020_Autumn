@@ -43,17 +43,13 @@ class FontHandle :public Singleton <FontHandle> {
 	friend Singleton < FontHandle >;
 
 private:
-	LPCSTR snoutCrayon;      //読み込むフォント変数
 	LPCSTR natumemozi;       //読み込むフォント変数
 	LPCSTR weakForce;        //読み込むフォント変数
 
-	int snoutCrayon_48_3;    //殴り書きフォント
 	int natumemozi_38_8;     //なつめもじフォント
-	int natumemozi_48_3;     //なつめもじフォント
 	int natumemozi_48_8;     //なつめもじフォント
 	int natumemozi_64_8;     //なつめもじフォント
 	int natumemozi_100_3;    //なつめもじフォント
-	int weakForce_48_8;      //851チカラヨワク
 	int weakForce_222_16;    //851チカラヨワク
 
 public:
@@ -64,14 +60,15 @@ public:
 	void Init();      //初期化
 
 	//ゲッター
-	int Get_SnoutCrayon_48_3() { return snoutCrayon_48_3; }
+
 	int Get_natumemozi_38_8() { return natumemozi_38_8; }
-	int Get_natumemozi_48_3() { return natumemozi_48_3; }
 	int Get_natumemozi_48_8() { return natumemozi_48_8; }
 	int Get_natumemozi_64_8() { return natumemozi_64_8; }
 	int Get_natumemozi_100_3() { return natumemozi_100_3; }
-	int Get_weakForce_48_8() { return weakForce_48_8; }
+
 	int Get_weakForce_222_16() { return weakForce_222_16; }
+
+
 };
 
 #endif //FONTHANDLE_H_
