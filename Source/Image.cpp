@@ -113,3 +113,33 @@ int Image::FadeOutGraph(float _x, float _y, int _gHandle, int _fadeCnt, int _fad
 	//次のカウントを返す
 	return _fadeCnt;
 }
+
+int Image::FadeInGraph(float _x, float _y, int _gHandle, int _fadeCnt, int _fadeMaxCnt,
+	bool _isTurn, int _transFlag) {
+	//最大カウントより超える場合処理は行われない
+	if (_fadeCnt > _fadeMaxCnt) {
+		return _fadeCnt;
+	}
+
+	//フェイドカウントを加算する※1～n+1の範囲にするため
+	_fadeCnt++;
+
+	//描画モード αブレンドをセットする
+	//パラメータの値の計算式 : 最大 - 現在のカウント * (最大 / 最大カウント + 1);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0 + _fadeCnt * (255 / (_fadeMaxCnt + 1)));
+
+	//反転描画フラグがtrueのとき反転描画をおこなう
+	if (_isTurn == true) {
+		DrawTurnGraphF(_x, _y, _gHandle, _transFlag);
+	}
+	//elseの場合通常描画をおこなう
+	else {
+		DrawGraphF(_x, _y, _gHandle, _transFlag);
+	}
+
+	//描画モード ノーブレンドをセットする
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	//次のカウントを返す
+	return _fadeCnt;
+}
