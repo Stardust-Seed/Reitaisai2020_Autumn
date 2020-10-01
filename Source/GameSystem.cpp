@@ -1,4 +1,4 @@
-#include <DxLib.h>
+ï»¿#include <DxLib.h>
 #include "GameSystem.h"
 
 #include "Define.h"
@@ -6,14 +6,14 @@
 #include "GameMain.h"
 
 bool GameSystem::Init() {
-	SetOutApplicationLogValidFlag(FALSE);					//ƒƒOo—Í‚ğs‚í‚È‚¢
-	ChangeWindowMode(TRUE);									//ƒEƒBƒ“ƒhƒEƒ‚[ƒh‚É•ÏX
-	SetMainWindowText("“Œ•û‰Í–{˜^");						//ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹‚ğ•ÏX‚·‚é
-	SetGraphMode(GAME_WIDTH, GAME_HEIHGT, GAME_COLORBIT);	//‰æ–Ê‚Ì‰ğ‘œ“x•ÏX
-	if (DxLib_Init()) {										//DXƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
+	SetOutApplicationLogValidFlag(FALSE);					//ãƒ­ã‚°å‡ºåŠ›ã‚’è¡Œã‚ãªã„
+	ChangeWindowMode(TRUE);									//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã«å¤‰æ›´
+	SetMainWindowText("æ±æ–¹é˜²è¡›éšŠ gurdian if Kouma");		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ«ã‚’å¤‰æ›´ã™ã‚‹
+	SetGraphMode(GAME_WIDTH, GAME_HEIHGT, GAME_COLORBIT);	//ç”»é¢ã®è§£åƒåº¦å¤‰æ›´
+	if (DxLib_Init()) {										//DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªåˆæœŸåŒ–å‡¦ç†
 		return false;
 	}
-	SetDrawScreen(DX_SCREEN_BACK);							//— ‰æ–Êˆ—‚ğİ’è‚·‚é
+	SetDrawScreen(DX_SCREEN_BACK);							//è£ç”»é¢å‡¦ç†ã‚’è¨­å®šã™ã‚‹
 
 	return true;
 }
