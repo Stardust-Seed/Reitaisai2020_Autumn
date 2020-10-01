@@ -26,6 +26,7 @@ GameScene::GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseS
 //更新
 void GameScene::Update()
 {
+
 	//表示するのが奥の方の奴ら
 	castleManager->Update(enemyManager);
 
@@ -66,10 +67,12 @@ void GameScene::Draw()
 	DrawTurnGraph(-25, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
 	DrawGraph(GAME_WIDTH - 505, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
 
+	//山表示
+	DrawGraph(0, GAME_HEIHGT - 450 , Image::Instance()->GetGraph(eImageType::Gpicture_Mountain), TRUE);
+
 	eventManager->Draw();
 	timeLimit->Draw();
 	ui->Draw();
-
 }
 
 //シーン変更
