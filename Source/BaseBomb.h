@@ -51,11 +51,11 @@ class BasePlayer;
 		int time;
 		int power;						//爆弾のダメージ
 		int damage;
-		int countdown;					//カウントダウン
+		int countDown;					//カウントダウン
 		int direction;					//爆弾が落ちる方向
 		int type;						//爆弾の種類
-		int ptype;
-		int stime;
+		int pType;
+		int sTime;
 		int m_frameIndex = 0;
 
 		bool isActive;

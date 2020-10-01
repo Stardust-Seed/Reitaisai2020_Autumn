@@ -20,7 +20,7 @@ void Bomb::DamageMotion()
 
 void Bomb::Update(BasePlayer*player)
 {
-	ptype = player->Get_AbilityType();
+	pType = player->Get_AbilityType();
 
 	isPAbility = player->Get_isAbility();
 

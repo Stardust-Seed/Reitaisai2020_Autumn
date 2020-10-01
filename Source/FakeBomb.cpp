@@ -27,7 +27,7 @@ void FakeBomb::FakeMotion()
 
 void FakeBomb::Update(BasePlayer* player)
 {
-	ptype = player->Get_AbilityType();
+	pType = player->Get_AbilityType();
 
 	isPAbility = player->Get_isAbility();
 
@@ -46,7 +46,7 @@ void FakeBomb::Update(BasePlayer* player)
 			SpawnBomb();
 		}
 
-		if (isPAbility == false && ptype == SAKUYA_Ability)
+		if (isPAbility == false)
 		{
 			Move();
 		}
