@@ -9,14 +9,17 @@ SukimaEvent::SukimaEvent() {
 	width = 48;
 	height = width;
 	addSize = 12;
+
 	popFlg = true;
 	deleteFlg = false;
+	animationFlg = false;
 
 	isHit = false;
 	isActive = true;
+
+	deleteCnt = 0;
 	warpAnimationCnt = 0;
 	popAnimationCnt = 0;
-	animationFlg = false;
 
 	type = GetRand(3);    //—”æ“¾
 
@@ -64,7 +67,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 	for (int num = 0; num < enemy->Get_enemyNum(); num++)
 	{
 		//“–‚½‚è”»’è
-		if (enemy->Get_ActiveFlg(num) == true && animationFlg==false)
+		if (enemy->Get_ActiveFlg(num) == true && animationFlg == false && deleteFlg == false && popFlg == false)
 		{
 			ClisionHit(x,y,width,height,
 				enemy->Get_x(num), enemy->Get_y(num),
@@ -119,11 +122,30 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			isHit = false;
 		}
 	}
+
+	//ˆê’èŠÔ‚½‚Á‚½‚ç©‘RÁ–Å‚³‚¹‚é
+	if (deleteCnt < 700 && animationFlg == false)
+	{
+		deleteCnt++;
+	}
+	else
+	{
+		deleteFlg = true;
+		animationFlg = true;
+		if (popAnimationCnt > 0)
+		{
+			popAnimationCnt--;
+		}
+	}
+
+	if (deleteCnt == 700 && popAnimationCnt == 0)
+	{
+		isActive = false;
+	}
 }
 //•`‰æ
 void SukimaEvent::Draw()
 {
-
 		if ( popFlg ||animationFlg == true)
 		{
 			Animation();
@@ -202,11 +224,9 @@ void SukimaEvent::Animation()
 			}
 			if (animation[popAnimationCnt] == 3)
 			{
-				popFlg = false;
 				DrawGraph(x - width / 2 - addSize / 2, y - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 3), TRUE);
 			}
 		}
-
 	}
 	else
 	{
@@ -227,7 +247,10 @@ void SukimaEvent::Animation()
 		}
 		if (animation[popAnimationCnt] == 3)
 		{
-			popFlg = false;
+			if (popAnimationCnt == 31)
+			{
+				popFlg = false;
+			}
 			DrawGraph(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 3), TRUE);
 		}
 		if (animation[popAnimationCnt] == 4)
