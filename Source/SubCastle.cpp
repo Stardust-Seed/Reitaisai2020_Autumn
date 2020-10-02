@@ -9,8 +9,7 @@ SubCastle::SubCastle(int _durability,int _type)
 	SRand;					//—”‰Šú‰»
 	
 	width =  48;
-	height = width;
-
+	height = 48;
 	addPosX = 0;
 	addPosY = 0;
 	addSize = 12;
@@ -22,16 +21,18 @@ SubCastle::SubCastle(int _durability,int _type)
 	{
 	case 1:    //¶‘¤
 
-		x = GAME_WIDTH / 2 - width / 2 - 200 - GetRand(50);
+		x = GAME_WIDTH / 2 - width / 2 - 225 - GetRand(30);
 		y = GAME_HEIHGT / 2 - height / 2;
 
 		if (posType == 0)    //ã
 		{
-			addPosY = -60;
+			addPosX = -32;
+			addPosY = -65;
 		}
 		else                 //‰º
 		{
-			addPosY = 60;
+			addPosX = -32;
+			addPosY = 53;
 		}
 
 		direction = eDirection::Left;
@@ -40,16 +41,18 @@ SubCastle::SubCastle(int _durability,int _type)
 
 	case 2:    //‰E‘¤
 
-		x = GAME_WIDTH / 2 - width / 2 + 200 + GetRand(50);
+		x = GAME_WIDTH / 2 - width / 2 + 225 + GetRand(30);
 		y = GAME_HEIHGT / 2 - height / 2;
 
 		if (posType == 0)    //ã
 		{
-			addPosY = -60;
+			addPosX = 32;
+			addPosY = -65;
 		}
 		else                 //‰º
 		{
-			addPosY = 60;
+			addPosX = 32;
+			addPosY = 53;
 		}
 
 		direction = eDirection::Right;
@@ -61,15 +64,17 @@ SubCastle::SubCastle(int _durability,int _type)
 	case 3:    //ã‘¤
 
 		x = GAME_WIDTH / 2 - width / 2;
-		y = GAME_HEIHGT / 2 - height / 2 - 200 - GetRand(30);
+		y = GAME_HEIHGT / 2 - height / 2 - 225 - GetRand(30);
 
 		if (posType == 0)    //¶
 		{
-			addPosX = -60;
+			addPosY = -32;
+			addPosX = -54;
 		}
 		else                 //‰E
 		{
-			addPosX = 60;
+			addPosY = -32;
+			addPosX = 55;
 		}
 
 		direction = eDirection::Up;
@@ -79,15 +84,17 @@ SubCastle::SubCastle(int _durability,int _type)
 	case 4:    //‰º‘¤
 
 		x = GAME_WIDTH / 2 - width / 2;
-		y = GAME_HEIHGT / 2 - height / 2 + 200 + GetRand(30);
+		y = GAME_HEIHGT / 2 - height / 2 + 225 + GetRand(30);
 
 		if (posType == 0)    //¶
 		{
-			addPosX = -60;
+			addPosY = 32;
+			addPosX = -54;
 		}
 		else                 //‰E
 		{
-			addPosX = 60;
+			addPosY = 32;
+			addPosX = 55;
 		}
 
 		direction = eDirection::Down;
@@ -138,6 +145,7 @@ void SubCastle::Draw()
 		DrawGraph(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
 		Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
 	}
+
 }
 
 
