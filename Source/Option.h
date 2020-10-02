@@ -46,6 +46,9 @@ private:
 	int bColor;
 	int sColor;
 
+	int boxColorB;
+	int boxColorS;
+
 	int cNum[2] = {0,0};
 
 	SelectOptionType selectType;	//現在選択してるタイプ
