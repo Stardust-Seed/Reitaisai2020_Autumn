@@ -7,9 +7,9 @@ SukimaEvent::SukimaEvent() {
 	SRand;					//—”‰Šú‰»
 
 	width = 48;
-	height = width;
-	addSize = 12;
-
+	height = 48;
+	addSize = 8;
+	hitNum = -1;
 	popFlg = true;
 	deleteFlg = false;
 	animationFlg = false;
@@ -67,8 +67,10 @@ void SukimaEvent::Update(EnemyManager* enemy)
 	for (int num = 0; num < enemy->Get_enemyNum(); num++)
 	{
 		//“–‚½‚è”»’è
-		if (enemy->Get_ActiveFlg(num) == true && animationFlg == false && deleteFlg == false && popFlg == false)
-		{
+		if (enemy->Get_ActiveFlg(num) == true && animationFlg == false &&
+			deleteFlg == false && popFlg == false )
+	    {
+			hitNum = num;
 			ClisionHit(x,y,width,height,
 				enemy->Get_x(num), enemy->Get_y(num),
 				enemy->Get_width(num),enemy->Get_height(num));
@@ -77,7 +79,6 @@ void SukimaEvent::Update(EnemyManager* enemy)
 		if (isHit == true)
 		{
 			SE::Instance()->PlaySE(SE_sukimaWarp);
-			deleteFlg = true;
 			animationFlg = true;
 			warpAnimationCnt = 0;
 			int _type = GetRand(3);
@@ -85,33 +86,33 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			switch (_type)
 			{
 			case 0:    //¶‘¤
-				enemy->Set_x(num, LEFT_X - width + 50);
-				enemy->Set_y(num, LEFT_Y - height * 0.5f);
-				enemy->Set_direction(num, eDirection::Left);
+				enemy->Set_x(hitNum, LEFT_X - width + 50);
+				enemy->Set_y(hitNum, LEFT_Y - height * 0.5f);
+				enemy->Set_direction(hitNum, eDirection::Left);
 				warpPosX = LEFT_X;
 				warpPosY = LEFT_Y;
 				break;
 
 			case 1:    //‰E‘¤
-				enemy->Set_x(num, RIGHT_X - width + 50);
-				enemy->Set_y(num, RIGHT_Y - height * 0.5f);
-				enemy->Set_direction(num, eDirection::Right);
+				enemy->Set_x(hitNum, RIGHT_X - width + 50);
+				enemy->Set_y(hitNum, RIGHT_Y - height * 0.5f);
+				enemy->Set_direction(hitNum, eDirection::Right);
 				warpPosX = RIGHT_X;
 				warpPosY = RIGHT_Y;
 				break;
 
 			case 2:    //ã‘¤
-				enemy->Set_x(num, UP_X - width * 0.5f);
-				enemy->Set_y(num, UP_Y - height + 50);
-				enemy->Set_direction(num, eDirection::Up);
+				enemy->Set_x(hitNum, UP_X - width * 0.5f);
+				enemy->Set_y(hitNum, UP_Y - height + 50);
+				enemy->Set_direction(hitNum, eDirection::Up);
 				warpPosX = UP_X;
 				warpPosY = UP_Y;
 				break;
 
 			case 3:    //‰º‘¤
-				enemy->Set_x(num, DOWN_X - width * 0.5f);
-				enemy->Set_y(num, DOWN_Y - height + 50);
-				enemy->Set_direction(num, eDirection::Down);
+				enemy->Set_x(hitNum, DOWN_X - width * 0.5f);
+				enemy->Set_y(hitNum, DOWN_Y - height + 50);
+				enemy->Set_direction(hitNum, eDirection::Down);
 				warpPosX = DOWN_X;
 				warpPosY = DOWN_Y;
 				break;
@@ -120,6 +121,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 				break;
 			}
 			isHit = false;
+			deleteFlg = true;
 		}
 	}
 
@@ -163,8 +165,8 @@ void SukimaEvent::Draw()
 bool SukimaEvent:: ClisionHit(float mx, float my, float mw, float mh,
 	                          float ox, float oy, float ow, float oh)
 {
-	if (x + width >= ox && x <= ox + ow &&
-		y + height >= oy && y <= oy + oh)
+	if (x + width - addSize * 5 >= ox && x - addSize * 2  <= ox + ow &&
+		y + height - addSize * 5 >= oy && y - addSize * 2 <= oy + oh)
 	{
 		isHit = true;
 	}

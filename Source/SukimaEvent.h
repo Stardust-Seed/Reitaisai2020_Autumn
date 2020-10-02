@@ -36,6 +36,7 @@ private:
 
 	//“–‚½‚è”»’è
 	bool isHit;
+	int hitNum;
 
 	//ƒXƒLƒ}‚ÌêŠ
 	int type;
