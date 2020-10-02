@@ -51,6 +51,7 @@ void FakeBomb::Update(BasePlayer* player)
 			Move();
 		}
 
+
 		JudgeTrigger();
 		SkillStop();
 		FakeMotion();
@@ -69,16 +70,22 @@ void FakeBomb::Draw()
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 1), TRUE);
 	}
-	
-	JudgeTrigger();
-	SkillStop();
+
+	if (isCount == true)
+	{
+		JudgeTrigger();
+	}
+
+	if (isStopCount == true)
+	{
+		SkillStop();
+	}
 
 	if (AnimationFlg == true)
 	{
 		isFakeAction = false;
 		Animation();
 	}
-
 }
 
 void FakeBomb::Animation()
@@ -93,11 +100,11 @@ void FakeBomb::Animation()
 
 	if (fake_Animation[m_frameIndex] == 1)
 	{
-		DrawGraph(x, y - 10, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 1), TRUE);		
+		DrawGraph(x, y - 10, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 1), TRUE);
 	}
 	if (fake_Animation[m_frameIndex] == 2)
 	{
-		DrawGraph(x, y -30, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 2), TRUE);
+		DrawGraph(x, y - 30, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 2), TRUE);
 	}
 
 	if (fake_Animation[m_frameIndex] == 3)
