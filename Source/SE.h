@@ -61,7 +61,7 @@ private:
 	//追加するときはこの配列の数字も増やしてね
 	int seNum[12];                        //格納するための配列
 	int LoadSE(const char* _filePath);    //読み込み用に
-
+	int volume;
 public:
 
 	SE();                                 //コンストラクタ
@@ -70,6 +70,8 @@ public:
 	void PlaySE(SEnum, int _type = 1);    //再生
 	void StopSE(SEnum);                   //停止
 	void VolumeSE(int);                   //音量設定
+	void Set_Volume(int _volume) { volume = _volume; }
+	int  Get_Volume() { return volume; }
 
 };
 
