@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include"TimeLimit.h"
+#include "FontHandle.h"
 
 TimeLimit::TimeLimit() {
 	timer = MAX_LIMITTIME;						//制限時間のセット
@@ -11,8 +12,7 @@ TimeLimit::TimeLimit() {
 
 void TimeLimit::Update() {
 	Draw();											//描画
-	if (timer <= FRAME) {								//残り一秒以下は割り算の結果0になるため、表示タイミングの調整
-		DrawFormatString(10, 80, color, "Time Up");	//タイムアップの文字表示
+	if (timer <= FRAME) {								//残り一秒以下は割り算の結果0になるため
 		finishTime = true;							//フラグ切替
 	}
 	if(timer >= 0){									//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
@@ -21,7 +21,8 @@ void TimeLimit::Update() {
 }
 
 void TimeLimit::Draw() {
-	DrawFormatString(10, 60,color, "制限時間%d",timer/FRAME);	//表示
+	//DrawFormatString(10, 60,color, "制限時間%d",timer/FRAME);	//表示
+	DrawFormatStringToHandle(10, 60, color, FontHandle::Instance()->Get_natumemozi_38_8(), "TIME :%d", timer / FRAME);
 } 
 
 void TimeLimit::CountDown() {
