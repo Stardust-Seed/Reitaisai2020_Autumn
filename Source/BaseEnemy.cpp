@@ -76,6 +76,12 @@ void BaseEnemy::Init(float _speed, float _power, int _durability,
 	isCoolDown = false;
 	isHit = false;
 
+	addX = 0;
+	addY = 0;
+
+	distanceToPlayerX = 0;
+	distanceToPlayerY = 0;
+
 	attackType = eAttackType::None;
 	inactiveType = eInactiveType::None;
 
@@ -128,29 +134,28 @@ void BaseEnemy::AttackProc(float _cx,float _cy) {
 		return;
 	}
 
-	float addX = 0;
-	float addY = 0;
+	if (attackCnt == 0) {
+		distanceToPlayerX = abs(cx - _cx) / 30.0f;
+		distanceToPlayerY = abs(cy - _cy) / 30.0f;
 
-	float distanceToPlayerX = abs(cx - _cx) / 30.0f;
-	float distanceToPlayerY = abs(cy - _cy) / 30.0f;
-
-	switch (direction) {
-	case eDirection::Left:
-		addX = distanceToPlayerX;
-		addY = -(ATTACK_ANIMATION_JUNPPOWER);
-		break;
-	case eDirection::Right:
-		addX = -(distanceToPlayerX);
-		addY = -(ATTACK_ANIMATION_JUNPPOWER);
-		break;
-	case eDirection::Up:
-		addX = ATTACK_ANIMATION_JUNPPOWER;
-		addY = distanceToPlayerY;
-		break;
-	case eDirection::Down:
-		addX = -(ATTACK_ANIMATION_JUNPPOWER);
-		addY = -(distanceToPlayerY);
-		break;
+		switch (direction) {
+		case eDirection::Left:
+			addX = distanceToPlayerX;
+			addY = -(ATTACK_ANIMATION_JUNPPOWER);
+			break;
+		case eDirection::Right:
+			addX = -(distanceToPlayerX);
+			addY = -(ATTACK_ANIMATION_JUNPPOWER);
+			break;
+		case eDirection::Up:
+			addX = ATTACK_ANIMATION_JUNPPOWER;
+			addY = distanceToPlayerY;
+			break;
+		case eDirection::Down:
+			addX = -(ATTACK_ANIMATION_JUNPPOWER);
+			addY = -(distanceToPlayerY);
+			break;
+		}
 	}
 
 	if (attackCnt == 100) {
@@ -366,4 +371,6 @@ void BaseEnemy::Animation() {
 		animationCnt = Image::Instance()->FadeOutGraph(x, y, Image::Instance()->GetGraph(
 			eImageType::Gpicture_Enemy, imageIndex), animationCnt, 60, isTurn);
 	}
+
+	DrawBoxAA(x, y, x + width, y + height, GetColor(255, 255, 255), FALSE, 3);
 }
