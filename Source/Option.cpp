@@ -58,9 +58,11 @@ void Option::Update() {
 		SaveConfigFile();
 		SE::Instance()->VolumeSE(seVolume);
 		BGM::Instance()->VolumeBGM(bgmVolume);
+		SE::Instance()->PlaySE(SE_cursor);
 	}
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
+		SE::Instance()->PlaySE(SE_cursor);
 		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
 	}
 
