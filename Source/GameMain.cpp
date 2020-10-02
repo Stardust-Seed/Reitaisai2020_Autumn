@@ -35,6 +35,8 @@ void GameMain::Init() {
 
 	BGM::Instance()->VolumeBGM(savebuf[0]);
 	SE::Instance()->VolumeSE(savebuf[1]);
+	BGM::Instance()->Set_Volume(savebuf[0]);
+	SE::Instance()->Set_Volume(savebuf[1]);
 
 	fclose(fp);
 }
