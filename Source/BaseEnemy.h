@@ -68,6 +68,12 @@ protected:
 	bool isAttack;		//エネミーの攻撃フラグ
 	bool isCoolDown;	//クールダウンフラグ
 
+	float addX;
+	float addY;
+
+	float distanceToPlayerX;
+	float distanceToPlayerY;
+
 	eAttackType attackType;		//攻撃のタイプ
 	eInactiveType inactiveType;	//非アクティブのタイプ
 
