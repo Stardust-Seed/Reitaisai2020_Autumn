@@ -83,8 +83,9 @@ protected:
 	int  abilityCount;              //スキル回数
 	int  bulletCount;               //弾のカウント
 
-	int playerPos;                  //プレイヤーの向き
+	int playerDirection;                  //プレイヤーの向き
 	// 0 = 左         1 = 上        2 = 右         3 = 下
+	int playerPos;
 
 	bool isMove;                   //現在移動中のフラグ
 

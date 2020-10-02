@@ -6,6 +6,7 @@
 #include"BulletManager.h"
 #include"BuffManager.h"
 #include"EnemyManager.h"
+#include "Direction.h"
 #include"Image.h"
 
 BasePlayer::BasePlayer(int _pType)
@@ -45,7 +46,8 @@ BasePlayer::BasePlayer(int _pType)
 	stanTime = 0;				//スタンタイム
 	stanTime_stay = 360;		//スタン再発動までの時間
 
-	playerPos = 0;			    //プレイヤーの向き。最初は左
+	playerDirection = 0;			    //プレイヤーの向き。最初は左
+	playerPos = 0;                      //プレイヤーのポジション
 
 	isMove = false;				//移動している：true  移動していない：false
 	isAttack = false;           //攻撃してるかどうか
@@ -80,22 +82,22 @@ void BasePlayer::Draw()
 }
 void BasePlayer::Draw_Arow()
 {
-	if (playerPos == 0)
+	if (playerDirection == 0)
 	{
 		//左向き矢印
 		DrawTriangle(pos.x - 30, pos.y + 24, pos.x - 5, pos.y + 32, pos.x - 5, pos.y+16, GetColor(255, 255, 255), TRUE);
 	}
-	if (playerPos == 1)
+	if (playerDirection == 1)
 	{
 		//上向き矢印
 		DrawTriangle(pos.x + 24, pos.y - 30, pos.x+16, pos.y - 5, pos.x + 32, pos.y - 5, GetColor(255, 255, 255), TRUE);
 	}
-	if (playerPos == 2)
+	if (playerDirection == 2)
 	{
 		//右向き矢印
 		DrawTriangle(pos.x + 78, pos.y + 24, pos.x + 53, pos.y+16, pos.x + 53, pos.y + 32, GetColor(255, 255, 255), TRUE);
 	}
-	if (playerPos == 3)
+	if (playerDirection == 3)
 	{
 		//下向き矢印
 		DrawTriangle(pos.x + 24, pos.y + 78, pos.x+16, pos.y + 53, pos.x + 32, pos.y + 53, GetColor(255, 255, 255), TRUE);
@@ -162,7 +164,10 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 			if (ClisionHit(Get_x()+6, Get_y(), Get_width()-6, Get_height(),
 				_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
 			{
-				isStan = true;   //スタンは少ししてから解除されるので
+				if (_eManager->Get_AttackType(i) != eAttackType::Invasion)
+				{
+					isStan = true;   //スタンは少ししてから解除されるので
+				}
 			}
 		}
 	}
@@ -186,6 +191,25 @@ void BasePlayer::Update(EnemyManager* _eManager,BuffManager* _bManager)
 	}
 	float xx = pos.x + width;
 	float yy = pos.y + height;
+
+
+	//プレイヤーが左にいるとき
+	if (pos.x <= 798 && (pos.y >= 426 && pos.y <= 606))
+	{
+		playerPos = 0; //左
+	}
+	if ((pos.x >= 894 && pos.x <= 978) && pos.y <= 378)
+	{
+		playerPos = 1; //上
+	}
+	if ((pos.x >= 978) && (pos.y >= 426 && pos.y <= 606))
+	{
+		playerPos = 2; //右
+	}
+	if ((pos.x >= 894 && pos.x <= 978) && pos.y >= 558)
+	{
+		playerPos = 3;
+	}
 
 }
 //プレイヤーのスタン処理
@@ -227,10 +251,29 @@ void BasePlayer::Attack()
 	if (isMove == false) {
 		if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && attackTime >= 20)
 		{
+			/***
+			if (playerPos = 0 && playerDirection == 2)
+			{
+				return;
+			}
+			if (playerPos = 1 && playerDirection == 3)
+			{
+				return;
+			}
+			if (playerPos = 2 && playerDirection == 0)
+			{
+				return;
+			}
+			if (playerPos = 3 && playerDirection == 1)
+			{
+				return;
+			}
+			***/
+
 			//攻撃flagをtrueにする
 			isAttack = true;
 			//弾を飛ばす
-			bulletManager->Shot(pos, playerPos, isAttack);
+			bulletManager->Shot(pos, playerDirection,isAttack);
 			if (playerType == SAKUYA)
 			{
 				//SEを鳴らす
@@ -298,7 +341,7 @@ void BasePlayer::Move()
 
 		Move_LEFT();    //←移動
 		isMove = true;
-		playerPos = 0;  //←向き状態
+		playerDirection = 0;  //←向き状態
 		animLR = true;
 
 	}
@@ -307,7 +350,7 @@ void BasePlayer::Move()
 
 		Move_UP();      //↑移動
 		isMove = true;
-		playerPos = 1;  //↑向き状態
+		playerDirection = 1;  //↑向き状態
 		
 	}
 	//→キーを押したとき
@@ -315,7 +358,7 @@ void BasePlayer::Move()
 
 		Move_RIGHT();   //→移動
 		isMove = true;
-		playerPos = 2;  //→向き状態
+		playerDirection = 2;  //→向き状態
 		animLR = false;
 	
 	}
@@ -324,7 +367,7 @@ void BasePlayer::Move()
 
 		Move_DOWN();    //↓移動
 		isMove = true;
-		playerPos = 3;  //↓向き状態
+		playerDirection = 3;  //↓向き状態
 
 	}
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_DOWN) <= 0) && (Input::Instance()->GetPressCount(KEY_INPUT_UP) <= 0) &&
