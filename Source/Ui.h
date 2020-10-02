@@ -51,13 +51,13 @@ private:
 	const int MAX_BUFF = 15;				//バフゲージの最大数
 
 	static const int SKILLBAR_X = 0;				//枠のｘ始点
-	static const int SKILLBAR_Y = 175;
+	static const int SKILLBAR_Y = 160;
 	static const int SKILLBAR_X1 = 0;			   //枠のｘ終点
-	static const int SKILLBAR_Y1 = 175;
+	static const int SKILLBAR_Y1 = 160;
 	static const int SKILLGAUGE_X = 0;			   //バーのｘ始点
-	static const int SKILLGAUGE_Y = 175;
+	static const int SKILLGAUGE_Y = 160;
 	static const int SKILLGAUGE_X1 = 0;			   //バーのｘ終点
-	static const int SKILLGAUGE_Y1 = 175;
+	static const int SKILLGAUGE_Y1 = 160;
 
 	const int MAX_STOPTIME = 5;				//咲夜さんの時止め最大タイム
 
@@ -70,12 +70,12 @@ private:
 	int sBuffPoint;					//sアイテムのゲージ上昇用
 	int pBuffLevel;					//pアイテム獲得時のバフレベル
 	int sBuffLevel;					//sアイテム獲得時のバフレベル
-	int skillcount;					//スキル使用回数
-	int skillclock;					//スキルの使用タイム
-	int skilltype;
+	int skillCount;					//スキル使用回数
+	int skillClock;					//スキルの使用タイム
+	int skillType;
 
 	bool isActive[5];
-	bool skillactive;
+	bool skillActive;
 
 
 public:
