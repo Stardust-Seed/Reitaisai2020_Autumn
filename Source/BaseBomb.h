@@ -63,6 +63,7 @@ class BasePlayer;
 		bool isTrigger;					//爆発してるかしてないか
 		bool isSpown;					//爆弾の生成したかどうか
 		bool isCount;					//カウントダウンを表示させるため
+		bool isStopCount;
 		bool AnimationFlg;
 		bool isPAbility;
 		bool isHit;

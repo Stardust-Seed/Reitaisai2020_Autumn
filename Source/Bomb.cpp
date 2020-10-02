@@ -11,14 +11,14 @@ Bomb::Bomb(int _power, int _speed, eBombType _bombType)
 void Bomb::DamageMotion()
 {
 	if (isTrigger == true)
-	{ 
+	{
 		AnimationFlg = true;
 		isTrigger = false;
 		isActive = false;
 	}
 }
 
-void Bomb::Update(BasePlayer*player)
+void Bomb::Update(BasePlayer* player)
 {
 	pType = player->Get_AbilityType();
 
@@ -63,8 +63,15 @@ void Bomb::Draw()
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 0), TRUE);
 	}
 
-	JudgeTrigger();
-	SkillStop();
+	if (isCount == true)
+	{
+		JudgeTrigger();
+	}
+
+	if (isStopCount == true)
+	{
+		SkillStop();
+	}
 
 	if (AnimationFlg == true)
 	{

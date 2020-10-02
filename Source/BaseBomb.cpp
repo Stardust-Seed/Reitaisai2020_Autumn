@@ -13,7 +13,7 @@ BaseBomb::BaseBomb(int _power, int _speed, eBombType _bombType)
 	
 	countDown = COUNTMAX;						//カウントダウンのセット
 	
-	isActive = true;
+	isActive = false;
 	isSpown = false;
 	isXplosion = false;							//初期状態
 	isTrigger = false;
@@ -188,8 +188,11 @@ void BaseBomb::SkillStop()
 {
 	if (pType == SAKUYA_Ability)
 	{
+		
 		if (isPAbility == true)
 		{
+			isStopCount = true;
+
 			sTime = countDown / FRAME;
 		
 			if (speed == 0)
@@ -209,7 +212,7 @@ bool BaseBomb::ClisionHit(float mx, float my, float mw, float mh,
 		y + height >= oy && y <= oy + oh)
 	{
 		isHit = true;
-		isCount == false;
+		isStopCount = false;
 	}
 	else
 	{
