@@ -63,6 +63,7 @@ private:
 	//’Ç‰Á‚·‚é‚Æ‚«‚Í‚±‚Ì”z—ñ‚Ì”š‚à‘‚â‚µ‚Ä‚Ë
 	int bgmNum[5];                                              //Ši”[‚·‚é‚½‚ß‚Ì”z—ñ
 	int LoadBGM(const char* _filePath);                         //“Ç‚İ‚İ—p‚É
+	int volume;
 
 public:
 
@@ -72,6 +73,9 @@ public:
 	void PlayBGM(BGMnum,int _type = 1, bool _topflg = true);    //Ä¶
 	void StopBGM(BGMnum);                                       //’â~
 	void VolumeBGM(int);                                        //‰¹—Êİ’è
+	void Set_Volume(int _volume) { volume = _volume; }
+	int  Get_Volume() { return volume; }
+
 };
 
 #endif //BGM_H_
