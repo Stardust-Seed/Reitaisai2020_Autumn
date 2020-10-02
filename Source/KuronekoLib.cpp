@@ -47,7 +47,7 @@ int DrawUIGraph(float _x, float _y, float _width, float _height, double _extX, d
 
 	//文字の描画
 	DrawStringToHandle(_x - ((_fontSize / 2) * (textSize / 2)), _y - (_fontSize / 2),
-		_text.c_str(), GetColor(255, 255, 255), _font);
+		_text.c_str(), _color, _font);
 
 	//ブレンドモードをノーブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
