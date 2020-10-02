@@ -17,7 +17,7 @@ class EnemyManager;
 class MainCastle:public virtual BaseCastle{
 
 private:
-
+	int addSize;
 public:
 	 MainCastle(int);
 
