@@ -11,7 +11,6 @@ CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter) :B
 	//最初は咲夜が選択されている状態
 	select_Sakuya= 0;
 	select_Fran = 0;
-	select_Menu = 0;
 
 	//色
 	color = GetColor(0, 0, 255);
@@ -29,14 +28,13 @@ void CharaSelect::Update()
 		charaSelect = (charaSelect + 1) % select_NUM;
 		SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
 	}
-	if (charaSelect != select_SAKUYA) {
-		if ((Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1))
-		{
-			//選択項目を一つ上げる(左に)
-			charaSelect = (charaSelect - 1) % select_NUM;
-			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
-		}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1))
+	{
+		//選択項目を一つ上げる(左に)
+		charaSelect = (charaSelect - 1) % select_NUM;
+		SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
 	}
+
 
 	/****決定****/
 	/************/
@@ -53,53 +51,48 @@ void CharaSelect::Update()
 			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
 			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
 			break;
-		case select_BACK:
-			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
-			//前のシーン(画面)に戻る
-			sceneChanger->SceneChange(eScene_MENU, parameter, false, true); //新
-			break;
 		}
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_X) == 1))
+	{
+		sceneChanger->SceneChange(eScene_MENU, parameter, true, false);
 	}
 
 	if (charaSelect == select_SAKUYA)
 	{
 		select_Sakuya = 3;
 		select_Fran = 0;
-		select_Menu = 0;
 	}
 	else if (charaSelect == select_FRAN)
 	{
 		select_Fran = 1;
 		select_Sakuya = 0;
-		select_Menu = 0;
 	}
 	else
 	{
-		select_Menu = 2;
 		select_Sakuya = 0;
 		select_Fran = 0;
 	}
 
 }
 
+
 /*描画処理*/
 void CharaSelect::Draw()
 {
-
-	Draw_Waku();         //キャラ画像の枠
+	Draw_CharaBack();    //背景
+	Draw_CharaWaku();    //キャラ画像の枠
 	Draw_CharaGraph();   //キャラ画像
 	Draw_CharaName();    //キャラネームとネームの枠
 	Draw_CharaAbility(); //キャラクターのスキル説明
 
 }
-void CharaSelect::Draw_CharaGraph()
+void CharaSelect::Draw_CharaBack()
 {
-	/**描画 中**/
-	//キャラクター画像の表示
-	DrawGraph(555, 200, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 0), true);
-	DrawGraph(1105, 200, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 1), true);
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title, 0), true);   //背景
+	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter, 0), true); //フィルター
 }
-void CharaSelect::Draw_Waku()
+void CharaSelect::Draw_CharaWaku()
 {
 	/**描画 奥**/
 	//キャラクター画像の枠組み
@@ -109,42 +102,52 @@ void CharaSelect::Draw_Waku()
 	DrawBox(555, 200, 830, 599, GetColor(0, 255, 255), true);    //水色
 	DrawBox(1105, 200, 1380, 599, GetColor(255, 255, 0), true);  //黄色
 
-	//選択してる項目の枠
-	//DrawOvalAA(selectMenu[charaSelect].x, selectMenu[charaSelect].y,
-	//	selectMenu[charaSelect].rx, selectMenu[charaSelect].ry, 100, color, false, 5.0f);
+}
+void CharaSelect::Draw_CharaGraph()
+{
+	/**描画 中**/
+	//キャラクター画像の表示
+	DrawGraph(555, 200, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 0), true);
+	DrawGraph(1105, 200, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 1), true);
 }
 void CharaSelect::Draw_CharaName()
 {
 	//咲夜枠
 	DrawRotaGraph(690,725,0.6,0.0,Image::Instance()->GetGraph(eImageType::UI_CursorFrame, select_Sakuya),TRUE);
 	//スキル枠
-	DrawExtendGraph(125, 200, 530, 600, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
+	DrawBox(95, 200, 450, 700, GetColor(0, 0, 0), TRUE);
+	//DrawExtendGraph(125, 200, 500, 600, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
 
 	//フラン枠
 	DrawRotaGraph(1250, 725, 0.6, 0.0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, select_Fran), TRUE);
 	//スキル枠
-	DrawExtendGraph(1410, 200, 1800, 600, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
-
-	//メニュー枠
-	DrawRotaGraph(975, 925, 0.6, 0.0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, select_Menu), TRUE);
+	DrawBox(1490,200,1845, 700, GetColor(0, 0, 0), TRUE);
+	//DrawExtendGraph(1440, 200, 1800, 600, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
 
 	/**描画 前**/
 	//キャラクター名の表示
 	DrawStringToHandle(560, 700, "十六夜 咲夜", GetColor(0, 0,0), FontHandle::Instance()->Get_natumemozi_48_8());
 	DrawStringToHandle(1100, 700, "フランドール・Ｓ", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(830, 900, "メニューに戻る", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
 }
 void CharaSelect::Draw_CharaAbility()
 {
 	//咲夜スキル説明
-	DrawStringToHandle(225, 250, "　スキル", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(225, 325, "敵の動きを", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(165, 375, "5秒間停止させる", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(180, 450, "使用回数：３回", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(160, 250, "　スキル", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(160, 325, "敵の動きを", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(100, 375, "5秒間停止させる", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(120, 450, "使用回数：３回", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+
+	//咲夜ステータス
+	DrawStringToHandle(120, 530, "power  ★", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(120, 580, "speed  ★★★", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
 
 	//フランスキル説明
-	DrawStringToHandle(1485, 250, "　スキル", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(1455, 325, "画面上の敵を", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(1455, 375, "全て破壊する", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(1450, 450, "使用回数：２回", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(1550, 250, "　スキル", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(1515, 325, "画面上の敵を", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(1515, 375, "全て破壊する", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(1515, 450, "使用回数：２回", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+
+	//フランステータス
+	DrawStringToHandle(1515, 530, "power  ★★★", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(1515, 580, "speed  ★", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
 }
