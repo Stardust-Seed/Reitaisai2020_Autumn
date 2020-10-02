@@ -56,9 +56,10 @@ void GameScene::Draw()
 	castleManager->Draw();
 
 	//•\Ž¦‚·‚é‚Ì‚ª’†ŠÔ‚Ì“z‚ç
-	enemyManager->Draw();
 	player->Draw();
+	enemyManager->Draw();
 	bulletManager->Draw();
+
 
 	//•\Ž¦‚·‚é‚Ì‚ª‘O‚Ì•û‚Ì“z‚ç
 	itemManager->Draw();
