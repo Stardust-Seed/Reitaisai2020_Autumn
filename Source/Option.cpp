@@ -56,6 +56,8 @@ void Option::Update() {
 	//Ý’è‚µ‚½€–Ú‚Ì•Û‘¶ˆ—
 	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) {
 		SaveConfigFile();
+		BGM::Instance()->VolumeBGM(bgmVolume);
+		SE::Instance()->VolumeSE(seVolume);
 		BGM::Instance()->Set_Volume(bgmVolume);
 		SE::Instance()->Set_Volume(seVolume);
 		SE::Instance()->PlaySE(SE_cursor);
