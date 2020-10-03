@@ -65,8 +65,8 @@ void GameScene::Draw()
 	itemManager->Draw();
 
 	//X•\Ž¦
-	DrawTurnGraph(-25, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
-	DrawGraph(GAME_WIDTH - 505, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
+	DrawTurnGraph(-55, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
+	DrawGraph(GAME_WIDTH - 500, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
 
 	//ŽR•\Ž¦
 	DrawGraph(0, GAME_HEIHGT - 450 , Image::Instance()->GetGraph(eImageType::Gpicture_Mountain), TRUE);
