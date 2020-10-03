@@ -9,7 +9,7 @@ class EnemyManager;
 
 class BulletManager
 {
-	static const int MAX_BULLET = 20;  //’e‚ÌÅ‘å
+	static const int MAX_BULLET = 50;  //’e‚ÌÅ‘å
 
 	Bullet* bullet[MAX_BULLET];  //“K“–‚ÉÅ‘å’e‚Í10”­
 
