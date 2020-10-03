@@ -6,6 +6,7 @@
 #include "FontHandle.h"
 #include"Image.h"
 #include"SE.h"
+#include"BGM.h"
 
 //キャラクタータイプ
 enum SelectCharacter {
