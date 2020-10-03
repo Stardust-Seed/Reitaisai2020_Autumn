@@ -24,7 +24,7 @@ private:
 	static const int HPGAUGE_X1 = 50;			//バーのｘ終点
 	static const int HPGAUGE_Y1 = 10;	
 	static const int MAX_DURABILTY = 100;		//メイン拠点最大体力
-	static const int MAX_SABDURABILTY = 10;	//サブ拠点最大体力
+	static const int MAX_SABDURABILTY = 35;	//サブ拠点最大体力
 
 	static const int PMOJI_X = 1550;			//文字のｘ
 	static const int PMOJI_Y = 960;
