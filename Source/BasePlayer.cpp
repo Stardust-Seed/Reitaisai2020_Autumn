@@ -22,7 +22,7 @@ BasePlayer::BasePlayer(int _pType)
 	if (playerType == SAKUYA)
 	{
 		speed = 7;					//移動速度
-		power = 15;					//攻撃力
+		power = 35;					//攻撃力
 		abilityCount = 3;		    //スキル回数
 		graphNo = 2;
 		animNo = 2;
@@ -105,9 +105,16 @@ void BasePlayer::Draw_Arow()
 }
 void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 {
+
+	DrawFormatString(500, 500, GetColor(200, 200, 200), "%f", pos.x);
+	DrawFormatString(500, 550, GetColor(200, 200, 200), "%f", pos.y);
+
+	DrawFormatString(500, 600, GetColor(200, 200, 200), "playerPos:%d", playerPos);
+	DrawFormatString(500, 650, GetColor(200, 200, 200), "playerPos:%d", playerDirection);
+
 	if (playerType == SAKUYA)
 	{
-		power = 25 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
+		power = 35 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
 		speed = 5 * _bManager->GetSpeedBuff();   //バフによるスピード増加
 	}
 	if (playerType == FRAN)
@@ -283,42 +290,42 @@ void BasePlayer::Attack()
 void BasePlayer::AttackDirection()
 {
 	//プレイヤーが左の真ん中あたりにいるとき
-	if (pos.x <= 845 && (pos.y >= 422 && pos.y <= 600))
+	if (pos.x <= 845 && (pos.y >= 424 && pos.y <= 600))
 	{
 		playerPos = 0; //左
 	}
 	//プレイヤーが上の真ん中あたりにいるとき
-	if ((pos.x >= 855 && pos.x <= 1015) && pos.y <= 422)
+	if ((pos.x >= 855 && pos.x <= 1015) && pos.y <= 424)
 	{
 		playerPos = 1; //上
 	}
 	//プレイヤーが右の真ん中あたりにいるとき
-	if ((pos.x >= 1030) && (pos.y >= 422 && pos.y <= 600))
+	if ((pos.x >= 1015) && (pos.y >= 424 && pos.y <= 605))
 	{
 		playerPos = 2; //右
 	}
 	//プレイヤーが下の真ん中あたりにいるとき
-	if ((pos.x >= 855 && pos.x <= 1015) && pos.y >= 610)
+	if ((pos.x >= 855 && pos.x <= 1015) && pos.y >= 605)
 	{
 		playerPos = 3; //下
 	}
 	//プレイヤーが左上の隅にいるとき
-	if (pos.x <= 850 && pos.y <= 422)
+	if (pos.x <= 850 && pos.y <= 424)
 	{
 		playerPos = 4; //無
 	}
 	//プレイヤーが左下の隅にいるとき
-	if (pos.x <= 850 && pos.y >= 610)
+	if (pos.x <= 850 && pos.y >= 605)
 	{
 		playerPos = 4; //無
 	}
 	//プレイヤーが右上の隅にいるとき
-	if (pos.x >= 1030 && pos.y <= 422)
+	if (pos.x >= 1015 && pos.y <= 424)
 	{
 		playerPos = 4; //無
 	}
 	//プレイヤーが右下の隅にいるとき
-	if (pos.x >= 1030 && pos.y >= 610)
+	if (pos.x >= 1015 && pos.y >= 605)
 	{
 		playerPos = 4; //無
 	}
