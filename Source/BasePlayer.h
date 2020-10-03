@@ -42,7 +42,7 @@ class BasePlayer :public virtual Object
 
 protected:
 
-	const float PLAYER_SPOWNPOSX = 846;	    //プレイヤーの初期位置_X
+	const float PLAYER_SPOWNPOSX = 841;	    //プレイヤーの初期位置_X
 	const float PLAYER_SPOWNPOSY = 516;	    //プレイヤーの初期位置_Y
 
 	const float PLAYER_UPDOWNPOSX = 936;    //プレイヤーの上と下の位置X
@@ -51,7 +51,7 @@ protected:
 	const float PLAYER_DOWNPOSY = 606;      //プレイヤーの下の位置Y
 
 	const float PLAYER_LEFTRIGHTPOS = 516;  //プレイヤーの左と右の高さ
-	const float PLAYER_LEFTPOS = 846;       //プレイヤーの左の位置
+	const float PLAYER_LEFTPOS = 841;       //プレイヤーの左の位置
 
 	const float PLAYER_RIGHTPOS = 1026;     //プレイヤーの右の位置
 
