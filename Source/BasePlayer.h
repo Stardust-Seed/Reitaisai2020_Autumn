@@ -119,6 +119,7 @@ public:
 	void Move_LEFT();      //←移動処理
 	void Move_RIGHT();     //→移動処理
 	void Attack();         //攻撃処理
+	void AttackDirection();//攻撃方向をチェック
 	void Animation();      //アニメーション
 	void Ability();        //スキル処理
 
