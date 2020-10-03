@@ -7,8 +7,9 @@ MainCastle::MainCastle(int _durability)
 	:BaseCastle(_durability) {
 
 	durability = _durability;
-	width = 120;
-	height = 120;
+	width = 94;
+	height = 94;
+    addSize = 24;
 	x = GAME_WIDTH / 2 - width / 2;       //1920 / 2 - 120 / 2 = 900
 	y = GAME_HEIHGT / 2 - height / 2;     //1080 / 2 - 120 / 2 = 480
 
@@ -46,6 +47,6 @@ void MainCastle::Draw()
     //‹’“_‚Ì•`‰æ
 	if (isActive == true)
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_MainCastle), TRUE);
+		DrawGraph(x - addSize+4, y - addSize+4, Image::Instance()->GetGraph(eImageType::Gpicture_MainCastle), TRUE);
 	}
 }
