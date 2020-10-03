@@ -127,7 +127,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 		if (Get_isAbility() == true && playerType == SAKUYA) {
 
 			//SEを鳴らす
-			SE::Instance()->PlaySE(SE_SakuyaAbility, DX_PLAYTYPE_LOOP);
+			SE::Instance()->PlaySE(SE_SakuyaAbility, DX_PLAYTYPE_BACK);
 			if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
 				abilityTimer -= 1;
 				countDown = FRAME;
