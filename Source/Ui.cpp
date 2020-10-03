@@ -6,7 +6,7 @@ void UI::Get_CastleDurability()
 {
 	DrawBox(HPMOJI_X + 10, HPMOJI_Y, HPMOJI_X + HPBAR_X, HPMOJI_Y + 20, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
 
-	DrawString(HPMOJI_X + 20, HPMOJI_Y + 2, "HP", GetColor(255, 255, 255));						//HPという文字を表示するため
+	DrawString(HPMOJI_X + 20, HPMOJI_Y + 2, "HP", GetColor(255, 255, 255));							//HPという文字を表示するため
 
 	DrawBox(HPBAR_X, HPBAR_Y, HPBAR_X1 + 200, HPBAR_Y1 + 20, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
 
@@ -47,68 +47,64 @@ void UI::Get_SubCastleDurability()
 
 	if (isActive[1] == true)
 	{
-		//DrawBox(HPMOJI_X + 10, HPMOJI_Y + 200, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-		//DrawString(HPMOJI_X + 20, HPMOJI_Y + 200, "HP1", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-		//DrawBox(HPBAR_X, HPBAR_Y + 200, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
 		DrawBox(HPGAUGE_X, HPGAUGE_Y + 200, HPGAUGE_X1 + 75 * SubCastleDurability[1] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 200, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
 
 	//サブ拠点2(右)
-	DrawBox(HPMOJI_X + 10, HPMOJI_Y + 250, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
 
-	DrawString(HPMOJI_X + 20, HPMOJI_Y + 250, "HP2", GetColor(255, 255, 255));						//HPという文字を表示するため
+	//DrawBox(HPMOJI_X + 10, HPMOJI_Y + 250, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
 
-	DrawBox(HPBAR_X, HPBAR_Y + 250, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+	//DrawString(HPMOJI_X + 20, HPMOJI_Y + 250, "HP2", GetColor(255, 255, 255));						//HPという文字を表示するため
+
+	//DrawBox(HPBAR_X, HPBAR_Y + 250, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+
+	DrawBox(HPMOJI_X + 190, HPMOJI_Y + 200, HPMOJI_X + 180 + HPBAR_X, HPMOJI_Y + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+
+	DrawString(HPMOJI_X + 200, HPMOJI_Y + 200, "HP2", GetColor(255, 255, 255));						//HPという文字を表示するため
+
+	DrawBox(HPBAR_X + 180, HPBAR_Y + 200, (HPBAR_X1 + 180 + 400) / 2, HPBAR_Y1 + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
 
 	if (isActive[2] == true)
 	{
-		//DrawBox(HPMOJI_X + 10, HPMOJI_Y + 250, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-		//DrawString(HPMOJI_X + 20, HPMOJI_Y + 250, "HP2", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-		//DrawBox(HPBAR_X, HPBAR_Y + 250, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
-		DrawBox(HPGAUGE_X, HPGAUGE_Y + 250, HPGAUGE_X1 + 75 * SubCastleDurability[2] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 250, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+		DrawBox(HPGAUGE_X + 180, HPGAUGE_Y + 200, HPGAUGE_X1 + 180 + 85 * SubCastleDurability[2] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 200, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
 
 	//サブ拠点3(上)
-	DrawBox(HPMOJI_X + 10, HPMOJI_Y + 300, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 300, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+	//DrawBox(HPMOJI_X + 10, HPMOJI_Y + 300, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 300, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
 
-	DrawString(HPMOJI_X + 20, HPMOJI_Y + 300, "HP3", GetColor(255, 255, 255));						//HPという文字を表示するため
+	//DrawString(HPMOJI_X + 20, HPMOJI_Y + 300, "HP3", GetColor(255, 255, 255));						//HPという文字を表示するため
 
-	DrawBox(HPBAR_X, HPBAR_Y + 300, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 300, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+	//DrawBox(HPBAR_X, HPBAR_Y + 300, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 300, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+
+	DrawBox(HPMOJI_X + 10, HPMOJI_Y + 250, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+
+	DrawString(HPMOJI_X + 20, HPMOJI_Y + 250, "HP3", GetColor(255, 255, 255));						//HPという文字を表示するため
+
+	DrawBox(HPBAR_X, HPBAR_Y + 250, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
 
 	if (isActive[3] == true)
 	{
-		//DrawBox(HPMOJI_X + 10, HPMOJI_Y + 300, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 300, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-		//DrawString(HPMOJI_X + 20, HPMOJI_Y + 300, "HP3", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-		//DrawBox(HPBAR_X, HPBAR_Y + 300, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 300, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
-		DrawBox(HPGAUGE_X, HPGAUGE_Y + 300, HPGAUGE_X1 + 75 * SubCastleDurability[3] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 300, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+		//DrawBox(HPGAUGE_X, HPGAUGE_Y + 300, HPGAUGE_X1 + 75 * SubCastleDurability[3] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 300, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+		DrawBox(HPGAUGE_X, HPGAUGE_Y + 250, HPGAUGE_X1 + 75 * SubCastleDurability[3] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 250, GetColor(0, 255, 0), TRUE);		    //通常用HPゲージ(緑)
 	}
 
 	//サブ拠点4(下)
-	DrawBox(HPMOJI_X + 10, HPMOJI_Y + 350, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 350, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+	//DrawBox(HPMOJI_X + 10, HPMOJI_Y + 350, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 350, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
 
-	DrawString(HPMOJI_X + 20, HPMOJI_Y + 350, "HP4", GetColor(255, 255, 255));						//HPという文字を表示するため
+	//DrawString(HPMOJI_X + 20, HPMOJI_Y + 350, "HP4", GetColor(255, 255, 255));						//HPという文字を表示するため
 
-	DrawBox(HPBAR_X, HPBAR_Y + 350, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 350, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+	//DrawBox(HPBAR_X, HPBAR_Y + 350, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 350, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+
+	DrawBox(HPMOJI_X + 190, HPMOJI_Y + 250, HPMOJI_X + 180 + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+
+	DrawString(HPMOJI_X + 200, HPMOJI_Y + 250, "HP4", GetColor(255, 255, 255));						//HPという文字を表示するため
+
+	DrawBox(HPBAR_X + 180, HPBAR_Y + 250, (HPBAR_X1 + 180 + 400) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
 
 	if (isActive[4] == true)
 	{
-		//サブ拠点4(下)
-		//DrawBox(HPMOJI_X + 10, HPMOJI_Y + 350, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 350, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-		//DrawString(HPMOJI_X + 20, HPMOJI_Y + 350, "HP4", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-		//DrawBox(HPBAR_X, HPBAR_Y + 350, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 350, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
-		DrawBox(HPGAUGE_X, HPGAUGE_Y + 350, HPGAUGE_X1 + 75 * SubCastleDurability[4] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 350, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+		//DrawBox(HPGAUGE_X, HPGAUGE_Y + 350, HPGAUGE_X1 + 75 * SubCastleDurability[4] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 350, GetColor(0, 255, 0), TRUE);			    //通常用HPゲージ(緑)
+		DrawBox(HPGAUGE_X + 180, HPGAUGE_Y + 250, HPGAUGE_X1 + 180 + 85 * SubCastleDurability[4] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 250, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
 }
 
@@ -149,6 +145,7 @@ void UI::AbilityUi()
 	{
 		if (skillActive == true)
 		{
+			//DrawFormatStringToHandle(0, 100, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "SkillTime");
 			DrawString(0, 140, "SkillTime", GetColor(255, 255, 255));
 			DrawBox(SKILLBAR_X, SKILLBAR_Y, SKILLBAR_X1 + 200, SKILLBAR_Y1 + 10, GetColor(255, 255, 255), FALSE);									//枠
 			DrawBox(SKILLGAUGE_X, SKILLGAUGE_Y, SKILLGAUGE_X1 + 200 * skillClock / MAX_STOPTIME, SKILLGAUGE_Y1 + 10, GetColor(0, 255, 255), TRUE);	//ゲージ
