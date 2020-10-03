@@ -13,7 +13,7 @@ BaseBomb::BaseBomb(int _power, int _speed, eBombType _bombType)
 	
 	countDown = COUNTMAX;						//カウントダウンのセット
 	
-	isActive = false;
+	isActive = true;
 	isSpown = false;
 	isXplosion = false;							//初期状態
 	isTrigger = false;
@@ -138,9 +138,11 @@ void BaseBomb::Move()
 void BaseBomb::JudgeTrigger()
 {
 	//爆弾のタイマー
-	if (speed == 0 && isPAbility == false && pType == SAKUYA_Ability)
+	if (speed == 0 && isPAbility == false)
 	{
+		
 		isCount = true;
+		
 		if (isCount == true)
 		{
 			//カウントダウン
@@ -180,6 +182,7 @@ void BaseBomb::JudgeTrigger()
 				isSpown = false;
 			}
 		}
+
 
 	}
 }

@@ -58,7 +58,6 @@ class BasePlayer;
 		int sTime;
 		int m_frameIndex = 0;
 
-		bool isActive;
 		bool isXplosion;				//”š”­‚µ‚½‚©‚Ç‚¤‚©
 		bool isTrigger;					//”š”­‚µ‚Ä‚é‚©‚µ‚Ä‚È‚¢‚©
 		bool isSpown;					//”š’e‚Ì¶¬‚µ‚½‚©‚Ç‚¤‚©
