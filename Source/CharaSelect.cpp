@@ -55,8 +55,7 @@ void CharaSelect::Update()
 	}
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_X) == 1))
 	{
-		BGM::Instance()->StopBGM(BGM_menu);
-		sceneChanger->SceneChange(eScene_MENU, parameter, true, false);
+		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
 	}
 
 	if (charaSelect == select_SAKUYA)

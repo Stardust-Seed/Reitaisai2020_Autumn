@@ -84,7 +84,7 @@ void LevelSelect::Update() {
 
 	//xƒL[‚ª‰Ÿ‚³‚ê‚½‚Æ‚«
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
-		sceneChanger->SceneChange(eScene_CHARASELECT, parameter, true, false);
+		sceneChanger->SceneChange(eScene_CHARASELECT, parameter, false, true);
 	}
 }
 
