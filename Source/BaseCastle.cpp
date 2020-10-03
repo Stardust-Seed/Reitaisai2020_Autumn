@@ -1,10 +1,9 @@
 #include "BaseCastle.h"
 
-const int BaseCastle::MAX_DURABILITY = 100;		//最大耐久力	
-
 //コンストラクタ
 BaseCastle::BaseCastle(int _durability){
 	direction = eDirection::None;
+    maxDurabiliy = _durability;
 	durability = _durability;
 	isActive = true;
 	isHit = false;
@@ -28,7 +27,7 @@ bool BaseCastle::ClisionHit(float ox, float oy, float ow, float oh,
             isHit = true;
         }
 
-        if (durability <= MAX_DURABILITY / 3 && dyingFlg == false)
+        if (durability <= maxDurabiliy / 3 && dyingFlg == false)
         {
             SE::Instance()->PlaySE(SE_warning);
             dyingFlg = true;

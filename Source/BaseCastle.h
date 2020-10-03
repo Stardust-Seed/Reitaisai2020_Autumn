@@ -19,7 +19,7 @@ class EnemyManager;
 
 class BaseCastle :public Object {
 protected:
-	static const int MAX_DURABILITY;		//Å‘å‘Ï‹v—Í			
+	int maxDurabiliy;		                //Å‘å‘Ï‹v—Í			
 
 	int durability;		                    //‹’“_‚Ì‘Ì—Í
 	eDirection direction;
