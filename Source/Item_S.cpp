@@ -2,6 +2,7 @@
 #include "Item_S.h"
 
 #include "BasePlayer.h"
+#include "Image.h"
 
 Item_S::Item_S(float _x, float _y, float _width, float _height, eItem _itemType) :
 	BaseItem(_x, _y, _width, _height, _itemType) {
@@ -21,9 +22,9 @@ void Item_S::Update(BasePlayer* _player) {
 	CheckIsActive();
 
 	//ˆÚ“®ˆ—
-	Move(_player->Get_x(), _player->Get_y());
+	Move(_player->Get_cx(), _player->Get_cy());
 }
 
 void Item_S::Draw() {
-	DrawBoxAA(x, y, x + width, y + height, GetColor(0, 0, 255), TRUE);
+	DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Item, 1), TRUE);
 }
