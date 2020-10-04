@@ -13,8 +13,8 @@
 class GameOver :public virtual BaseScene{
 
 private:
-	const static int GAME_X = GAME_WIDTH / 4.5f - 13;    //コンティニューすると表示するテキストのY座標
-	const static int MENU_X	= GAME_WIDTH / 2 - 20 ;    //コンティニューしないと表示するテキストのY座標
+	const static int GAME_X;    //コンティニューすると表示するテキストのY座標
+	const static int MENU_X;    //コンティニューしないと表示するテキストのY座標
 
 	Cursor nowCursor;           //現在選択中のカーソル
 	int x;                      //カーソル表示用のX座標
