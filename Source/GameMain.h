@@ -5,6 +5,9 @@
 
 class GameMain {
 	SceneManager sManager;	//シーンマネージャー
+
+	eScene nowScene;
+	int fadeCnt;
 public:
 	GameMain();
 	~GameMain();
