@@ -59,17 +59,6 @@ void ItemManager::Update(BasePlayer* _player, BuffManager* _buffManger) {
 		}
 	}
 
-	//if (Input::Instance()->GetPressCount(KEY_INPUT_R) == 1 && _buffManger->GetIsPowerLevelMax() == false) {
-	//	p_Count += 5;
-	//}
-	//if (Input::Instance()->GetPressCount(KEY_INPUT_T) == 1 && _buffManger->GetIsSpeedLevelMax() == false) {
-	//	s_Count += 5;
-	//}
-
-	//if (Input::Instance()->GetPressCount(KEY_INPUT_Y) == 1) {
-	//	_buffManger->DownBuffLevel();
-	//}
-
 	//バフレベルが下がったとき
 	if (_buffManger->GetIsLevelDown() == true) {
 		p_Count = 0;
@@ -89,19 +78,18 @@ void ItemManager::Draw() {
 			items[i]->Draw();
 		}
 	}
-
-	//仮置きUI(UIが完成したら撤去させる)
-	//DrawFormatString(0, 500, GetColor(255, 255, 255), "アイテムP取得個数 : %d", p_Count);
-	//DrawFormatString(0, 525, GetColor(255, 255, 255), "アイテムS取得個数 : %d", s_Count);
 }
 
 void ItemManager::SpawnItem(float _ex,float _ey) {
 	bool isSpawn = false;									//生成判定フラグ
 	int spawnPercent = GetRand(ITEM_GENERATION_RANDMAX);	//生成確率
+	int maxSpawnNum = 0;									//生成する最大数
+	int spawnCnt = 0;										//生成数カウント
 
 	//50未満の場合生成判定フラグをtrueにする
 	if (spawnPercent % ITEM_RATEDATA <= ITEM_GENERATION_RATE) {
 		isSpawn = true;
+		maxSpawnNum = GetRand(4);
 	}
 
 	for (int i = 0; i < MAX_ITEM_NUM; i++) {
@@ -112,20 +100,38 @@ void ItemManager::SpawnItem(float _ex,float _ey) {
 			if (isSpawn == true) {
 				int spawnType = GetRand(ITEM_TYPE_NUM - 1);	//生成するアイテムのタイプを決める
 
+				//ちりばめる方向用変数
+				int sTypeX = GetRand(1);
+				int sTypeY = GetRand(1);
+
+				//加算する値を取得
+				float addX = GetRand(24) * 1.0f;
+				float addY = GetRand(24) * 1.0f;
+
+				//1だった場合
+				if (sTypeX == 1) {
+					addX = -(addX);
+				}
+				if (sTypeY == 1) {
+					addY = -(addY);
+				}
+
 				//spawnTypeがeItem::Powerのとき
 				if (spawnType == static_cast<int>(eItem::Power)) {
-					items[i] = new Item_P(_ex, _ey, 16, 16, eItem::Power);
+					items[i] = new Item_P(_ex + addX, _ey + addY, 16, 16, eItem::Power);
 				}
 
 				//spawnTypeがeItem::Powerのとき
 				if (spawnType == static_cast<int>(eItem::Speed)) {
-					items[i] = new Item_S(_ex, _ey, 16, 16, eItem::Speed);
+					items[i] = new Item_S(_ex + addX, _ey + addY, 16, 16, eItem::Speed);
 				}
 
-				return;
+				if (spawnCnt == maxSpawnNum) {
+					return;
+				}
 			}
 
-			break;
+			spawnCnt++;
 		}
 	}
 }
