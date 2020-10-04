@@ -136,12 +136,12 @@ void SubCastle::Draw()
 	//“K“–‚É•\Ž¦
 	if (isActive == true)
 	{
-		DrawGraph(static_cast<int>(x) + addPosX - addSize / 2, static_cast<int>(y) + addPosY - addSize / 2,
+		DrawGraphF(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
 		Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 0), TRUE);
 	}
 	else
 	{
-		DrawGraph(static_cast<int>(x) + addPosX - addSize / 2, static_cast<int>(y) + addPosY - addSize / 2,
+		DrawGraphF(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
 		Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
 	}
 
