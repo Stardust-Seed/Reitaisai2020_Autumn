@@ -6,8 +6,7 @@
 SubCastle::SubCastle(int _durability,int _type)
 	:BaseCastle(_durability) {
 	durability = _durability;
-	SRand;					//—”‰Šú‰»
-	
+
 	width =  48;
 	height = 48;
 	addPosX = 0;
@@ -137,12 +136,12 @@ void SubCastle::Draw()
 	//“K“–‚É•\Ž¦
 	if (isActive == true)
 	{
-		DrawGraph(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
+		DrawGraphF(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
 		Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 0), TRUE);
 	}
 	else
 	{
-		DrawGraph(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
+		DrawGraphF(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
 		Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
 	}
 
