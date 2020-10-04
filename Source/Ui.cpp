@@ -9,8 +9,9 @@ void UI::Get_CastleDurability()
 	DrawString(HPMOJI_X + 20, HPMOJI_Y + 2, "HP", GetColor(255, 255, 255));							//HPという文字を表示するため
 
 	DrawBox(HPBAR_X, HPBAR_Y, HPBAR_X1 + 200, HPBAR_Y1 + 20, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
+	DrawBox(HPBAR_X, HPBAR_Y, HPBAR_X1 + 200, HPBAR_Y1 + 20, GetColor(190, 255, 190), TRUE);		//HPバーの枠線(白)
 
-	percent = MAX_DURABILTY / 3;				//ピンチ時にHPゲージを赤色にするための割合(３割)　＊要調整
+	percent = MAX_DURABILTY / 3;				//ピンチ時にHPゲージを赤色にするための割合(３割)
 
 	if (CastleDurability <= 0)					//HPゲージが0以下になってもゲージは0で止める
 	{
@@ -45,66 +46,69 @@ void UI::Get_SubCastleDurability()
 
 	DrawBox(HPBAR_X, HPBAR_Y + 200, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
 
+	DrawBox(HPBAR_X, HPBAR_Y + 200, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 200, GetColor(190, 255, 190), TRUE);		//HPバーの枠線(白)
+
 	if (isActive[1] == true)
 	{
 		DrawBox(HPGAUGE_X, HPGAUGE_Y + 200, HPGAUGE_X1 + 75 * SubCastleDurability[1] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 200, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
+	else
+	{
+		DrawString(HPGAUGE_X + 20, HPGAUGE_Y + 200, "破壊", GetColor(0, 0, 0));						//破壊という文字を表示するため
+	}
 
 	//サブ拠点2(右)
-
-	//DrawBox(HPMOJI_X + 10, HPMOJI_Y + 250, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-	//DrawString(HPMOJI_X + 20, HPMOJI_Y + 250, "HP2", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-	//DrawBox(HPBAR_X, HPBAR_Y + 250, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
 	DrawBox(HPMOJI_X + 190, HPMOJI_Y + 200, HPMOJI_X + 180 + HPBAR_X, HPMOJI_Y + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
 
 	DrawString(HPMOJI_X + 200, HPMOJI_Y + 200, "HP2", GetColor(255, 255, 255));						//HPという文字を表示するため
 
 	DrawBox(HPBAR_X + 180, HPBAR_Y + 200, (HPBAR_X1 + 180 + 400) / 2, HPBAR_Y1 + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
 
+	DrawBox(HPBAR_X + 180, HPBAR_Y + 200, (HPBAR_X1 + 180 + 400) / 2, HPBAR_Y1 + 15 + 200, GetColor(190, 255, 190), TRUE);		//HPバーの枠線(白)
+
 	if (isActive[2] == true)
 	{
 		DrawBox(HPGAUGE_X + 180, HPGAUGE_Y + 200, HPGAUGE_X1 + 180 + 85 * SubCastleDurability[2] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 200, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
+	else
+	{
+		DrawString(HPGAUGE_X + 200, HPGAUGE_Y + 200, "破壊", GetColor(0, 0, 0));						//破壊という文字を表示するため
+	}
 
 	//サブ拠点3(上)
-	//DrawBox(HPMOJI_X + 10, HPMOJI_Y + 300, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 300, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-	//DrawString(HPMOJI_X + 20, HPMOJI_Y + 300, "HP3", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-	//DrawBox(HPBAR_X, HPBAR_Y + 300, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 300, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
 	DrawBox(HPMOJI_X + 10, HPMOJI_Y + 250, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
 
 	DrawString(HPMOJI_X + 20, HPMOJI_Y + 250, "HP3", GetColor(255, 255, 255));						//HPという文字を表示するため
 
 	DrawBox(HPBAR_X, HPBAR_Y + 250, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
 
+	DrawBox(HPBAR_X, HPBAR_Y + 250, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 250, GetColor(190, 255, 190), TRUE);		//HPバーの枠線(白)
+
 	if (isActive[3] == true)
 	{
-		//DrawBox(HPGAUGE_X, HPGAUGE_Y + 300, HPGAUGE_X1 + 75 * SubCastleDurability[3] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 300, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 		DrawBox(HPGAUGE_X, HPGAUGE_Y + 250, HPGAUGE_X1 + 75 * SubCastleDurability[3] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 250, GetColor(0, 255, 0), TRUE);		    //通常用HPゲージ(緑)
+	}
+	else
+	{
+		DrawString(HPGAUGE_X + 20, HPGAUGE_Y + 250, "破壊", GetColor(0, 0, 0));						//HPという文字を表示するため
 	}
 
 	//サブ拠点4(下)
-	//DrawBox(HPMOJI_X + 10, HPMOJI_Y + 350, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 350, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-	//DrawString(HPMOJI_X + 20, HPMOJI_Y + 350, "HP4", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-	//DrawBox(HPBAR_X, HPBAR_Y + 350, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 350, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
 	DrawBox(HPMOJI_X + 190, HPMOJI_Y + 250, HPMOJI_X + 180 + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
 
 	DrawString(HPMOJI_X + 200, HPMOJI_Y + 250, "HP4", GetColor(255, 255, 255));						//HPという文字を表示するため
 
 	DrawBox(HPBAR_X + 180, HPBAR_Y + 250, (HPBAR_X1 + 180 + 400) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
 
+	DrawBox(HPBAR_X + 180, HPBAR_Y + 250, (HPBAR_X1 + 180 + 400) / 2, HPBAR_Y1 + 15 + 250, GetColor(190, 255, 190), TRUE);		//HPバーの枠線(白)
+
 	if (isActive[4] == true)
 	{
-		//DrawBox(HPGAUGE_X, HPGAUGE_Y + 350, HPGAUGE_X1 + 75 * SubCastleDurability[4] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 350, GetColor(0, 255, 0), TRUE);			    //通常用HPゲージ(緑)
 		DrawBox(HPGAUGE_X + 180, HPGAUGE_Y + 250, HPGAUGE_X1 + 180 + 85 * SubCastleDurability[4] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 250, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+	}
+	else
+	{
+		DrawString(HPGAUGE_X + 200, HPGAUGE_Y + 250, "破壊", GetColor(0, 0, 0));						//破壊という文字を表示するため
 	}
 }
 
@@ -139,13 +143,13 @@ void UI::Get_BuffPoint()
 
 void UI::AbilityUi()
 {
-	//DrawFormatStringToHandle(0, 100, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "Skill回数%d", skillCount);
+	//DrawFormatStringToHandle(0, 140, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "Skill回数%d", skillCount);
 	DrawFormatString(0, 100, GetColor(255, 255, 255), "Skill回数%d", skillCount);
 	if (skillType == SAKUYA_Ability)
 	{
 		if (skillActive == true)
 		{
-			//DrawFormatStringToHandle(0, 100, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "SkillTime");
+			//DrawFormatStringToHandle(100, 140, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "SkillTime");
 			DrawString(0, 140, "SkillTime", GetColor(255, 255, 255));
 			DrawBox(SKILLBAR_X, SKILLBAR_Y, SKILLBAR_X1 + 200, SKILLBAR_Y1 + 10, GetColor(255, 255, 255), FALSE);									//枠
 			DrawBox(SKILLGAUGE_X, SKILLGAUGE_Y, SKILLGAUGE_X1 + 200 * skillClock / MAX_STOPTIME, SKILLGAUGE_Y1 + 10, GetColor(0, 255, 255), TRUE);	//ゲージ
