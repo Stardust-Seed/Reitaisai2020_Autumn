@@ -47,6 +47,6 @@ void MainCastle::Draw()
     //‹’“_‚Ì•`‰æ
 	if (isActive == true)
 	{
-		DrawGraph(x - addSize+4, y - addSize+4, Image::Instance()->GetGraph(eImageType::Gpicture_MainCastle), TRUE);
+		DrawGraphF(x - addSize+4, y - addSize+4, Image::Instance()->GetGraph(eImageType::Gpicture_MainCastle), TRUE);
 	}
 }
