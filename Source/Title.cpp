@@ -32,17 +32,17 @@ void Title::Draw()
 	//プレススペースの表示
 	//ブレンドモードを乗算済みα用のαブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-	//
-	DrawStringToHandle(GAME_WIDTH / 2 - 19 * 9 - 6 , GAME_HEIHGT / 2 + 175 - sin(rad) * 3,    "P                   ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2 - 19 * 9 - 6 , GAME_HEIHGT / 2 + 175 - sin(rad) * 3.2f, "  R                 ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2 - 19 * 9 - 6 , GAME_HEIHGT / 2 + 175 - sin(rad) * 3.4f, "    E               ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2 - 19 * 9 - 6 , GAME_HEIHGT / 2 + 175 - sin(rad) * 3.6f, "      S             ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2 - 19 * 9 - 6 , GAME_HEIHGT / 2 + 175 - sin(rad) * 3.8f, "        S           ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.8f, "           S        ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.6f, "             P      ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.4f, "               A    ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, GAME_HEIHGT / 2 + 175 - sin(rad) * 3.2f, "                 C  ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, GAME_HEIHGT / 2 + 175 - sin(rad) * 3,    "                   E", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+
+	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 6 , static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad) * 3),    "P                   ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 6 , static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad) * 3.2f), "  R                 ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 6 , static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad) * 3.4f), "    E               ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 6 , static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad) * 3.6f), "      S             ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 6 , static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad) * 3.8f), "        S           ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad) * 3.8f), "           S        ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad) * 3.6f), "             P      ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad) * 3.4f), "               A    ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad) * 3.2f), "                 C  ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad) * 3),    "                   E", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 
 	//ブレンドモードを通常に戻す
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, alpha);
