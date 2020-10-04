@@ -82,20 +82,6 @@ void Menu::Update() {
 /// </summary>
 void Menu::Draw() {
 /*------------------------------------------------------------------------------
-”wŒi‚Ì•`‰æ
-------------------------------------------------------------------------------*/
-	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
-
-	//ƒV[ƒ“‚É“ü‚Á‚½Û‚¾‚¯ƒtƒF[ƒhƒCƒ“ˆ—‚ðs‚¤
-	if (fadeCnt != 60 + 1) {
-		fadeCnt = Image::Instance()->FadeInGraph(0.0f, 0.0f,
-			Image::Instance()->GetGraph(eImageType::Background_Filter), fadeCnt, 60);
-	}
-	else {
-		DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter), TRUE);
-	}
-
-/*------------------------------------------------------------------------------
 UI‚Ì•`‰æ
 ------------------------------------------------------------------------------*/
 

@@ -131,11 +131,6 @@ void Option::Update() {
 
 /*•`‰æˆ—*/
 void Option::Draw() {
-	//BGMŠÖ˜A‚ÌUI‚Ì•\Ž¦
-
-	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);		//‰æ‘œ‚ð•`‰æ
-	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter), TRUE);		//‰æ‘œ‚ð•`‰æ
-
 	//DrawBoxAA(UIAREA_X1, UIAREA_Y1BGM, UIAREA_X2, UIAREA_Y2BGM, GetColor(255, 255, 255), TRUE);
 	DrawExtendGraph(UIAREA_X1 - 50, UIAREA_Y1BGM - 50, UIAREA_X2 + 50, UIAREA_Y2BGM + 50, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, cNum[0]), TRUE);
 	DrawStringToHandle(STRING_XBGM, STRING_YBGM, "BGM Volume", bColor, FontHandle::Instance()->Get_natumemozi_48_8());
