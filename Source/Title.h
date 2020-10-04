@@ -12,7 +12,7 @@
 
 class Title final :public BaseScene {
 private:
-	float deg, rad;             //sin、cosの計算用
+	double deg, rad;             //sin、cosの計算用
 	int cnt;                    //タイミング調整用
 	int alpha;                  //透明度
 	int type;                   //表示キャラ用
