@@ -49,9 +49,6 @@ void GameScene::Update()
 //•`‰æ
 void GameScene::Draw()
 {
-	//”wŒi•\Ž¦
-	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Game), TRUE);
-
 	//•\Ž¦‚·‚é‚Ì‚ª‰œ‚Ì•û‚Ì“z‚ç
 	castleManager->Draw();
 
