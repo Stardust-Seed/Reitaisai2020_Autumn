@@ -9,7 +9,7 @@ BaseItem::BaseItem(float _x, float _y, float _width, float _height, eItem _itemT
 	height = _height;
 	itemType = _itemType;
 
-	moveSpeed = 0.9f;
+	moveSpeed = 2.0f;
 
 	isHit = false;
 	isActive = true;
