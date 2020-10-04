@@ -89,8 +89,7 @@ void CharaSelect::Draw()
 }
 void CharaSelect::Draw_CharaBack()
 {
-	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title, 0), true);   //背景
-	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter, 0), true); //フィルター
+
 }
 void CharaSelect::Draw_CharaWaku()
 {
