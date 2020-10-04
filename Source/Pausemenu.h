@@ -19,7 +19,7 @@ private:
 	int y;
 public:
 	Pausemenu(ISceneChanger* _sceneChanger, Parameter* _parameter);
-	void Pause();					//ゲーム画面の中断
+
 	void PauseAll();				//ポーズ画面時の処理
 	void Update();					//更新処理
 	void Draw();					//描画処理

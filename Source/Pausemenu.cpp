@@ -59,16 +59,16 @@ void Pausemenu::Update()
 		SE::Instance()->PlaySE(SE_cursor);
 		NowSelect = (NowSelect + (ePausetype_Num - 1)) % ePausetype_Num;		//‘I‘ðó‘Ô‚ðã‚°‚é
 	}
-	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1)				//ZƒL[‚ª‰Ÿ‚³‚ê‚½êŠ‚Ìˆ—
+	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1)				        //ZƒL[‚ª‰Ÿ‚³‚ê‚½êŠ‚Ìˆ—
 	{
 		BGM::Instance()->VolumeBGM(BGM::Instance()->Get_Volume());
 		switch (NowSelect)
 		{
-		case ePausetype_Game:															//ƒQ[ƒ€‰æ–Ê‚É–ß‚é€–Ú
+		case ePausetype_Game:													//ƒQ[ƒ€‰æ–Ê‚É–ß‚é€–Ú
 			sceneChanger->SceneChange(eScene_GAME, parameter, false, true);
 			break;
 
-		case ePausetype_Menu:															//ƒQ[ƒ€I—¹‚Ì€–Ú
+		case ePausetype_Menu:													//ƒQ[ƒ€I—¹‚Ì€–Ú
 			BGM::Instance()->StopBGM(BGM_gameScene);
 			sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
 			break;
@@ -79,13 +79,6 @@ void Pausemenu::Update()
 //•`‰æ
 void Pausemenu::Draw()
 {
-
-	//”wŒi•\Ž¦
-	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
-
-	//”wŒi•\Ž¦
-	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter), TRUE);
-
 	PauseAll();
 
 	if (NowSelect == ePausetype_Game)
