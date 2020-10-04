@@ -28,7 +28,8 @@ enum class eImageType {
 	Gpicture_Bomb			= 39,	//ゲームの素材 爆弾
 	Gpicture_FakeBomb		= 41,	//ゲームの素材 爆弾(偽物)
 	Gpicture_Bullet			= 44,	//ゲームの素材 弾
-	UI_CursorFrame			= 46,	//UIの素材 カーソルのフレーム
+	Gpicture_Item			= 46,	//ゲームの素材 アイテム
+	UI_CursorFrame			= 48,	//UIの素材 カーソルのフレーム
 };
 
 /// <summary>

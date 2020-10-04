@@ -25,6 +25,7 @@ Image::Image() {
 	MyLoadDivGraph("./res/Image/bomb.png", 2, 2, 1, 50, 50);
 	MyLoadDivGraph("./res/Image/fake.png", 3, 3, 1, 50, 50);
 	MyLoadDivGraph("./res/Image/Attack.png", 2, 2, 1, 25, 25);
+	MyLoadDivGraph("./res/Image/Item.png", 2, 2, 1, 16, 16);
 	MyLoadDivGraph("./res/Image/CursorFrame.png", 4, 4, 1, 650, 250);
 }
 
