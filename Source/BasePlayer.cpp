@@ -21,8 +21,8 @@ BasePlayer::BasePlayer(int _pType)
 
 	if (playerType == SAKUYA)
 	{
-		speed = 7;					//移動速度
-		power = 35;					//攻撃力
+		speed = 8;					//移動速度
+		power = 40;					//攻撃力
 		abilityCount = 3;		    //スキル回数
 		graphNo = 2;
 		animNo = 2;
@@ -32,8 +32,8 @@ BasePlayer::BasePlayer(int _pType)
 	}
 	if (playerType == FRAN)
 	{
-		speed = 4;					//移動速度
-		power = 75;			    //攻撃力
+		speed = 3;					//移動速度
+		power = 80;			    //攻撃力
 		abilityCount = 2;		    //スキル回数
 		graphNo = 0;
 		animNo = 0;
@@ -114,12 +114,12 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 
 	if (playerType == SAKUYA)
 	{
-		power = 35 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
+		power = 40 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
 		speed = 5 * _bManager->GetSpeedBuff();   //バフによるスピード増加
 	}
 	if (playerType == FRAN)
 	{
-		power = 75 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
+		power = 80 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
 		speed = 3 * _bManager->GetSpeedBuff();   //バフによるスピード増加
 	}
 	//スタン状態でない時
