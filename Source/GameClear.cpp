@@ -1,8 +1,12 @@
 #include <DxLib.h>
 #include "GameClear.h"
 
+const int GameClear::GAME_X = GAME_WIDTH / 5 + 30;   //「もう一度挑戦」テキスト表示のX座標
+const int GameClear::TITLE_X = GAME_WIDTH / 2 - 20;     //「メニューに戻る」テキスト表示のX座標
+
 GameClear::GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	:BaseScene(_sceneChanger, _parameter) {
+
 	nowCursor = Cursor::Cursor_0;
 	x = 0;
 	alpha = 0;
@@ -20,21 +24,15 @@ void GameClear::Update() {
 /*描画処理*/
 void GameClear::Draw() {
 
-	//背景表示
-	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
-
-	//背景表示
-	DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Filter), TRUE);
-
 	//キャラの表示
 	switch (charaType)
 	{
 	case 0:
-		DrawGraph(GAME_WIDTH / 1.45f, GAME_HEIHGT / 9, Image::Instance()->GetGraph(eImageType::Spicture_Sakuya, 1), TRUE);
+		DrawGraph(GAME_WIDTH - 600, GAME_HEIHGT / 9, Image::Instance()->GetGraph(eImageType::Spicture_Sakuya, 1), TRUE);
 		break;
 
 	case 1:
-		DrawGraph(GAME_WIDTH / 1.45f, GAME_HEIHGT / 9, Image::Instance()->GetGraph(eImageType::Spicture_Fran, 1), TRUE);
+		DrawGraph(GAME_WIDTH - 600, GAME_HEIHGT / 9, Image::Instance()->GetGraph(eImageType::Spicture_Fran, 1), TRUE);
 		break;
 
 	default:
@@ -68,7 +66,7 @@ void GameClear::Draw() {
 
 	//テキスト表示
 	DrawStringToHandle(GAME_WIDTH / 7 - 5, GAME_HEIHGT / 2 + 50, "もう一度挑戦", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 2.5+25, GAME_HEIHGT / 2 + 50, "タイトルに戻る", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(GAME_WIDTH / 3 + 150 , GAME_HEIHGT / 2 + 50, "メニューに戻る", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 
 	//キャラ名とセリフ表示
 	switch (charaType)
@@ -80,7 +78,7 @@ void GameClear::Draw() {
 		break;
 
 	case 1:
-		DrawStringToHandle(GAME_WIDTH /1.5f + 10, GAME_HEIHGT - 340, "フランドール・スカーレット", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+		DrawStringToHandle(GAME_WIDTH -630, GAME_HEIHGT - 340, "フランドール・スカーレット", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 	
 		DrawStringToHandle(GAME_WIDTH / 13, GAME_HEIHGT - 260, "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 		break;
@@ -142,6 +140,7 @@ void GameClear::Select()
 		if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1)
 		{
 			BGM::Instance()->StopBGM(BGM_result);
+
 			//カーソルの場所によって行うシーン変更処理を決める
 			switch (nowCursor)
 			{
