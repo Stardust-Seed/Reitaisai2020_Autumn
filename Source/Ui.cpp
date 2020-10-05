@@ -157,32 +157,49 @@ void UI::AbilityUi()
     }
 }
 
-//更新
-void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer)
+void UI::TimeLimitUi()
 {
+	DrawFormatStringToHandle(0, 30, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "TIME %d", hundredsTime);
+	DrawFormatStringToHandle(110, 30, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", tensTime);
+	DrawFormatStringToHandle(130, 30, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", onesTime);
+}
+
+//更新
+void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer, TimeLimit* _timelimit)
+{
+	//バフ関連
 	pBuffPoint = _itemmanager->Get_P_Count();
 	sBuffPoint = _itemmanager->Get_S_Count();
 	pBuffLevel = _buffmanager->GetPowerLevel();
 	sBuffLevel = _buffmanager->GetSpeedLevel();
 	CastleDurability = _castlemanager->Get_Durability(0);		//拠点の体力をセットする
 	 
+	//拠点関連
 	for (i = 1; i < 5; i++)
 	{	
 		SubCastleDurability[i] = _castlemanager->Get_Durability(i);	
 		isActive[i] = _castlemanager->Get_IsActive(i);
 	}
 
+	//スキル関連
 	skillCount = _baseplayer->Get_AbilityCount();
 	skillClock = _baseplayer->Get_abilityClock();
 	skillActive = _baseplayer->Get_isAbility();
 	skillType = _baseplayer->Get_AbilityType();
+
+	//タイム関連
+	hundredsTime = _timelimit->Get_hundredsPlace();
+	tensTime = _timelimit->Get_tensPlace();
+	onesTime = _timelimit->Get_onesPlace();
 }
 
 //描画処理
 void UI::Draw()
 {
+	//DrawBox(0, 0, 400, 300, GetColor(50, 50, 50), TRUE);
 	Get_CastleDurability();
 	Get_SubCastleDurability();
 	Get_BuffPoint();
 	AbilityUi();
+	TimeLimitUi();
 }
