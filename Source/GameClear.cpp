@@ -17,8 +17,8 @@ GameClear::GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter)
 
 /*更新処理*/
 void GameClear::Update() {
-	Select();
 	Move();
+	Select();
 }
 
 /*描画処理*/
@@ -46,7 +46,8 @@ void GameClear::Draw() {
 	SetDrawBlendMode(DX_BLENDMODE_PMA_ALPHA, alpha);
 
 	//ゲームクリア表示
-	DrawStringToHandle(GAME_WIDTH / 20+75, GAME_HEIHGT / 10, "ゲームクリア!", GetColor(255, 255, 255), FontHandle::Instance()->Get_weakForce_222_16());
+	DrawStringToHandle(GAME_WIDTH / 20 + 75 + 3, GAME_HEIHGT / 10 + 3, text1, GetColor(0, 0, 0), FontHandle::Instance()->Get_weakForce_222_16());
+	DrawStringToHandle(GAME_WIDTH / 20+75, GAME_HEIHGT / 10, text1, GetColor(255, 255, 255), FontHandle::Instance()->Get_weakForce_222_16());
 
 	//ブレンドモードを通常に戻す
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, alpha);
@@ -65,22 +66,43 @@ void GameClear::Draw() {
 	DrawRotaGraph(x, GAME_HEIHGT / 2 + 75, 0.6f, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 3), TRUE);
 
 	//テキスト表示
-	DrawStringToHandle(GAME_WIDTH / 7 - 5, GAME_HEIHGT / 2 + 50, "もう一度挑戦", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(GAME_WIDTH / 3 + 150 , GAME_HEIHGT / 2 + 50, "メニューに戻る", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+
+	if (x != GAME_X)
+	{
+		DrawStringToHandle(GAME_WIDTH / 7 - 5 + 2, GAME_HEIHGT / 2 + 50, text2, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+		DrawStringToHandle(GAME_WIDTH / 7 - 5, GAME_HEIHGT / 2 + 50, text2, GetColor(128, 128, 128), FontHandle::Instance()->Get_natumemozi_48_8());
+
+		DrawStringToHandle(GAME_WIDTH / 3 + 150 + 3, GAME_HEIHGT / 2 + 50 + 3, text3, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+		DrawStringToHandle(GAME_WIDTH / 3 + 150, GAME_HEIHGT / 2 + 50, text3, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+	}
+	else
+	{
+		DrawStringToHandle(GAME_WIDTH / 7 - 5 + 3, GAME_HEIHGT / 2 + 50+3, text2, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+		DrawStringToHandle(GAME_WIDTH / 7 - 5, GAME_HEIHGT / 2 + 50, text2, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
+
+		DrawStringToHandle(GAME_WIDTH / 3 + 150 + 2, GAME_HEIHGT / 2 + 50 + 2, text3, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+		DrawStringToHandle(GAME_WIDTH / 3 + 150, GAME_HEIHGT / 2 + 50, text3, GetColor(128, 128, 128), FontHandle::Instance()->Get_natumemozi_48_8());
+	}
 
 	//キャラ名とセリフ表示
 	switch (charaType)
 	{
 	case 0:
-		DrawStringToHandle(GAME_WIDTH - 500, GAME_HEIHGT - 340, "十六夜 咲夜", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+
+		DrawStringToHandle(GAME_WIDTH - 500, GAME_HEIHGT - 340, text4, GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+
+		DrawStringToHandle(GAME_WIDTH / 13+2, GAME_HEIHGT - 260+2, text5, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+		DrawStringToHandle(GAME_WIDTH / 13, GAME_HEIHGT - 260, text5, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_64_8());
+
 		
-		DrawStringToHandle(GAME_WIDTH / 13, GAME_HEIHGT - 260, "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 		break;
 
 	case 1:
-		DrawStringToHandle(GAME_WIDTH -630, GAME_HEIHGT - 340, "フランドール・スカーレット", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
-	
-		DrawStringToHandle(GAME_WIDTH / 13, GAME_HEIHGT - 260, "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ", GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+
+		DrawStringToHandle(GAME_WIDTH -630, GAME_HEIHGT - 340,text6, GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+
+		DrawStringToHandle(GAME_WIDTH / 13+2, GAME_HEIHGT - 260+2, text7, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+		DrawStringToHandle(GAME_WIDTH / 13, GAME_HEIHGT - 260, text7, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_64_8());
 		break;
 
 	default:
@@ -119,19 +141,33 @@ void GameClear::Select()
 
 	//左キーが押された時の処理
 	{
-		if (Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1)
+		if (Input::Instance()->GetPressCount(KEY_INPUT_LEFT) % 16 == 1)
 		{
 			SE::Instance()->PlaySE(SE_cursor);
-			nowCursor = Cursor::Cursor_0;
+			if (nowCursor == Cursor::Cursor_0)
+			{
+				nowCursor = Cursor::Cursor_1;
+			}
+			else
+			{
+				nowCursor = Cursor::Cursor_0;
+			}
 		}
 	}
 
 	//右キーが押された時の処理
 	{
-		if (Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) == 1)
+		if (Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) % 16  == 1)
 		{
 			SE::Instance()->PlaySE(SE_cursor);
-			nowCursor = Cursor::Cursor_1;
+			if (nowCursor == Cursor::Cursor_1)
+			{
+				nowCursor = Cursor::Cursor_0;
+			}
+			else
+			{
+				nowCursor = Cursor::Cursor_1;
+			}
 		}
 	}
 

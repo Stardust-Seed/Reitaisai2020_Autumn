@@ -14,6 +14,13 @@ class GameClear final :public BaseScene {
 private:
 	const static int GAME_X;   //「ゲームに戻る」テキスト表示のX座標
 	const static int TITLE_X;     //「タイトルに戻る」テキスト表示のX座標
+	const TCHAR* text1 = "ゲームクリア！";
+	const TCHAR* text2 = "もう一度挑戦";
+	const TCHAR* text3 = "メニューに戻る";
+	const TCHAR* text4 = "十六夜 咲夜";
+	const TCHAR* text5 = "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ";
+	const TCHAR* text6 = "フランドール・スカーレット";
+	const TCHAR* text7 = "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ";
 
 	Cursor nowCursor;           //現在選択中のカーソル
 	int x;                      //カーソル表示用のX座標

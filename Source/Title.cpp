@@ -22,6 +22,11 @@ void Title::Update()
 		BGM::Instance()->StopBGM(BGM_title);
 		sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
 	}
+	if (Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1) 
+	{
+		//ƒQ[ƒ€‚ğI—¹‚·‚é
+		exit(EXIT_SUCCESS);
+	}
 }
 
 void Title::Draw()

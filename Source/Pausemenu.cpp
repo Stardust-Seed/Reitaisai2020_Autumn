@@ -48,13 +48,13 @@ void Pausemenu::PauseAll()
 void Pausemenu::Update()
 {
 
-	if (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) == 1)					//下キーが押されていたら
+	if (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) % 16 == 1)		        //下キーが押されていたら
 	{
 		SE::Instance()->PlaySE(SE_cursor);
 		NowSelect = (NowSelect + 1) % ePausetype_Num;							//選択状態を下げる
 	}
 
-	if (Input::Instance()->GetPressCount(KEY_INPUT_UP) == 1)					//上キーが押されていたら
+	if (Input::Instance()->GetPressCount(KEY_INPUT_UP) % 16 == 1)			    //上キーが押されていたら
 	{
 		SE::Instance()->PlaySE(SE_cursor);
 		NowSelect = (NowSelect + (ePausetype_Num - 1)) % ePausetype_Num;		//選択状態を上げる
@@ -84,21 +84,21 @@ void Pausemenu::Draw()
 	if (NowSelect == ePausetype_Game)
 	{
 		DrawUIGraph(1300, 400, 1300, 350, 1, 1,
-			0, 255, GetColor(0, 0, 0), 2, eDrawType::Center,
+			0, 255, GetColor(255, 255, 255), 3, eDrawType::Center,
 			FontHandle::Instance()->Get_natumemozi_100_3(), 205, "ゲームに戻る");
 
 		DrawUIGraph(1300, 750, 1300, 350, 1, 1,
-			0, 255, GetColor(0, 0, 0), 0, eDrawType::Center,
+			0, 255, GetColor(255, 255, 255), 0, eDrawType::Center,
 			FontHandle::Instance()->Get_natumemozi_100_3(), 180, "メニューに戻る");
 	}
 	else
 	{
 		DrawUIGraph(1300, 400, 1300, 350, 1, 1,
-			0, 255, GetColor(0, 0, 0), 0, eDrawType::Center,
+			0, 255, GetColor(255, 255, 255), 0, eDrawType::Center,
 			FontHandle::Instance()->Get_natumemozi_100_3(), 205, "ゲームに戻る");
 
 		DrawUIGraph(1300, 750, 1300, 350, 1, 1,
-			0, 255, GetColor(0, 0, 0), 2, eDrawType::Center,
+			0, 255, GetColor(255, 255, 255), 3, eDrawType::Center,
 			FontHandle::Instance()->Get_natumemozi_100_3(), 180, "メニューに戻る");
 	}
 
