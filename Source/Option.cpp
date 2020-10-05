@@ -133,6 +133,7 @@ void Option::Update() {
 void Option::Draw() {
 	//DrawBoxAA(UIAREA_X1, UIAREA_Y1BGM, UIAREA_X2, UIAREA_Y2BGM, GetColor(255, 255, 255), TRUE);
 	DrawExtendGraph(UIAREA_X1 - 50, UIAREA_Y1BGM - 50, UIAREA_X2 + 50, UIAREA_Y2BGM + 50, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, cNum[0]), TRUE);
+	DrawStringToHandle(STRING_XBGM+3, STRING_YBGM+3, "BGM Volume", GetColor(0,0,0), FontHandle::Instance()->Get_natumemozi_48_8());
 	DrawStringToHandle(STRING_XBGM, STRING_YBGM, "BGM Volume", bColor, FontHandle::Instance()->Get_natumemozi_48_8());
 
 	for (int i = 0; i < bgmVolume; i++) {
@@ -145,6 +146,7 @@ void Option::Draw() {
 	//SE関連のUIの表示
 	//DrawBoxAA(UIAREA_X1, UIAREA_Y1SE, UIAREA_X2, UIAREA_Y2SE, GetColor(255, 255, 255), TRUE);
 	DrawExtendGraph(UIAREA_X1 - 50, UIAREA_Y1SE, UIAREA_X2 + 50, UIAREA_Y2SE + 100, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, cNum[1]), TRUE);
+	DrawStringToHandle(STRING_XSE+3, STRING_YSE + 53, "SE Volume", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 	DrawStringToHandle(STRING_XSE, STRING_YSE + 50, "SE Volume", sColor, FontHandle::Instance()->Get_natumemozi_48_8());
 
 	for (int i = 0; i < seVolume; i++) {
@@ -157,13 +159,17 @@ void Option::Draw() {
 	//キー関連のUIの表示処理
 	//DrawBoxAA(834, 793, 1070, 843, GetColor(255, 255, 255), TRUE);
 	DrawExtendGraph(822, 840, 1080, 898, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 2), TRUE);
-	DrawStringToHandle(965, 858 - 7, "戻る:X", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8());
-	DrawStringToHandle(834, 858 - 7, "保存:Z", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8());
+
+	//DrawStringToHandle(965, 851+3, "戻る:X", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8());
+	//DrawStringToHandle(834, 851+3, "保存:Z", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8());
+	
+	DrawStringToHandle(965, 851, "戻る:X", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8());
+	DrawStringToHandle(834, 851, "保存:Z", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8());
 
 	//選択してる項目のUIの表示
 	if (selectType == select_BGM) {
 		bColor = GetColor(255, 100, 100);
-		sColor = GetColor(0, 0, 0);
+		sColor = GetColor(125, 125, 125);
 		boxColorB = GetColor(100, 230, 0);
 		boxColorS = GetColor(150, 150, 150);
 		cNum[0] = 3;
@@ -172,7 +178,7 @@ void Option::Draw() {
 	}
 
 	if (selectType == select_SE) {
-		bColor = GetColor(0, 0, 0);
+		bColor = GetColor(125, 125, 125);
 		sColor = GetColor(255, 100, 100);
 		boxColorB = GetColor(150, 150, 150);
 		boxColorS = GetColor(100, 230, 0);
