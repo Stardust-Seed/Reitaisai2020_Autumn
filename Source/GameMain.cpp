@@ -77,8 +77,6 @@ bool GameMain::GameLoop() {
 		DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Game), TRUE);
 	}
 
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", nowScene);
-
 	sManager.Draw();
 
 	return true;
