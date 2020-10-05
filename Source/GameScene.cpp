@@ -62,11 +62,10 @@ void GameScene::Draw()
 	itemManager->Draw();
 
 	//X•\Ž¦
-	DrawTurnGraph(-55, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
-	DrawGraph(GAME_WIDTH - 500, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
+	DrawTurnGraph(0, GAME_HEIHGT / 2 - 220, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
+	DrawGraph(GAME_WIDTH - 465, GAME_HEIHGT / 2 - 220, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
 
 	eventManager->Draw();
-	timeLimit->Draw();
 	ui->Draw();
 }
 
