@@ -5,11 +5,14 @@
 #include "ItemManager.h"
 #include "BuffManager.h"
 #include "BasePlayer.h"
+#include "TimeLimit.h"
 
 class CastleManager;
 class ItemManager;
 class BuffManager;
 class BasePlayer;
+class TimeLimit;
+
 class UI
 {
 private:
@@ -24,7 +27,7 @@ private:
 	static const int HPGAUGE_X1 = 50;			//バーのｘ終点
 	static const int HPGAUGE_Y1 = 10;	
 	static const int MAX_DURABILTY = 100;		//メイン拠点最大体力
-	static const int MAX_SABDURABILTY = 35;	//サブ拠点最大体力
+	static const int MAX_SABDURABILTY = 25;	//サブ拠点最大体力
 
 	static const int PMOJI_X = 1550;			//文字のｘ
 	static const int PMOJI_Y = 960;
@@ -73,6 +76,9 @@ private:
 	int skillCount;					//スキル使用回数
 	int skillClock;					//スキルの使用タイム
 	int skillType;
+	int hundredsTime;
+	int tensTime;
+	int onesTime;
 
 	bool isActive[5];
 	bool skillActive;
@@ -83,7 +89,8 @@ public:
 	void Get_BuffPoint();				//アイテムポイントのUI
 	void Get_SubCastleDurability();		//サブ拠点の体力UI 
 	void AbilityUi();					//アビリティのUI
-	void Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer);		//更新処理
+	void TimeLimitUi();					//タイムリミットUI
+	void Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer, TimeLimit* _timelimit);		//更新処理
 	void Draw();						//描画処理
 };
 
