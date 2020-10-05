@@ -15,7 +15,13 @@ class GameOver :public virtual BaseScene{
 private:
 	const static int GAME_X;    //コンティニューすると表示するテキストのY座標
 	const static int MENU_X;    //コンティニューしないと表示するテキストのY座標
-
+	const TCHAR* text1 = "ゲームオーバー";
+	const TCHAR* text2 = "コンティニューする";
+	const TCHAR* text3 = "コンティニューしない";
+	const TCHAR* text4 = "十六夜 咲夜";
+	const TCHAR* text5 = "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ";
+	const TCHAR* text6 = "フランドール・スカーレット";
+	const TCHAR* text7 = "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ";
 	Cursor nowCursor;           //現在選択中のカーソル
 	int x;                      //カーソル表示用のX座標
 	int alpha;                  //透明度

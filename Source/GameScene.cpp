@@ -40,7 +40,7 @@ void GameScene::Update()
 	eventManager->Update(enemyManager,player);
 	buffManager->Update(itemManager,enemyManager);
 	timeLimit->Update();
-	ui->Update(castleManager, itemManager, buffManager,player);
+	ui->Update(castleManager, itemManager, buffManager,player,timeLimit);
 
 	//ゲームシーンのシーン処理
 	ChangeScene();
@@ -64,9 +64,6 @@ void GameScene::Draw()
 	//森表示
 	DrawTurnGraph(-55, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
 	DrawGraph(GAME_WIDTH - 500, GAME_HEIHGT / 2 - 250, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
-
-	//山表示
-	DrawGraph(0, GAME_HEIHGT - 450 , Image::Instance()->GetGraph(eImageType::Gpicture_Mountain), TRUE);
 
 	eventManager->Draw();
 	timeLimit->Draw();

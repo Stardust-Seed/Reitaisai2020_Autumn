@@ -19,7 +19,7 @@ CastleManager::CastleManager() {
 			}
 			else         //ƒTƒu‹’“_
 			{
-				durability = 35;
+				durability = 25;
 				Castles[i] = new SubCastle(durability, i);    //¶¬ˆ—
 			}
 			activeCountFlg[i] = true;
