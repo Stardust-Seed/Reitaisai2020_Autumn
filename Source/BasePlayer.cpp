@@ -235,7 +235,7 @@ void BasePlayer::Attack()
 			//攻撃flagをtrueにする
 			isAttack = true;
 			//弾を飛ばす
-			bulletManager->Shot(pos, playerDirection, isAttack);
+			bulletManager->Shot(pos, playerType,playerDirection, isAttack);
 			if (playerType == SAKUYA)
 			{
 				//SEを鳴らす
