@@ -116,8 +116,7 @@ void EventManager::Update(EnemyManager* enemyManager,BasePlayer* basePlayer) {
 }
 
 void EventManager::Draw() {
-	DrawFormatString(1100, 110, GetColor(255, 255, 255), "%d", waitCount);
-	DrawFormatString(1100, 130, GetColor(255, 255, 255), "%d", seCount);
+
 	if (Sukima != NULL) {	//ƒXƒLƒ}‚ª¶¬‚³‚ê‚Ä‚¢‚éê‡
 		Sukima->Draw();		//•`‰æ
 	}
