@@ -34,6 +34,8 @@ private:
 
 	int waitCount;			//イベント発生の待機カウント
 
+	int seCount;			//イベント発生前にSEを鳴らすための変数
+
 	int bombType;
 
 	BaseBomb* sBomb;
