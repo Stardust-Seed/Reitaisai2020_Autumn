@@ -41,6 +41,11 @@ void SE::Load()
 	seNum[SE_SakuyaAbility] = LoadSE("./res/Sound/SE/sakuya_ab.wav");
 	seNum[SE_FranAttack] = LoadSE("./res/Sound/SE/fran.wav");
 	seNum[SE_FranAbility] = LoadSE("./res/Sound/SE/fran_ab.wav");
+	seNum[SE_ItemGet] = LoadSE("./res/Sound/SE/pa1.wav");
+	seNum[SE_EnemyAttack] = LoadSE("./res/Sound/SE/punch-middle2.wav");
+	seNum[SE_EnemyDown] = LoadSE("./res/Sound/SE/down1.wav");
+	seNum[SE_EventAlarm] = LoadSE("./res/Sound/SE/afa7ca1aa9e16917.wav");
+	seNum[SE_LevelUP] = LoadSE("./res/Sound/SE/magic-charge1.wav");
 }
 
 //SEÇçƒê∂
