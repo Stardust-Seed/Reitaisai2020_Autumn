@@ -114,51 +114,50 @@ void UI::Get_SubCastleDurability()
 
 void UI::Get_BuffPoint()
 {
-	//pBuffLevel = 3;
 	//Pアイテム
-	DrawBox(PMOJI_X, PMOJI_Y + 5, PMOJI_X1, PMOJI_Y1, GetColor(255, 255, 255), FALSE);										//文字
+	DrawBox(PMOJI_X, PMOJI_Y + 5, PMOJI_X1, PMOJI_Y1, GetColor(0, 0, 0), FALSE);										//文字
 
-	DrawFormatStringToHandle(PMOJI_X + 5, PMOJI_Y - 45, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "P");
+	DrawFormatStringToHandle(PMOJI_X + 5, PMOJI_Y - 45, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "P");
 
-	DrawBox(PBAR_X, PBAR_Y, PBAR_X1, PBAR_Y1, GetColor(255, 255, 255), FALSE);							//枠
-	DrawBox(PBAR_X, PBAR_Y, PBAR_X1, PBAR_Y1, GetColor(190, 255, 190), TRUE);
+	DrawBox(PBAR_X, PBAR_Y, PBAR_X1, PBAR_Y1, GetColor(0, 0, 0), FALSE);							//枠
+	DrawBox(PBAR_X, PBAR_Y - 1, PBAR_X1, PBAR_Y1, GetColor(190, 255, 190), TRUE);
 
 	if (pBuffLevel == 3)
 	{
 		pBuffPoint = 15;
 		DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1, PGAUGE_Y1 - 250 * pBuffPoint / MAX_BUFF, GetColor(255, 0, 0), TRUE);		//ゲージ
-		DrawFormatStringToHandle(1500, 900, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "PLvMAX");
+		DrawFormatStringToHandle(1500, 900, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "PLvMAX");
 	}
 	else
 	{
 		DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1, PGAUGE_Y1 - 250 * pBuffPoint / MAX_BUFF, GetColor(255, 0, 0), TRUE);		//ゲージ
-		DrawFormatStringToHandle(1500, 900, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "PLv%d", pBuffLevel);
+		DrawFormatStringToHandle(1500, 900, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "PLv%d", pBuffLevel);
 	}
 
 	//Sアイテム
-	DrawBox(SMOJI_X, SMOJI_Y + 5, SMOJI_X1, SMOJI_Y1, GetColor(255, 255, 255), FALSE);										//文字
+	DrawBox(SMOJI_X, SMOJI_Y + 5, SMOJI_X1, SMOJI_Y1, GetColor(0, 0, 0), FALSE);										//文字
 	
-	DrawFormatStringToHandle(SMOJI_X + 5, SMOJI_Y - 45, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "S");
+	DrawFormatStringToHandle(SMOJI_X + 5, SMOJI_Y - 45, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "S");
 
-	DrawBox(SBAR_X, SBAR_Y, SBAR_X1, SBAR_Y1, GetColor(255, 255, 255), FALSE);												//枠
-	DrawBox(SBAR_X, SBAR_Y, SBAR_X1, SBAR_Y1, GetColor(190, 255, 190),TRUE);
+	DrawBox(SBAR_X, SBAR_Y, SBAR_X1, SBAR_Y1, GetColor(0, 0, 0), FALSE);												//枠
+	DrawBox(SBAR_X, SBAR_Y - 1, SBAR_X1, SBAR_Y1, GetColor(190, 255, 190),TRUE);
 
 	if (sBuffLevel == 3)
 	{
 		sBuffPoint = 15;
 		DrawBox(SGAUGE_X, SGAUGE_Y, SGAUGE_X1, SGAUGE_Y1 - 250 * sBuffPoint / MAX_BUFF, GetColor(0, 0, 255), TRUE);		//ゲージ
-		DrawFormatStringToHandle(1500, 1000, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "SLvMAX");
+		DrawFormatStringToHandle(1500, 1000, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "SLvMAX");
 	}
 	else
 	{
 		DrawBox(SGAUGE_X, SGAUGE_Y, SGAUGE_X1, SGAUGE_Y1 - 250 * sBuffPoint / MAX_BUFF, GetColor(0, 0, 255), TRUE);		//ゲージ
-		DrawFormatStringToHandle(1500, 1000, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "SLv%d", sBuffLevel);
+		DrawFormatStringToHandle(1500, 1000, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "SLv%d", sBuffLevel);
 	}
 }
 
 void UI::AbilityUi()
 {
-	DrawFormatStringToHandle(10, 100, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "Skill回数%d", skillCount);
+	DrawFormatStringToHandle(10, 100, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "Skill回数%d", skillCount);
 	//DrawFormatString(0, 100, GetColor(255, 255, 255), "Skill回数%d", skillCount);
 	if (skillType == SAKUYA_Ability)
 	{
@@ -172,7 +171,7 @@ void UI::AbilityUi()
 
 void UI::TimeLimitUi()
 {
-	DrawFormatStringToHandle(10, 30, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "TIME %d%d%d", hundredsTime, tensTime, onesTime);
+	DrawFormatStringToHandle(10, 30, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "TIME %d%d%d", hundredsTime, tensTime, onesTime);
 }
 
 //更新
@@ -211,8 +210,8 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 //描画処理
 void UI::Draw()
 {
-	DrawBox(0, 0, 400, 300, GetColor(100, 100, 100), TRUE);
-	DrawBox(1450, 730, 1900, 1060, GetColor(100, 100, 100), TRUE);
+	DrawBox(0, 0, 400, 300, GetColor(200, 200, 200), TRUE);
+	DrawBox(1450, 730, 1900, 1060, GetColor(200, 200, 200), TRUE);
 	Get_CastleDurability();
 	Get_SubCastleDurability();
 	Get_BuffPoint();
