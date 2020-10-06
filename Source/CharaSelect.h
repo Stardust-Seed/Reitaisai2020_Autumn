@@ -7,12 +7,13 @@
 #include"Image.h"
 #include"SE.h"
 #include"BGM.h"
+#include "Cursor.h"
+#include "Define.h"
 
 //キャラクタータイプ
 enum SelectCharacter {
 	select_SAKUYA,     //咲夜
-	select_FRAN,       //フラン
-	select_NUM         //項目数
+	select_FRAN      //フラン
 };
 
 //選択項目
@@ -28,6 +29,9 @@ private:
 	int select_Sakuya;                  //項目枠：咲夜
 	int select_Fran;                    //項目枠：フラン
 
+	SelectCharacter selectChara;        //選択キャラ
+	Cursor charaCursor[2];              //項目カーソル
+
 	int color;    //色
 
 	SelectMenu selectMenu[3] = {
@@ -38,9 +42,9 @@ private:
 public:
 	CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	void Update();
+	void Select_Push(int _changeType);
 	void Draw();
 	void Draw_CharaWaku();
-	void Draw_CharaBack();
 	void Draw_CharaName();
 	void Draw_CharaAbility();
 	void Draw_CharaGraph();
