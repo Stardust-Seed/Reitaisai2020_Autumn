@@ -23,12 +23,14 @@ CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter) :B
 /*更新処理*/
 void CharaSelect::Update()
 {
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) == 1))
+	if (Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) % 16 == 1 &&
+		Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 0)
 	{
 		Select_Push(CURSOR_DOWN); //選択決定
 
 	}
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1))
+	if (Input::Instance()->GetPressCount(KEY_INPUT_LEFT) % 16 == 1 &&
+		Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) == 0)
 	{
 		Select_Push(CURSOR_UP); //選択決定
 	}
@@ -40,12 +42,12 @@ void CharaSelect::Update()
 		switch (charaSelect) {
 		case select_SAKUYA:   //咲夜を選択
 			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
-			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
+			parameter->Set(BaseScene::CharaSelectTag, selectChara);
 			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
 			break;
 		case select_FRAN:     //フランを選択
 			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
-			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
+			parameter->Set(BaseScene::CharaSelectTag, selectChara);
 			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
 			break;
 		}
