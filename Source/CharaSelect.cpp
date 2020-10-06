@@ -8,33 +8,30 @@ CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter) :B
 	//最初は咲夜が選択されている状態
 	charaSelect = select_SAKUYA;
 
-	//最初は咲夜が選択されている状態
-	select_Sakuya= 0;
-	select_Fran = 0;
+	selectChara = SelectCharacter::select_SAKUYA;
 
 	//色
 	color = GetColor(0, 0, 255);
+
+	//UIフレームの色を初期設定
+	charaCursor[static_cast<int>(SelectCharacter::select_SAKUYA)] = Cursor::Cursor_3;
+	charaCursor[static_cast<int>(SelectCharacter::select_FRAN)] = Cursor::Cursor_0;
+
 
 }
 
 /*更新処理*/
 void CharaSelect::Update()
 {
-	/****選択****/
-	/************/
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) == 1))
 	{
-		//選択項目を一つずらす(右に)
-		charaSelect = (charaSelect + 1) % select_NUM;
-		SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
+		Select_Push(CURSOR_DOWN); //選択決定
+
 	}
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 1))
 	{
-		//選択項目を一つ上げる(左に)
-		charaSelect = (charaSelect - 1) % select_NUM;
-		SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
+		Select_Push(CURSOR_UP); //選択決定
 	}
-
 
 	/****決定****/
 	/************/
@@ -53,43 +50,80 @@ void CharaSelect::Update()
 			break;
 		}
 	}
+	//過去へ戻る
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_X) == 1))
+	{
+		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
+	}
+}
+void CharaSelect::Select_Push(int _changeType)
+{
+
+		//SEを鳴らす
+		SE::Instance()->PlaySE(SE_cursor);
+
+		//現在選択されてる項目のカーソルフレームを灰色に
+		charaCursor[static_cast<int>(selectChara)] = Cursor::Cursor_0;
+
+		//切り替えモードがDOWNの場合
+		if (_changeType == CURSOR_DOWN) {
+			//一番下の項目のとき、一番上の項目へ
+			if (selectChara == SelectCharacter::select_FRAN) {
+				selectChara = SelectCharacter::select_SAKUYA;
+			}
+			//上記条件外のとき、一つ下の項目へ
+			else {
+				selectChara = static_cast<SelectCharacter>(static_cast<int>(selectChara) + 1);
+			}
+		}
+		//切り替えモードがUPの場合
+		else if (_changeType == CURSOR_UP) {
+			//一番上の項目のとき、一番下の項目へ
+			if (selectChara == SelectCharacter::select_SAKUYA) {
+				selectChara = SelectCharacter::select_FRAN;
+			}
+			//上記条件外のとき、一つ上の項目へ
+			else {
+				selectChara = static_cast<SelectCharacter>(static_cast<int>(selectChara) - 1);
+			}
+	
+		}
+
+		//現在選択されてる項目のカーソルフレームを青色に
+		charaCursor[static_cast<int>(selectChara)] = Cursor::Cursor_3;
+
+		/****決定****/
+	/************/
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1))
+	{
+		switch (charaSelect) {
+		case select_SAKUYA:   //咲夜を選択
+			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
+			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
+			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
+			break;
+		case select_FRAN:     //フランを選択
+			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
+			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
+			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
+			break;
+		}
+	}
+	//過去へ戻る
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_X) == 1))
 	{
 		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
 	}
 
-	if (charaSelect == select_SAKUYA)
-	{
-		select_Sakuya = 3;
-		select_Fran = 0;
-	}
-	else if (charaSelect == select_FRAN)
-	{
-		select_Fran = 1;
-		select_Sakuya = 0;
-	}
-	else
-	{
-		select_Sakuya = 0;
-		select_Fran = 0;
-	}
-
 }
-
 
 /*描画処理*/
 void CharaSelect::Draw()
 {
-	Draw_CharaBack();    //背景
 	Draw_CharaWaku();    //キャラ画像の枠
 	Draw_CharaGraph();   //キャラ画像
 	Draw_CharaName();    //キャラネームとネームの枠
 	Draw_CharaAbility(); //キャラクターのスキル説明
-
-}
-void CharaSelect::Draw_CharaBack()
-{
-
 }
 void CharaSelect::Draw_CharaWaku()
 {
@@ -112,16 +146,13 @@ void CharaSelect::Draw_CharaGraph()
 void CharaSelect::Draw_CharaName()
 {
 	//咲夜枠
-	DrawRotaGraph(690,725,0.6,0.0,Image::Instance()->GetGraph(eImageType::UI_CursorFrame, select_Sakuya),TRUE);
+	DrawRotaGraph(690,725,0.6,0.0,Image::Instance()->GetGraph(eImageType::UI_CursorFrame, static_cast<int>(charaCursor[static_cast<int>(SelectCharacter::select_SAKUYA)])),TRUE);
 	//スキル枠
 	DrawBox(95, 200, 450, 700, GetColor(0, 0, 0), TRUE);
-	//DrawExtendGraph(125, 200, 500, 600, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
-
 	//フラン枠
-	DrawRotaGraph(1250, 725, 0.6, 0.0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, select_Fran), TRUE);
+	DrawRotaGraph(1250, 725, 0.6, 0.0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, static_cast<int>(charaCursor[static_cast<int>(SelectCharacter::select_FRAN)])), TRUE);
 	//スキル枠
 	DrawBox(1490,200,1845, 700, GetColor(0, 0, 0), TRUE);
-	//DrawExtendGraph(1440, 200, 1800, 600, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
 
 	/**描画 前**/
 	//キャラクター名の表示
