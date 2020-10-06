@@ -25,14 +25,15 @@ BulletManager::~BulletManager()
 
 }
 //’e‚ğ”­Ë‚·‚éŠÖ”
-void BulletManager::Shot(VECTOR& pos, int pl_pos, bool pl_attack)
+void BulletManager::Shot(VECTOR& pos, int pl_type,int pl_pos, bool pl_attack)
 {
+
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		//NULL‚Ì•¨‚ğ’T‚µ‚Ä,“®“IŠm•Û‚·‚é‚Ì‚İ
 		if (bullet[i] == NULL)
 		{
-			bullet[i] = new Bullet(pos, pl_pos, pl_attack);
+			bullet[i] = new Bullet(pos,pl_type, pl_pos, pl_attack);
 			activeBullet++;
 			break;
 		}

@@ -23,7 +23,7 @@ public:
 	~BulletManager();   //デストラクタ
 
 	//弾を発射する関数
-	void Shot(VECTOR& pos, int pl_pos, bool pl_attack);
+	void Shot(VECTOR& pos,int pl_type,int pl_pos, bool pl_attack);
 	//更新
 	void Update(EnemyManager* _enemyManager);
 	//描画
