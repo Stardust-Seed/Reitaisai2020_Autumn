@@ -11,7 +11,7 @@ SubCastle::SubCastle(int _durability,int _type)
 	height = 48;
 	addPosX = 0;
 	addPosY = 0;
-	addSize = 12;
+	addSize = 8;
 
 	int posType = GetRand(1);
 
@@ -20,19 +20,26 @@ SubCastle::SubCastle(int _durability,int _type)
 	{
 	case 1:    //左側
 
+		//座標設定
 		x = GAME_WIDTH / 2 - width / 2 - 225 - GetRand(30);
 		y = GAME_HEIHGT / 2 - height / 2;
 
+		//追加の座標設定
 		if (posType == 0)    //上
 		{
 			addPosX = -48;
 			addPosY = -65;
+
 		}
 		else                 //下
 		{
 			addPosX = -48;
 			addPosY = 53;
 		}
+
+		//占領された時の敵の生成座標設定
+		popPosX = x + addPosX;
+		popPosY = y;
 
 		direction = eDirection::Left;
 
@@ -40,9 +47,11 @@ SubCastle::SubCastle(int _durability,int _type)
 
 	case 2:    //右側
 
+		//座標設定
 		x = GAME_WIDTH / 2 - width / 2 + 225 + GetRand(30);
 		y = GAME_HEIHGT / 2 - height / 2;
 
+		//追加の座標設定
 		if (posType == 0)    //上
 		{
 			addPosX = 48;
@@ -54,15 +63,21 @@ SubCastle::SubCastle(int _durability,int _type)
 			addPosY = 53;
 		}
 
+		//占領された時の敵の生成座標設定
+		popPosX = x + addPosX;
+		popPosY = y;
+
 		direction = eDirection::Right;
 
 		break;
 
 	case 3:    //上側
 
+		//座標設定
 		x = GAME_WIDTH / 2 - width / 2;
 		y = GAME_HEIHGT / 2 - height / 2 - 225 - GetRand(30);
 
+		//追加の座標設定
 		if (posType == 0)    //左
 		{
 			addPosY = -48;
@@ -73,6 +88,10 @@ SubCastle::SubCastle(int _durability,int _type)
 			addPosY = -48;
 			addPosX = 55;
 		}
+
+		//占領された時の敵の生成座標設定
+		popPosX = x;
+		popPosY = y + addPosY;
 
 		direction = eDirection::Up;
 
@@ -80,9 +99,11 @@ SubCastle::SubCastle(int _durability,int _type)
 
 	case 4:    //下側
 
+		//座標設定
 		x = GAME_WIDTH / 2 - width / 2;
 		y = GAME_HEIHGT / 2 - height / 2 + 225 + GetRand(30);
 
+		//追加の座標設定
 		if (posType == 0)    //左
 		{
 			addPosY = 48;
@@ -93,6 +114,10 @@ SubCastle::SubCastle(int _durability,int _type)
 			addPosY = 48;
 			addPosX = 55;
 		}
+
+		//占領された時の敵の生成座標設定
+		popPosX = x;
+		popPosY = y + addPosY;
 
 		direction = eDirection::Down;
 
@@ -101,10 +126,15 @@ SubCastle::SubCastle(int _durability,int _type)
 	default:
 		break;
 	}
+	//サブ拠点の表示場所の座標設定
+	drawPosX = x + addPosX - addSize / 2;
+	drawPosY = y + addPosY - addSize / 2;
+
 }
 
 void SubCastle::Update(EnemyManager* enemy)
 {
+	//当たり判定
 	for (int num = 0; num < enemy->Get_enemyNum(); num++)
 	{
 		if (enemy->Get_ActiveFlg(num) == true && enemy->Get_AttackFlg(num) == true  &&
@@ -134,12 +164,10 @@ void SubCastle::Draw()
 	//適当に表示
 	if (isActive == true)
 	{
-		DrawGraphF(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
-		Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 0), TRUE);
+		DrawGraphF(drawPosX,drawPosY,Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 0), TRUE);
 	}
 	else
 	{
-		DrawGraphF(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
-		Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
+		DrawGraphF(drawPosX, drawPosY, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
 	}
 }

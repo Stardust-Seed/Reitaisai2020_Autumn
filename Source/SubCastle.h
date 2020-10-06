@@ -18,7 +18,6 @@ class SubCastle :public virtual BaseCastle {
 
 private:
 	int posType;                   //サブ拠点の場所
-	int addSize;                   //追加の大きさ(表示部分のみ)  
 
 public:
 	SubCastle(int,int);
