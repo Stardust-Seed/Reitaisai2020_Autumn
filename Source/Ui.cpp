@@ -114,54 +114,65 @@ void UI::Get_SubCastleDurability()
 
 void UI::Get_BuffPoint()
 {
+	//pBuffLevel = 3;
 	//Pアイテム
-	DrawBox(PMOJI_X, PMOJI_Y, PBAR_X1, PMOJI_Y + 20, GetColor(255, 255, 255), FALSE);										//文字
-	DrawFormatString(PMOJI_X + 10, PMOJI_Y + 2, GetColor(255, 255, 255), "PLv%d", pBuffLevel);
+	DrawBox(PMOJI_X, PMOJI_Y + 5, PMOJI_X1, PMOJI_Y1, GetColor(255, 255, 255), FALSE);										//文字
 
-	DrawBox(PBAR_X, PBAR_Y, PBAR_X1 + 300, PBAR_Y1 + 20, GetColor(255, 255, 255), FALSE);									//枠
+	DrawFormatStringToHandle(PMOJI_X + 5, PMOJI_Y - 45, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "P");
 
-	DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1 + 300 * pBuffPoint / MAX_BUFF, PGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);		//ゲージ
+	DrawBox(PBAR_X, PBAR_Y, PBAR_X1, PBAR_Y1, GetColor(255, 255, 255), FALSE);							//枠
+	DrawBox(PBAR_X, PBAR_Y, PBAR_X1, PBAR_Y1, GetColor(190, 255, 190), TRUE);
 
 	if (pBuffLevel == 3)
 	{
-		DrawString(PGAUGE_X + 130, PGAUGE_Y + 2, "MAX", GetColor(255, 255, 255));
+		pBuffPoint = 15;
+		DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1, PGAUGE_Y1 - 250 * pBuffPoint / MAX_BUFF, GetColor(255, 0, 0), TRUE);		//ゲージ
+		DrawFormatStringToHandle(1500, 900, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "PLvMAX");
+	}
+	else
+	{
+		DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1, PGAUGE_Y1 - 250 * pBuffPoint / MAX_BUFF, GetColor(255, 0, 0), TRUE);		//ゲージ
+		DrawFormatStringToHandle(1500, 900, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "PLv%d", pBuffLevel);
 	}
 
 	//Sアイテム
-	DrawBox(SMOJI_X, SMOJI_Y, SBAR_X1, SMOJI_Y + 20, GetColor(255, 255, 255), FALSE);										//文字
-	DrawFormatString(SMOJI_X + 10, SMOJI_Y + 2, GetColor(255, 255, 255), "SLv%d", sBuffLevel);
+	DrawBox(SMOJI_X, SMOJI_Y + 5, SMOJI_X1, SMOJI_Y1, GetColor(255, 255, 255), FALSE);										//文字
+	
+	DrawFormatStringToHandle(SMOJI_X + 5, SMOJI_Y - 45, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "S");
 
-	DrawBox(SBAR_X, SBAR_Y, SBAR_X1 + 300, SBAR_Y1 + 20, GetColor(255, 255, 255), FALSE);									//枠
-
-	DrawBox(SGAUGE_X, SGAUGE_Y, SGAUGE_X1 + 300 * sBuffPoint / MAX_BUFF, SGAUGE_Y1 + 20, GetColor(0, 255, 0), TRUE);		//ゲージ
+	DrawBox(SBAR_X, SBAR_Y, SBAR_X1, SBAR_Y1, GetColor(255, 255, 255), FALSE);												//枠
+	DrawBox(SBAR_X, SBAR_Y, SBAR_X1, SBAR_Y1, GetColor(190, 255, 190),TRUE);
 
 	if (sBuffLevel == 3)
 	{
-		DrawString(SGAUGE_X + 130, SGAUGE_Y + 2, "MAX", GetColor(255, 255, 255));
+		sBuffPoint = 15;
+		DrawBox(SGAUGE_X, SGAUGE_Y, SGAUGE_X1, SGAUGE_Y1 - 250 * sBuffPoint / MAX_BUFF, GetColor(0, 0, 255), TRUE);		//ゲージ
+		DrawFormatStringToHandle(1500, 1000, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "SLvMAX");
+	}
+	else
+	{
+		DrawBox(SGAUGE_X, SGAUGE_Y, SGAUGE_X1, SGAUGE_Y1 - 250 * sBuffPoint / MAX_BUFF, GetColor(0, 0, 255), TRUE);		//ゲージ
+		DrawFormatStringToHandle(1500, 1000, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "SLv%d", sBuffLevel);
 	}
 }
 
 void UI::AbilityUi()
 {
-	//DrawFormatStringToHandle(0, 140, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "Skill回数%d", skillCount);
-	DrawFormatString(0, 100, GetColor(255, 255, 255), "Skill回数%d", skillCount);
+	DrawFormatStringToHandle(10, 100, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "Skill回数%d", skillCount);
+	//DrawFormatString(0, 100, GetColor(255, 255, 255), "Skill回数%d", skillCount);
 	if (skillType == SAKUYA_Ability)
 	{
 		if (skillActive == true)
 		{
-			//DrawFormatStringToHandle(100, 140, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "SkillTime");
-			DrawString(0, 140, "SkillTime", GetColor(255, 255, 255));
-			DrawBox(SKILLBAR_X, SKILLBAR_Y, SKILLBAR_X1 + 200, SKILLBAR_Y1 + 10, GetColor(255, 255, 255), FALSE);									//枠
-			DrawBox(SKILLGAUGE_X, SKILLGAUGE_Y, SKILLGAUGE_X1 + 200 * skillClock / MAX_STOPTIME, SKILLGAUGE_Y1 + 10, GetColor(0, 255, 255), TRUE);	//ゲージ
+			DrawBox(pX, pY, pX + 50, pY - 5, GetColor(255, 255, 255), FALSE);									//枠
+			DrawBox(pX, pY, pX + 50 * skillClock / MAX_STOPTIME, pY - 5, GetColor(0, 255, 255), TRUE);	//ゲージ
 		}
-    }
+	}
 }
 
 void UI::TimeLimitUi()
 {
-	DrawFormatStringToHandle(0, 30, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "TIME %d", hundredsTime);
-	DrawFormatStringToHandle(110, 30, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", tensTime);
-	DrawFormatStringToHandle(130, 30, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", onesTime);
+	DrawFormatStringToHandle(10, 30, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "TIME %d%d%d", hundredsTime, tensTime, onesTime);
 }
 
 //更新
@@ -172,12 +183,13 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 	sBuffPoint = _itemmanager->Get_S_Count();
 	pBuffLevel = _buffmanager->GetPowerLevel();
 	sBuffLevel = _buffmanager->GetSpeedLevel();
-	CastleDurability = _castlemanager->Get_Durability(0);		//拠点の体力をセットする
-	 
+
 	//拠点関連
+	CastleDurability = _castlemanager->Get_Durability(0);		//拠点の体力をセットする
+
 	for (i = 1; i < 5; i++)
-	{	
-		SubCastleDurability[i] = _castlemanager->Get_Durability(i);	
+	{
+		SubCastleDurability[i] = _castlemanager->Get_Durability(i);
 		isActive[i] = _castlemanager->Get_IsActive(i);
 	}
 
@@ -186,6 +198,9 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 	skillClock = _baseplayer->Get_abilityClock();
 	skillActive = _baseplayer->Get_isAbility();
 	skillType = _baseplayer->Get_AbilityType();
+
+	pX = _baseplayer->Get_x();
+	pY = _baseplayer->Get_y();
 
 	//タイム関連
 	hundredsTime = _timelimit->Get_hundredsPlace();
@@ -196,10 +211,13 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 //描画処理
 void UI::Draw()
 {
-	//DrawBox(0, 0, 400, 300, GetColor(50, 50, 50), TRUE);
+	DrawBox(0, 0, 400, 300, GetColor(100, 100, 100), TRUE);
+	DrawBox(1450, 730, 1900, 1060, GetColor(100, 100, 100), TRUE);
 	Get_CastleDurability();
 	Get_SubCastleDurability();
 	Get_BuffPoint();
 	AbilityUi();
 	TimeLimitUi();
 }
+
+
