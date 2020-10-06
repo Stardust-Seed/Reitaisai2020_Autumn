@@ -13,7 +13,7 @@ class EnemyManager {
 private:
 	static const int POPENEMY_EASY = 2;		//難易度別画面内の生成数
 
-	static const int POPENEMY_NORMAL = 3;	//3体まで
+	static const int POPENEMY_NORMAL = 4;	//4体まで
 
 	static const int POPENEMY_HARD = 4;		//4体まで
 
@@ -48,8 +48,10 @@ private:
 	int addEnemyNum;				//追加されるエネミーの数
 
 	int activeCount;				//アクティブなエネミーの数を入れる
-	
+
 	int _direction;					//方向
+
+	float addSpeed;					//難易度で上昇するスピードの値
 
 public:
 	EnemyManager(int);					//コンストラクタ

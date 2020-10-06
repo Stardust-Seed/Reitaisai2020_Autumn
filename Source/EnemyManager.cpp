@@ -10,6 +10,7 @@ EnemyManager::EnemyManager(int level) {
 	enemyType = 0;
 	_direction = 0;
 	direction = eDirection::None;
+	addSpeed = 0.0f;
 
 	for (int num = 0; num < MAX_ENEMY_NUM; num++) {//配列初期化
 		Enemys[num] = NULL;		
@@ -25,6 +26,7 @@ EnemyManager::EnemyManager(int level) {
 		break;
 	case 2:						//HARD		4体
 		enemyNum = POPENEMY_HARD;
+		addSpeed = 0.5;			//敵ステータス上昇
 		break;
 	default:					//例外
 		enemyNum = POPENEMY_HARD;
@@ -114,7 +116,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					if (enemyType == 0) {				//スピード型
 
-						Enemys[num] = new Fairy_Speed(SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
+						Enemys[num] = new Fairy_Speed(SPEED[enemyType] + addSpeed, POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
@@ -122,7 +124,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					if (enemyType == 1) {				//体力型
 
-						Enemys[num] = new Fairy_Endurance(SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
+						Enemys[num] = new Fairy_Endurance(SPEED[enemyType] + addSpeed, POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
@@ -130,7 +132,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 					if (enemyType == 2) {				//パワー型
 
-						Enemys[num] = new Fairy_Power(SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
+						Enemys[num] = new Fairy_Power(SPEED[enemyType] + addSpeed, POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
 
 						waitCount = 0;
 						break;								//一体生成したら抜ける
