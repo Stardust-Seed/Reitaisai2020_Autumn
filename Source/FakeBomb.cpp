@@ -20,7 +20,6 @@ void FakeBomb::FakeMotion()
 		{
 			isTrigger = false;
 			AnimationFlg = true;
-			isActive = false;
 		}
 	}
 }
@@ -110,6 +109,7 @@ void FakeBomb::Animation()
 	if (fake_Animation[m_frameIndex] == 3)
 	{
 		AnimationFlg = false;
+		isActive = false;
 		m_frameIndex--;
 	}
 }

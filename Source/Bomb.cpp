@@ -14,7 +14,6 @@ void Bomb::DamageMotion()
 	{
 		AnimationFlg = true;
 		isTrigger = false;
-		isActive = false;
 	}
 }
 
@@ -31,7 +30,6 @@ void Bomb::Update(BasePlayer* player)
 		isCount = false;
 		isTrigger = false;
 		isXplosion = false;
-		isActive = false;
 	}
 	else
 	{
@@ -115,6 +113,7 @@ void Bomb::Animation()
 	if (bomb_Animation[m_frameIndex] == 6)
 	{
 		AnimationFlg = false;
+		isActive = false;
 		m_frameIndex--;
 	}
 }
