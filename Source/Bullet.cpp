@@ -90,17 +90,16 @@ void Bullet::Update(EnemyManager* _eManager)
 	{
 		isActive= false;
 	}
-	for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
+	for (int i = 0; i < _eManager->Get_enemyNum(); i++) {  //エネミー
 		if (ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(),
-			_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
+			_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i))) 
 		{
 			isHit = true;
 		}
 	}
-	if (isHit == true)
+	if (ClisionHit(Get_x(), Get_y(), Get_width(), Get_height(), //メイン城
+		900, 480, 94, 94))
 	{
-		DrawFormatString(0, 150, GetColor(255, 255, 255), "うらべええええええ", 0);
-		//isActive = false;
+		isActive = false;
 	}
-
 }
