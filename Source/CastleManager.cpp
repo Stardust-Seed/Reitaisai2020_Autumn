@@ -163,3 +163,24 @@ int CastleManager::Get_OccupiedNum()
 	return occupiedNum;
 }
 
+float CastleManager::Get_AddPosX(int num)			//•‚ðŽó‚¯Žæ‚é
+{
+	if (Castles[num] != NULL) {
+		return Castles[num]->Get_AddPosX();
+	}
+	else
+	{
+		return 0;
+	}
+}
+float CastleManager::Get_AddPosY(int num)			//‚‚³‚ðŽó‚¯Žæ‚é
+{
+	if (Castles[num] != NULL) {
+		return Castles[num]->Get_AddPosY();
+	}
+	else
+	{
+		return 0;
+	}
+}
+

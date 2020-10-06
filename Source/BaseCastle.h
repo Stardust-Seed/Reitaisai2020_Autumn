@@ -25,6 +25,8 @@ protected:
 	eDirection direction;
 	bool isActive;		                    //拠点の生存フラグ
 	bool dyingFlg;                          //瀕死フラグ
+	float addPosX;                   //追加の座標X(表示部分のみ)  
+	float addPosY;                   //追加の座標Y(表示部分のみ)  
 
 public:
 	BaseCastle(int);                        //コンストラクタ
@@ -53,6 +55,8 @@ public:
 	float Get_Y() { return y; }
 	float Get_Width() { return width; }
 	float Get_Height() { return height; }
+	float Get_AddPosX() { return addPosX; };		//幅を受け取る
+	float Get_AddPosY() { return addPosY; };	    //高さを受け取る
 
 	eDirection Get_CastleDirection() { return direction; }
 };

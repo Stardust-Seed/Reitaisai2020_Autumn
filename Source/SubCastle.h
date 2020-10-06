@@ -17,17 +17,14 @@ class BaseEnemy;
 class SubCastle :public virtual BaseCastle {
 
 private:
-	int posType;    //サブ拠点の場所
-	int addPosX;    //追加の座標X(表示部分のみ)  
-	int addPosY;    //追加の座標Y(表示部分のみ)  
-	int addSize;    //追加の大きさ(表示部分のみ)  
+	int posType;                   //サブ拠点の場所
+	int addSize;                   //追加の大きさ(表示部分のみ)  
 
 public:
 	SubCastle(int,int);
 
 	void Update(EnemyManager*);    //更新処理
 	void Draw();                   //描画処理
-
 };
 
 #endif //_SUBCASTLE_H
