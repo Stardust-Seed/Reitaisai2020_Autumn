@@ -29,17 +29,15 @@ private:
 	bool isActive;
 
 	//画像
-	int gh;
+	int bulletGraph;
 
-	//テスト用カラー
-	int Cr;
 public:
 	//当たり判定
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);
 
 	//コンストラクタ時に弾の発生位置と、進む方向を引数で持たせる
-	Bullet(VECTOR& position, int pl_pos, bool pl_attack);        //コンストラクタ
+	Bullet(VECTOR& position, int pl_type,int pl_pos, bool pl_attack);        //コンストラクタ
 	~Bullet();       //デストラクタ
 	void Draw();     //描画
 	void Update(EnemyManager* _eManager);   //更新

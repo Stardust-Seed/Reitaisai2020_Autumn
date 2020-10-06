@@ -6,7 +6,7 @@
 #include"EnemyManager.h"
 
 
-Bullet::Bullet(VECTOR& position, int pl_pos, bool pl_attack)
+Bullet::Bullet(VECTOR& position, int pl_type,int pl_pos, bool pl_attack)
 {
 	//’e‚Ì”­¶ˆÊ’u
 	pos.x = position.x + 12;
@@ -20,7 +20,7 @@ Bullet::Bullet(VECTOR& position, int pl_pos, bool pl_attack)
 	isActive = pl_attack;
 
 	//‰æ‘œ
-	gh = 0;
+	bulletGraph = pl_type;
 
 	//•
 	width = 24;
@@ -51,11 +51,8 @@ bool Bullet::ClisionHit(float mx, float my, float mw, float mh,
 }
 void Bullet::Draw()
 {
-	//’e‚ÌF
-	Cr = GetColor(255, 255, 255);
 
-	//’e‚Ì•`‰æ
-	DrawBox(pos.x, pos.y, pos.x + width, pos.y + height, Cr, TRUE);
+	Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Bullet, bulletGraph), 255, true);
 
 	//’e‚Ì“–‚½‚è”»’è
 	DrawBox(Get_x(), Get_y(), pos.x + Get_width(), pos.y + Get_height(), GetColor(255, 0, 0), FALSE);
