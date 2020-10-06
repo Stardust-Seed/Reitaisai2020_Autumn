@@ -47,7 +47,6 @@ BasePlayer::BasePlayer(int _pType)
 	stanTime_stay = 360;		//スタン再発動までの時間
 
 	playerDirection = 0;			    //プレイヤーの向き。最初は左
-	playerPos = 0;                      //プレイヤーのポジション
 
 	isMove = false;				//移動している：true  移動していない：false
 	isAttack = false;           //攻撃してるかどうか
@@ -106,12 +105,6 @@ void BasePlayer::Draw_Arow()
 void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 {
 
-	DrawFormatString(500, 500, GetColor(200, 200, 200), "%f", pos.x);
-	DrawFormatString(500, 550, GetColor(200, 200, 200), "%f", pos.y);
-
-	DrawFormatString(500, 600, GetColor(200, 200, 200), "playerPos:%d", playerPos);
-	DrawFormatString(500, 650, GetColor(200, 200, 200), "playerPos:%d", playerDirection);
-
 	if (playerType == SAKUYA)
 	{
 		power = 40 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
@@ -126,7 +119,6 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 	if (isStan == 0) {
 
 		Move();        //移動処理
-		AttackDirection();  //攻撃可能な方向かチェック
 		Attack();      //攻撃処理
 		Ability();     //スキル
 
@@ -240,26 +232,6 @@ void BasePlayer::Attack()
 	if (isMove == false) {
 		if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) && attackTime >= 20)
 		{
-			//左の真ん中で右に撃ったら駄目です
-			if (playerPos == 0 && playerDirection == 2)
-			{
-				return;
-			}
-			//上の真ん中で下に撃ったら駄目です
-			if (playerPos == 1 && playerDirection == 3)
-			{
-				return;
-			}
-			//右の真ん中で左に撃ったら駄目です
-			if (playerPos == 2 && playerDirection == 0)
-			{
-				return;
-			}
-			//下の真ん中で上に撃ったら駄目です
-			if (playerPos == 3 && playerDirection == 1)
-			{
-				return;
-			}
 			//攻撃flagをtrueにする
 			isAttack = true;
 			//弾を飛ばす
@@ -284,50 +256,6 @@ void BasePlayer::Attack()
 			}
 
 		}
-	}
-
-}
-void BasePlayer::AttackDirection()
-{
-	//プレイヤーが左の真ん中あたりにいるとき
-	if (pos.x <= 845 && (pos.y >= 424 && pos.y <= 600))
-	{
-		playerPos = 0; //左
-	}
-	//プレイヤーが上の真ん中あたりにいるとき
-	if ((pos.x >= 855 && pos.x <= 1015) && pos.y <= 424)
-	{
-		playerPos = 1; //上
-	}
-	//プレイヤーが右の真ん中あたりにいるとき
-	if ((pos.x >= 1015) && (pos.y >= 424 && pos.y <= 605))
-	{
-		playerPos = 2; //右
-	}
-	//プレイヤーが下の真ん中あたりにいるとき
-	if ((pos.x >= 855 && pos.x <= 1015) && pos.y >= 605)
-	{
-		playerPos = 3; //下
-	}
-	//プレイヤーが左上の隅にいるとき
-	if (pos.x <= 850 && pos.y <= 424)
-	{
-		playerPos = 4; //無
-	}
-	//プレイヤーが左下の隅にいるとき
-	if (pos.x <= 850 && pos.y >= 605)
-	{
-		playerPos = 4; //無
-	}
-	//プレイヤーが右上の隅にいるとき
-	if (pos.x >= 1015 && pos.y <= 424)
-	{
-		playerPos = 4; //無
-	}
-	//プレイヤーが右下の隅にいるとき
-	if (pos.x >= 1015 && pos.y >= 605)
-	{
-		playerPos = 4; //無
 	}
 
 }

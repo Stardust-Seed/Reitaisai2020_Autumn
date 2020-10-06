@@ -85,7 +85,6 @@ protected:
 
 	int playerDirection;                  //プレイヤーの向き
 	// 0 = 左         1 = 上        2 = 右         3 = 下
-	int playerPos;
 
 	bool isMove;                   //現在移動中のフラグ
 
@@ -119,7 +118,6 @@ public:
 	void Move_LEFT();      //←移動処理
 	void Move_RIGHT();     //→移動処理
 	void Attack();         //攻撃処理
-	void AttackDirection();//攻撃方向をチェック
 	void Animation();      //アニメーション
 	void Ability();        //スキル処理
 
