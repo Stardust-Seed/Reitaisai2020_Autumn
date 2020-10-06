@@ -5,7 +5,6 @@
 #include"BaseEnemy.h"
 #include"EnemyManager.h"
 
-
 Bullet::Bullet(VECTOR& position, int pl_type,int pl_pos, bool pl_attack)
 {
 	//’e‚Ì”­¶ˆÊ’u
@@ -21,6 +20,9 @@ Bullet::Bullet(VECTOR& position, int pl_type,int pl_pos, bool pl_attack)
 
 	//‰æ‘œ
 	bulletGraph = pl_type;
+
+	//‰æ‘œ‰ñ“]
+	graphAngle = 4;
 
 	//•
 	width = 24;
@@ -52,28 +54,36 @@ bool Bullet::ClisionHit(float mx, float my, float mw, float mh,
 void Bullet::Draw()
 {
 
-	Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Bullet, bulletGraph), 255, true);
+	//’e‚Ì•`‰æ   PL * 2 = ¶  PI * 2.5 ã PI* * 3.0 ‰E PI * 4.0 ‰º 
+	DrawRotaGraph(pos.x+12, pos.y+12, 1.0,  PI * graphAngle, Image::Instance()->GetGraph(eImageType::Gpicture_Bullet, bulletGraph), TRUE); //‰æ‘œ‚Ì•`‰æ
 
-	//’e‚Ì“–‚½‚è”»’è
-	DrawBox(Get_x(), Get_y(), pos.x + Get_width(), pos.y + Get_height(), GetColor(255, 0, 0), FALSE);
 }
 void Bullet::Update(EnemyManager* _eManager)
 {
+
 	if (isActive == true) {
 		if (Bullet_Move == 0)
 		{
+			//’e‚ÌŠp“x‚ð•Ï‚¦‚é
+			graphAngle = 2.0;
 			pos.x -= 3.0f;
 		}
 		if (Bullet_Move == 1)
 		{
+			//’e‚ÌŠp“x‚ð•Ï‚¦‚é
+			graphAngle = 2.5;
 			pos.y -= 3.0f;
 		}
 		if (Bullet_Move == 2)
 		{
+			//’e‚ÌŠp“x‚ð•Ï‚¦‚é
+			graphAngle = 3.0;
 			pos.x += 3.0f;
 		}
 		if (Bullet_Move == 3)
 		{
+			//’e‚ÌŠp“x‚ð•Ï‚¦‚é
+			graphAngle = 3.5;
 			pos.y += 3.0f;
 		}
 	}

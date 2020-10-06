@@ -3,6 +3,7 @@
 
 #include "Object.h"
 #include "DxLib.h"
+#include "Image.h"
 
 class BaseEnemy;
 class EnemyManager;
@@ -11,6 +12,8 @@ class EnemyManager;
 class Bullet :public virtual Object
 {
 private:
+
+	const float PI = 3.141592654;
 
 	//エネミーのポインタ変数
 	BaseEnemy* baseEnemy;
@@ -30,6 +33,9 @@ private:
 
 	//画像
 	int bulletGraph;
+
+	//画像回転
+	float graphAngle;
 
 public:
 	//当たり判定
