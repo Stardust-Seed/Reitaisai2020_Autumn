@@ -29,27 +29,31 @@ private:
 	static const int MAX_DURABILTY = 100;		//メイン拠点最大体力
 	static const int MAX_SABDURABILTY = 25;	//サブ拠点最大体力
 
-	static const int PMOJI_X = 1550;			//文字のｘ
-	static const int PMOJI_Y = 960;
-	static const int PBAR_X = 1600;				//枠のｘ始点
-	static const int PBAR_Y = 960;
-	static const int PBAR_X1 = 1600;			//枠のｘ終点
-	static const int PBAR_Y1 = 960;
-	static const int PGAUGE_X = 1600;			//バーのｘ始点
-	static const int PGAUGE_Y = 960;
-	static const int PGAUGE_X1 = 1600;			//バーのｘ終点
-	static const int PGAUGE_Y1 = 960;
+	static const int PMOJI_X = 1700;			//文字のｘ
+	static const int PMOJI_Y = 800;
+	static const int PMOJI_X1 = 1730;
+	static const int PMOJI_Y1 = 750;
+	static const int PBAR_X = 1700;				//枠のｘ始点
+	static const int PBAR_Y = 1050;
+	static const int PBAR_X1 = 1730;			//枠のｘ終点
+	static const int PBAR_Y1 = 800;
+	static const int PGAUGE_X = 1700;			//バーのｘ始点
+	static const int PGAUGE_Y = 1050;
+	static const int PGAUGE_X1 = 1730;			//バーのｘ終点
+	static const int PGAUGE_Y1 = 1050;
 
-	static const int SMOJI_X = 1550;			//文字のｘ
-	static const int SMOJI_Y = 1000;
-	static const int SBAR_X = 1600;				//枠のｘ始点
-	static const int SBAR_Y = 1000;
-	static const int SBAR_X1 = 1600;			//枠のｘ終点
-	static const int SBAR_Y1 = 1000;
-	static const int SGAUGE_X = 1600;			//バーのｘ始点
-	static const int SGAUGE_Y = 1000;
-	static const int SGAUGE_X1 = 1600;			//バーのｘ終点
-	static const int SGAUGE_Y1 = 1000;
+	static const int SMOJI_X = 1800;			//文字のｘ
+	static const int SMOJI_Y = 800;
+	static const int SMOJI_X1 = 1830;
+	static const int SMOJI_Y1 = 750;
+	static const int SBAR_X = 1800;				//枠のｘ始点
+	static const int SBAR_Y = 1050;
+	static const int SBAR_X1 = 1830;			//枠のｘ終点
+	static const int SBAR_Y1 = 800;
+	static const int SGAUGE_X = 1800;			//バーのｘ始点
+	static const int SGAUGE_Y = 1050;
+	static const int SGAUGE_X1 = 1830;			//バーのｘ終点
+	static const int SGAUGE_Y1 = 1050;
 
 	const int MAX_BUFF = 15;				//バフゲージの最大数
 
@@ -79,6 +83,9 @@ private:
 	int hundredsTime;
 	int tensTime;
 	int onesTime;
+
+	float pX;						//プレイヤーのx座標
+	float pY;						//プレイヤーのy座標
 
 	bool isActive[5];
 	bool skillActive;
