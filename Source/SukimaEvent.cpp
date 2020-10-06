@@ -8,6 +8,7 @@ SukimaEvent::SukimaEvent() {
 	width = 48;
 	height = 48;
 	addSize = 8;
+
 	hitNum = -1;
 	popFlg = true;
 	deleteFlg = false;
@@ -52,6 +53,7 @@ SukimaEvent::SukimaEvent() {
 	default:
 		break;
 	}
+	//ワープ先の座標設定
 	warpPosX = x;
     warpPosY = y;
 }
@@ -62,9 +64,9 @@ SukimaEvent::~SukimaEvent() {
 //更新
 void SukimaEvent::Update(EnemyManager* enemy)
 {
+	//当たり判定
 	for (int num = 0; num < enemy->Get_enemyNum(); num++)
 	{
-		//当たり判定
 		if (enemy->Get_ActiveFlg(num) == true && animationFlg == false &&
 			deleteFlg == false && popFlg == false )
 	    {
@@ -73,7 +75,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 				enemy->Get_x(num), enemy->Get_y(num),
 				enemy->Get_width(num),enemy->Get_height(num));
 		}
-		//当たったらワープ
+		//当たったらワープ(ランダムな方向に)
 		if (isHit == true)
 		{
 			SE::Instance()->PlaySE(SE_sukimaWarp);
@@ -86,7 +88,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 			switch (_type)
 			{
 			case 0:    //左側
-				enemy->Set_x(hitNum, LEFT_X - width + 30);
+				enemy->Set_x(hitNum, LEFT_X - width + 16);
 				enemy->Set_y(hitNum, LEFT_Y - height * 0.5f);
 				enemy->Set_direction(hitNum, eDirection::Left);
 				warpPosX = LEFT_X;
@@ -94,7 +96,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 				break;
 
 			case 1:    //右側
-				enemy->Set_x(hitNum, RIGHT_X - width + 30);
+				enemy->Set_x(hitNum, RIGHT_X - width + 16);
 				enemy->Set_y(hitNum, RIGHT_Y - height * 0.5f);
 				enemy->Set_direction(hitNum, eDirection::Right);
 				warpPosX = RIGHT_X;
@@ -103,7 +105,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 
 			case 2:    //上側
 				enemy->Set_x(hitNum, UP_X - width * 0.5f);
-				enemy->Set_y(hitNum, UP_Y - height + 30);
+				enemy->Set_y(hitNum, UP_Y - height + 16);
 				enemy->Set_direction(hitNum, eDirection::Up);
 				warpPosX = UP_X;
 				warpPosY = UP_Y;
@@ -111,7 +113,7 @@ void SukimaEvent::Update(EnemyManager* enemy)
 
 			case 3:    //下側
 				enemy->Set_x(hitNum, DOWN_X - width * 0.5f);
-				enemy->Set_y(hitNum, DOWN_Y - height + 30);
+				enemy->Set_y(hitNum, DOWN_Y - height + 16);
 				enemy->Set_direction(hitNum, eDirection::Down);
 				warpPosX = DOWN_X;
 				warpPosY = DOWN_Y;
@@ -148,11 +150,13 @@ void SukimaEvent::Update(EnemyManager* enemy)
 //描画
 void SukimaEvent::Draw()
 {
+	    //アニメーション表示
 		if ( popFlg ||animationFlg == true)
 		{
 			Animation();
 		}
-
+		
+		//適当に表示
 		if (popFlg == false)
 		{
 			if (deleteFlg == false)
@@ -176,9 +180,11 @@ bool SukimaEvent:: ClisionHit(float mx, float my, float mw, float mh,
 	}
 	return isHit;
 }
+
 //アニメーション再生
 void SukimaEvent::Animation()
 {
+	//最初のアニメーションが終わっているとき
 	if (popFlg == false)
 	{
 		warpAnimationCnt++;
@@ -197,14 +203,14 @@ void SukimaEvent::Animation()
 		{
 			DrawGraphF(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 3), TRUE);
 		}
-
+		//アニメーション終了したら消す
 		if (animation[warpAnimationCnt] == 4)
 		{
 			warpAnimationCnt = 0;
 			animationFlg = false;
 			isActive = false;
 		}
-
+		//自然消滅のする時のアニメーション
 		if (deleteFlg == true)
 		{
 			if (popAnimationCnt > 0)
@@ -237,6 +243,7 @@ void SukimaEvent::Animation()
 	}
 	else
 	{
+		//生成されたときのアニメーション
 		if (deleteFlg == false)
 		{
 			popAnimationCnt++;
