@@ -25,8 +25,57 @@
 int DrawUIGraph(float _x, float _y, float _width, float _height, double _extX, double _extY,
 	float _angle, int _pal, unsigned int _color, int _cursor, eDrawType _drawType,
 	int _font, int _fontSize, string _text) {
-	//テキストサイズを取得する
-	int textSize = _text.size();
+	int textSize;				//テキストサイズ
+	int textMiddleSize;			//テキストの半分の数値
+	bool isOdd = false;			//奇数フラグ
+	bool isHalfSize = false;	//半角フラグ
+
+	int textX;							//表示する文字のx座標
+	int textY = _y - (_fontSize / 2);	//表示する文字のy座標
+
+	/*
+	全角判定処理
+	全角の場合 _textの半分を格納する ※全角が2バイトの為
+	半角の場合 _textを格納する
+	*/
+	if (IsDBCSLeadByte(_text[0]) == 0) {
+		//テキストサイズを格納する
+		textSize = _text.size();
+		isHalfSize = true;
+	}
+	else {
+		//テキストサイズを格納する
+		textSize = _text.size() / 2;
+	}
+
+	//テキストの半分の数値を格納する
+	textMiddleSize = textSize / 2;
+
+	//テキストサイズが奇数の場合奇数フラグをtrueに切り替える
+	if (textSize % 2 != 0) {
+		isOdd = true;
+	}
+
+	if (isHalfSize == true) {
+		//奇数の場合
+		if (isOdd == true) {
+			textX = _x - (((_fontSize / 2) * textMiddleSize) + (_fontSize / 4));
+		}
+		//偶数の場合
+		else {
+			textX = _x - ((_fontSize / 2) * textMiddleSize);
+		}
+	}
+	else {
+		//奇数の場合
+		if (isOdd == true) {
+			textX = _x - ((_fontSize * textMiddleSize) + (_fontSize / 2));
+		}
+		//偶数の場合
+		else {
+			textX = _x - (_fontSize * textMiddleSize);
+		}
+	}
 
 	//座標を補正
 	if (_drawType == eDrawType::Front) {
@@ -42,12 +91,10 @@ int DrawUIGraph(float _x, float _y, float _width, float _height, double _extX, d
 		Image::Instance()->GetGraph(eImageType::UI_CursorFrame, _cursor), TRUE);
 
 	//影の描画
-	DrawStringToHandle(_x - ((_fontSize / 2) * (textSize / 2))+2, _y - (_fontSize / 2)+2,
-		_text.c_str(), GetColor(0, 0, 0), _font);
+	DrawStringToHandle(textX, textY + 2, _text.c_str(), GetColor(0, 0, 0), _font);
 
 	//文字の描画
-	DrawStringToHandle(_x - ((_fontSize / 2) * (textSize / 2)), _y - (_fontSize / 2),
-		_text.c_str(), _color, _font);
+	DrawStringToHandle(textX, textY, _text.c_str(), _color, _font);
 
 	//ブレンドモードをノーブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

@@ -187,6 +187,4 @@ void Option::Draw() {
 		cNum[1] = 3;
 		DrawLineAA(SELECTBAR_X1, SELECTBAR_YSE + 82, SELECTBAR_X2 + 200, SELECTBAR_YSE + 82, GetColor(255, 100, 100), 3);
 	}
-
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "BGM : %d\nSE : %d", bgmVolume, seVolume);
 }

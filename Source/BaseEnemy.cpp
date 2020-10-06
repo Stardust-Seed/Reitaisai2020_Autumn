@@ -150,8 +150,10 @@ void BaseEnemy::Update(CastleManager* _castleManager, BasePlayer* _player,
 		if (_bulletManager->Get_IsActive(i) == true) {
 			if (ClisionHit(x, y, width, height, _bulletManager->Get_X(i), _bulletManager->Get_Y(i),
 				_bulletManager->Get_Width(i), _bulletManager->Get_Height(i))) {
-				_bulletManager->Set_isActive(i, false);
-				DamageProc(_player->Get_power());
+				if (attackType != eAttackType::Invasion) {
+					_bulletManager->Set_isActive(i, false);
+					DamageProc(_player->Get_power());
+				}
 			}
 		}
 	}
