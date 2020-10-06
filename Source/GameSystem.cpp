@@ -15,6 +15,8 @@ bool GameSystem::Init() {
 	}
 	SetDrawScreen(DX_SCREEN_BACK);							//裏画面処理を設定する
 
+	//SetMouseDispFlag(FALSE);								//マウスを表示にする
+
 	return true;
 }
 
