@@ -165,7 +165,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 						if (enemyType == 0) {            //スピード型
 
-							Enemys[num] = new Fairy_Speed(_castle->Get_X(_direction), _castle->Get_Y(_direction),
+							Enemys[num] = new Fairy_Speed(_castle->Get_PopPosX(_direction), _castle->Get_PopPosY(_direction),
 								SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType],
 								_castle->Get_CastleDirection(_direction));        //生成処理
 
@@ -175,7 +175,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 						if (enemyType == 1) {            //耐久型
 
-							Enemys[num] = new Fairy_Endurance(_castle->Get_X(_direction), _castle->Get_Y(_direction),
+							Enemys[num] = new Fairy_Endurance(_castle->Get_PopPosX(_direction), _castle->Get_PopPosY(_direction),
 								SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType],
 								_castle->Get_CastleDirection(_direction));        //生成処理
 
@@ -185,7 +185,7 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 						if (enemyType == 2) {				//パワー型
 
-							Enemys[num] = new Fairy_Power(_castle->Get_X(_direction), _castle->Get_Y(_direction),
+							Enemys[num] = new Fairy_Power(_castle->Get_PopPosX(_direction), _castle->Get_PopPosY(_direction),
 								SPEED[enemyType], POWER[enemyType], DURABILITY[enemyType],
 								_castle->Get_CastleDirection(_direction));        //生成処理
 
