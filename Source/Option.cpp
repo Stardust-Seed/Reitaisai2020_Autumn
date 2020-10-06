@@ -6,6 +6,7 @@
 #include "Option.h"
 #include "Image.h"
 #include "FontHandle.h"
+#include "File.h"
 
 const float Option::BGMBAR_WIDTH = 76.9f;
 const float Option::BGMBAR_HEIGHT = 17.9f;
@@ -40,10 +41,9 @@ const int Option::CONFIGFILE_NUM = 2;
 /*コンストラクタ*/
 Option::Option(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	:BaseScene(_sceneChanger, _parameter) {
-	LoadConfigFile();
 
-	//bgmVolume = 5;
-	//seVolume = 5;
+	bgmVolume = File::Instance()->GetFileData(eFileType::Config, 0);
+	seVolume = File::Instance()->GetFileData(eFileType::Config, 1);
 
 	bColor = GetColor(255, 100, 100);
 	sColor = GetColor(0, 0, 0);
@@ -55,7 +55,8 @@ Option::Option(ISceneChanger* _sceneChanger, Parameter* _parameter)
 void Option::Update() {
 	//設定した項目の保存処理
 	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) {
-		SaveConfigFile();
+		File::Instance()->SetFileData(eFileType::Config, 0, bgmVolume);
+		File::Instance()->SetFileData(eFileType::Config, 1, seVolume);
 		BGM::Instance()->VolumeBGM(bgmVolume);
 		SE::Instance()->VolumeSE(seVolume);
 		BGM::Instance()->Set_Volume(bgmVolume);
@@ -186,50 +187,6 @@ void Option::Draw() {
 		cNum[1] = 3;
 		DrawLineAA(SELECTBAR_X1, SELECTBAR_YSE + 82, SELECTBAR_X2 + 200, SELECTBAR_YSE + 82, GetColor(255, 100, 100), 3);
 	}
-}
 
-/*Configファイルを読み込む処理*/
-void Option::LoadConfigFile() {
-	FILE* fp;						//ファイルポインタ
-	int savebuf[CONFIGFILE_NUM];	//バッファから数値に変換した要素仮置きする配列変数
-	char buf[BUF_SIZE];				//バッファ
-	int count = 0;					//fgetsに使う変数
-
-	//savebufを0で初期化
-	memset(savebuf, 0, sizeof(savebuf));
-
-	//ファイルを開く
-	fopen_s(&fp, "./res/File/ConfigFile.txt", "r");
-	if (fp == NULL) {
-		exit(EXIT_FAILURE);
-	}
-
-	//ファイルを1行ごとにsavebufに格納する
-	while (fgets(buf, BUF_SIZE, fp) != NULL) {
-		savebuf[count] = atoi(buf);
-		count++;
-	}
-
-	//savebufから各項目へ格納する
-	bgmVolume = savebuf[select_BGM];
-	seVolume = savebuf[select_SE];
-
-	fclose(fp);
-}
-
-/*Configファイルを書き込む処理*/
-void Option::SaveConfigFile() {
-	FILE* fp;	//ファイルポインタ
-
-	//ファイルを開く
-	fopen_s(&fp, "./res/File/ConfigFile.txt", "w");
-	if (fp == NULL) {
-		exit(EXIT_FAILURE);
-	}
-
-	//ファイルに書き込む
-	fprintf_s(fp, "%d\n", bgmVolume);
-	fprintf_s(fp, "%d\n", seVolume);
-
-	fclose(fp);
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "BGM : %d\nSE : %d", bgmVolume, seVolume);
 }
