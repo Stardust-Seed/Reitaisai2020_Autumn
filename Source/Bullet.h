@@ -3,6 +3,7 @@
 
 #include "Object.h"
 #include "DxLib.h"
+#include "Image.h"
 
 class BaseEnemy;
 class EnemyManager;
@@ -11,6 +12,8 @@ class EnemyManager;
 class Bullet :public virtual Object
 {
 private:
+
+	const float PI = 3.141592654;
 
 	//エネミーのポインタ変数
 	BaseEnemy* baseEnemy;
@@ -29,17 +32,18 @@ private:
 	bool isActive;
 
 	//画像
-	int gh;
+	int bulletGraph;
 
-	//テスト用カラー
-	int Cr;
+	//画像回転
+	float graphAngle;
+
 public:
 	//当たり判定
 	bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh);
 
 	//コンストラクタ時に弾の発生位置と、進む方向を引数で持たせる
-	Bullet(VECTOR& position, int pl_pos, bool pl_attack);        //コンストラクタ
+	Bullet(VECTOR& position, int pl_type,int pl_pos, bool pl_attack);        //コンストラクタ
 	~Bullet();       //デストラクタ
 	void Draw();     //描画
 	void Update(EnemyManager* _eManager);   //更新
