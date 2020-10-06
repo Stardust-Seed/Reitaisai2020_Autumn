@@ -4,9 +4,11 @@
 #include "SE.h"
 #include "BGM.h"
 #include "Image.h"
+#include "File.h"
 
 GameMain::GameMain() {
 	Image::Instance()->Load();
+	File::Instance()->Load();
 }
 
 GameMain::~GameMain() {
@@ -14,33 +16,14 @@ GameMain::~GameMain() {
 }
 
 void GameMain::Init() {
-	FILE* fp;						//ファイルポインタ
-	int savebuf[2];	//バッファから数値に変換した要素仮置きする配列変数
-	char buf[256];				//バッファ
 	int count = 0;					//fgetsに使う変数
 	fadeCnt = 0;
 
-	//savebufを0で初期化
-	memset(savebuf, 0, sizeof(savebuf));
+	BGM::Instance()->VolumeBGM(File::Instance()->GetFileData(eFileType::Config, 0));
+	SE::Instance()->VolumeSE(File::Instance()->GetFileData(eFileType::Config, 1));
+	BGM::Instance()->Set_Volume(File::Instance()->GetFileData(eFileType::Config, 0));
+	SE::Instance()->Set_Volume(File::Instance()->GetFileData(eFileType::Config, 1));
 
-	//ファイルを開く
-	fopen_s(&fp, "./res/File/ConfigFile.txt", "r");
-	if (fp == NULL) {
-		exit(EXIT_FAILURE);
-	}
-
-	//ファイルを1行ごとにsavebufに格納する
-	while (fgets(buf, 256, fp) != NULL) {
-		savebuf[count] = atoi(buf);
-		count++;
-	}
-
-	BGM::Instance()->VolumeBGM(savebuf[0]);
-	SE::Instance()->VolumeSE(savebuf[1]);
-	BGM::Instance()->Set_Volume(savebuf[0]);
-	SE::Instance()->Set_Volume(savebuf[1]);
-
-	fclose(fp);
 }
 
 bool GameMain::GameLoop() {
