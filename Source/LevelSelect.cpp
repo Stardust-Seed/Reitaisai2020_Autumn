@@ -8,39 +8,39 @@
 #include "Input.h"
 #include "SE.h"
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_sceneChanger">シーン切り替えクラス</param>
+/// <param name="_parameter">パラメータ</param>
 LevelSelect::LevelSelect(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	:BaseScene(_sceneChanger, _parameter) {
 	//初期化処理
 	selectLevel = eLevelType::Easy;
 
 	//UIフレームの色を初期設定
-	cursor[static_cast<int>(eLevelType::Easy)] = Cursor::Cursor_2;
-	cursor[static_cast<int>(eLevelType::Normal)] = Cursor::Cursor_0;
-	cursor[static_cast<int>(eLevelType::Hard)] = Cursor::Cursor_0;
+	SetCursor(Cursor::Cursor_2, Cursor::Cursor_0, Cursor::Cursor_0);
 
 	//切り替えるフラグを初期化
 	isChange = false;
 }
 
+/// <summary>
+/// 更新処理
+/// </summary>
 void LevelSelect::Update() {
 
 	//選択された項目に色を付けて、それ以外は灰色に設定する
 	if (isChange == true) {
 		switch (selectLevel) {
 		case eLevelType::Easy:
-			cursor[static_cast<int>(eLevelType::Easy)] = Cursor::Cursor_2;
-			cursor[static_cast<int>(eLevelType::Normal)] = Cursor::Cursor_0;
-			cursor[static_cast<int>(eLevelType::Hard)] = Cursor::Cursor_0;
+			SetCursor(Cursor::Cursor_2, Cursor::Cursor_0, Cursor::Cursor_0);
 			break;
 		case eLevelType::Normal:
-			cursor[static_cast<int>(eLevelType::Easy)] = Cursor::Cursor_0;
-			cursor[static_cast<int>(eLevelType::Normal)] = Cursor::Cursor_3;
-			cursor[static_cast<int>(eLevelType::Hard)] = Cursor::Cursor_0;
+			SetCursor(Cursor::Cursor_0, Cursor::Cursor_3, Cursor::Cursor_0);
 			break;
 		case eLevelType::Hard:
-			cursor[static_cast<int>(eLevelType::Easy)] = Cursor::Cursor_0;
-			cursor[static_cast<int>(eLevelType::Normal)] = Cursor::Cursor_0;
-			cursor[static_cast<int>(eLevelType::Hard)] = Cursor::Cursor_1;
+			SetCursor(Cursor::Cursor_0, Cursor::Cursor_0, Cursor::Cursor_1);
 			break;
 		}
 
@@ -88,7 +88,9 @@ void LevelSelect::Update() {
 	}
 }
 
-//描画処理
+/// <summary>
+/// 描画処理
+/// </summary>
 void LevelSelect::Draw() {
 /*------------------------------------------------------------------------------
 UIの描画
@@ -112,6 +114,10 @@ UIの描画
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "Hard");
 }
 
+/// <summary>
+/// 選択レベルを切り替える
+/// </summary>
+/// <param name="_changeMode">切り替えモード</param>
 void LevelSelect::ChangeLevel(int _changeMode) {
 	//SEを鳴らす
 	SE::Instance()->PlaySE(SE_cursor);
@@ -140,5 +146,37 @@ void LevelSelect::ChangeLevel(int _changeMode) {
 		else {
 			selectLevel = static_cast<eLevelType>(static_cast<int>(selectLevel) - 1);
 		}
+	}
+}
+
+/// <summary>
+/// 引数のカーソルを各カーソルにセットする
+/// </summary>
+/// <param name="_easy">Easyのカーソル</param>
+/// <param name="_normal">Normalのカーソル</param>
+/// <param name="_hard">Hardのカーソル</param>
+void LevelSelect::SetCursor(Cursor _easy, Cursor _normal, Cursor _hard) {
+	//Easyのカーソルをセットする
+	cursor[static_cast<int>(eLevelType::Easy)] = _easy;
+
+	//Normalのカーソルをセットする
+	cursor[static_cast<int>(eLevelType::Normal)] = _normal;
+
+	//Hardのカーソルをセットする
+	cursor[static_cast<int>(eLevelType::Hard)] = _hard;
+}
+
+/// <summary>
+/// クリアフラグをセットする
+/// </summary>
+/// <param name="_buf">バッファ</param>
+/// <param name="_level">レベル</param>
+void LevelSelect::SetIsClear(int _buf, eLevelType _level) {
+	//バッファが0の時false、1の時trueをセット
+	if (_buf == 0) {
+		isClear[static_cast<int>(_level)] = false;
+	}
+	else {
+		isClear[static_cast<int>(_level)] = true;
 	}
 }

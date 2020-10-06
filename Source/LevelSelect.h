@@ -33,18 +33,35 @@ private:
 
 	eLevelType selectLevel;	//選択されたレベル
 	Cursor cursor[3];		//カーソルの色
+	bool isClear[3];		//クリアフラグ
 	bool isChange;			//切り替えフラグ
 
 	/// <summary>
 	/// 選択レベルを切り替える
 	/// </summary>
-	/// <param name="_changeMode"></param>
+	/// <param name="_changeMode">切り替えモード</param>
 	void ChangeLevel(int _changeMode);
+
+	/// <summary>
+	/// 引数のカーソルを各カーソルにセットする
+	/// </summary>
+	/// <param name="_easy">Easyのカーソル</param>
+	/// <param name="_normal">Normalのカーソル</param>
+	/// <param name="_hard">Hardのカーソル</param>
+	void SetCursor(Cursor _easy, Cursor _normal, Cursor _hard);
+
+	/// <summary>
+	/// クリアフラグをセットする
+	/// </summary>
+	/// <param name="_buf">バッファ</param>
+	/// <param name="_level">レベル</param>
+	void SetIsClear(int _buf, eLevelType _level);
 public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	/// <param name="_sceneChanger">シーン切り替えクラス情報</param>
+	/// <param name="_sceneChanger">シーン切り替えクラス</param>
+	/// <param name="_parameter">パラメータ</param>
 	LevelSelect(ISceneChanger* _sceneChanger, Parameter* _parameter);
 
 	/// <summary>
