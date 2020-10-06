@@ -35,6 +35,8 @@ public:
 	float Get_Y(int);				//y座標を受け取る
 	float Get_Width(int);			//幅を受け取る
 	float Get_Height(int);			//高さを受け取る
+	float Get_AddPosX(int);			//幅を受け取る
+	float Get_AddPosY(int);			//高さを受け取る
 	bool Get_IsActive(int);			//アクティブフラグのセッター
 	int Get_Durability(int);	
 	eDirection Get_CastleDirection(int);

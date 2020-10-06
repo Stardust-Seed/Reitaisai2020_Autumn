@@ -25,12 +25,12 @@ SubCastle::SubCastle(int _durability,int _type)
 
 		if (posType == 0)    //ã
 		{
-			addPosX = -32;
+			addPosX = -48;
 			addPosY = -65;
 		}
 		else                 //‰º
 		{
-			addPosX = -32;
+			addPosX = -48;
 			addPosY = 53;
 		}
 
@@ -45,18 +45,16 @@ SubCastle::SubCastle(int _durability,int _type)
 
 		if (posType == 0)    //ã
 		{
-			addPosX = 32;
+			addPosX = 48;
 			addPosY = -65;
 		}
 		else                 //‰º
 		{
-			addPosX = 32;
+			addPosX = 48;
 			addPosY = 53;
 		}
 
 		direction = eDirection::Right;
-
-
 
 		break;
 
@@ -67,12 +65,12 @@ SubCastle::SubCastle(int _durability,int _type)
 
 		if (posType == 0)    //¶
 		{
-			addPosY = -32;
+			addPosY = -48;
 			addPosX = -54;
 		}
 		else                 //‰E
 		{
-			addPosY = -32;
+			addPosY = -48;
 			addPosX = 55;
 		}
 
@@ -87,12 +85,12 @@ SubCastle::SubCastle(int _durability,int _type)
 
 		if (posType == 0)    //¶
 		{
-			addPosY = 32;
+			addPosY = 48;
 			addPosX = -54;
 		}
 		else                 //‰E
 		{
-			addPosY = 32;
+			addPosY = 48;
 			addPosX = 55;
 		}
 
@@ -144,7 +142,4 @@ void SubCastle::Draw()
 		DrawGraphF(x + addPosX - addSize / 2, y + addPosY - addSize / 2,
 		Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
 	}
-
 }
-
-
