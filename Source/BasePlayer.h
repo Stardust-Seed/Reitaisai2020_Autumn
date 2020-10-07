@@ -41,6 +41,7 @@ class BasePlayer :public virtual Object
 
 
 protected:
+	const float PI = 3.141592654;
 
 	const float PLAYER_SPOWNPOSX = 841;	    //プレイヤーの初期位置_X
 	const float PLAYER_SPOWNPOSY = 516;	    //プレイヤーの初期位置_Y
@@ -64,6 +65,14 @@ protected:
 	int countDown;                  //スキルタイマーのカウントダウンに使用
 
 	//フランスキル用
+	const int FRANTIME = 3;
+	int franTimer;
+	bool franAbility;
+
+	int testGraph;
+	int drawCount;
+	double drawAngle;
+	double drawZoom;
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
@@ -108,6 +117,7 @@ public:
 	~BasePlayer();         //デストラクタ
 	void Draw();           //描画処理
 	void Draw_Arow();      //矢印描画
+	void Draw_Ability();   //スキルエフェクト描画
 
 	//更新処理
 	void Update(EnemyManager* _eManager,BuffManager* _bManager);
@@ -119,7 +129,8 @@ public:
 	void Move_RIGHT();     //→移動処理
 	void Attack();         //攻撃処理
 	void Animation();      //アニメーション
-	void Ability();        //スキル処理
+	void onAbility();      //スキル発動処理
+	void CharaAbility();   //スキル処理
 
 	//スタン処理
 	void Stan();           
@@ -147,9 +158,9 @@ public:
 
 	int Get_AbilityType() { return playerType; }            //スキルタイプのゲッター
 
-	
+	bool Get_FranAbility(){ return franAbility; }          //フランアビリティのゲッター
 	int Get_AbilityCount() { return abilityCount; }         //スキル回数のゲッター
-	int Get_abilityClock() { return abilityTimer; }        //スキル時間のゲッター
+	int Get_AbilityClock() { return abilityTimer; }        //スキル時間のゲッター
 };
 
 
