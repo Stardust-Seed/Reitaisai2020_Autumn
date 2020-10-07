@@ -28,16 +28,14 @@ private:
 	int charaSelect;                    //選択したキャラタイプ
 	int select_Sakuya;                  //項目枠：咲夜
 	int select_Fran;                    //項目枠：フラン
+	int colorNo;                        //色番号
 
+	Cursor charaCursor[2];              //選択キャラカーソル
 	SelectCharacter selectChara;        //選択キャラ
-	Cursor charaCursor[2];              //項目カーソル
 
-	int color;    //色
-
-	SelectMenu selectMenu[3] = {
-		{685.0f,725.0f,160.0f,80.0f},    //咲夜
-		{1250.0f,725.0f,190.0f,80.0f},   //フラン
-	};
+	int color;        //カラー
+	int color_Sakuya; //咲夜カラー
+	int color_Fran;   //フランカラー
 
 public:
 	CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter);
