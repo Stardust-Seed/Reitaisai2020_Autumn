@@ -9,6 +9,7 @@
 #include "Define.h"
 #include "FontHandle.h"
 #include "Cursor.h"
+#include "File.h"
 
 class GameClear final :public BaseScene {
 private:
@@ -26,6 +27,7 @@ private:
 	int x;                      //カーソル表示用のX座標
 	int alpha;                  //透明度
 	int charaType;              //キャラタイプ
+	int waitTimer;              //シーン切り替え後少しの間操作を受け付けないようにする
 public:
 	GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	void Update();				//更新処理
