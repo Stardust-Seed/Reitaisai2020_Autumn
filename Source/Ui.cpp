@@ -168,14 +168,14 @@ void UI::AbilityUi()
 	if (skillType == SAKUYA_Ability && skillActive == true)
 	{
 		DrawBox(pX - 1, pY + 1, pX + 51, pY - 6, GetColor(255, 255, 255), FALSE);									    //òg
-		DrawBox(pX, pY, pX + 50 * skillClock / MAX_STOPTIME, pY - 5, GetColor(0, 255, 255), TRUE);			//ÉQÅ[ÉW
+		DrawBox(pX, pY, pX + 50 * skillClock / MAX_SAKUYATIME, pY - 5, GetColor(0, 255, 255), TRUE);			//ÉQÅ[ÉW
 	}
 
 	//ÉtÉâÉìÇ≥ÇÒÇÃürñ≈(í«â¡ópÅj
 	/*if ()
 	{
 		DrawBox(pX, pY, pX + 50, pY - 5, GetColor(255, 255, 255), FALSE);									    //òg
-		DrawBox(pX, pY, pX + 50 * skillClock / MAX_STOPTIME, pY - 5, GetColor(255, 100, 100), TRUE);			//ÉQÅ[ÉW
+		DrawBox(pX, pY, pX + 50 * skillClock / MAX_FRANTIME, pY - 5, GetColor(255, 100, 100), TRUE);			//ÉQÅ[ÉW
 	}*/
 }
 
