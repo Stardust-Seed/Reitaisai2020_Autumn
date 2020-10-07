@@ -28,20 +28,20 @@ BasePlayer::BasePlayer(int _pType)
 		animNo = 2;
 		attackTime = 10;
 		//咲夜用
-		abilityTimer = STOPTIME;        //スキル時間タイマー
+		abilityTimer = STOPTIME;    //スキル時間タイマー
 	}
 	if (playerType == FRAN)
 	{
 		speed = 3;					//移動速度
-		power = 80;			    //攻撃力
+		power = 80;			        //攻撃力
 		abilityCount = 2;		    //スキル回数
 		graphNo = 0;
 		animNo = 0;
 		attackTime = 5;
-		abilityTimer = 0;
+		abilityTimer = FRANTIME;
+		franAbility = false;
+		franTimer = 0;
 	}
-
-	bulletCount = 0;            //弾のカウント
 
 	stanTime = 0;				//スタンタイム
 	stanTime_stay = 360;		//スタン再発動までの時間
@@ -60,6 +60,9 @@ BasePlayer::BasePlayer(int _pType)
 
 	countDown = FRAME;          //スキルタイマーを減らすのに使う
 
+	drawCount = 0;              //描画のカウント
+	drawAngle = 0;              //描画の角度
+	drawZoom = 1.0;             //描画の拡大率
 }
 BasePlayer::~BasePlayer()
 {
@@ -67,6 +70,8 @@ BasePlayer::~BasePlayer()
 }
 void BasePlayer::Draw()
 {
+	Draw_Ability(); //スキル演出
+
 	if (animLR == true)
 	{
 		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo));
@@ -76,7 +81,20 @@ void BasePlayer::Draw()
 		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo), 255, true);
 	}
 
-	Draw_Arow();  //矢印描画
+	Draw_Arow();    //矢印描画
+
+	if (isStan == true) {
+		//ここで☆をピカピカさせます
+	}
+}
+void BasePlayer::Draw_Ability()
+{
+
+	if ((Get_isAbility() == true && playerType == SAKUYA) || Get_FranAbility() == true)
+	{
+		//魔法陣ブワァァァ
+		//DrawRotaGraph(pos.x + 24, pos.y + 24, drawZoom, PI * drawAngle, Image::Instance()->GetGraph(eImageType::魔法陣), TRUE);
+	}
 
 }
 void BasePlayer::Draw_Arow()
@@ -120,43 +138,8 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 
 		Move();        //移動処理
 		Attack();      //攻撃処理
-		Ability();     //スキル
-
-		/***咲夜のスキル処理***/
-		if (Get_isAbility() == true && playerType == SAKUYA) {
-
-			//SEを鳴らす
-			SE::Instance()->PlaySE(SE_SakuyaAbility, DX_PLAYTYPE_BACK);
-			if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
-				abilityTimer -= 1;
-				countDown = FRAME;
-			}
-			if (abilityTimer <= 0)
-			{
-				isAbility = false;
-				abilityTimer = STOPTIME;
-				//再生を止めるとき
-				SE::Instance()->StopSE(SE_SakuyaAbility);
-			}
-			countDown -= 1;
-		}
-		/**********************/
-
-		/***フランスキル処理***/
-		if (Get_isAbility() == true && playerType == FRAN) {
-
-			//SEを鳴らす
-			SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
-			if (abilityTimer == 1) {    //フランのスキルは発動したらすぐ終了する
-				isAbility = false;
-				abilityTimer = 0;
-			}
-			if (Get_isAbility() == true && abilityTimer < 1)
-			{
-				abilityTimer += 1;
-			}
-		}
-		/***********************/
+		onAbility();   //スキル発動処理
+		CharaAbility();//スキル処理
 
 		for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
 
@@ -196,6 +179,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 //プレイヤーのスタン処理
 void BasePlayer::Stan()
 {
+
 	//スタンタイムを加算
 	if (stanTime < 120) {
 		stanTime++;
@@ -235,7 +219,7 @@ void BasePlayer::Attack()
 			//攻撃flagをtrueにする
 			isAttack = true;
 			//弾を飛ばす
-			bulletManager->Shot(pos, playerType,playerDirection, isAttack);
+			bulletManager->Shot(pos, playerType, playerDirection, isAttack);
 			if (playerType == SAKUYA)
 			{
 				//SEを鳴らす
@@ -284,17 +268,90 @@ void BasePlayer::Animation()
 		graphNo = franAnim[animNo];
 	}
 }
-void BasePlayer::Ability()
+void BasePlayer::onAbility()
 {
 	//スキル回数がまだ残っている時
 	if (abilityCount > 0 && Get_isAbility() == false) {
 		//スペースキーを押すとスキル発動
 		if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1)
 		{
-			isAbility = true;
-			abilityCount -= 1;
+			if (playerType == SAKUYA)
+			{
+				isAbility = true;
+				abilityCount -= 1;
+			}
+			if (playerType == FRAN && franAbility == false)
+			{
+				//フランのスキル処理の為のフラグ
+				franAbility = true;
+			}
 		}
 	}
+	if (franAbility == true)
+	{
+		if (drawZoom <= 3)
+		{
+			drawZoom += 0.02;
+		}
+		drawAngle += 0.02;
+		if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+
+			abilityTimer -= 1;
+			countDown = FRAME;
+		}
+		if (abilityTimer <= 0)
+		{
+			isAbility = true;
+			franAbility = false;
+			abilityTimer = FRANTIME;
+
+		}
+		countDown -= 1;
+	}
+}
+void BasePlayer::CharaAbility()
+{
+	/***咲夜のスキル処理***/
+	if (Get_isAbility() == true && playerType == SAKUYA) {
+
+		//SEを鳴らす
+		SE::Instance()->PlaySE(SE_SakuyaAbility, DX_PLAYTYPE_BACK);
+		if (drawZoom <= 3)
+		{
+			drawZoom += 0.02;
+		}
+		drawAngle += 0.02;
+		if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+
+			abilityTimer -= 1;
+			countDown = FRAME;
+		}
+		if (abilityTimer <= 0)
+		{
+			isAbility = false;
+			abilityTimer = STOPTIME;
+			//再生を止めるとき
+			SE::Instance()->StopSE(SE_SakuyaAbility);
+		}
+		countDown -= 1;
+	}
+	/**********************/
+
+	/***フランスキル処理***/
+	if (Get_isAbility() == true && playerType == FRAN) {
+
+		//SEを鳴らす
+		SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
+		if (franTimer == 1) {    //フランのスキルは発動したらすぐ終了する
+			isAbility = false;
+
+		}
+		if (Get_isAbility() == true && franTimer < 1)
+		{
+			franTimer += 1;
+		}
+	}
+	/***********************/
 }
 //プレイヤーの移動処理
 void BasePlayer::Move()
