@@ -86,6 +86,8 @@ private:
 
 	float pX;						//プレイヤーのx座標
 	float pY;						//プレイヤーのy座標
+	float castleX[5];					//拠点のx座標
+	float castleY[5];					//拠点のy座標
 
 	bool isActive[5];
 	bool skillActive;
