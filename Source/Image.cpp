@@ -10,6 +10,8 @@ Image::Image() {
 	MyLoadGraph("./res/Image/darkness.png");
 	MyLoadGraph("./res/Image/koumakan.png");
 	MyLoadGraph("./res/Image/Game02.png");
+	MyLoadGraph("./res/Image/magic.png");
+	MyLoadGraph("./res/Image/hosi.png");
 	MyLoadGraph("./res/Image/mes.png");
 
 	//‰æ‘œ‚ğ•ªŠ„‚µ‚Ä“Ç‚İ‚İ
