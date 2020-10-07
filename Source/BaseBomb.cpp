@@ -41,6 +41,7 @@ BaseBomb::BaseBomb(int _power, int _speed, eBombType _bombType)
 		x = BOMB_SPOWNDOWNX;
 		y = BOMB_SPOWNDOWNY;
 	}
+
 	cx = x + (width / 2);
 	cy = y + (height / 2);
 
@@ -140,50 +141,47 @@ void BaseBomb::JudgeTrigger()
 	//爆弾のタイマー
 	if (speed == 0 && isPAbility == false)
 	{
-		
 		isCount = true;
-		
+
+
 		if (isCount == true)
 		{
 			//カウントダウン
 			DrawFormatStringToHandle(x + 5, y - 50, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", countDown / FRAME);
 			if (countDown <= FRAME)
-			{								//残り一秒以下は割り算の結果0になるため、表示タイミングの調整
-				isXplosion = true;                                  //フラグ切替
+			{
+				isXplosion = true;                        //フラグ切替
 			}
 
 			if (countDown >= 0)
-			{									//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
-				countDown -= 1;										//カウントダウン
+			{											//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+				countDown -= 1;							//カウントダウン
 			}
 		}
 
-		if (type == bomb)
+
+		if (type == bomb && isXplosion == true)						//爆発する
 		{
-			if (isXplosion == true)			//爆発する
-			{
-				//SE::Instance()->PlaySE(SE_bomb);		//爆発の音
-				isCount = false;
-				isTrigger = true;
-				isXplosion = false;
-				isSpown = false;
-			}
+			SE::Instance()->PlaySE(SE_bomb);		 //爆発のSEが出る
+			isCount = false;
+			isTrigger = true;
+			isXplosion = false;
+			isSpown = false;
+
 		}
 
-
-		if (type == fakebomb)
+		if (type == fakebomb && isXplosion == true)						//爆発する
 		{
-			if (isXplosion == true)			//爆発する
-			{
-				//SE::Instance()->PlaySE(SE_bomb);		//爆発の音
-				isTrigger = true;
-				isXplosion = false;
-				isCount = false;
-				isSpown = false;
-			}
+			isCount = false;
+			isTrigger = true;
+			isXplosion = false;
+			isSpown = false;
 		}
+	}
 
-
+	if (AnimationFlg == true)
+	{
+		SE::Instance()->StopSE(SE_bomb);
 	}
 }
 
@@ -197,7 +195,7 @@ void BaseBomb::SkillStop()
 			isStopCount = true;
 
 			sTime = countDown / FRAME;
-		
+    		
 			if (speed == 0)
 			{
 				DrawFormatStringToHandle(x + 5, y - 50, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", sTime);
