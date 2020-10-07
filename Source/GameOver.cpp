@@ -8,6 +8,7 @@ GameOver::GameOver(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseSce
 	nowCursor = Cursor::Cursor_0;
 	x = 0;
 	alpha = 0;
+	waitTimer = 0;
 	charaType = _parameter->Get(BaseScene::CharaSelectTag);
 	BGM::Instance()->PlayBGM(BGM_result, DX_PLAYTYPE_LOOP);
 }
@@ -15,6 +16,10 @@ GameOver::GameOver(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseSce
 //更新
 void GameOver::Update()
 {
+	if (waitTimer < 150)
+	{
+		waitTimer++;
+	}
 	Move();
 	Select();
 }
@@ -161,7 +166,7 @@ void GameOver::Select()
 
 	//Enterキーが押された時の処理
 	{
-		if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1)
+		if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1 && waitTimer >= 150)
 		{
 			BGM::Instance()->StopBGM(BGM_result);
 			//カーソルの場所によって行うシーン変更処理を決める
