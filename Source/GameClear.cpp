@@ -10,13 +10,17 @@ GameClear::GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	nowCursor = Cursor::Cursor_0;
 	x = 0;
 	alpha = 0;
-	alpha = 0;
+	waitTimer = 0;
 	charaType = _parameter->Get(BaseScene::CharaSelectTag);
 	BGM::Instance()->PlayBGM(BGM_result, DX_PLAYTYPE_LOOP);
 }
 
 /*更新処理*/
 void GameClear::Update() {
+	if (waitTimer < 150)
+	{
+		waitTimer++;
+	}
 	Move();
 	Select();
 }
@@ -69,15 +73,15 @@ void GameClear::Draw() {
 
 	if (x != GAME_X)
 	{
-		DrawStringToHandle(GAME_WIDTH / 7 - 5 + 2, GAME_HEIHGT / 2 + 50, text2, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+		DrawStringToHandle(GAME_WIDTH / 7 - 5 + 2, GAME_HEIHGT / 2 + 50+2, text2, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 		DrawStringToHandle(GAME_WIDTH / 7 - 5, GAME_HEIHGT / 2 + 50, text2, GetColor(128, 128, 128), FontHandle::Instance()->Get_natumemozi_48_8());
 
-		DrawStringToHandle(GAME_WIDTH / 3 + 150 + 3, GAME_HEIHGT / 2 + 50 + 3, text3, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+		DrawStringToHandle(GAME_WIDTH / 3 + 150 + 2, GAME_HEIHGT / 2 + 50 + 2, text3, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 		DrawStringToHandle(GAME_WIDTH / 3 + 150, GAME_HEIHGT / 2 + 50, text3, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
 	}
 	else
 	{
-		DrawStringToHandle(GAME_WIDTH / 7 - 5 + 3, GAME_HEIHGT / 2 + 50+3, text2, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+		DrawStringToHandle(GAME_WIDTH / 7 - 5 + 2, GAME_HEIHGT / 2 + 50+2, text2, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 		DrawStringToHandle(GAME_WIDTH / 7 - 5, GAME_HEIHGT / 2 + 50, text2, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_48_8());
 
 		DrawStringToHandle(GAME_WIDTH / 3 + 150 + 2, GAME_HEIHGT / 2 + 50 + 2, text3, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
@@ -173,7 +177,7 @@ void GameClear::Select()
 
 	//Enterキーが押された時の処理
 	{
-		if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1)
+		if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1 && waitTimer == 150)
 		{
 			BGM::Instance()->StopBGM(BGM_result);
 
