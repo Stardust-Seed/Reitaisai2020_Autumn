@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "EventManager.h"
+#include "SE.h"
 
 
 EventManager::EventManager(int level) {
@@ -9,6 +10,7 @@ EventManager::EventManager(int level) {
 	sBomb = NULL;		//ボム初期化
 
 	waitCount = 0;		//カウント初期化
+	seCount = 0;		//カウント初期化
 	eventType = 0;		//イベントタイプ初期化
 	bombType = 0;		//ボムタイプ初期化
 
@@ -45,13 +47,25 @@ void EventManager::SpawnEvent() {
 
 			eventType = GetRand(EVENT_TYPES - 1);		//乱数で生成するイベントを選択
 
-			if (eventType == 0) {
-				Event = new DarknessEvent();	//生成
+			if (seCount == 0) {
+				SE::Instance()->PlaySE(SE_EventAlarm);
 			}
+			seCount++;		//鳴らした後数秒したらイベント生成
 
-			if (eventType == 1) {
-				SpawnBombs();			//ボム生成
-				waitCount = 0;			//カウント初期化
+			if(seCount >= FRAME * 3){
+
+				if (eventType == 0) {
+					Event = new DarknessEvent();	//生成
+					seCount = 0;
+				}
+
+				if (eventType == 1) {
+					SpawnBombs();			//ボム生成
+					waitCount = 0;			//カウント初期化
+					seCount = 0;
+				}
+
+
 			}
 
 		}
@@ -62,7 +76,6 @@ void EventManager::SpawnEvent() {
 void EventManager::Update(EnemyManager* enemyManager,BasePlayer* basePlayer) {
 	SpawnEvent();			//生成
 	SpawnSukima();			//スキマ生成
-
 
 	if (Event != NULL) {	//何かしらイベントが行われている場合
 		Event->Update();	//更新
@@ -99,7 +112,6 @@ void EventManager::Update(EnemyManager* enemyManager,BasePlayer* basePlayer) {
 			sBomb = NULL;
 		}
 	}
-
 
 }
 
