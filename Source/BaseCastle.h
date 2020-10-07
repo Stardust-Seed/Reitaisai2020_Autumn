@@ -25,9 +25,16 @@ protected:
 	eDirection direction;
 	bool isActive;		                    //拠点の生存フラグ
 	bool dyingFlg;                          //瀕死フラグ
-	float addPosX;                   //追加の座標X(表示部分のみ)  
-	float addPosY;                   //追加の座標Y(表示部分のみ)  
 
+	int addSize;                            //追加のサイズ
+	float addPosX;                          //追加のX座標
+	float addPosY;                          //追加のY座標
+
+	float popPosX;                          //サブ拠点から出るエネミーの座標X
+	float popPosY;                          //サブ拠点から出るエネミーの座標Y
+
+	float drawPosX;                         //表示部分の座標X
+	float drawPosY;                         //表示部分の座標Y
 public:
 	BaseCastle(int);                        //コンストラクタ
 
@@ -47,18 +54,22 @@ public:
 
 	//ゲッター
 	//拠点関連
-	int   Get_Durability() { return durability; }
+	int   Get_Durability() { return durability; }             //拠点のHPのゲッター
 
-	bool  GetIsActive()    { return isActive; }
+	bool  GetIsActive()    { return isActive; }               //拠点が生存しているかのゲッター
 
-	float Get_X() { return x; }
-	float Get_Y() { return y; }
-	float Get_Width() { return width; }
-	float Get_Height() { return height; }
-	float Get_AddPosX() { return addPosX; };		//幅を受け取る
-	float Get_AddPosY() { return addPosY; };	    //高さを受け取る
+	float Get_X() { return x; }                               //拠点のゲッターX
+	float Get_Y() { return y; }                               //拠点のゲッターY
+	float Get_Width() { return width; }                       //横幅のゲッター
+	float Get_Height() { return height; }                     //縦幅のゲッター
 
-	eDirection Get_CastleDirection() { return direction; }
+	float Get_PopPosX() { return popPosX; }                   //敵の生成場所のゲッターX
+	float Get_PopPosY() { return popPosY; }                   //敵の生成場所のゲッターY
+
+	float Get_DrawPosX() { return drawPosX; }                 //表示場所のゲッターX
+	float Get_DrawPosY() { return drawPosY; }                 //表示場所のゲッターY
+
+	eDirection Get_CastleDirection() { return direction; }    //方向のゲッター
 };
 
 #endif //_BASECASTLE_H_
