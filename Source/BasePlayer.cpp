@@ -60,7 +60,6 @@ BasePlayer::BasePlayer(int _pType)
 
 	countDown = FRAME;          //スキルタイマーを減らすのに使う
 
-	drawCount = 0;              //描画のカウント
 	drawAngle = 0;              //描画の角度
 	drawZoom = 1.0;             //描画の拡大率
 }
@@ -93,7 +92,7 @@ void BasePlayer::Draw_Ability()
 	if ((Get_isAbility() == true && playerType == SAKUYA) || Get_FranAbility() == true)
 	{
 		//魔法陣ブワァァァ
-		//DrawRotaGraph(pos.x + 24, pos.y + 24, drawZoom, PI * drawAngle, Image::Instance()->GetGraph(eImageType::魔法陣), TRUE);
+		DrawRotaGraph(pos.x + 24, pos.y + 24, drawZoom, PI * drawAngle, Image::Instance()->GetGraph(eImageType::Gpicture_Magic), TRUE);
 	}
 
 }
@@ -330,6 +329,8 @@ void BasePlayer::CharaAbility()
 		{
 			isAbility = false;
 			abilityTimer = STOPTIME;
+			drawAngle = 0;              //描画の角度
+			drawZoom = 1.0;             //描画の拡大率
 			//再生を止めるとき
 			SE::Instance()->StopSE(SE_SakuyaAbility);
 		}
@@ -344,12 +345,15 @@ void BasePlayer::CharaAbility()
 		SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
 		if (franTimer == 1) {    //フランのスキルは発動したらすぐ終了する
 			isAbility = false;
-
+			franTimer = 0;
+			drawAngle = 0;
+			drawZoom = 1.0;
 		}
 		if (Get_isAbility() == true && franTimer < 1)
 		{
 			franTimer += 1;
 		}
+
 	}
 	/***********************/
 }
