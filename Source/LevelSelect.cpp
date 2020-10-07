@@ -22,6 +22,8 @@ LevelSelect::LevelSelect(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	//UIフレームの色を初期設定
 	SetCursor(Cursor::Cursor_2, Cursor::Cursor_0, Cursor::Cursor_0);
 
+	SetColor(GetColor(255, 255, 255), GetColor(125, 125, 125), GetColor(125, 125, 125));
+
 	//切り替えるフラグを初期化
 	isChange = false;
 
@@ -48,12 +50,15 @@ void LevelSelect::Update() {
 		switch (selectLevel) {
 		case eLevelType::Easy:
 			SetCursor(Cursor::Cursor_2, Cursor::Cursor_0, Cursor::Cursor_0);
+			SetColor(GetColor(255, 255, 255), GetColor(125, 125, 125), GetColor(125, 125, 125));
 			break;
 		case eLevelType::Normal:
 			SetCursor(Cursor::Cursor_0, Cursor::Cursor_3, Cursor::Cursor_0);
+			SetColor(GetColor(125, 125, 125), GetColor(255, 255, 255), GetColor(125, 125, 125));
 			break;
 		case eLevelType::Hard:
 			SetCursor(Cursor::Cursor_0, Cursor::Cursor_0, Cursor::Cursor_1);
+			SetColor(GetColor(125, 125, 125), GetColor(125, 125, 125), GetColor(255, 255, 255));
 			break;
 		}
 
@@ -110,7 +115,7 @@ UIの描画
 ------------------------------------------------------------------------------*/
 	//Easy
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eLevelType::Easy)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT, UI_EXT, 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT, UI_EXT, 0, UI_PAL, color[static_cast<int>(eLevelType::Easy)],
 		static_cast<int>(cursor[static_cast<int>(eLevelType::Easy)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "Easy");
 
@@ -118,7 +123,7 @@ UIの描画
 
 	//Normal
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eLevelType::Normal)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT, UI_EXT, 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT, UI_EXT, 0, UI_PAL, color[static_cast<int>(eLevelType::Normal)],
 		static_cast<int>(cursor[static_cast<int>(eLevelType::Normal)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "Normal");
 
@@ -126,7 +131,7 @@ UIの描画
 
 	//Hard
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eLevelType::Hard)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT, UI_EXT, 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT, UI_EXT, 0, UI_PAL, color[static_cast<int>(eLevelType::Hard)],
 		static_cast<int>(cursor[static_cast<int>(eLevelType::Hard)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "Hard");
 
@@ -183,6 +188,20 @@ void LevelSelect::SetCursor(Cursor _easy, Cursor _normal, Cursor _hard) {
 
 	//Hardのカーソルをセットする
 	cursor[static_cast<int>(eLevelType::Hard)] = _hard;
+}
+
+/// <summary>
+/// 引数に対応する色をセットする
+/// </summary>
+/// <param name="_easy">Easyのカーソル</param>
+/// <param name="_normal">Normalのカーソル</param>
+/// <param name="_hard">Hardのカーソル</param>
+void LevelSelect::SetColor(unsigned int _easy, unsigned int _normal, unsigned int _hard) {
+	color[static_cast<int>(eLevelType::Easy)] = _easy;
+
+	color[static_cast<int>(eLevelType::Normal)] = _normal;
+
+	color[static_cast<int>(eLevelType::Hard)] = _hard;
 }
 
 /// <summary>
