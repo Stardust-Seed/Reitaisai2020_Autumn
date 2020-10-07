@@ -46,6 +46,10 @@ void SE::Load()
 	seNum[SE_EnemyDown] = LoadSE("./res/Sound/SE/down1.wav");
 	seNum[SE_EventAlarm] = LoadSE("./res/Sound/SE/afa7ca1aa9e16917.wav");
 	seNum[SE_LevelUP] = LoadSE("./res/Sound/SE/magic-charge1.wav");
+	seNum[SE_Cancel] = LoadSE("./res/Sound/SE/cancel2.wav");
+	seNum[SE_Enter] = LoadSE("./res/Sound/SE/decision48.wav");
+	seNum[SE_Stan] = LoadSE("./res/Sound/SE/piyopiyo.wav");
+	seNum[SE_Fake] = LoadSE("./res/Sound/SE/train-steam1.wav");
 }
 
 //SEÇçƒê∂
