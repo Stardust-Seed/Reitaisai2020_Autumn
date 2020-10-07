@@ -36,6 +36,8 @@ private:
 	bool isClear[3];		//クリアフラグ
 	bool isChange;			//切り替えフラグ
 
+	int textWidth;			//テキストの横幅
+
 	/// <summary>
 	/// 選択レベルを切り替える
 	/// </summary>
@@ -53,9 +55,11 @@ private:
 	/// <summary>
 	/// クリアフラグをセットする
 	/// </summary>
-	/// <param name="_buf">バッファ</param>
-	/// <param name="_level">レベル</param>
-	void SetIsClear(int _buf, eLevelType _level);
+	/// <param name="_isClear">クリアフラグ</param>
+	/// <param name="_level">セットするレベル</param>
+	void SetIsClear(int _isClear, int _level);
+
+	void ClearDraw(eLevelType _level);
 public:
 	/// <summary>
 	/// コンストラクタ

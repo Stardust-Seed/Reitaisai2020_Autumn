@@ -2,6 +2,7 @@
 #include "LevelSelect.h"
 
 #include "BGM.h"
+#include "File.h"
 #include "FontHandle.h"
 #include "KuronekoLib.h"
 #include "Image.h"
@@ -23,6 +24,18 @@ LevelSelect::LevelSelect(ISceneChanger* _sceneChanger, Parameter* _parameter)
 
 	//切り替えるフラグを初期化
 	isChange = false;
+
+	//クリアフラグをセットする
+	SetIsClear(File::Instance()->GetFileData(eFileType::Clear, static_cast<int>(eLevelType::Easy)),
+		static_cast<int>(eLevelType::Easy));
+
+	SetIsClear(File::Instance()->GetFileData(eFileType::Clear, static_cast<int>(eLevelType::Normal)),
+		static_cast<int>(eLevelType::Normal));
+
+	SetIsClear(File::Instance()->GetFileData(eFileType::Clear, static_cast<int>(eLevelType::Hard)),
+		static_cast<int>(eLevelType::Hard));
+
+	textWidth = GetDrawStringWidthToHandle("Clear", -1, FontHandle::Instance()->Get_natumemozi_64_8());
 }
 
 /// <summary>
@@ -101,17 +114,23 @@ UIの描画
 		static_cast<int>(cursor[static_cast<int>(eLevelType::Easy)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "Easy");
 
+	ClearDraw(eLevelType::Easy);
+
 	//Normal
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eLevelType::Normal)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
 		UI_EXT, UI_EXT, 0, UI_PAL, GetColor(255, 255, 255),
 		static_cast<int>(cursor[static_cast<int>(eLevelType::Normal)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "Normal");
 
+	ClearDraw(eLevelType::Normal);
+
 	//Hard
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eLevelType::Hard)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
 		UI_EXT, UI_EXT, 0, UI_PAL, GetColor(255, 255, 255),
 		static_cast<int>(cursor[static_cast<int>(eLevelType::Hard)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "Hard");
+
+	ClearDraw(eLevelType::Hard);
 }
 
 /// <summary>
@@ -169,14 +188,46 @@ void LevelSelect::SetCursor(Cursor _easy, Cursor _normal, Cursor _hard) {
 /// <summary>
 /// クリアフラグをセットする
 /// </summary>
-/// <param name="_buf">バッファ</param>
-/// <param name="_level">レベル</param>
-void LevelSelect::SetIsClear(int _buf, eLevelType _level) {
-	//バッファが0の時false、1の時trueをセット
-	if (_buf == 0) {
-		isClear[static_cast<int>(_level)] = false;
+/// <param name="_isClear">クリアフラグ</param>
+/// <param name="_level">セットするレベル</param>
+void LevelSelect::SetIsClear(int _isClear, int _level) {
+	//_isClearが0の場合 false / 1の場合 true
+	if (_isClear == 0) {
+		isClear[_level] = false;
 	}
 	else {
-		isClear[static_cast<int>(_level)] = true;
+		isClear[_level] = true;
+	}
+}
+
+void LevelSelect::ClearDraw(eLevelType _level) {
+	//isClearがtrueの場合
+	if (isClear[static_cast<int>(_level)] == true) {
+		switch (_level) {
+		case eLevelType::Easy:
+			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
+				(UI_Y[static_cast<int>(eLevelType::Easy)] - (UIFRAME_HEIGHT / 2)) + 3,
+				"Clear", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+			DrawStringToHandle((UI_X - UIFRAME_WIDTH / 2),
+				UI_Y[static_cast<int>(eLevelType::Easy)] - (UIFRAME_HEIGHT / 2), "Clear",
+				GetColor(255, 255, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+			break;
+		case eLevelType::Normal:
+			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
+				(UI_Y[static_cast<int>(eLevelType::Normal)] - (UIFRAME_HEIGHT / 2)) + 3,
+				"Clear", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)),
+				UI_Y[static_cast<int>(eLevelType::Normal)] - (UIFRAME_HEIGHT / 2), "Clear",
+				GetColor(255, 255, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+			break;
+		case eLevelType::Hard:
+			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
+				(UI_Y[static_cast<int>(eLevelType::Hard)] - (UIFRAME_HEIGHT / 2)) + 3,
+				"Clear", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)),
+				UI_Y[static_cast<int>(eLevelType::Hard)] - (UIFRAME_HEIGHT / 2),
+				"Clear", GetColor(255, 255, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+			break;
+		}
 	}
 }
