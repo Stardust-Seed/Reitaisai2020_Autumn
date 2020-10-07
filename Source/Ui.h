@@ -66,7 +66,8 @@ private:
 	static const int SKILLGAUGE_X1 = 0;			   //バーのｘ終点
 	static const int SKILLGAUGE_Y1 = 160;
 
-	const int MAX_STOPTIME = 5;				//咲夜さんの時止め最大タイム
+	const int MAX_SAKUYATIME = 5;				//咲夜さんの時止め最大タイム
+	const int MAX_FRANTIME = 3;				//フランさんの殲滅最大タイム
 
 	int percent;					//パーセント
 	int CastleDurability;			//拠点の体力
@@ -86,6 +87,8 @@ private:
 
 	float pX;						//プレイヤーのx座標
 	float pY;						//プレイヤーのy座標
+	float castleX[5];					//拠点のx座標
+	float castleY[5];					//拠点のy座標
 
 	bool isActive[5];
 	bool skillActive;
