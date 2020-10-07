@@ -10,14 +10,15 @@ CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter) :B
 
 	selectChara = SelectCharacter::select_SAKUYA;
 
-	//色
-	color = GetColor(0, 0, 255);
+	color = GetColor(128,128,128); //灰色
+	color_Sakuya = GetColor(255, 255, 255); //白
+	color_Fran = GetColor(128, 128, 128);   //灰色
 
 	//UIフレームの色を初期設定
 	charaCursor[static_cast<int>(SelectCharacter::select_SAKUYA)] = Cursor::Cursor_3;
 	charaCursor[static_cast<int>(SelectCharacter::select_FRAN)] = Cursor::Cursor_0;
 
-
+	colorNo = 0;
 }
 
 /*更新処理*/
@@ -72,10 +73,14 @@ void CharaSelect::Select_Push(int _changeType)
 			//一番下の項目のとき、一番上の項目へ
 			if (selectChara == SelectCharacter::select_FRAN) {
 				selectChara = SelectCharacter::select_SAKUYA;
+				color_Sakuya = color_Fran; //灰色
+				color_Fran = color;        //白色
 			}
 			//上記条件外のとき、一つ下の項目へ
 			else {
 				selectChara = static_cast<SelectCharacter>(static_cast<int>(selectChara) + 1);
+				color_Fran = color_Sakuya; //白
+				color_Sakuya = color;      //灰色
 			}
 		}
 		//切り替えモードがUPの場合
@@ -83,10 +88,14 @@ void CharaSelect::Select_Push(int _changeType)
 			//一番上の項目のとき、一番下の項目へ
 			if (selectChara == SelectCharacter::select_SAKUYA) {
 				selectChara = SelectCharacter::select_FRAN;
+				color_Fran = color_Sakuya; //白
+				color_Sakuya = color;      //灰色
 			}
 			//上記条件外のとき、一つ上の項目へ
 			else {
 				selectChara = static_cast<SelectCharacter>(static_cast<int>(selectChara) - 1);
+				color_Sakuya = color_Fran; //白
+				color_Fran = color;        //灰色
 			}
 	
 		}
@@ -158,8 +167,8 @@ void CharaSelect::Draw_CharaName()
 
 	/**描画 前**/
 	//キャラクター名の表示
-	DrawStringToHandle(560, 700, "十六夜 咲夜", GetColor(0, 0,0), FontHandle::Instance()->Get_natumemozi_48_8());
-	DrawStringToHandle(1100, 700, "フランドール・Ｓ", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(560, 700, "十六夜 咲夜", color_Sakuya, FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(1090, 700, "フランドール・Ｓ", color_Fran, FontHandle::Instance()->Get_natumemozi_48_8());
 }
 void CharaSelect::Draw_CharaAbility()
 {
