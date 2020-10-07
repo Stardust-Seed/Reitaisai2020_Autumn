@@ -60,7 +60,6 @@ BasePlayer::BasePlayer(int _pType)
 
 	countDown = FRAME;          //スキルタイマーを減らすのに使う
 
-	testGraph = LoadGraph("./res/Image/magic.png");
 	drawCount = 0;              //描画のカウント
 	drawAngle = 0;              //描画の角度
 	drawZoom = 1.0;             //描画の拡大率
@@ -84,13 +83,16 @@ void BasePlayer::Draw()
 
 	Draw_Arow();    //矢印描画
 
+	if (isStan == true) {
+		//ここで☆をピカピカさせます
+	}
 }
 void BasePlayer::Draw_Ability()
 {
 
 	if ((Get_isAbility() == true && playerType == SAKUYA) || Get_FranAbility() == true)
 	{
-		DrawRotaGraph(pos.x + 24, pos.y + 24, drawZoom, PI * drawAngle, testGraph, TRUE);
+		//魔法陣ブワァァァ
 		//DrawRotaGraph(pos.x + 24, pos.y + 24, drawZoom, PI * drawAngle, Image::Instance()->GetGraph(eImageType::魔法陣), TRUE);
 	}
 
@@ -177,6 +179,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 //プレイヤーのスタン処理
 void BasePlayer::Stan()
 {
+
 	//スタンタイムを加算
 	if (stanTime < 120) {
 		stanTime++;

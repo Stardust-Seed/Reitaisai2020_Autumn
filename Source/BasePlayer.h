@@ -69,10 +69,9 @@ protected:
 	int franTimer;
 	bool franAbility;
 
-	int testGraph;
-	int drawCount;
-	double drawAngle;
-	double drawZoom;
+	int drawCount;                  //描画カウント
+	double drawAngle;               //描画角度
+	double drawZoom;                //描画拡大率
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
