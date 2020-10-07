@@ -53,7 +53,9 @@ enum SEnum {
 	SE_EnemyAttack,
 	SE_EnemyDown,
 	SE_EventAlarm,
-	SE_LevelUP
+	SE_LevelUP,
+	SE_Cancel,
+	SE_Enter
 };
 
 class SE :public Singleton <SE> {
@@ -64,7 +66,7 @@ private:
 
 	std::vector<int> seNums;
 	//’Ç‰Á‚·‚é‚Æ‚«‚Í‚±‚Ì”z—ñ‚Ì”š‚à‘‚â‚µ‚Ä‚Ë
-	int seNum[17];                        //Ši”[‚·‚é‚½‚ß‚Ì”z—ñ
+	int seNum[19];                        //Ši”[‚·‚é‚½‚ß‚Ì”z—ñ
 	int LoadSE(const char* _filePath);    //“Ç‚İ‚İ—p‚É
 	int volume;
 public:
