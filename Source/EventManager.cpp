@@ -161,14 +161,14 @@ int EventManager::Get_BombType() {
 }
 
 
-int EventManager::Get_Power(int num) {
+int EventManager::Get_Power() {
 	if (sBomb != NULL) {
 		return sBomb->GetPower();
 	}
 	return 0;
 }
 
-bool EventManager::Get_IsActive(int num) {
+bool EventManager::Get_IsActive() {
 	if (sBomb != NULL) {
 		return sBomb->GetIsTriggerFlg();
 	}

@@ -61,9 +61,9 @@ public:
 
 	int Get_BombType();
 
-	int Get_Power(int);			//攻撃力を受け取る
+	int Get_Power();			//攻撃力を受け取る
 
-	bool Get_IsActive(int);		//アクティブなのかを受け取る
+	bool Get_IsActive();		//アクティブなのかを受け取る
 };
 
 
