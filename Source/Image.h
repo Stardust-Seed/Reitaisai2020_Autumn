@@ -15,20 +15,22 @@ enum class eImageType {
 	Event_Darkness			= 4,	//ダークネスイベントの画像
 	Gpicture_MainCastle		= 5,	//ゲームの素材 紅魔館
 	Gpicture_Forest			= 6,	//ゲームの素材 森
-	UI_MessageBox			= 7,	//UIの素材 メッセージボックス
-	Spicture_Sakuya			= 8,	//立ち絵 咲夜
-	Spicture_Fran			= 11,	//立ち絵 フラン
-	Spicture_SelectPlayer	= 14,	//立ち絵 選択されたプレイヤー
-	Gpicture_Player			= 16,	//ゲームの素材 プレイヤー
-	Gpicture_Enemy			= 20,	//ゲームの素材 エネミー
-	Gpicture_SubCastle		= 26,	//ゲームの素材 サブ拠点
-	Gpicture_Sukima			= 28,	//ゲームの素材 スキマ
-	Gpicture_Explosion		= 32,	//ゲームの素材 爆破エフェクト
-	Gpicture_Bomb			= 38,	//ゲームの素材 爆弾
-	Gpicture_FakeBomb		= 40,	//ゲームの素材 爆弾(偽物)
-	Gpicture_Bullet			= 43,	//ゲームの素材 弾
-	Gpicture_Item			= 45,	//ゲームの素材 アイテム
-	UI_CursorFrame			= 47,	//UIの素材 カーソルのフレーム
+	Gpicture_Magic			= 7,	//ゲームの素材 魔法陣
+	Gpicture_Star			= 8,	//ゲームの素材 星
+	UI_MessageBox			= 9,	//UIの素材 メッセージボックス
+	Spicture_Sakuya			= 10,	//立ち絵 咲夜
+	Spicture_Fran			= 13,	//立ち絵 フラン
+	Spicture_SelectPlayer	= 16,	//立ち絵 選択されたプレイヤー
+	Gpicture_Player			= 18,	//ゲームの素材 プレイヤー
+	Gpicture_Enemy			= 22,	//ゲームの素材 エネミー
+	Gpicture_SubCastle		= 28,	//ゲームの素材 サブ拠点
+	Gpicture_Sukima			= 30,	//ゲームの素材 スキマ
+	Gpicture_Explosion		= 34,	//ゲームの素材 爆破エフェクト
+	Gpicture_Bomb			= 40,	//ゲームの素材 爆弾
+	Gpicture_FakeBomb		= 42,	//ゲームの素材 爆弾(偽物)
+	Gpicture_Bullet			= 45,	//ゲームの素材 弾
+	Gpicture_Item			= 47,	//ゲームの素材 アイテム
+	UI_CursorFrame			= 49,	//UIの素材 カーソルのフレーム
 };
 
 /// <summary>
