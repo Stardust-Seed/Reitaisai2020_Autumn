@@ -8,8 +8,8 @@ void UI::Get_CastleDurability()
 
 	DrawFormatStringToHandle(HPMOJI_X + 20, HPMOJI_Y + 15, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "HP");						//HP‚Æ‚¢‚¤•¶š‚ğ•\¦‚·‚é‚½‚ß
 
-	DrawFormatStringToHandle(HPMOJI_X + 250, HPMOJI_Y + 5, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), 
-							 "%d/%d", CastleDurability, MAX_DURABILTY);
+	DrawFormatStringToHandle(HPMOJI_X + 250, HPMOJI_Y + 5, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(),
+		"%d/%d", CastleDurability, MAX_DURABILTY);
 
 	DrawBox(HPBAR_X + 19, HPBAR_Y + 39, HPBAR_X1 + 321, HPBAR_Y1 + 61, GetColor(0, 0, 0), FALSE);				//HPƒo[‚Ì˜gü(”’)
 	DrawBox(HPBAR_X + 20, HPBAR_Y + 40, HPBAR_X1 + 320, HPBAR_Y1 + 60, GetColor(190, 255, 190), TRUE);			//HPƒo[‚Ì˜gü(“h‚è‚Â‚Ô‚µ)
@@ -47,7 +47,7 @@ void UI::Get_SubCastleDurability()
 
 	DrawString(HPMOJI_X + 20, HPMOJI_Y + 200, "HP1", GetColor(255, 255, 255));							//HP‚Æ‚¢‚¤•¶š‚ğ•\¦‚·‚é‚½‚ß
 
-	
+
 	DrawBox(HPBAR_X, HPBAR_Y + 200, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 200, GetColor(190, 255, 190), FALSE);
 	DrawBox(HPBAR_X, HPBAR_Y + 200, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 200, GetColor(190, 255, 190), TRUE);		//HPƒo[‚Ì˜gü(“h‚è’×‚µ)
 
@@ -172,11 +172,11 @@ void UI::AbilityUi()
 	}
 
 	//ƒtƒ‰ƒ“‚³‚ñ‚ÌŸr–Å(’Ç‰Á—pj
-	/*if ()
+	if (skillType == FRAN_Ability && skillFran == true)
 	{
 		DrawBox(pX, pY, pX + 50, pY - 5, GetColor(255, 255, 255), FALSE);									    //˜g
 		DrawBox(pX, pY, pX + 50 * skillClock / MAX_FRANTIME, pY - 5, GetColor(255, 100, 100), TRUE);			//ƒQ[ƒW
-	}*/
+	}
 }
 
 //§ŒÀŠÔ‚ÌUI
@@ -207,9 +207,10 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 
 	//ƒXƒLƒ‹ŠÖ˜A
 	skillCount = _baseplayer->Get_AbilityCount();
-	skillClock = _baseplayer->Get_AbilityClock();  //ƒRƒƒ“ƒg‰»‚¾‚Á‚½‚çƒ~ƒX
+	skillClock = _baseplayer->Get_AbilityClock();
 	skillActive = _baseplayer->Get_isAbility();
 	skillType = _baseplayer->Get_AbilityType();
+	skillFran = _baseplayer->Get_FranAbility();
 
 	pX = _baseplayer->Get_x();
 	pY = _baseplayer->Get_y();

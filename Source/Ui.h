@@ -92,6 +92,7 @@ private:
 
 	bool isActive[5];
 	bool skillActive;
+	bool skillFran;
 
 
 public:
