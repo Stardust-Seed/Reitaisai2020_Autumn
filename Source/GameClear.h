@@ -9,6 +9,7 @@
 #include "Define.h"
 #include "FontHandle.h"
 #include "Cursor.h"
+#include "File.h"
 
 class GameClear final :public BaseScene {
 private:

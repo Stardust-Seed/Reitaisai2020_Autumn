@@ -13,10 +13,14 @@ GameClear::GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	waitTimer = 0;
 	charaType = _parameter->Get(BaseScene::CharaSelectTag);
 	BGM::Instance()->PlayBGM(BGM_result, DX_PLAYTYPE_LOOP);
+
+	File::Instance()->SetFileData(eFileType::Clear, _parameter->Get(BaseScene::LevelSelectTag), 1);
+
 }
 
 /*XVˆ—*/
 void GameClear::Update() {
+
 	if (waitTimer < 150)
 	{
 		waitTimer++;
