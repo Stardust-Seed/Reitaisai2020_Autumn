@@ -59,6 +59,13 @@ void Pausemenu::Update()
 		SE::Instance()->PlaySE(SE_cursor);
 		NowSelect = (NowSelect + (ePausetype_Num - 1)) % ePausetype_Num;		//選択状態を上げる
 	}
+
+	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1)				        //Xキーが押された場所の処理
+	{
+		BGM::Instance()->VolumeBGM(BGM::Instance()->Get_Volume());
+		sceneChanger->SceneChange(eScene_GAME, parameter, false, true);
+	}
+
 	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1)				        //Zキーが押された場所の処理
 	{
 		BGM::Instance()->VolumeBGM(BGM::Instance()->Get_Volume());
@@ -88,13 +95,13 @@ void Pausemenu::Draw()
 			FontHandle::Instance()->Get_natumemozi_100_3(), 205, "ゲームに戻る");
 
 		DrawUIGraph(1300, 750, 1300, 350, 1, 1,
-			0, 255, GetColor(255, 255, 255), 0, eDrawType::Center,
+			0, 255, GetColor(128, 128, 128), 0, eDrawType::Center,
 			FontHandle::Instance()->Get_natumemozi_100_3(), 180, "メニューに戻る");
 	}
 	else
 	{
 		DrawUIGraph(1300, 400, 1300, 350, 1, 1,
-			0, 255, GetColor(255, 255, 255), 0, eDrawType::Center,
+			0, 255, GetColor(128, 128, 128), 0, eDrawType::Center,
 			FontHandle::Instance()->Get_natumemozi_100_3(), 205, "ゲームに戻る");
 
 		DrawUIGraph(1300, 750, 1300, 350, 1, 1,
