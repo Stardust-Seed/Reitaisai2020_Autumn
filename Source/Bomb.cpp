@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "Bomb.h"
 #include "Image.h"
+
 Bomb::Bomb(int _power, int _speed, eBombType _bombType)
 	: BaseBomb(_power, _speed, _bombType)
 {
@@ -23,13 +24,14 @@ void Bomb::Update(BasePlayer* player)
 
 	isPAbility = player->Get_isAbility();
 
-	//“–‚½‚Á‚½‚çÁ‚¦‚é
+	//ƒvƒŒƒCƒ„[‚É“–‚½‚Á‚½‚çÁ‚¦‚é
 	if (isHit == true)
 	{
 		isSpown = false;
 		isCount = false;
 		isTrigger = false;
 		isXplosion = false;
+		isActive = false;
 	}
 	else
 	{
@@ -82,32 +84,32 @@ void Bomb::Animation()
 	m_frameIndex++;
 	if (bomb_Animation[m_frameIndex] == 0)
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 0), TRUE);
+		DrawGraph(x -20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 0), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 1)
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 1), TRUE);
+		DrawGraph(x - 20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 1), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 2)
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 2), TRUE);
+		DrawGraph(x - 20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 2), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 3)
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 3), TRUE);
+		DrawGraph(x - 20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 3), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 4)
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 4), TRUE);
+		DrawGraph(x - 20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 4), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 5)
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 5), TRUE);
+		DrawGraph(x - 20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 5), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 6)

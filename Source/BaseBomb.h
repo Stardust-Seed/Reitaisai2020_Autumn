@@ -6,7 +6,6 @@
 #include "CastleManager.h"
 #include "BasePlayer.h"
 #include "FontHandle.h"
-#include "SE.h"
 
 class castleManager;
 class BasePlayer;
