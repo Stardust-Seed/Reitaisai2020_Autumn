@@ -33,8 +33,11 @@ private:
 
 	eLevelType selectLevel;	//選択されたレベル
 	Cursor cursor[3];		//カーソルの色
+	unsigned int color[3];	//文字の色
 	bool isClear[3];		//クリアフラグ
 	bool isChange;			//切り替えフラグ
+
+	int textWidth;			//テキストの横幅
 
 	/// <summary>
 	/// 選択レベルを切り替える
@@ -51,11 +54,21 @@ private:
 	void SetCursor(Cursor _easy, Cursor _normal, Cursor _hard);
 
 	/// <summary>
+	/// 引数に対応する色をセットする
+	/// </summary>
+	/// <param name="_easy">Easyのカーソル</param>
+	/// <param name="_normal">Normalのカーソル</param>
+	/// <param name="_hard">Hardのカーソル</param>
+	void SetColor(unsigned int _easy, unsigned int _normal, unsigned int _hard);
+
+	/// <summary>
 	/// クリアフラグをセットする
 	/// </summary>
-	/// <param name="_buf">バッファ</param>
-	/// <param name="_level">レベル</param>
-	void SetIsClear(int _buf, eLevelType _level);
+	/// <param name="_isClear">クリアフラグ</param>
+	/// <param name="_level">セットするレベル</param>
+	void SetIsClear(int _isClear, int _level);
+
+	void ClearDraw(eLevelType _level);
 public:
 	/// <summary>
 	/// コンストラクタ
