@@ -7,6 +7,7 @@
 #include "Image.h"
 #include "LevelSelect.h"
 #include "Menu.h"
+#include "OperationExp.h"
 #include "Option.h"
 #include "Parameter.h"
 #include "Pausemenu.h"
@@ -99,6 +100,10 @@ void SceneManager::SceneChange(eScene _nextScene, Parameter* _parameter,
 	case eScene_LEVELSELECT:
 		scenes.push(std::make_shared<LevelSelect>(this, _parameter));
 		nowScene = eScene_LEVELSELECT;
+		break;
+	case eScene_OPERATIONEXP:
+		scenes.push(std::make_shared<OperationExp>(this, _parameter));
+		nowScene = eScene_OPERATIONEXP;
 		break;
 	}
 
