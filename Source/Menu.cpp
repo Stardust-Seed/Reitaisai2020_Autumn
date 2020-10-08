@@ -55,16 +55,25 @@ void Menu::Update() {
 		//シーンを切り替える
 		switch (selectMenu) {
 		case eMenuType::Game:
+			//決定SEを鳴らす
+			SE::Instance()->PlaySE(SE_Enter);
+
 			//キャラ選択画面へ
 			sceneChanger->SceneChange(eScene_CHARASELECT, parameter, true, false);
 			break;
 		case eMenuType::Option:
+			//決定SEを鳴らす
+			SE::Instance()->PlaySE(SE_Enter);
+
 			//オプション画面へ
 			sceneChanger->SceneChange(eScene_OPTION, parameter, true, false);
 			break;
 		case eMenuType::Title:
 			//BGMを止める
 			BGM::Instance()->StopBGM(BGM_menu);
+
+			//キャンセルSEを鳴らす
+			SE::Instance()->PlaySE(SE_Cancel);
 
 			//タイトル画面へ
 			sceneChanger->SceneChange(eScene_TITLE, parameter, false, false);
