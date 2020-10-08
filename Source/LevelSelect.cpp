@@ -36,15 +36,12 @@ LevelSelect::LevelSelect(ISceneChanger* _sceneChanger, Parameter* _parameter)
 
 	SetIsClear(File::Instance()->GetFileData(eFileType::Clear, static_cast<int>(eLevelType::Hard)),
 		static_cast<int>(eLevelType::Hard));
-
-	textWidth = GetDrawStringWidthToHandle("Clear", -1, FontHandle::Instance()->Get_natumemozi_64_8());
 }
 
 /// <summary>
 /// 更新処理
 /// </summary>
 void LevelSelect::Update() {
-
 	//選択された項目に色を付けて、それ以外は灰色に設定する
 	if (isChange == true) {
 		switch (selectLevel) {
@@ -96,12 +93,20 @@ void LevelSelect::Update() {
 		//メニューのBGMを止める
 		BGM::Instance()->StopBGM(BGM_menu);
 
+		//決定SEを鳴らす
+		SE::Instance()->PlaySE(SE_Enter);
+
 		//シーンをゲームシーンに切り替える
 		sceneChanger->SceneChange(eScene_GAME, parameter, false, false);
 	}
 
 	//xキーが押されたとき
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
+
+		//キャンセルSEを鳴らす
+		SE::Instance()->PlaySE(SE_Cancel);
+
+		//シーンをキャラセレクトに切り替える
 		sceneChanger->SceneChange(eScene_CHARASELECT, parameter, false, true);
 	}
 }
@@ -197,10 +202,13 @@ void LevelSelect::SetCursor(Cursor _easy, Cursor _normal, Cursor _hard) {
 /// <param name="_normal">Normalのカーソル</param>
 /// <param name="_hard">Hardのカーソル</param>
 void LevelSelect::SetColor(unsigned int _easy, unsigned int _normal, unsigned int _hard) {
+	//Easyの色をセットする
 	color[static_cast<int>(eLevelType::Easy)] = _easy;
 
+	//Normalの色をセットする
 	color[static_cast<int>(eLevelType::Normal)] = _normal;
 
+	//Hardの色をセットする
 	color[static_cast<int>(eLevelType::Hard)] = _hard;
 }
 
@@ -219,30 +227,43 @@ void LevelSelect::SetIsClear(int _isClear, int _level) {
 	}
 }
 
+/// <summary>
+/// クリア表示する
+/// </summary>
+/// <param name="_level">表示するレベル</param>
 void LevelSelect::ClearDraw(eLevelType _level) {
 	//isClearがtrueの場合
 	if (isClear[static_cast<int>(_level)] == true) {
 		switch (_level) {
 		case eLevelType::Easy:
+			//影の描画
 			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
 				(UI_Y[static_cast<int>(eLevelType::Easy)] - (UIFRAME_HEIGHT / 2)) + 3,
 				"Clear", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+
+			//文字の描画
 			DrawStringToHandle((UI_X - UIFRAME_WIDTH / 2),
 				UI_Y[static_cast<int>(eLevelType::Easy)] - (UIFRAME_HEIGHT / 2), "Clear",
 				GetColor(255, 255, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 			break;
 		case eLevelType::Normal:
+			//影の描画
 			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
 				(UI_Y[static_cast<int>(eLevelType::Normal)] - (UIFRAME_HEIGHT / 2)) + 3,
 				"Clear", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+
+			//文字の描画
 			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)),
 				UI_Y[static_cast<int>(eLevelType::Normal)] - (UIFRAME_HEIGHT / 2), "Clear",
 				GetColor(255, 255, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 			break;
 		case eLevelType::Hard:
+			//影の描画
 			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
 				(UI_Y[static_cast<int>(eLevelType::Hard)] - (UIFRAME_HEIGHT / 2)) + 3,
 				"Clear", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+
+			//文字の描画
 			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)),
 				UI_Y[static_cast<int>(eLevelType::Hard)] - (UIFRAME_HEIGHT / 2),
 				"Clear", GetColor(255, 255, 0), FontHandle::Instance()->Get_natumemozi_64_8());
