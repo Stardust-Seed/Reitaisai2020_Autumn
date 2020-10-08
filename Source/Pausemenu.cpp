@@ -62,12 +62,14 @@ void Pausemenu::Update()
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1)				        //Xキーが押された場所の処理
 	{
+		SE::Instance()->PlaySE(SE_Cancel);
 		BGM::Instance()->VolumeBGM(BGM::Instance()->Get_Volume());
 		sceneChanger->SceneChange(eScene_GAME, parameter, false, true);
 	}
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1)				        //Zキーが押された場所の処理
 	{
+		SE::Instance()->PlaySE(SE_Enter);
 		BGM::Instance()->VolumeBGM(BGM::Instance()->Get_Volume());
 		switch (NowSelect)
 		{
