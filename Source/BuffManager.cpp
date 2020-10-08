@@ -3,6 +3,8 @@
 #include "ItemManager.h"
 #include <DxLib.h>
 
+#include "SE.h"
+
 BuffManager::BuffManager() {
 	//各パラメータの初期化
 	powerLevel = 0;
@@ -97,6 +99,9 @@ void BuffManager::DownBuffLevel() {
 int BuffManager::PowerBuff_LevelUpCheck(int _powerCount) {
 	//_powerCountが15以上でレベルマックスでない場合
 	if (_powerCount >= 15 && isPowerLevelMax == false) {
+		//レベル上昇SEを鳴らす
+		SE::Instance()->PlaySE(SE_LevelUP);
+
 		powerLevel++;
 
 		//パワーバフがレベルマックスだった場合
@@ -113,6 +118,9 @@ int BuffManager::PowerBuff_LevelUpCheck(int _powerCount) {
 int BuffManager::SpeedBuff_LevelUpCheck(int _speedCount) {
 	//_powerCountが15以上でレベルマックスでない場合
 	if (_speedCount >= 15 && isSpeedLevelMax == false) {
+		//レベル上昇SEを鳴らす
+		SE::Instance()->PlaySE(SE_LevelUP);
+
 		speedLevel++;
 
 		//パワーバフレベルがレベルマックスだった場合
