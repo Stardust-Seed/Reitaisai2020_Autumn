@@ -42,12 +42,12 @@ void CharaSelect::Update()
 	{
 		switch (charaSelect) {
 		case select_SAKUYA:   //咲夜を選択
-			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
+			SE::Instance()->PlaySE(SE_Enter, DX_PLAYTYPE_BACK);
 			parameter->Set(BaseScene::CharaSelectTag, selectChara);
 			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
 			break;
 		case select_FRAN:     //フランを選択
-			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
+			SE::Instance()->PlaySE(SE_Enter, DX_PLAYTYPE_BACK);
 			parameter->Set(BaseScene::CharaSelectTag, selectChara);
 			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
 			break;
@@ -56,65 +56,66 @@ void CharaSelect::Update()
 	//過去へ戻る
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_X) == 1))
 	{
+		SE::Instance()->PlaySE(SE_Cancel, DX_PLAYTYPE_BACK);
 		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
 	}
 }
 void CharaSelect::Select_Push(int _changeType)
 {
+	//現在選択されてる項目のカーソルフレームを灰色に
+	charaCursor[static_cast<int>(selectChara)] = Cursor::Cursor_0;
 
+	//切り替えモードがDOWNの場合
+	if (_changeType == CURSOR_DOWN) {
 		//SEを鳴らす
-		SE::Instance()->PlaySE(SE_cursor);
-
-		//現在選択されてる項目のカーソルフレームを灰色に
-		charaCursor[static_cast<int>(selectChara)] = Cursor::Cursor_0;
-
-		//切り替えモードがDOWNの場合
-		if (_changeType == CURSOR_DOWN) {
-			//一番下の項目のとき、一番上の項目へ
-			if (selectChara == SelectCharacter::select_FRAN) {
-				selectChara = SelectCharacter::select_SAKUYA;
-				color_Sakuya = color_Fran; //灰色
-				color_Fran = color;        //白色
-			}
-			//上記条件外のとき、一つ下の項目へ
-			else {
-				selectChara = static_cast<SelectCharacter>(static_cast<int>(selectChara) + 1);
-				color_Fran = color_Sakuya; //白
-				color_Sakuya = color;      //灰色
-			}
+		SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_BACK);
+		//一番下の項目のとき、一番上の項目へ
+		if (selectChara == SelectCharacter::select_FRAN) {
+			selectChara = SelectCharacter::select_SAKUYA;
+			color_Sakuya = color_Fran; //灰色
+			color_Fran = color;        //白色
 		}
-		//切り替えモードがUPの場合
-		else if (_changeType == CURSOR_UP) {
-			//一番上の項目のとき、一番下の項目へ
-			if (selectChara == SelectCharacter::select_SAKUYA) {
-				selectChara = SelectCharacter::select_FRAN;
-				color_Fran = color_Sakuya; //白
-				color_Sakuya = color;      //灰色
-			}
-			//上記条件外のとき、一つ上の項目へ
-			else {
-				selectChara = static_cast<SelectCharacter>(static_cast<int>(selectChara) - 1);
-				color_Sakuya = color_Fran; //白
-				color_Fran = color;        //灰色
-			}
-	
+		//上記条件外のとき、一つ下の項目へ
+		else {
+			selectChara = static_cast<SelectCharacter>(static_cast<int>(selectChara) + 1);
+			color_Fran = color_Sakuya; //白
+			color_Sakuya = color;      //灰色
+		}
+	}
+	//切り替えモードがUPの場合
+	else if (_changeType == CURSOR_UP) {
+		//SEを鳴らす
+		SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_BACK);
+		//一番上の項目のとき、一番下の項目へ
+		if (selectChara == SelectCharacter::select_SAKUYA) {
+			selectChara = SelectCharacter::select_FRAN;
+			color_Fran = color_Sakuya; //白
+			color_Sakuya = color;      //灰色
+		}
+		//上記条件外のとき、一つ上の項目へ
+		else {
+			selectChara = static_cast<SelectCharacter>(static_cast<int>(selectChara) - 1);
+			color_Sakuya = color_Fran; //白
+			color_Fran = color;        //灰色
 		}
 
-		//現在選択されてる項目のカーソルフレームを青色に
-		charaCursor[static_cast<int>(selectChara)] = Cursor::Cursor_3;
+	}
 
-		/****決定****/
-	/************/
+	//現在選択されてる項目のカーソルフレームを青色に
+	charaCursor[static_cast<int>(selectChara)] = Cursor::Cursor_3;
+
+	/****決定****/
+/************/
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1))
 	{
 		switch (charaSelect) {
 		case select_SAKUYA:   //咲夜を選択
-			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
+			SE::Instance()->PlaySE(SE_Enter, DX_PLAYTYPE_NORMAL);
 			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
 			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
 			break;
 		case select_FRAN:     //フランを選択
-			SE::Instance()->PlaySE(SE_cursor, DX_PLAYTYPE_NORMAL);
+			SE::Instance()->PlaySE(SE_Enter, DX_PLAYTYPE_NORMAL);
 			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
 			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
 			break;
@@ -123,6 +124,8 @@ void CharaSelect::Select_Push(int _changeType)
 	//過去へ戻る
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_X) == 1))
 	{
+		//SEを鳴らす
+		SE::Instance()->PlaySE(SE_Cancel, DX_PLAYTYPE_NORMAL);
 		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
 	}
 
