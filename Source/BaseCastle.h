@@ -16,6 +16,7 @@
 --------------------------------------------------------------*/
 
 class EnemyManager;
+class EventManager;
 
 class BaseCastle :public Object {
 protected:
@@ -39,6 +40,7 @@ public:
 	BaseCastle(int);                        //コンストラクタ
 
 	virtual void Update(EnemyManager*) {} 	//更新処理
+	virtual void Update(EnemyManager*,EventManager*) {} 	//更新処理(メインキャッスル)
 	virtual void Draw() {}		        	//描画処理
 
 	//こっちは使わない

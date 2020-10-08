@@ -9,6 +9,7 @@ class MainCastle;
 class SubCastle;
 
 class EnemyManager;
+class EventManager;
 
 class CastleManager {
 private:
@@ -26,7 +27,7 @@ public:
 
 	~CastleManager();
 
-	void Update(EnemyManager*);
+	void Update(EnemyManager*,EventManager*);
 	void Draw();
 
 	int Get_CastleNum();                    //‹’“_‚Ì”‚ğ•Ô‚·
