@@ -132,7 +132,7 @@ public:
 	void CharaAbility();   //スキル処理
 
 	//スタン処理
-	void Stan();           
+	void Stan(BuffManager* _bManager);           
 
 	void Set_x(float _x) { pos.x = _x; }                    //セッター
 	void Set_y(float _y) { pos.y = _y; }                    //セッター

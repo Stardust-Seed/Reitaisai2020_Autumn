@@ -155,8 +155,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 	}
 	if (isStan == true && isStan_Next == true)
 	{
-		Stan();
-		_bManager->DownBuffLevel();  //バフレベルダウン
+		Stan(_bManager);
 	}
 	//スタンが解除されたら次にスタンが起こる時間をプラス
 	if (isStan == false)
@@ -171,17 +170,23 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 		isStan_Next = true;
 
 	}
+
 	float xx = pos.x + width;
 	float yy = pos.y + height;
 
 }
 //プレイヤーのスタン処理
-void BasePlayer::Stan()
+void BasePlayer::Stan(BuffManager* _bManager)
 {
 
 	//スタンタイムを加算
 	if (stanTime < 120) {
 		stanTime++;
+	}
+	//バフダウン
+	if (stanTime == 1)
+	{
+		_bManager->DownBuffLevel();  //バフレベルダウン
 	}
 	//一定時間経過したらスタンを解除してスタンタイムをリセット
 	if (stanTime >= 120)
