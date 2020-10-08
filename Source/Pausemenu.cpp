@@ -3,9 +3,7 @@
 #include "Input.h"
 #include "BGM.h"
 #include "SE.h"
-#include "KuronekoLib.h"
 #include "FontHandle.h"
-#include "Define.h"
 #include "Image.h"
 Pausemenu::Pausemenu(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	:BaseScene(_sceneChanger, _parameter) {
@@ -36,6 +34,10 @@ void Pausemenu::PauseAll()
 	{
 	case ePausetype_Game:													//ƒQ[ƒ€‰æ–Ê‚É–ß‚é‚ð‘I‘ð’†‚È‚ç
 		y = PGAME_Y;														//ƒQ[ƒ€‰æ–Ê‚É–ß‚é‚ÌÀ•W‚ðŠi”[
+		break;
+
+	case ePausetype_Guide:
+		y = PGUIDE_Y;
 		break;
 
 	case ePausetype_Menu:													//ƒQ[ƒ€‚ðI—¹‚ð‘I‘ð’†‚È‚ç
@@ -73,14 +75,17 @@ void Pausemenu::Update()
 		BGM::Instance()->VolumeBGM(BGM::Instance()->Get_Volume());
 		switch (NowSelect)
 		{
-		case ePausetype_Game:													//ƒQ[ƒ€‰æ–Ê‚É–ß‚é€–Ú
+		case 0:													//ƒQ[ƒ€‰æ–Ê‚É–ß‚é€–Ú
 			sceneChanger->SceneChange(eScene_GAME, parameter, false, true);
 			break;
 
-		case ePausetype_Menu:													//ƒQ[ƒ€I—¹‚Ì€–Ú
+		case 1:													//‘€ìà–¾‚Ì€–Ú
+			//sceneChanger->SceneChange(eScene_OPERATIONEXP, parameter, true, false);
+			break;
+
+		case 2:													//ƒQ[ƒ€I—¹‚Ì€–Ú
 			BGM::Instance()->StopBGM(BGM_gameScene);
 			sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
-			break;
 		}
 	}
 }
@@ -92,23 +97,49 @@ void Pausemenu::Draw()
 
 	if (NowSelect == ePausetype_Game)
 	{
-		DrawUIGraph(1300, 400, 1300, 350, 1, 1,
-			0, 255, GetColor(255, 255, 255), 3, eDrawType::Center,
-			FontHandle::Instance()->Get_natumemozi_100_3(), 205, "ƒQ[ƒ€‚É–ß‚é");
+		DrawRotaGraph(GAME_WIDTH / 2, 225, 1, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 3), TRUE);
+		DrawRotaGraph(GAME_WIDTH / 2, 525, 1, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
+		DrawRotaGraph(GAME_WIDTH / 2, 825, 1, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
 
-		DrawUIGraph(1300, 750, 1300, 350, 1, 1,
-			0, 255, GetColor(128, 128, 128), 0, eDrawType::Center,
-			FontHandle::Instance()->Get_natumemozi_100_3(), 180, "ƒƒjƒ…[‚É–ß‚é");
+		DrawStringToHandle(GAME_WIDTH / 2 - 287, 225 - 50, "ƒQ[ƒ€‚É–ß‚é", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 300, 525 - 50, "@‘€ìà–¾@", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 280, 825 - 50, " ƒQ[ƒ€I—¹ ", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_100_3());
+
+		DrawStringToHandle(GAME_WIDTH / 2 - 287-2, 225 - 50-2, "ƒQ[ƒ€‚É–ß‚é", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 300-2, 525 - 50-2, "@‘€ìà–¾@", GetColor(128, 128, 128), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 280-2, 825 - 50-2, " ƒQ[ƒ€I—¹ ", GetColor(128, 128, 128), FontHandle::Instance()->Get_natumemozi_100_3());
 	}
-	else
-	{
-		DrawUIGraph(1300, 400, 1300, 350, 1, 1,
-			0, 255, GetColor(128, 128, 128), 0, eDrawType::Center,
-			FontHandle::Instance()->Get_natumemozi_100_3(), 205, "ƒQ[ƒ€‚É–ß‚é");
 
-		DrawUIGraph(1300, 750, 1300, 350, 1, 1,
-			0, 255, GetColor(255, 255, 255), 3, eDrawType::Center,
-			FontHandle::Instance()->Get_natumemozi_100_3(), 180, "ƒƒjƒ…[‚É–ß‚é");
+	if(NowSelect == ePausetype_Menu)
+	{
+		DrawRotaGraph(GAME_WIDTH / 2, 225, 1, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
+		DrawRotaGraph(GAME_WIDTH / 2, 525, 1, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 3), TRUE);
+		DrawRotaGraph(GAME_WIDTH / 2, 825, 1, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
+
+		DrawStringToHandle(GAME_WIDTH / 2 - 287, 225 - 50, "ƒQ[ƒ€‚É–ß‚é", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 300, 525 - 50, "@‘€ìà–¾@", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 280, 825 - 50, " ƒQ[ƒ€I—¹ ", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_100_3());
+
+		DrawStringToHandle(GAME_WIDTH / 2 - 287 - 2, 225 - 50 - 2, "ƒQ[ƒ€‚É–ß‚é", GetColor(128, 128, 128), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 300 - 2, 525 - 50 - 2, "@‘€ìà–¾@", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 280 - 2, 825 - 50 - 2, " ƒQ[ƒ€I—¹ ", GetColor(128, 128, 128), FontHandle::Instance()->Get_natumemozi_100_3());
+
+	}
+
+	if (NowSelect == ePausetype_Guide)
+	{
+		DrawRotaGraph(GAME_WIDTH / 2, 225, 1, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
+		DrawRotaGraph(GAME_WIDTH / 2, 525, 1, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 0), TRUE);
+		DrawRotaGraph(GAME_WIDTH / 2, 825, 1, 0, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, 3), TRUE);
+
+		DrawStringToHandle(GAME_WIDTH / 2 - 287, 225 - 50, "ƒQ[ƒ€‚É–ß‚é", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 300, 525 - 50, "@‘€ìà–¾@", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 280, 825 - 50, " ƒQ[ƒ€I—¹ ", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_100_3());
+
+		DrawStringToHandle(GAME_WIDTH / 2 - 287 - 2, 225 - 50 - 2, "ƒQ[ƒ€‚É–ß‚é", GetColor(128, 128, 128), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 300 - 2, 525 - 50 - 2, "@‘€ìà–¾@", GetColor(128, 128, 128), FontHandle::Instance()->Get_natumemozi_100_3());
+		DrawStringToHandle(GAME_WIDTH / 2 - 280 - 2, 825 - 50 - 2, " ƒQ[ƒ€I—¹ ", GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_100_3());
+
 	}
 
 }

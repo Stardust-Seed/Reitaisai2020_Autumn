@@ -2,14 +2,17 @@
 #define _PAUSEMENU_H
 
 #include "BaseScene.h"
+#include "Define.h"
 
-const static int PGAME_Y = 200;		//「ゲーム画面に戻る」文字の位置
-const static int PEND_Y = 300;		//「ゲーム終了」文字のy位置
+const static int PGAME_Y = (GAME_HEIHGT / 2) - 300;		//「ゲーム画面に戻る」文字の位置
+const static int PEND_Y = (GAME_HEIHGT / 2)+300;		//「操作説明画面」文字のy位置
+const static int PGUIDE_Y = (GAME_HEIHGT / 2);		//「ゲーム終了」文字のy位置
 
 enum ePausetype
 {
 	ePausetype_Game,				//ゲーム画面に戻る
 	ePausetype_Menu,				//メニュー画面に戻る
+	ePausetype_Guide,				//操作説明画面へ
 	ePausetype_Num,					//項目の数
 };
 
