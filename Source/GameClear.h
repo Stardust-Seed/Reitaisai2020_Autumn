@@ -19,9 +19,9 @@ private:
 	const TCHAR* text2 = "もう一度挑戦";
 	const TCHAR* text3 = "メニューに戻る";
 	const TCHAR* text4 = "十六夜 咲夜";
-	const TCHAR* text5 = "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ";
-	const TCHAR* text6 = "フランドール・スカーレット";
-	const TCHAR* text7 = "ひたすらデバッグ\nひたすらデバッグ\nひたすらデバッグ";
+	const TCHAR* text5 = "紅魔館のメイド長として当然のことだわ";
+	const TCHAR* text6 = "フランドール・S";
+	const TCHAR* text7 = "フフフッ お姉さまに褒めてもらうんだ～";
 
 	Cursor nowCursor;           //現在選択中のカーソル
 	int x;                      //カーソル表示用のX座標
