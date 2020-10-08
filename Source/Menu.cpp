@@ -24,11 +24,16 @@ Menu::Menu(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	//UIフレームの色を初期設定
 	cursor[static_cast<int>(eMenuType::Game)] = Cursor::Cursor_3;
 	cursor[static_cast<int>(eMenuType::Option)] = Cursor::Cursor_0;
+	cursor[static_cast<int>(eMenuType::OperationExp)] = Cursor::Cursor_0;
 	cursor[static_cast<int>(eMenuType::Title)] = Cursor::Cursor_0;
 	cursor[static_cast<int>(eMenuType::GameExit)] = Cursor::Cursor_0;
 
-	//フェードカウントを初期化
-	fadeCnt = 0;
+	//文字の色を初期設定
+	color[static_cast<int>(eMenuType::Game)] = GetColor(255, 255, 255);
+	color[static_cast<int>(eMenuType::Option)] = GetColor(125, 125, 125);
+	color[static_cast<int>(eMenuType::OperationExp)] = GetColor(125, 125, 125);
+	color[static_cast<int>(eMenuType::Title)] = GetColor(125, 125, 125);
+	color[static_cast<int>(eMenuType::GameExit)] = GetColor(125, 125, 125);
 }
 
 /// <summary>
@@ -55,16 +60,32 @@ void Menu::Update() {
 		//シーンを切り替える
 		switch (selectMenu) {
 		case eMenuType::Game:
+			//決定SEを鳴らす
+			SE::Instance()->PlaySE(SE_Enter);
+
 			//キャラ選択画面へ
 			sceneChanger->SceneChange(eScene_CHARASELECT, parameter, true, false);
 			break;
 		case eMenuType::Option:
+			//決定SEを鳴らす
+			SE::Instance()->PlaySE(SE_Enter);
+
 			//オプション画面へ
 			sceneChanger->SceneChange(eScene_OPTION, parameter, true, false);
+			break;
+		case eMenuType::OperationExp:
+			//決定SEを鳴らす
+			SE::Instance()->PlaySE(SE_Enter);
+
+			//操作説明画面へ
+			sceneChanger->SceneChange(eScene_OPERATIONEXP, parameter, true, false);
 			break;
 		case eMenuType::Title:
 			//BGMを止める
 			BGM::Instance()->StopBGM(BGM_menu);
+
+			//キャンセルSEを鳴らす
+			SE::Instance()->PlaySE(SE_Cancel);
 
 			//タイトル画面へ
 			sceneChanger->SceneChange(eScene_TITLE, parameter, false, false);
@@ -87,25 +108,31 @@ UIの描画
 
 	//プレイ
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::Game)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, color[static_cast<int>(eMenuType::Game)],
 		static_cast<int>(cursor[static_cast<int>(eMenuType::Game)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "プレイ");
 
 	//オプション
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::Option)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, color[static_cast<int>(eMenuType::Option)],
 		static_cast<int>(cursor[static_cast<int>(eMenuType::Option)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "オプション");
 
+	//操作説明
+	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::OperationExp)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, color[static_cast<int>(eMenuType::OperationExp)],
+		static_cast<int>(cursor[static_cast<int>(eMenuType::OperationExp)]), eDrawType::Center,
+		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "操作説明");
+
 	//タイトルへ戻る
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::Title)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, color[static_cast<int>(eMenuType::Title)],
 		static_cast<int>(cursor[static_cast<int>(eMenuType::Title)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "タイトルへ戻る");
 
 	//ゲーム終了
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::GameExit)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, color[static_cast<int>(eMenuType::GameExit)],
 		static_cast<int>(cursor[static_cast<int>(eMenuType::GameExit)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "ゲーム終了");
 }
@@ -121,6 +148,7 @@ void Menu::SelectMenu(int _changeMode) {
 
 	//現在選択されてる項目のカーソルフレームを灰色に
 	cursor[static_cast<int>(selectMenu)] = Cursor::Cursor_0;
+	color[static_cast<int>(selectMenu)] = GetColor(125, 125, 125);
 
 	//切り替えモードがDOWNの場合
 	if (_changeMode == CURSOR_DOWN) {
@@ -147,4 +175,5 @@ void Menu::SelectMenu(int _changeMode) {
 
 	//現在選択されてる項目のカーソルフレームを青色に
 	cursor[static_cast<int>(selectMenu)] = Cursor::Cursor_3;
+	color[static_cast<int>(selectMenu)] = GetColor(255, 255, 255);
 }

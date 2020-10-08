@@ -9,10 +9,11 @@
 /// メニュータイプ
 /// </summary>
 enum class  eMenuType {
-	Game,		//ゲーム画面
-	Option,		//オプション画面
-	Title,		//タイトル画面
-	GameExit	//ゲーム終了
+	Game,			//ゲーム画面
+	Option,			//オプション画面
+	OperationExp,	//操作説明画面
+	Title,			//タイトル画面
+	GameExit		//ゲーム終了
 };
 
 /// <summary>
@@ -21,11 +22,12 @@ enum class  eMenuType {
 class Menu :public BaseScene {
 private:
 	const float UI_X = (GAME_WIDTH / 2);	//UIのx座標
-	const float UI_Y[4]{					//UIのy座標
-		(GAME_HEIHGT / 2) - 300,	//プレイ
-		(GAME_HEIHGT / 2) - 100,	//オプション
-		(GAME_HEIHGT / 2) + 100,	//タイトルへ戻る
-		(GAME_HEIHGT / 2) + 300		//ゲーム終了
+	const float UI_Y[5]{					//UIのy座標
+		(GAME_HEIHGT / 2) - 400,	//プレイ
+		(GAME_HEIHGT / 2) - 200,	//オプション
+		(GAME_HEIHGT / 2),
+		(GAME_HEIHGT / 2) + 200,	//タイトルへ戻る
+		(GAME_HEIHGT / 2) + 400		//ゲーム終了
 	};
 	const double UI_EXT[2]{					//UIの拡大率
 		1.5,	//x
@@ -35,8 +37,8 @@ private:
 	const int UI_FONTSIZE	= 100;			//UIのフォントサイズ
 
 	eMenuType selectMenu;	//選択された項目
-	Cursor cursor[4];		//カーソルの色
-	int fadeCnt;			//フェードカウント
+	Cursor cursor[5];		//カーソルの色
+	unsigned int color[5];	//文字の色
 
 	/// <summary>
 	/// 選択メニューを切り替える
