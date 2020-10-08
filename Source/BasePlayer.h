@@ -78,6 +78,10 @@ protected:
 	int stanTime;	                //プレイヤーのスタンタイム
 	int stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
 	int attackTime;                 //攻撃間隔
+	int star01X;                    //スタンスター①のx座標
+	int star01Y;                    //スタンスター①のy座標
+	int star02X;                    //スタンスター②のx座標
+	int star02Y;                    //スタンスター②のy座標
 
 	int graphNo;                    //画像番号                0,1:咲夜 2,3:フラン
 	int sakuyaAnim[4] = {2,2,3,3 }; //咲夜アニメーション順番
@@ -132,7 +136,7 @@ public:
 	void CharaAbility();   //スキル処理
 
 	//スタン処理
-	void Stan();           
+	void Stan(BuffManager* _bManager);           
 
 	void Set_x(float _x) { pos.x = _x; }                    //セッター
 	void Set_y(float _y) { pos.y = _y; }                    //セッター
