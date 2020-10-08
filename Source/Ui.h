@@ -28,7 +28,7 @@ private:
 	static const int HPGAUGE_Y = 50;
 	static const int HPGAUGE_X1 = 100;			//バーのｘ終点
 	static const int HPGAUGE_Y1 = 80;	
-	static const int REDGAUGE = 10;             //ゲージが赤になる値
+	static const int REDGAUGE = 10;             //エネミーの最大攻撃力が一発殴ったら0になる値
 	static const int MAX_DURABILTY = 100;		//メイン拠点最大体力
 	static const int MAX_SABDURABILTY = 25;		//サブ拠点最大体力
 

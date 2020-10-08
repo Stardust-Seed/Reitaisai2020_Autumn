@@ -47,7 +47,7 @@ void UI::Get_SubCastleDurability()
 			DrawBox(castleX[i] - 1, castleY[i] - 16, castleX[i] + 56, castleY[i] - 4, GetColor(0, 0, 0), FALSE);		//˜g
 			DrawBox(castleX[i], castleY[i] - 15, castleX[i] + 55, castleY[i] - 5, GetColor(190, 255, 190), TRUE);		//HPƒo[‚Ì˜gü(“h‚è’×‚µ)
 
-			if (SubCastleDurability[i] <= REDGAUGE)			//‚RŠ„ˆÈ‰º‚ÅHPƒQ[ƒW‚ªÔ‚É‚È‚é	
+			if (SubCastleDurability[i] <= REDGAUGE)			//HPƒQ[ƒW‚ªÔ‚É‚È‚é	
 			{
 				DrawBox(castleX[i], castleY[i] - 15, castleX[i] + 55 * SubCastleDurability[i] / MAX_SABDURABILTY, castleY[i] - 5, GetColor(255, 0, 0), TRUE);		//’Êí—pHPƒQ[ƒW(—Î)
 			}
@@ -168,7 +168,7 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 //•`‰æˆ—
 void UI::Draw()
 {
-	DrawBox(1450, 730, 1900, 1060, GetColor(200, 200, 200), TRUE);
+	DrawBox(1450, 730, 1920, 1080, GetColor(200, 200, 200), TRUE);
 	Get_CastleDurability();
 	Get_SubCastleDurability();
 	Get_BuffPoint();
