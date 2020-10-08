@@ -27,7 +27,7 @@ void Bomb::Update(BasePlayer* player)
 	//ƒvƒŒƒCƒ„[‚É“–‚½‚Á‚½‚çÁ‚¦‚é
 	if (isHit == true)
 	{
-		isSpown = false;
+		isSpawn = false;
 		isCount = false;
 		isTrigger = false;
 		isXplosion = false;
@@ -58,7 +58,7 @@ void Bomb::Update(BasePlayer* player)
 
 void Bomb::Draw()
 {
-	if (isSpown == true)
+	if (isSpawn == true)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 0), TRUE);
 	}
