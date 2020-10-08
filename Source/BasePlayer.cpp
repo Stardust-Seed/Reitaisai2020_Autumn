@@ -43,15 +43,19 @@ BasePlayer::BasePlayer(int _pType)
 		franTimer = 0;
 	}
 
+	star01X = pos.x - 5;                      //スタン時の☆のx座標
+	star01Y = pos.y - 10;                      //スタン時の☆のy座標
+	star02X = pos.x + 35;                      //スタン時の☆のx座標
+	star02Y = pos.y - 10;                      //スタン時の☆のy座標
 	stanTime = 0;				//スタンタイム
-	stanTime_stay = 360;		//スタン再発動までの時間
+	stanTime_stay = 0;		//スタン再発動までの時間
 
 	playerDirection = 0;			    //プレイヤーの向き。最初は左
 
 	isMove = false;				//移動している：true  移動していない：false
 	isAttack = false;           //攻撃してるかどうか
 	isStan = false;             //スタンしてるかどうか
-	isStan_Next = false;        //次のスタンが起きるかどうか
+	isStan_Next = true;        //次のスタンが起きるかどうか
 	isAbility = false;          //スキルが発動しているかどうか
 
 	animWait = ANIMETION_SPEED; //アニメーション速度
@@ -69,6 +73,7 @@ BasePlayer::~BasePlayer()
 }
 void BasePlayer::Draw()
 {
+
 	Draw_Ability(); //スキル演出
 
 	if (animLR == true)
@@ -83,7 +88,9 @@ void BasePlayer::Draw()
 	Draw_Arow();    //矢印描画
 
 	if (isStan == true) {
-		//ここで☆をピカピカさせます
+		//☆がピカピカさせます
+		Image::Instance()->TransparentGraph(star01X, star01Y, Image::Instance()->GetGraph(eImageType::Gpicture_Star), 255, true);
+		Image::Instance()->TransparentGraph(star02X, star02Y, Image::Instance()->GetGraph(eImageType::Gpicture_Star), 255, true);
 	}
 }
 void BasePlayer::Draw_Ability()
@@ -158,7 +165,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 		Stan(_bManager);
 	}
 	//スタンが解除されたら次にスタンが起こる時間をプラス
-	if (isStan == false)
+	if (isStan == false && isStan_Next == false)
 	{
 		stanTime = 0;
 		if (stanTime_stay < 240) {
@@ -171,9 +178,6 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 
 	}
 
-	float xx = pos.x + width;
-	float yy = pos.y + height;
-
 	if(Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1)
 	{
 		SE::Instance()->StopSE(SE_Stan);
@@ -185,21 +189,56 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 //プレイヤーのスタン処理
 void BasePlayer::Stan(BuffManager* _bManager)
 {
-	
-	//スタンタイムを加算
-	if (stanTime < 120) {
-		stanTime++;
-	}
 	//バフダウン
 	if (stanTime == 1)
 	{
 		SE::Instance()->PlaySE(SE_Stan, DX_PLAYTYPE_BACK);
 		_bManager->DownBuffLevel();  //バフレベルダウン
+		star01X = pos.x - 3;         //星の位置を設定
+		star01Y = pos.y - 10;        //星の位置を設定
+		star02X = pos.x + 35;        //星の位置を設定
+		star02Y = pos.y - 10;        //星の位置を設定
+	}
+
+	if (stanTime < 20)
+	{
+		star01X++; //右
+		star01Y--; //上
+		star02X--; //左
+		star02Y++; //下
+	}
+	else if (stanTime >= 20 && stanTime < 40)
+	{
+		star01X++; //右
+		star01Y++; //下
+		star02X--; //左
+		star02Y--; //上
+	}
+	else if (stanTime >= 40 && stanTime < 60)
+	{
+		star01X--; //左
+		star01Y++; //下
+		star02X++; //右
+		star02Y--; //上
+	}
+	else if (stanTime >= 60 && stanTime < 80)
+	{
+		star01X--; //左
+		star01Y--; //上
+		star02X++; //右
+		star02Y++; //下
+	}
+
+	//スタンタイムを加算
+	if (stanTime < 100) {
+		stanTime++;
 	}
 	//一定時間経過したらスタンを解除してスタンタイムをリセット
-	if (stanTime >= 120)
+	if (stanTime >= 100)
 	{
 		isStan = false;
+		isStan_Next = false;
+		stanTime_stay = 0;
 		SE::Instance()->StopSE(SE_Stan);
 	}
 }
