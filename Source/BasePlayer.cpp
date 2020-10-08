@@ -178,7 +178,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 //プレイヤーのスタン処理
 void BasePlayer::Stan(BuffManager* _bManager)
 {
-
+	
 	//スタンタイムを加算
 	if (stanTime < 120) {
 		stanTime++;
@@ -186,13 +186,14 @@ void BasePlayer::Stan(BuffManager* _bManager)
 	//バフダウン
 	if (stanTime == 1)
 	{
+		SE::Instance()->PlaySE(SE_Stan, DX_PLAYTYPE_BACK);
 		_bManager->DownBuffLevel();  //バフレベルダウン
 	}
 	//一定時間経過したらスタンを解除してスタンタイムをリセット
 	if (stanTime >= 120)
 	{
 		isStan = false;
-
+		SE::Instance()->StopSE(SE_Stan);
 	}
 }
 //当たり判定
@@ -281,11 +282,15 @@ void BasePlayer::onAbility()
 		{
 			if (playerType == SAKUYA)
 			{
+				//SEを鳴らす
+				SE::Instance()->PlaySE(SE_SakuyaAbility, DX_PLAYTYPE_BACK);
 				isAbility = true;
 				abilityCount -= 1;
 			}
 			if (playerType == FRAN && franAbility == false)
 			{
+				//SEを鳴らす
+				SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
 				//フランのスキル処理の為のフラグ
 				franAbility = true;
 			}
@@ -318,8 +323,6 @@ void BasePlayer::CharaAbility()
 	/***咲夜のスキル処理***/
 	if (Get_isAbility() == true && playerType == SAKUYA) {
 
-		//SEを鳴らす
-		SE::Instance()->PlaySE(SE_SakuyaAbility, DX_PLAYTYPE_BACK);
 		if (drawZoom <= 3)
 		{
 			drawZoom += 0.02;
@@ -346,8 +349,7 @@ void BasePlayer::CharaAbility()
 	/***フランスキル処理***/
 	if (Get_isAbility() == true && playerType == FRAN) {
 
-		//SEを鳴らす
-		SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
+
 		if (franTimer == 1) {    //フランのスキルは発動したらすぐ終了する
 			isAbility = false;
 			franTimer = 0;
