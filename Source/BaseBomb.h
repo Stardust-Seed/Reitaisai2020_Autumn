@@ -59,9 +59,10 @@ class BasePlayer;
 
 		bool isXplosion;				//爆発したかどうか
 		bool isTrigger;					//爆発してるかしてないか
-		bool isSpown;					//爆弾の生成したかどうか
+		bool isSpawn;					//爆弾の生成したかどうか
 		bool isCount;					//カウントダウンを表示させるため
 		bool isStopCount;
+		bool isAtack;
 		bool AnimationFlg;
 		bool isPAbility;
 		bool isHit;
@@ -79,8 +80,8 @@ class BasePlayer;
 		bool ClisionHit(float mx, float my, float mw, float mh,
 			float ox, float oy, float ow, float oh);
 
-		int GetPower() { return power; }							
-		bool GetIsTriggerFlg() { return isActive; }
+		int GetPower() { return power; }
+		bool GetIsTriggerFlg() { return isTrigger; }
 		virtual void Update(BasePlayer*) {}
 		virtual void Draw() {}
 	};

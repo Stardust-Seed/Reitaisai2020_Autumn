@@ -7,6 +7,7 @@ FakeBomb::FakeBomb(int _power, int _speed, eBombType _bombType)
 {
 	isFakeAction = false;
 	AnimationFlg = false;
+	power = _power;
 };
 
 //”š”­‚µ‚½‚Æ‚«‚Ìˆ—
@@ -32,7 +33,7 @@ void FakeBomb::Update(BasePlayer* player)
 
 	if (isHit == true)
 	{
-		isSpown = false;
+		isSpawn = false;
 		isCount = false;
 		isTrigger = false;
 		isXplosion = false;
@@ -65,7 +66,7 @@ void FakeBomb::Update(BasePlayer* player)
 void FakeBomb::Draw()
 {
 
-	if (isSpown == true)
+	if (isSpawn == true)
 	{
 		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 1), TRUE);
 	}

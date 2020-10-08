@@ -14,7 +14,7 @@ BaseBomb::BaseBomb(int _power, int _speed, eBombType _bombType)
 	countDown = COUNTMAX;						//カウントダウンのセット
 	
 	isActive = true;
-	isSpown = false;
+	isSpawn = false;
 	isXplosion = false;							//初期状態
 	isTrigger = false;
 
@@ -60,13 +60,13 @@ void BaseBomb::SpawnBomb()
 	//真
 	if (type == bomb)
 	{
-		isSpown = true;
+		isSpawn = true;
 	}
 
 	//偽
 	if (type == fakebomb)
 	{
-		isSpown = true;
+		isSpawn = true;
 	}
 
 }
@@ -166,22 +166,23 @@ void BaseBomb::JudgeTrigger()
 			isCount = false;
 			isTrigger = true;
 			isXplosion = false;
-			isSpown = false;
-
+			isSpawn = false;
 		}
 
 		if (type == fakebomb && isXplosion == true)						//爆発する
 		{
+			SE::Instance()->PlaySE(SE_Fake);
 			isCount = false;
 			isTrigger = true;
 			isXplosion = false;
-			isSpown = false;
+			isSpawn = false;
 		}
 	}
 
 	if (AnimationFlg == true)
 	{
 		SE::Instance()->StopSE(SE_bomb);
+		SE::Instance()->StopSE(SE_Fake);
 	}
 }
 
