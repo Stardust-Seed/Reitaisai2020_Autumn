@@ -28,7 +28,7 @@ void GameScene::Update()
 {
 
 	//•\Ž¦‚·‚é‚Ì‚ª‰œ‚Ì•û‚Ì“z‚ç
-	castleManager->Update(enemyManager);
+	castleManager->Update(enemyManager,eventManager);
 
 	//•\Ž¦‚·‚é‚Ì‚ª’†ŠÔ‚Ì“z‚ç
 	enemyManager->Update(castleManager, player, bulletManager, itemManager);
@@ -98,6 +98,7 @@ void GameScene::ChangeScene()
 	{
 		if (Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1)
 		{
+			SE::Instance()->PlaySE(SE_Enter);
 			sceneChanger->SceneChange(eScene_PAUSEMENU, parameter, true, false);
 		}
 	}
