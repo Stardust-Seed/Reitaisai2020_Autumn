@@ -27,17 +27,15 @@ private:
 		(GAME_HEIHGT / 2),			//Normal
 		(GAME_HEIHGT / 2) + 300		//Hard
 	};
-	const double UI_EXT = 1.0;				//UIの拡大率
-	const int UI_PAL = 255;					//UIのブレンドのパラメータ
-	const int UI_FONTSIZE = 100;			//UIのフォントサイズ
+	const double UI_EXT		= 1.0;	//UIの拡大率
+	const int UI_PAL		= 255;	//UIのブレンドのパラメータ
+	const int UI_FONTSIZE	= 100;	//UIのフォントサイズ
 
 	eLevelType selectLevel;	//選択されたレベル
 	Cursor cursor[3];		//カーソルの色
 	unsigned int color[3];	//文字の色
 	bool isClear[3];		//クリアフラグ
 	bool isChange;			//切り替えフラグ
-
-	int textWidth;			//テキストの横幅
 
 	/// <summary>
 	/// 選択レベルを切り替える
@@ -68,6 +66,10 @@ private:
 	/// <param name="_level">セットするレベル</param>
 	void SetIsClear(int _isClear, int _level);
 
+	/// <summary>
+	/// クリア表示する
+	/// </summary>
+	/// <param name="_level">表示するレベル</param>
 	void ClearDraw(eLevelType _level);
 public:
 	/// <summary>
