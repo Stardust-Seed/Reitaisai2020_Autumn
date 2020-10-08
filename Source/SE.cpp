@@ -40,7 +40,7 @@ void SE::Load()
 	seNum[SE_SakuyaAttack] = LoadSE("./res/Sound/SE/sakuya.wav");
 	seNum[SE_SakuyaAbility] = LoadSE("./res/Sound/SE/sakuya_ab.wav");
 	seNum[SE_FranAttack] = LoadSE("./res/Sound/SE/fran.wav");
-	seNum[SE_FranAbility] = LoadSE("./res/Sound/SE/fran_ab.wav");
+	seNum[SE_FranAbility] = LoadSE("./res/Sound/SE/furan_ab.wav");
 	seNum[SE_ItemGet] = LoadSE("./res/Sound/SE/pa1.wav");
 	seNum[SE_EnemyAttack] = LoadSE("./res/Sound/SE/punch-middle2.wav");
 	seNum[SE_EnemyDown] = LoadSE("./res/Sound/SE/down1.wav");
