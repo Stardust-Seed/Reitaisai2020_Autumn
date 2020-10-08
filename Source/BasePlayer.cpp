@@ -174,6 +174,13 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 	float xx = pos.x + width;
 	float yy = pos.y + height;
 
+	if(Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1)
+	{
+		SE::Instance()->StopSE(SE_Stan);
+		SE::Instance()->StopSE(SE_SakuyaAbility);
+		SE::Instance()->StopSE(SE_FranAbility);
+
+	}
 }
 //プレイヤーのスタン処理
 void BasePlayer::Stan(BuffManager* _bManager)
@@ -289,8 +296,7 @@ void BasePlayer::onAbility()
 			}
 			if (playerType == FRAN && franAbility == false)
 			{
-				//SEを鳴らす
-				SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
+		
 				//フランのスキル処理の為のフラグ
 				franAbility = true;
 			}
@@ -351,6 +357,8 @@ void BasePlayer::CharaAbility()
 
 
 		if (franTimer == 1) {    //フランのスキルは発動したらすぐ終了する
+			//SEを鳴らす
+			SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
 			isAbility = false;
 			franTimer = 0;
 			drawAngle = 0;
