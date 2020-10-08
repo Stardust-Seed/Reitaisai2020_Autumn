@@ -167,6 +167,12 @@ void CharaSelect::Draw_CharaName()
 
 	/**描画 前**/
 	//キャラクター名の表示
+
+	//影
+	DrawStringToHandle(562, 702, "十六夜 咲夜", GetColor(0, 0, 0),FontHandle::Instance()->Get_natumemozi_48_8());
+	DrawStringToHandle(1092, 702, "フランドール・Ｓ", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+
+	//真
 	DrawStringToHandle(560, 700, "十六夜 咲夜", color_Sakuya, FontHandle::Instance()->Get_natumemozi_48_8());
 	DrawStringToHandle(1090, 700, "フランドール・Ｓ", color_Fran, FontHandle::Instance()->Get_natumemozi_48_8());
 }
