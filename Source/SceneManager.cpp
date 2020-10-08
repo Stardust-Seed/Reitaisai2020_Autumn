@@ -50,7 +50,7 @@ void SceneManager::SceneChange(eScene _nextScene, Parameter* _parameter,
 	//ˆê‚Â‘O‚ÌƒV[ƒ“‚É‚·‚éˆ—
 	if (_isBack) {
 		scenes.pop();
-		nowScene = frontScene;
+		nowScene = _nextScene;
 		return;
 	}
 

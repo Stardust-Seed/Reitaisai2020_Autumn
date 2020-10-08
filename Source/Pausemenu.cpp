@@ -80,7 +80,7 @@ void Pausemenu::Update()
 			break;
 
 		case 1:													//‘€ìà–¾‚Ì€–Ú
-			//sceneChanger->SceneChange(eScene_OPERATIONEXP, parameter, true, false);
+			sceneChanger->SceneChange(eScene_OPERATIONEXP, parameter, true, false);
 			break;
 
 		case 2:													//ƒQ[ƒ€I—¹‚Ì€–Ú
