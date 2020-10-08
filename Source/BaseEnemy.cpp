@@ -7,6 +7,7 @@
 #include "BulletManager.h"
 #include "CastleManager.h"
 #include "Image.h"
+#include "SE.h"
 
 const float BaseEnemy::ENEMY_SPAWNXLEFT = 420;
 const float BaseEnemy::ENEMY_SPAWNYLEFT = (GAME_HEIHGT / 2) - (48 / 2);
@@ -257,6 +258,9 @@ void BaseEnemy::Move(bool _isAbility, int _abilityType) {
 void BaseEnemy::JudgeActive() {
 	//durability‚ª0ˆÈ‰º‚Ì‚Æ‚«
 	if (durability <= 0) {
+		//
+		SE::Instance()->PlaySE(SE_EnemyDown);
+
 		inactiveType = eInactiveType::Defeat;
 		isActive = false;
 	}
@@ -318,6 +322,10 @@ void BaseEnemy::AttackProc(float _cx,float _cy) {
 		attackCnt = 0;
 		attackType = eAttackType::None;
 		return;
+	}
+
+	if (attackCnt == 30) {
+		SE::Instance()->PlaySE(SE_EnemyAttack);
 	}
 
 	//•ûŒü‚ª¶‰E‚Ìê‡
