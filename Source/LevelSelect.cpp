@@ -96,12 +96,19 @@ void LevelSelect::Update() {
 		//メニューのBGMを止める
 		BGM::Instance()->StopBGM(BGM_menu);
 
+		//決定SEを鳴らす
+		SE::Instance()->PlaySE(SE_Enter);
+
 		//シーンをゲームシーンに切り替える
 		sceneChanger->SceneChange(eScene_GAME, parameter, false, false);
 	}
 
 	//xキーが押されたとき
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
+
+		//キャンセルSEを鳴らす
+		SE::Instance()->PlaySE(SE_Cancel);
+
 		sceneChanger->SceneChange(eScene_CHARASELECT, parameter, false, true);
 	}
 }
