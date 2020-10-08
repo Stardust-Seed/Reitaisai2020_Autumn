@@ -16,18 +16,21 @@ class TimeLimit;
 class UI
 {
 private:
-	static const int HPMOJI_X = 0;				//文字のｘ
-	static const int HPMOJI_Y = 10;				
-	static const int HPBAR_X = 50;				//枠のｘ始点
-	static const int HPBAR_Y = 10;		
-	static const int HPBAR_X1 = 50;				//枠のｘ終点
-	static const int HPBAR_Y1 = 10;
-	static const int HPGAUGE_X = 50;			//バーのｘ始点
-	static const int HPGAUGE_Y = 10;
-	static const int HPGAUGE_X1 = 50;			//バーのｘ終点
-	static const int HPGAUGE_Y1 = 10;	
+	static const int HPMOJI_X = 20;				//文字のｘ
+	static const int HPMOJI_Y = 25;				//文字のy
+	static const int HP_X = 250;				//HPの数値x
+	static const int HP_Y = 15;					//HPの数値y
+	static const int HPBAR_X = 70;				//枠のｘ始点
+	static const int HPBAR_Y = 50;		
+	static const int HPBAR_X1 = 370;			//枠のｘ終点
+	static const int HPBAR_Y1 = 80;
+	static const int HPGAUGE_X = 70;			//バーのｘ始点
+	static const int HPGAUGE_Y = 50;
+	static const int HPGAUGE_X1 = 100;			//バーのｘ終点
+	static const int HPGAUGE_Y1 = 80;	
+	static const int REDGAUGE = 10;             //エネミーの最大攻撃力が一発殴ったら0になる値
 	static const int MAX_DURABILTY = 100;		//メイン拠点最大体力
-	static const int MAX_SABDURABILTY = 25;	//サブ拠点最大体力
+	static const int MAX_SABDURABILTY = 25;		//サブ拠点最大体力
 
 	static const int PMOJI_X = 1700;			//文字のｘ
 	static const int PMOJI_Y = 800;
@@ -55,19 +58,19 @@ private:
 	static const int SGAUGE_X1 = 1830;			//バーのｘ終点
 	static const int SGAUGE_Y1 = 1050;
 
-	const int MAX_BUFF = 15;				//バフゲージの最大数
+	const int MAX_BUFF = 15;					//バフゲージの最大数
 
-	static const int SKILLBAR_X = 0;				//枠のｘ始点
+	static const int SKILLBAR_X = 0;			//枠のｘ始点
 	static const int SKILLBAR_Y = 160;
-	static const int SKILLBAR_X1 = 0;			   //枠のｘ終点
+	static const int SKILLBAR_X1 = 0;			//枠のｘ終点
 	static const int SKILLBAR_Y1 = 160;
-	static const int SKILLGAUGE_X = 0;			   //バーのｘ始点
+	static const int SKILLGAUGE_X = 0;			//バーのｘ始点
 	static const int SKILLGAUGE_Y = 160;
-	static const int SKILLGAUGE_X1 = 0;			   //バーのｘ終点
+	static const int SKILLGAUGE_X1 = 0;			//バーのｘ終点
 	static const int SKILLGAUGE_Y1 = 160;
 
 	const int MAX_SAKUYATIME = 5;				//咲夜さんの時止め最大タイム
-	const int MAX_FRANTIME = 3;				//フランさんの殲滅最大タイム
+	const int MAX_FRANTIME = 3;					//フランさんの殲滅最大タイム
 
 	int percent;					//パーセント
 	int CastleDurability;			//拠点の体力
@@ -87,12 +90,12 @@ private:
 
 	float pX;						//プレイヤーのx座標
 	float pY;						//プレイヤーのy座標
-	float castleX[5];					//拠点のx座標
-	float castleY[5];					//拠点のy座標
+	float castleX[5];				//拠点のx座標
+	float castleY[5];				//拠点のy座標
 
-	bool isActive[5];
-	bool skillActive;
-	bool skillFran;
+	bool isActive[5];				//サブ拠点がActive状態であるか
+	bool skillActive;				//スキルが発動してるか
+	bool skillFran;					//フランさんのすきるが発動してるか
 
 
 public:

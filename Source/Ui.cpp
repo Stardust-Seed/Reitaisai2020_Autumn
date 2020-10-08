@@ -6,13 +6,13 @@ void UI::Get_CastleDurability()
 {
 	DrawBox(10, 5, 380, 120, GetColor(200, 200, 200), TRUE);		//後ろに敷く用
 
-	DrawFormatStringToHandle(HPMOJI_X + 20, HPMOJI_Y + 15, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "HP");						//HPという文字を表示するため
+	DrawFormatStringToHandle(HPMOJI_X, HPMOJI_Y, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "HP");						//HPという文字を表示するため
 
-	DrawFormatStringToHandle(HPMOJI_X + 250, HPMOJI_Y + 5, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(),
+	DrawFormatStringToHandle(HP_X, HP_Y, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(),
 		"%d/%d", CastleDurability, MAX_DURABILTY);
 
-	DrawBox(HPBAR_X + 19, HPBAR_Y + 39, HPBAR_X1 + 321, HPBAR_Y1 + 61, GetColor(0, 0, 0), FALSE);				//HPバーの枠線(白)
-	DrawBox(HPBAR_X + 20, HPBAR_Y + 40, HPBAR_X1 + 320, HPBAR_Y1 + 60, GetColor(190, 255, 190), TRUE);			//HPバーの枠線(塗りつぶし)
+	DrawBox(HPBAR_X - 1, HPBAR_Y - 1, HPBAR_X1 + 1, HPBAR_Y1 + 1, GetColor(0, 0, 0), FALSE);				//HPバーの枠線(白)
+	DrawBox(HPBAR_X, HPBAR_Y, HPBAR_X1, HPBAR_Y1, GetColor(190, 255, 190), TRUE);							//HPバーの枠線(塗りつぶし)
 
 	percent = MAX_DURABILTY / 3;				//ピンチ時にHPゲージを赤色にするための割合(３割)
 
@@ -23,11 +23,11 @@ void UI::Get_CastleDurability()
 
 	if (CastleDurability <= percent)			//３割以下でHPゲージが赤になる	
 	{
-		DrawBox(HPGAUGE_X + 20, HPGAUGE_Y + 40, HPGAUGE_X1 + 320 * CastleDurability / MAX_DURABILTY, HPGAUGE_Y1 + 60, GetColor(255, 0, 0), TRUE);		//ピンチ用HPゲージ(赤）
+		DrawBox(HPGAUGE_X, HPGAUGE_Y, HPGAUGE_X1 + 270 * CastleDurability / MAX_DURABILTY, HPGAUGE_Y1, GetColor(255, 0, 0), TRUE);		//ピンチ用HPゲージ(赤）
 	}
 	else
 	{
-		DrawBox(HPGAUGE_X + 20, HPGAUGE_Y + 40, HPGAUGE_X1 + 320 * CastleDurability / MAX_DURABILTY, HPGAUGE_Y1 + 60, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+		DrawBox(HPGAUGE_X, HPGAUGE_Y, HPGAUGE_X1 + 270 * CastleDurability / MAX_DURABILTY, HPGAUGE_Y1, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
 	}
 }
 
@@ -40,78 +40,22 @@ void UI::Get_SubCastleDurability()
 		{
 			SubCastleDurability[i] = 0;
 		}
-	}
 
-	//サブ拠点1(左）
-	DrawBox(HPMOJI_X + 10, HPMOJI_Y + 200, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
+		//サブ拠点HP
+		if (isActive[i] == true)
+		{
+			DrawBox(castleX[i] - 1, castleY[i] - 16, castleX[i] + 56, castleY[i] - 4, GetColor(0, 0, 0), FALSE);		//枠
+			DrawBox(castleX[i], castleY[i] - 15, castleX[i] + 55, castleY[i] - 5, GetColor(190, 255, 190), TRUE);		//HPバーの枠線(塗り潰し)
 
-	DrawString(HPMOJI_X + 20, HPMOJI_Y + 200, "HP1", GetColor(255, 255, 255));							//HPという文字を表示するため
-
-
-	DrawBox(HPBAR_X, HPBAR_Y + 200, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 200, GetColor(190, 255, 190), FALSE);
-	DrawBox(HPBAR_X, HPBAR_Y + 200, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 200, GetColor(190, 255, 190), TRUE);		//HPバーの枠線(塗り潰し)
-
-	if (isActive[1] == true)
-	{
-		DrawBox(HPGAUGE_X, HPGAUGE_Y + 200, HPGAUGE_X1 + 75 * SubCastleDurability[1] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 200, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
-	}
-	else
-	{
-		DrawString(HPGAUGE_X + 20, HPGAUGE_Y + 200, "破壊", GetColor(0, 0, 0));						//破壊という文字を表示するため
-	}
-
-	//サブ拠点2(右)
-	DrawBox(HPMOJI_X + 190, HPMOJI_Y + 200, HPMOJI_X + 180 + HPBAR_X, HPMOJI_Y + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-	DrawString(HPMOJI_X + 200, HPMOJI_Y + 200, "HP2", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-	DrawBox(HPBAR_X + 180, HPBAR_Y + 200, (HPBAR_X1 + 180 + 400) / 2, HPBAR_Y1 + 15 + 200, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
-	DrawBox(HPBAR_X + 180, HPBAR_Y + 200, (HPBAR_X1 + 180 + 400) / 2, HPBAR_Y1 + 15 + 200, GetColor(190, 255, 190), TRUE);		//HPバーの枠線(塗りつぶし)
-
-	if (isActive[2] == true)
-	{
-		DrawBox(HPGAUGE_X + 180, HPGAUGE_Y + 200, HPGAUGE_X1 + 180 + 85 * SubCastleDurability[2] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 200, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
-	}
-	else
-	{
-		DrawString(HPGAUGE_X + 200, HPGAUGE_Y + 200, "破壊", GetColor(0, 0, 0));						//破壊という文字を表示するため
-	}
-
-	//サブ拠点3(上)
-	DrawBox(HPMOJI_X + 10, HPMOJI_Y + 250, HPMOJI_X + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-	DrawString(HPMOJI_X + 20, HPMOJI_Y + 250, "HP3", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-	DrawBox(HPBAR_X, HPBAR_Y + 250, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
-	DrawBox(HPBAR_X, HPBAR_Y + 250, (HPBAR_X1 + 200) / 2, HPBAR_Y1 + 15 + 250, GetColor(190, 255, 190), TRUE);		//HPバーの枠線(塗りつぶし)
-
-	if (isActive[3] == true)
-	{
-		DrawBox(HPGAUGE_X, HPGAUGE_Y + 250, HPGAUGE_X1 + 75 * SubCastleDurability[3] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 250, GetColor(0, 255, 0), TRUE);		    //通常用HPゲージ(緑)
-	}
-	else
-	{
-		DrawString(HPGAUGE_X + 20, HPGAUGE_Y + 250, "破壊", GetColor(0, 0, 0));						//HPという文字を表示するため
-	}
-
-	//サブ拠点4(下)
-	DrawBox(HPMOJI_X + 190, HPMOJI_Y + 250, HPMOJI_X + 180 + HPBAR_X, HPMOJI_Y + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPという文字を表示するための枠
-
-	DrawString(HPMOJI_X + 200, HPMOJI_Y + 250, "HP4", GetColor(255, 255, 255));						//HPという文字を表示するため
-
-	DrawBox(HPBAR_X + 180, HPBAR_Y + 250, (HPBAR_X1 + 180 + 400) / 2, HPBAR_Y1 + 15 + 250, GetColor(255, 255, 255), FALSE);		//HPバーの枠線(白)
-
-	DrawBox(HPBAR_X + 180, HPBAR_Y + 250, (HPBAR_X1 + 180 + 400) / 2, HPBAR_Y1 + 15 + 250, GetColor(190, 255, 190), TRUE);		//HPバーの枠線(塗りつぶし)
-
-	if (isActive[4] == true)
-	{
-		DrawBox(HPGAUGE_X + 180, HPGAUGE_Y + 250, HPGAUGE_X1 + 180 + 85 * SubCastleDurability[4] / MAX_SABDURABILTY, HPGAUGE_Y1 + 15 + 250, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
-	}
-	else
-	{
-		DrawString(HPGAUGE_X + 200, HPGAUGE_Y + 250, "破壊", GetColor(0, 0, 0));						//破壊という文字を表示するため
+			if (SubCastleDurability[i] <= REDGAUGE)			//HPゲージが赤になる	
+			{
+				DrawBox(castleX[i], castleY[i] - 15, castleX[i] + 55 * SubCastleDurability[i] / MAX_SABDURABILTY, castleY[i] - 5, GetColor(255, 0, 0), TRUE);		//通常用HPゲージ(緑)
+			}
+			else
+			{
+				DrawBox(castleX[i], castleY[i] - 15, castleX[i] + 55 * SubCastleDurability[i] / MAX_SABDURABILTY, castleY[i] - 5, GetColor(0, 255, 0), TRUE);		//通常用HPゲージ(緑)
+			}
+		}
 	}
 }
 
@@ -171,7 +115,7 @@ void UI::AbilityUi()
 		DrawBox(pX, pY, pX + 50 * skillClock / MAX_SAKUYATIME, pY - 5, GetColor(0, 255, 255), TRUE);			//ゲージ
 	}
 
-	//フランさんの殲滅(追加用）
+	//フランさんの殲滅
 	if (skillType == FRAN_Ability && skillFran == true)
 	{
 		DrawBox(pX, pY, pX + 50, pY - 5, GetColor(255, 255, 255), FALSE);									    //枠
@@ -201,8 +145,8 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 	{
 		SubCastleDurability[i] = _castlemanager->Get_Durability(i);
 		isActive[i] = _castlemanager->Get_IsActive(i);
-		//castleX[i] = _castlemanager->Get_DrawPosX(i);		
-		//castleY[i] = _castlemanager->Get_DrawPosY(i);			
+		castleX[i] = _castlemanager->Get_DrawPosX(i);		
+		castleY[i] = _castlemanager->Get_DrawPosY(i);			
 	}
 
 	//スキル関連
@@ -224,7 +168,7 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 //描画処理
 void UI::Draw()
 {
-	DrawBox(1450, 730, 1900, 1060, GetColor(200, 200, 200), TRUE);
+	DrawBox(1450, 730, 1920, 1080, GetColor(200, 200, 200), TRUE);
 	Get_CastleDurability();
 	Get_SubCastleDurability();
 	Get_BuffPoint();
