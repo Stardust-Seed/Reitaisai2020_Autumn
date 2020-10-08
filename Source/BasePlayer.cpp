@@ -140,7 +140,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 		speed = 3 * _bManager->GetSpeedBuff();   //バフによるスピード増加
 	}
 	//スタン状態でない時
-	if (isStan == 0) {
+	if (isStan == false) {
 
 		Move();        //移動処理
 		Attack();      //攻撃処理
@@ -155,30 +155,34 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 			{
 				if (_eManager->Get_AttackType(i) != eAttackType::Invasion)
 				{
-					isStan = true;   //スタンは少ししてから解除されるので
+					if (isStan_Next == true) {
+						isStan = true;   //スタンは少ししてから解除されるので
+					}
 				}
 			}
 		}
 	}
-	if (isStan == true && isStan_Next == true)
+	if (isStan == true)
 	{
 		Stan(_bManager);
 	}
 	//スタンが解除されたら次にスタンが起こる時間をプラス
-	if (isStan == false && isStan_Next == false)
+	if (isStan_Next == false)
 	{
-		stanTime = 0;
 		if (stanTime_stay < 240) {
 			stanTime_stay++;
 		}
-	}
-	if (stanTime_stay >= 360)
-	{
-		isStan_Next = true;
+		if (stanTime_stay >= 240)
+		{
+			isStan_Next = true;
+			stanTime_stay = 0;
+
+		}
 
 	}
 
-	if(Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1)
+
+	if (Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1)
 	{
 		SE::Instance()->StopSE(SE_Stan);
 		SE::Instance()->StopSE(SE_SakuyaAbility);
@@ -189,6 +193,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 //プレイヤーのスタン処理
 void BasePlayer::Stan(BuffManager* _bManager)
 {
+
 	//バフダウン
 	if (stanTime == 1)
 	{
@@ -236,9 +241,10 @@ void BasePlayer::Stan(BuffManager* _bManager)
 	//一定時間経過したらスタンを解除してスタンタイムをリセット
 	if (stanTime >= 100)
 	{
-		isStan = false;
-		isStan_Next = false;
+		stanTime = 0;
 		stanTime_stay = 0;
+		isStan_Next = false;
+		isStan = false;
 		SE::Instance()->StopSE(SE_Stan);
 	}
 }
@@ -335,7 +341,7 @@ void BasePlayer::onAbility()
 			}
 			if (playerType == FRAN && franAbility == false)
 			{
-		
+
 				//フランのスキル処理の為のフラグ
 				franAbility = true;
 			}
