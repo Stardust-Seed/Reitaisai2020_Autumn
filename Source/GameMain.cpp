@@ -39,13 +39,15 @@ bool GameMain::GameLoop() {
 
 	if (nowScene == eScene_TITLE || nowScene == eScene_MENU || nowScene == eScene_CHARASELECT ||
 		nowScene == eScene_LEVELSELECT || nowScene == eScene_PAUSEMENU ||
-		nowScene == eScene_CLAER || nowScene == eScene_GAMEOVER || nowScene == eScene_OPTION) {
+		nowScene == eScene_CLAER || nowScene == eScene_GAMEOVER || nowScene == eScene_OPTION ||
+		nowScene == eScene_OPERATIONEXP) {
 		DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
 	}
 
 	if (nowScene == eScene_MENU || nowScene == eScene_CHARASELECT ||
 		nowScene == eScene_LEVELSELECT || nowScene == eScene_PAUSEMENU ||
-		nowScene == eScene_CLAER || nowScene == eScene_GAMEOVER || nowScene == eScene_OPTION) {
+		nowScene == eScene_CLAER || nowScene == eScene_GAMEOVER || nowScene == eScene_OPTION ||
+		nowScene == eScene_OPERATIONEXP) {
 		//シーンに入った際だけフェードイン処理を行う
 		if (fadeCnt != 60 + 1) {
 			fadeCnt = Image::Instance()->FadeInGraph(0.0f, 0.0f,
