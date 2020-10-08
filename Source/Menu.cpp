@@ -27,6 +27,12 @@ Menu::Menu(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	cursor[static_cast<int>(eMenuType::Title)] = Cursor::Cursor_0;
 	cursor[static_cast<int>(eMenuType::GameExit)] = Cursor::Cursor_0;
 
+	//文字の色を初期設定
+	color[static_cast<int>(eMenuType::Game)] = GetColor(255, 255, 255);
+	color[static_cast<int>(eMenuType::Option)] = GetColor(125, 125, 125);
+	color[static_cast<int>(eMenuType::Title)] = GetColor(125, 125, 125);
+	color[static_cast<int>(eMenuType::GameExit)] = GetColor(125, 125, 125);
+
 	//フェードカウントを初期化
 	fadeCnt = 0;
 }
@@ -96,25 +102,25 @@ UIの描画
 
 	//プレイ
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::Game)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, color[static_cast<int>(eMenuType::Game)],
 		static_cast<int>(cursor[static_cast<int>(eMenuType::Game)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "プレイ");
 
 	//オプション
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::Option)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, color[static_cast<int>(eMenuType::Option)],
 		static_cast<int>(cursor[static_cast<int>(eMenuType::Option)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "オプション");
 
 	//タイトルへ戻る
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::Title)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, color[static_cast<int>(eMenuType::Title)],
 		static_cast<int>(cursor[static_cast<int>(eMenuType::Title)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "タイトルへ戻る");
 
 	//ゲーム終了
 	DrawUIGraph(UI_X, UI_Y[static_cast<int>(eMenuType::GameExit)], UIFRAME_WIDTH, UIFRAME_HEIGHT,
-		UI_EXT[0], UI_EXT[1], 0, UI_PAL, GetColor(255, 255, 255),
+		UI_EXT[0], UI_EXT[1], 0, UI_PAL, color[static_cast<int>(eMenuType::GameExit)],
 		static_cast<int>(cursor[static_cast<int>(eMenuType::GameExit)]), eDrawType::Center,
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "ゲーム終了");
 }
@@ -130,6 +136,7 @@ void Menu::SelectMenu(int _changeMode) {
 
 	//現在選択されてる項目のカーソルフレームを灰色に
 	cursor[static_cast<int>(selectMenu)] = Cursor::Cursor_0;
+	color[static_cast<int>(selectMenu)] = GetColor(125, 125, 125);
 
 	//切り替えモードがDOWNの場合
 	if (_changeMode == CURSOR_DOWN) {
@@ -156,4 +163,5 @@ void Menu::SelectMenu(int _changeMode) {
 
 	//現在選択されてる項目のカーソルフレームを青色に
 	cursor[static_cast<int>(selectMenu)] = Cursor::Cursor_3;
+	color[static_cast<int>(selectMenu)] = GetColor(255, 255, 255);
 }

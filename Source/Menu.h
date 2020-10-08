@@ -36,6 +36,7 @@ private:
 
 	eMenuType selectMenu;	//選択された項目
 	Cursor cursor[4];		//カーソルの色
+	unsigned int color[4];	//文字の色
 	int fadeCnt;			//フェードカウント
 
 	/// <summary>
