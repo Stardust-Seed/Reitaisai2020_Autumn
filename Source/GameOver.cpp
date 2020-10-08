@@ -86,16 +86,18 @@ void GameOver::Draw()
 	switch (charaType)
 	{
 	case 0:
+		DrawStringToHandle(GAME_WIDTH - 500+1, GAME_HEIHGT - 340+1, text4, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 		DrawStringToHandle(GAME_WIDTH - 500, GAME_HEIHGT - 340, text4, GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 
-		DrawStringToHandle(GAME_WIDTH / 13+3, GAME_HEIHGT - 260+3, text5, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+		DrawStringToHandle(GAME_WIDTH / 13+2, GAME_HEIHGT - 260+2, text5, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 		DrawStringToHandle(GAME_WIDTH / 13, GAME_HEIHGT - 260, text5, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_64_8());
 		break;
 
 	case 1:
-		DrawStringToHandle(GAME_WIDTH - 632, GAME_HEIHGT - 340, text6, GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+		DrawStringToHandle(GAME_WIDTH - 520+1 , GAME_HEIHGT - 340+1, text6, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+		DrawStringToHandle(GAME_WIDTH - 520, GAME_HEIHGT - 340, text6, GetColor(255, 64, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 
-		DrawStringToHandle(GAME_WIDTH / 13+3, GAME_HEIHGT - 260+3, text7, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
+		DrawStringToHandle(GAME_WIDTH / 13+2, GAME_HEIHGT - 260+2, text7, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 		DrawStringToHandle(GAME_WIDTH / 13, GAME_HEIHGT - 260, text7, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_64_8());
 		break;
 
@@ -164,10 +166,11 @@ void GameOver::Select()
 		}
 	}
 
-	//Enterキーが押された時の処理
+	//Zキーが押された時の処理
 	{
 		if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1 && waitTimer >= 150)
 		{
+			SE::Instance()->PlaySE(SE_Enter);
 			BGM::Instance()->StopBGM(BGM_result);
 			//カーソルの場所によって行うシーン変更処理を決める
 			switch (nowCursor)
