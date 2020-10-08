@@ -2,6 +2,8 @@
 #include <cmath>
 #include "BaseItem.h"
 
+#include "SE.h"
+
 BaseItem::BaseItem(float _x, float _y, float _width, float _height, eItem _itemType) {
 	x = _x;
 	y = _y;
@@ -46,6 +48,9 @@ void BaseItem::Move(float _px, float _py) {
 void BaseItem::CheckIsActive() {
 	//オブジェクトがhit状態のとき
 	if (isHit == true) {
+		//アイテム取得SEを鳴らす
+		SE::Instance()->PlaySE(SE_ItemGet);
+
 		isActive = false;
 	}
 }
