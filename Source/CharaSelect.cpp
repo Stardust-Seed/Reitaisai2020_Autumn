@@ -11,7 +11,7 @@ CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter) :B
 	selectChara = SelectCharacter::select_SAKUYA;
 
 	color = GetColor(128,128,128); //灰色
-	color_Sakuya = GetColor(255, 255, 255); //白
+	color_Sakuya = GetColor(255, 64, 0); //白
 	color_Fran = GetColor(128, 128, 128);   //灰色
 
 	//UIフレームの色を初期設定
