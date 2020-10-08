@@ -17,6 +17,7 @@ enum eScene
 	eScene_PAUSEMENU,		//ポーズメニュー
 	eScene_CHARASELECT,		//キャラ選択画面
 	eScene_LEVELSELECT,		//難易度選択画面
+	eScene_OPERATIONEXP		//操作説明画面
 };
 
 class BaseScene {
