@@ -18,7 +18,7 @@ void Title::Update()
 	Move();
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
 	{
-		SE::Instance()->PlaySE(SE_cursor);
+		SE::Instance()->PlaySE(SE_Enter);
 		BGM::Instance()->StopBGM(BGM_title);
 		sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
 	}
@@ -79,7 +79,7 @@ void Title::Move()
 	}
 	else
 	{
-		deg += 0.5f;
+		deg += 1;
 		//•¶š‚ª•‚‚©‚Ñã‚ª‚é‚æ‚¤‚É‚·‚é
 		if (alpha < 255)
 		{
