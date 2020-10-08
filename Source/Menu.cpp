@@ -54,9 +54,6 @@ void Menu::Update() {
 
 	//zキーを入力された場合
 	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) {
-		//SEを鳴らす
-		SE::Instance()->PlaySE(SE_cursor);
-
 		//シーンを切り替える
 		switch (selectMenu) {
 		case eMenuType::Game:
