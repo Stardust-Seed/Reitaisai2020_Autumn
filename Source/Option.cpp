@@ -61,11 +61,11 @@ void Option::Update() {
 		SE::Instance()->VolumeSE(seVolume);
 		BGM::Instance()->Set_Volume(bgmVolume);
 		SE::Instance()->Set_Volume(seVolume);
-		SE::Instance()->PlaySE(SE_cursor);
+		SE::Instance()->PlaySE(SE_Enter);
 	}
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
-		SE::Instance()->PlaySE(SE_cursor);
+		SE::Instance()->PlaySE(SE_Cancel);
 		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
 	}
 
