@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "MainCastle.h"
 #include "EnemyManager.h"
+#include "EventManager.h"
 
 //コンストラクタ
 MainCastle::MainCastle(int _durability)
@@ -15,7 +16,7 @@ MainCastle::MainCastle(int _durability)
 
 }
 
-void MainCastle::Update(EnemyManager* enemy)
+void MainCastle::Update(EnemyManager* enemy,EventManager* event)
 {
     for (int num = 0; num < enemy->Get_enemyNum(); num++)
     {
@@ -34,6 +35,12 @@ void MainCastle::Update(EnemyManager* enemy)
         isHit = false;
     }
 
+    //Bombイベント処理
+    if (event->Get_BombType() == 1 && event->Get_IsActive() == true)
+    {
+        durability -= event->Get_Power();
+    }
+   
     //耐久の処理
     if (durability <= 0)
     {

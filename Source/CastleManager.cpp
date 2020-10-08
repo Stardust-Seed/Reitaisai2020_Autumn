@@ -38,14 +38,21 @@ CastleManager::~CastleManager() {
 }
 
 //XVˆ—
-void CastleManager::Update(EnemyManager*_enemy)
+void CastleManager::Update(EnemyManager*_enemy,EventManager* _event)
 {
 
 	for (int i = 0; i < POPCASTLE; i++)
 	{
 		if (Castles[i] != NULL)
 		{
-			Castles[i]->Update(_enemy);
+			if (i == 0)
+			{
+				Castles[i]->Update(_enemy,_event);
+			}
+			else
+			{
+				Castles[i]->Update(_enemy);
+			}
 
 			if (Castles[i]->GetIsActive() == false && i != 0)
 			{

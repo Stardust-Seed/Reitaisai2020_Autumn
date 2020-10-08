@@ -13,6 +13,7 @@
 --------------------------------------------------------------*/
 
 class EnemyManager;
+class EventManager;
 
 class MainCastle:public virtual BaseCastle{
 
@@ -21,7 +22,7 @@ private:
 public:
 	 MainCastle(int);
 
-	 void Update(EnemyManager*);                     //更新処理
+	 void Update(EnemyManager*,EventManager*);                     //更新処理
 	 void Draw();                                    //描画処理
 };
 
