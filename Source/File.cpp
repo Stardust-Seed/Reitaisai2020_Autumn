@@ -5,8 +5,8 @@
 /// </summary>
 File::File() {
 	//ファイルを開く
-	LoadFile(FILE_PATH[0], eOpenType::Int);
-	LoadFile(FILE_PATH[1], eOpenType::Int);
+	LoadFile("./res/File/ConfigFile.bin", eOpenType::Int);
+	LoadFile("./res/File/ClearData.bin", eOpenType::Int);
 }
 
 /// <summary>
@@ -14,8 +14,8 @@ File::File() {
 /// </summary>
 File::~File() {
 	//ファイルを書き込む
-	WriteFile(FILE_PATH[0], eOpenType::Int, eFileType::Config, 2);
-	WriteFile(FILE_PATH[1], eOpenType::Int, eFileType::Clear, 3);
+	WriteFile("./res/File/ConfigFile.bin", eOpenType::Int, eFileType::Config, 2);
+	WriteFile("./res/File/ClearData.bin", eOpenType::Int, eFileType::Clear, 3);
 }
 
 /// <summary>
@@ -25,21 +25,26 @@ File::~File() {
 /// <param name="_type">開くタイプ</param>
 void File::LoadFile(const char* _filePath, eOpenType _type) {
 	FILE* fp;		//ファイルポインタ
-	char buf[256];	//バッファ
 	int count = 0;	//カウンタ
+	int buf[100];
 
 	//ファイルを開く
-	fopen_s(&fp, _filePath, "r");
+	fopen_s(&fp, _filePath, "rb");
 	if (fp == NULL) {
 		exit(EXIT_FAILURE);
 	}
 
-	//ファイルを1行ごとにsavebufに格納する
-	while (fgets(buf, BUF_SIZE, fp) != NULL) {
-		//ファイルの開くモードがIntの場合
+	//ファイルを読み込む
+	while (!feof(fp)) {
+		//読み込みタイプがint型のとき
 		if (_type == eOpenType::Int) {
-			datas.push_back(atoi(buf));
+			fread(&buf[count], sizeof(int), 1, fp);
 		}
+		count++;
+	}
+
+	for (int i = 0; i < count - 1; i++) {
+		datas.push_back(buf[i]);
 	}
 
 	//ファイルを閉じる
@@ -57,7 +62,7 @@ void File::WriteFile(const char* _filePath, eOpenType _type, eFileType _fileType
 	FILE* fp;	//ファイルポインタ
 
 	//ファイルを開く
-	fopen_s(&fp,_filePath, "w");
+	fopen_s(&fp,_filePath, "wb");
 	if (fp == NULL) {
 		exit(EXIT_FAILURE);
 	}
@@ -66,7 +71,7 @@ void File::WriteFile(const char* _filePath, eOpenType _type, eFileType _fileType
 	for (int i = 0; i < _num; i++) {
 		//ファイルの開くモードがIntの場合
 		if (_type == eOpenType::Int) {
-			fprintf_s(fp, "%d\n", datas[static_cast<int>(_fileType) + i]);
+			fwrite(&datas[static_cast<int>(_fileType) + i], sizeof(int), 1, fp);
 		}
 	}
 
