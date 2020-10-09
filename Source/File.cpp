@@ -26,7 +26,7 @@ File::~File() {
 void File::LoadFile(const char* _filePath, eOpenType _type) {
 	FILE* fp;		//ファイルポインタ
 	int count = 0;	//カウンタ
-	int buf = 0;
+	int buf[100];
 
 	//ファイルを開く
 	fopen_s(&fp, _filePath, "rb");
@@ -38,10 +38,13 @@ void File::LoadFile(const char* _filePath, eOpenType _type) {
 	while (!feof(fp)) {
 		//読み込みタイプがint型のとき
 		if (_type == eOpenType::Int) {
-			fread(&buf, sizeof(int), 1, fp);
-			datas.push_back(buf);
+			fread(&buf[count], sizeof(int), 1, fp);
 		}
 		count++;
+	}
+
+	for (int i = 0; i < count - 1; i++) {
+		datas.push_back(buf[i]);
 	}
 
 	//ファイルを閉じる
