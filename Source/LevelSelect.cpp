@@ -237,34 +237,34 @@ void LevelSelect::ClearDraw(eLevelType _level) {
 		switch (_level) {
 		case eLevelType::Easy:
 			//‰e‚Ì•`‰æ
-			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
+			DrawStringFToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
 				(UI_Y[static_cast<int>(eLevelType::Easy)] - (UIFRAME_HEIGHT / 2)) + 3,
 				"Clear", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 
 			//•¶Žš‚Ì•`‰æ
-			DrawStringToHandle((UI_X - UIFRAME_WIDTH / 2),
+			DrawStringFToHandle((UI_X - UIFRAME_WIDTH / 2),
 				UI_Y[static_cast<int>(eLevelType::Easy)] - (UIFRAME_HEIGHT / 2), "Clear",
 				GetColor(255, 255, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 			break;
 		case eLevelType::Normal:
 			//‰e‚Ì•`‰æ
-			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
+			DrawStringFToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
 				(UI_Y[static_cast<int>(eLevelType::Normal)] - (UIFRAME_HEIGHT / 2)) + 3,
 				"Clear", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 
 			//•¶Žš‚Ì•`‰æ
-			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)),
+			DrawStringFToHandle((UI_X - (UIFRAME_WIDTH / 2)),
 				UI_Y[static_cast<int>(eLevelType::Normal)] - (UIFRAME_HEIGHT / 2), "Clear",
 				GetColor(255, 255, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 			break;
 		case eLevelType::Hard:
 			//‰e‚Ì•`‰æ
-			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
+			DrawStringFToHandle((UI_X - (UIFRAME_WIDTH / 2)) + 3,
 				(UI_Y[static_cast<int>(eLevelType::Hard)] - (UIFRAME_HEIGHT / 2)) + 3,
 				"Clear", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 
 			//•¶Žš‚Ì•`‰æ
-			DrawStringToHandle((UI_X - (UIFRAME_WIDTH / 2)),
+			DrawStringFToHandle((UI_X - (UIFRAME_WIDTH / 2)),
 				UI_Y[static_cast<int>(eLevelType::Hard)] - (UIFRAME_HEIGHT / 2),
 				"Clear", GetColor(255, 255, 0), FontHandle::Instance()->Get_natumemozi_64_8());
 			break;
