@@ -21,7 +21,7 @@ private:
 	const TCHAR* text4 = "十六夜 咲夜";
 	const TCHAR* text5 = "これは...\n今度から美鈴には大きな休暇を与えておくわね...";
 	const TCHAR* text6 = "フランドール・S";
-	const TCHAR* text7 = "う～ん...もっとキュッとしてドカーンってしたかった～";
+	const TCHAR* text7 = "う～ん...もっとお外で遊びたかった～";
 	Cursor nowCursor;           //現在選択中のカーソル
 	int x;                      //カーソル表示用のX座標
 	int alpha;                  //透明度
