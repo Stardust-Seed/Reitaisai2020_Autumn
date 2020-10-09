@@ -48,14 +48,15 @@ BasePlayer::BasePlayer(int _pType)
 	star02X = pos.x + 35;                      //スタン時の☆のx座標
 	star02Y = pos.y - 10;                      //スタン時の☆のy座標
 	stanTime = 0;				//スタンタイム
-	stanTime_stay = 0;		//スタン再発動までの時間
+	stanTime_stay = 0;		    //スタン再発動までの時間
 
-	playerDirection = 0;			    //プレイヤーの向き。最初は左
+	playerDirection = 0;	    //プレイヤーの向き。最初は左
 
+	isDraw = true;              //true:描画ON false:描画OFF
 	isMove = false;				//移動している：true  移動していない：false
 	isAttack = false;           //攻撃してるかどうか
 	isStan = false;             //スタンしてるかどうか
-	isStan_Next = true;        //次のスタンが起きるかどうか
+	isStan_Next = true;         //次のスタンが起きるかどうか
 	isAbility = false;          //スキルが発動しているかどうか
 
 	animWait = ANIMETION_SPEED; //アニメーション速度
@@ -75,18 +76,24 @@ void BasePlayer::Draw()
 {
 
 	Draw_Ability(); //スキル演出
-
-	if (animLR == true)
-	{
-		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo));
-	}
-	else
-	{
-		Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo), 255, true);
-	}
-
 	Draw_Arow();    //矢印描画
 
+	/***プレイヤー描画処理***/
+	if (isDraw == true)
+	{
+		//左向き
+		if (animLR == true)
+		{
+			Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo));
+		}
+		//右向き
+		else
+		{
+			Image::Instance()->TransparentGraph(pos.x, pos.y, Image::Instance()->GetGraph(eImageType::Gpicture_Player, graphNo), 255, true);
+		}
+	}
+
+	//スタン中の演出
 	if (isStan == true) {
 		//☆がピカピカさせます
 		Image::Instance()->TransparentGraph(star01X, star01Y, Image::Instance()->GetGraph(eImageType::Gpicture_Star), 255, true);
@@ -95,6 +102,8 @@ void BasePlayer::Draw()
 }
 void BasePlayer::Draw_Ability()
 {
+
+	//幻世「ザ・ワールド」
 
 	if ((Get_isAbility() == true && playerType == SAKUYA) || Get_FranAbility() == true)
 	{
@@ -153,7 +162,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 			if (ClisionHit(Get_x() + 6, Get_y(), Get_width() - 6, Get_height(),
 				_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
 			{
-				if (_eManager->Get_AttackType(i) != eAttackType::Invasion)
+				if (_eManager->Get_AttackType(i) != eAttackType::Invasion && _eManager->Get_InactiveType(i) != eInactiveType::Invasion )
 				{
 					if (isStan_Next == true) {
 						isStan = true;   //スタンは少ししてから解除されるので
@@ -162,9 +171,14 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 			}
 		}
 	}
+	//スタン処理
 	if (isStan == true)
 	{
 		Stan(_bManager);
+	}
+	if (isStan_Next == true)
+	{
+		isDraw = true;
 	}
 	//スタンが解除されたら次にスタンが起こる時間をプラス
 	if (isStan_Next == false)
@@ -177,6 +191,16 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 			isStan_Next = true;
 			stanTime_stay = 0;
 
+		}
+
+		//無敵時の点滅処理
+		if (stanTime_stay % 15 == 0)
+		{
+			isDraw = false;
+		}
+		else
+		{
+			isDraw = true;
 		}
 
 	}
@@ -456,7 +480,7 @@ void BasePlayer::Move()
 
 	}
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_DOWN) <= 0) && (Input::Instance()->GetPressCount(KEY_INPUT_UP) <= 0) &&
-		(Input::Instance()->GetPressCount(KEY_INPUT_LEFT) <= 0) && (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) <= 0))
+		(Input::Instance()->GetPressCount(KEY_INPUT_LEFT) <= 0) && (Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) <= 0))
 	{
 		isMove = false; //移動してないときはフラグをfalseにする
 	}
@@ -466,7 +490,7 @@ void BasePlayer::Move()
 //上に移動する処理
 void BasePlayer::Move_UP()
 {
-	if (pos.y >= 426 && (pos.x <= 846 || pos.x >= 1026))
+	if (pos.y >= 426 && (pos.x <= 846 || pos.x >= 1020))
 	{
 		pos.y -= speed;
 		Animation();
@@ -476,7 +500,7 @@ void BasePlayer::Move_UP()
 //下へ移動する処理
 void BasePlayer::Move_DOWN()
 {
-	if (pos.y <= 606 && (pos.x <= 846 || pos.x >= 1026))
+	if (pos.y <= 606 && (pos.x <= 846 || pos.x >= 1020))
 	{
 		pos.y += speed;
 		Animation();
@@ -495,7 +519,7 @@ void BasePlayer::Move_LEFT()
 //右へ移動する処理
 void BasePlayer::Move_RIGHT()
 {
-	if (pos.x <= 1026 && (pos.y <= 426 || pos.y >= 606))
+	if (pos.x <= 1020 && (pos.y <= 426 || pos.y >= 606))
 	{
 		pos.x += speed;
 		Animation();
