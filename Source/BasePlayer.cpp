@@ -344,6 +344,7 @@ void BasePlayer::onAbility()
 
 				//フランのスキル処理の為のフラグ
 				franAbility = true;
+				abilityCount -= 1;
 			}
 		}
 	}
