@@ -8,6 +8,7 @@
 #include "SE.h"
 
 class EnemyManager;
+class BasePlayer;
 
 class SukimaEvent : public virtual BaseEvent {
 private:
@@ -44,6 +45,10 @@ private:
 	//自然消滅用カウント
 	int deleteCnt;
 
+	//時止め時用のフラグ
+
+	bool sakuyaSkill;
+
 	//アニメーション再生用
 	bool popFlg;
 	bool deleteFlg;
@@ -59,7 +64,7 @@ private:
 public:
 	SukimaEvent();
 	~SukimaEvent();
-	void Update(EnemyManager*);		//更新
+	void Update(EnemyManager*,BasePlayer*);		//更新
 	void Draw();	            	//描画
 	void Animation();               //アニメーション
 	//当たり判定

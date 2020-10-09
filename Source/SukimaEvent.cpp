@@ -21,6 +21,8 @@ SukimaEvent::SukimaEvent() {
 	warpAnimationCnt = 0;
 	popAnimationCnt = 0;
 
+	sakuyaSkill = false;
+
 	type = GetRand(3);    //乱数取得
 
 	//座標設定
@@ -62,89 +64,97 @@ SukimaEvent::~SukimaEvent() {
 
 }
 //更新
-void SukimaEvent::Update(EnemyManager* enemy)
+void SukimaEvent::Update(EnemyManager* enemy,BasePlayer* player)
 {
-	//当たり判定
-	for (int num = 0; num < enemy->Get_enemyNum(); num++)
+	if (player->Get_isAbility() == true && player->Get_AbilityType() == SAKUYA)
 	{
-		if (enemy->Get_ActiveFlg(num) == true && animationFlg == false &&
-			deleteFlg == false && popFlg == false )
-	    {
-			hitNum = num;
-			ClisionHit(x,y,width,height,
-				enemy->Get_x(num), enemy->Get_y(num),
-				enemy->Get_width(num),enemy->Get_height(num));
-		}
-		//当たったらワープ(ランダムな方向に)
-		if (isHit == true)
-		{
-			SE::Instance()->PlaySE(SE_sukimaWarp);
-			animationFlg = true;
-			warpAnimationCnt = 0;
-			int _type = GetRand(3);
-
-			if (type == _type)return;
-
-			switch (_type)
-			{
-			case 0:    //左側
-				enemy->Set_x(hitNum, LEFT_X - width + 16);
-				enemy->Set_y(hitNum, LEFT_Y - height * 0.5f);
-				enemy->Set_direction(hitNum, eDirection::Left);
-				warpPosX = LEFT_X;
-				warpPosY = LEFT_Y;
-				break;
-
-			case 1:    //右側
-				enemy->Set_x(hitNum, RIGHT_X - width + 16);
-				enemy->Set_y(hitNum, RIGHT_Y - height * 0.5f);
-				enemy->Set_direction(hitNum, eDirection::Right);
-				warpPosX = RIGHT_X;
-				warpPosY = RIGHT_Y;
-				break;
-
-			case 2:    //上側
-				enemy->Set_x(hitNum, UP_X - width * 0.5f);
-				enemy->Set_y(hitNum, UP_Y - height + 16);
-				enemy->Set_direction(hitNum, eDirection::Up);
-				warpPosX = UP_X;
-				warpPosY = UP_Y;
-				break;
-
-			case 3:    //下側
-				enemy->Set_x(hitNum, DOWN_X - width * 0.5f);
-				enemy->Set_y(hitNum, DOWN_Y - height + 16);
-				enemy->Set_direction(hitNum, eDirection::Down);
-				warpPosX = DOWN_X;
-				warpPosY = DOWN_Y;
-				break;
-
-			default:
-				break;
-			}
-			isHit = false;
-			deleteFlg = true;
-		}
-	}
-
-	//一定時間たったら自然消滅させる
-	if (deleteCnt < 700 && animationFlg == false)
-	{
-		deleteCnt++;
+		sakuyaSkill = true;
 	}
 	else
 	{
-		deleteFlg = true;
-		animationFlg = true;
-		if (popAnimationCnt > 0)
+		sakuyaSkill = false;
+		//当たり判定
+		for (int num = 0; num < enemy->Get_enemyNum(); num++)
 		{
-			popAnimationCnt--;
-		}
-	}
+			if (enemy->Get_ActiveFlg(num) == true && animationFlg == false &&
+				deleteFlg == false && popFlg == false)
+			{
+				hitNum = num;
+				ClisionHit(x, y, width, height,
+					enemy->Get_x(num), enemy->Get_y(num),
+					enemy->Get_width(num), enemy->Get_height(num));
+			}
+			//当たったらワープ(ランダムな方向に)
+			if (isHit == true)
+			{
+				SE::Instance()->PlaySE(SE_sukimaWarp);
+				animationFlg = true;
+				warpAnimationCnt = 0;
+				int _type = GetRand(3);
 
-	if (deleteCnt == 700 && popAnimationCnt == 0)
-	{
-		isActive = false;
+				if (type == _type)return;
+
+				switch (_type)
+				{
+				case 0:    //左側
+					enemy->Set_x(hitNum, LEFT_X - width + 16);
+					enemy->Set_y(hitNum, LEFT_Y - height * 0.5f);
+					enemy->Set_direction(hitNum, eDirection::Left);
+					warpPosX = LEFT_X;
+					warpPosY = LEFT_Y;
+					break;
+
+				case 1:    //右側
+					enemy->Set_x(hitNum, RIGHT_X - width + 16);
+					enemy->Set_y(hitNum, RIGHT_Y - height * 0.5f);
+					enemy->Set_direction(hitNum, eDirection::Right);
+					warpPosX = RIGHT_X;
+					warpPosY = RIGHT_Y;
+					break;
+
+				case 2:    //上側
+					enemy->Set_x(hitNum, UP_X - width * 0.5f);
+					enemy->Set_y(hitNum, UP_Y - height + 16);
+					enemy->Set_direction(hitNum, eDirection::Up);
+					warpPosX = UP_X;
+					warpPosY = UP_Y;
+					break;
+
+				case 3:    //下側
+					enemy->Set_x(hitNum, DOWN_X - width * 0.5f);
+					enemy->Set_y(hitNum, DOWN_Y - height + 16);
+					enemy->Set_direction(hitNum, eDirection::Down);
+					warpPosX = DOWN_X;
+					warpPosY = DOWN_Y;
+					break;
+
+				default:
+					break;
+				}
+				isHit = false;
+				deleteFlg = true;
+			}
+		}
+
+		//一定時間たったら自然消滅させる
+		if (deleteCnt < 700 && animationFlg == false)
+		{
+			deleteCnt++;
+		}
+		else
+		{
+			deleteFlg = true;
+			animationFlg = true;
+			if (popAnimationCnt > 0)
+			{
+				popAnimationCnt--;
+			}
+		}
+
+		if (deleteCnt == 700 && popAnimationCnt == 0)
+		{
+			isActive = false;
+		}
 	}
 }
 //描画
@@ -187,8 +197,10 @@ void SukimaEvent::Animation()
 	//最初のアニメーションが終わっているとき
 	if (popFlg == false)
 	{
-		warpAnimationCnt++;
-
+		if (sakuyaSkill != true)
+		{
+			warpAnimationCnt++;
+		}
 		if (animation[warpAnimationCnt] == 1)
 		{
 			DrawGraphF(warpPosX - width / 2 - addSize / 2, warpPosY - height / 2 - addSize / 2, Image::Instance()->GetGraph(eImageType::Gpicture_Sukima, 1), TRUE);
@@ -213,7 +225,7 @@ void SukimaEvent::Animation()
 		//自然消滅のする時のアニメーション
 		if (deleteFlg == true)
 		{
-			if (popAnimationCnt > 0)
+			if (popAnimationCnt > 0	&& sakuyaSkill != true)
 			{
 				popAnimationCnt--;
 			}
@@ -246,7 +258,10 @@ void SukimaEvent::Animation()
 		//生成されたときのアニメーション
 		if (deleteFlg == false)
 		{
-			popAnimationCnt++;
+			if (sakuyaSkill != true)
+			{
+				popAnimationCnt++;
+			}
 
 			if (animation[popAnimationCnt] == 0)
 			{
