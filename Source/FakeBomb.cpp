@@ -2,15 +2,15 @@
 #include "FakeBomb.h"
 #include "Image.h"
 
-FakeBomb::FakeBomb(int _power, int _speed, eBombType _bombType)
+//コンストラクタ
+FakeBomb::FakeBomb(int _power, float _speed, eBombType _bombType)
 	: BaseBomb(_power, _speed, _bombType)
 {
 	isFakeAction = false;
 	AnimationFlg = false;
-	power = _power;
 };
 
-//爆発したときの処理
+//偽爆発したときの処理
 void FakeBomb::FakeMotion()
 {
 	//偽爆弾が起動
@@ -25,13 +25,14 @@ void FakeBomb::FakeMotion()
 	}
 }
 
+//更新
 void FakeBomb::Update(BasePlayer* player)
 {
-	pType = player->Get_AbilityType();
+	pType = player->Get_AbilityType();		//プレイヤタイプを受け取る
 
-	isPAbility = player->Get_isAbility();
+	isPAbility = player->Get_isAbility();	//時止めの発動してるかを受け取る
 
-	if (isHit == true)
+	if (isHit == true)						//プレイヤーと当たったら
 	{
 		isSpawn = false;
 		isCount = false;
@@ -46,11 +47,10 @@ void FakeBomb::Update(BasePlayer* player)
 			SpawnBomb();
 		}
 
-		if (isPAbility == false)
+		if (isPAbility == false)		//咲夜さんのスキルが発動してなかったら動く
 		{
 			Move();
 		}
-
 
 		JudgeTrigger();
 		SkillStop();
@@ -63,50 +63,52 @@ void FakeBomb::Update(BasePlayer* player)
 	}
 }
 
+//描画
 void FakeBomb::Draw()
 {
 
-	if (isSpawn == true)
+	if (isSpawn == true)			//生成開始
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 1), TRUE);
+		DrawGraphF(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 1), TRUE);
 	}
 
-	if (isCount == true)
+	if (isCount == true)			//通常カウント
 	{
 		JudgeTrigger();
 	}
 
-	if (isStopCount == true)
+	if (isStopCount == true)		//時止めカウント
 	{
 		SkillStop();
 	}
 
-	if (AnimationFlg == true)
+	if (AnimationFlg == true)		//アニメーション開始
 	{
 		isFakeAction = false;
 		Animation();
 	}
 }
 
+//アニメーション
 void FakeBomb::Animation()
 {
 	m_frameIndex++;
-	m_frameIndex %= 18;
 
 	if (fake_Animation[m_frameIndex] == 0)
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 0), TRUE);
+		DrawGraphF(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 0), TRUE);
 	}
 
 	if (fake_Animation[m_frameIndex] == 1)
 	{
-		DrawGraph(x, y - 10, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 1), TRUE);
+		DrawGraphF(x, y - 10.0f, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 1), TRUE);
 	}
 	if (fake_Animation[m_frameIndex] == 2)
 	{
-		DrawGraph(x, y - 30, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 2), TRUE);
+		DrawGraphF(x, y - 30.0f, Image::Instance()->GetGraph(eImageType::Gpicture_FakeBomb, 2), TRUE);
 	}
 
+	//アニメーション終了
 	if (fake_Animation[m_frameIndex] == 3)
 	{
 		AnimationFlg = false;

@@ -2,24 +2,20 @@
 #define _BOMB_H
 
 #include "BaseBomb.h"
-#include "BasePlayer.h"
 
 class BasePlayer;
 
 class Bomb : public virtual BaseBomb {
 private:
-	const int BOMBDAMAGE = 10;
 	
-	
-	int bomb_Animation[21] = { 0, 1, 1, 2, 2, 3, 3, 3, 4, 4,
-		                      4, 5, 5, 4, 4, 3, 3, 2, 1, 0, 6 };    // 表示する番号
-	
+	int bomb_Animation[25] = { 0, 0, 1, 1, 1, 2, 2, 2, 3, 3,
+		                      4, 5, 5, 4, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 6 };    // 表示する番号
 	
 public:
 	Bomb() = default;
-	Bomb(int _power, int _speed, eBombType _bombType);
-	void Animation();
-	void DamageMotion();
+	Bomb(int _power, float _speed, eBombType _bombType);
+	void Animation();		//アニメーション
+	void DamageMotion();	//爆破したときの処理
 	void Update(BasePlayer*player);
 	void Draw();
 };

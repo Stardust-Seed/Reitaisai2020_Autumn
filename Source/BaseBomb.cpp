@@ -2,51 +2,55 @@
 #include "BaseBomb.h"
 
 //コンストラクタ
-BaseBomb::BaseBomb(int _power, int _speed, eBombType _bombType)
+BaseBomb::BaseBomb(int _power, float _speed, eBombType _bombType)
 {
-	SRand;
 	speed = _speed;
 	power = _power;
 	type = _bombType;
-	
+
 	direction = GetRand(3);					//方向の乱数
 	
-	countDown = COUNTMAX;						//カウントダウンのセット
+	countDown = COUNTMAX;					//カウントダウンのセット
 	
-	isActive = true;
+	isActive = true;						//初期状態
 	isSpawn = false;
-	isXplosion = false;							//初期状態
+	isXplosion = false;	
 	isTrigger = false;
+	isCount = false;
+	isStopCount = false;
+	isHit = false;
+	isPAbility = false;
+	AnimationFlg = false;
 
-	if (direction == DIRECTIONLEFT)			//左
+	if (direction == DIRECTIONLEFT)			//斜め左
 	{
 		x = BOMB_SPOWNLEFTHX;
 		y = BOMB_SPOWNLEFTY;
 	}
 
-	if (direction == DIRECTIONRIGHT)		//右
+	if (direction == DIRECTIONRIGHT)		//斜め右
 	{
 		x = BOMB_SPOWNRIGHTX;
 		y = BOMB_SPOWNRIGHTY;
 	}
 
-	if (direction == DIRECTIONUP)			//上
+	if (direction == DIRECTIONUP)			//斜め上
 	{
 		x = BOMB_SPOWNUPX;
 		y = BOMB_SPOWNUPY;
 	}
 
-	if (direction == DIRECTIONDOWN)			//下
+	if (direction == DIRECTIONDOWN)			//斜め下
 	{
 		x = BOMB_SPOWNDOWNX;
 		y = BOMB_SPOWNDOWNY;
 	}
 
-	cx = x + (width / 2);
-	cy = y + (height / 2);
+	cx = x + (width / 2);					//中心x
+	cy = y + (height / 2);					//中心y
 
-	width = 50;
-	height = 50;
+	width = 50.0f;							//幅
+	height = 50.0f;							//高さ
 }
 
 BaseBomb::~BaseBomb() 
@@ -68,7 +72,6 @@ void BaseBomb::SpawnBomb()
 	{
 		isSpawn = true;
 	}
-
 }
 
 //爆弾落下
@@ -143,35 +146,35 @@ void BaseBomb::JudgeTrigger()
 	{
 		isCount = true;
 
-
+		//カウント開始
 		if (isCount == true)
 		{
 			//カウントダウン
-			DrawFormatStringToHandle(x + 5, y - 50, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", countDown / FRAME);
+			DrawFormatStringToHandle(x + 5.0f, y - 50.0f, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", countDown / FRAME);
 			if (countDown <= FRAME)
 			{
-				isXplosion = true;                        //フラグ切替
+				isXplosion = true;							//フラグ切替
 			}
 
 			if (countDown >= 0)
-			{											//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
-				countDown -= 1;							//カウントダウン
+			{												//表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
+				countDown -= 1;								//カウントダウン
 			}
 		}
 
 
-		if (type == bomb && isXplosion == true)						//爆発する
+		if (type == bomb && isXplosion == true)				//爆発する
 		{
-			SE::Instance()->PlaySE(SE_bomb);		 //爆発のSEが出る
+			SE::Instance()->PlaySE(SE_bomb);				//爆発のSEが出る
 			isCount = false;
 			isTrigger = true;
 			isXplosion = false;
 			isSpawn = false;
 		}
 
-		if (type == fakebomb && isXplosion == true)						//爆発する
+		if (type == fakebomb && isXplosion == true)			//爆発する
 		{
-			SE::Instance()->PlaySE(SE_Fake);
+			SE::Instance()->PlaySE(SE_Fake);				//爆破失敗のSE
 			isCount = false;
 			isTrigger = true;
 			isXplosion = false;
@@ -179,6 +182,7 @@ void BaseBomb::JudgeTrigger()
 		}
 	}
 
+	//アニメーション開始時にSE止める
 	if (AnimationFlg == true)
 	{
 		SE::Instance()->StopSE(SE_bomb);
@@ -186,25 +190,23 @@ void BaseBomb::JudgeTrigger()
 	}
 }
 
+//時止め処理
 void BaseBomb::SkillStop()
 {
 	if (pType == SAKUYA_Ability)
 	{
 		
-		if (isPAbility == true)
+		if (isPAbility == true && speed == 0)
 		{
 			isStopCount = true;
-
-			sTime = countDown / FRAME;
+			tX = x + 5;
+			tY = y - 50;
+			sTime = countDown / FRAME;		//時止め時に現在のカウントダウンを変数に入れる
     		
-			if (speed == 0)
-			{
-				DrawFormatStringToHandle(x + 5, y - 50, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", sTime);
-			}
+			DrawFormatStringToHandle(tX, tY, GetColor(255, 255, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", sTime);
 		}
 	}
 }
-
 
 //当たり判定
 bool BaseBomb::ClisionHit(float mx, float my, float mw, float mh,

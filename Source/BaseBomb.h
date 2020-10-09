@@ -3,11 +3,10 @@
 
 #include "Define.h"
 #include "BaseEvent.h"
-#include "CastleManager.h"
 #include "BasePlayer.h"
 #include "FontHandle.h"
+#include "SE.h"
 
-class castleManager;
 class BasePlayer;
 
 	enum eBombType
@@ -28,60 +27,58 @@ class BasePlayer;
 		const float BOMB_SPOWNRIGHTY = GAME_HEIHGT / 0 + 867;				//右y	
 		const float BOMB_SPOWNLEFTY = GAME_HEIHGT / 0 + 202;				//左y	
 
+		//方向(斜めから飛んでくる上下左右)
 		const int DIRECTIONLEFT = 0;
 		const int DIRECTIONRIGHT = 1;
 		const int DIRECTIONUP = 2;
 		const int DIRECTIONDOWN = 3;
 
-		const int MAX_TYPE_NUM = 2;
+		static const int COUNT = 3;									//実際のカウントダウン
+		static const int COUNTMAX = FRAME * (COUNT + 1) - 1;		//フレーム
 
-		static const int COUNT = 10;								//実際のカウントダウン
-		static const int COUNTMAX = FRAME * (COUNT + 1) - 1;
-
-		float speed;					//爆弾が落下するスピード
+		float speed = 0;					//爆弾が落下するスピード
 		float x;
 		float y;
-		float cx;
-		float cy;
-		float width;
-		float height;
-		int sx;
-		int sy;
-		int time;
-		int power;						//爆弾のダメージ
-		int damage;
-		int countDown;					//カウントダウン
-		int direction;					//爆弾が落ちる方向
-		int type;						//爆弾の種類
-		int pType;
-		int sTime;
-		int m_frameIndex = 0;
+		float cx;						//中心x
+		float cy;						//中心y
+		float width;					//幅
+		float height;					//高さ
+
+		int tX = 0;						//タイマーのx
+		int tY = 0;						//タイマーのy
+		int time = 0;					//爆発するまでのタイム
+		int power = 0;					//爆弾のダメージ								
+		int countDown = 0;				//カウントダウン
+		int direction = 0;				//爆弾が落ちる方向
+		int pType = 0;					//咲夜さんかどうか
+		int sTime  = 0;					//時止め時のストップタイム
+		int m_frameIndex = 0;			//アニメションのフレーム
+		eBombType type;					//爆弾の種類
 
 		bool isXplosion;				//爆発したかどうか
 		bool isTrigger;					//爆発してるかしてないか
 		bool isSpawn;					//爆弾の生成したかどうか
 		bool isCount;					//カウントダウンを表示させるため
-		bool isStopCount;
-		bool isAtack;
-		bool AnimationFlg;
-		bool isPAbility;
-		bool isHit;
+		bool isStopCount;				//カウントをストップさせるための判定
+		bool AnimationFlg;				//アニメションの開始させる判定
+		bool isPAbility;				//プレイヤーのスキルが発動したか判定
+		bool isHit;						//プレイヤーが爆弾に当たったかの判定
 
 	public:
 		BaseBomb() {}
 		~BaseBomb();
-		BaseBomb(int _power, int _speed, eBombType _bombType);
+		BaseBomb(int _power, float _speed, eBombType _bombType);
 
 		void SpawnBomb();								//爆弾の生成
 		void JudgeTrigger();							//爆発したかの判定
 		void Move();									//爆弾の落下
-		void SkillStop();
+		void SkillStop();								//時止め時
 
 		bool ClisionHit(float mx, float my, float mw, float mh,
 			float ox, float oy, float ow, float oh);
 
-		int GetPower() { return power; }
-		bool GetIsTriggerFlg() { return isTrigger; }
+		int GetPower() { return power; }				//爆弾のダメージを受け取る
+		bool GetIsTriggerFlg() { return isTrigger; }	//爆発したかを受け取る
 		virtual void Update(BasePlayer*) {}
 		virtual void Draw() {}
 	};
