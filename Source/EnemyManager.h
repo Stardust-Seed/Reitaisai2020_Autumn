@@ -88,6 +88,8 @@ public:
 
 	eAttackType Get_AttackType(int);		//アタックタイプのゲッター
 
+	eInactiveType Get_InactiveType(int);	//非アクティブタイプのゲッター
+
 	eDirection Get_direction(int);		//directionのゲッター
 
 	int Get_Power(int);				//攻撃力を受け取る

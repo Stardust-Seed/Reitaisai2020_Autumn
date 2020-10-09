@@ -273,6 +273,13 @@ eAttackType EnemyManager::Get_AttackType(int num) {
 	return eAttackType::None;
 }
 
+eInactiveType EnemyManager::Get_InactiveType(int num) {
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->GetInactiveType();
+	}
+	return eInactiveType::None;
+}
+
 eDirection EnemyManager::Get_direction(int num) {
 	if (Enemys[num] != NULL) {
 		return Enemys[num]->GetDirection();
