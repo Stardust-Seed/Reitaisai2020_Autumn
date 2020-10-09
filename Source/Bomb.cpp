@@ -2,7 +2,8 @@
 #include "Bomb.h"
 #include "Image.h"
 
-Bomb::Bomb(int _power, int _speed, eBombType _bombType)
+//コンストラクタ
+Bomb::Bomb(int _power, float _speed, eBombType _bombType)
 	: BaseBomb(_power, _speed, _bombType)
 {
 	AnimationFlg = false;
@@ -11,18 +12,19 @@ Bomb::Bomb(int _power, int _speed, eBombType _bombType)
 //爆発したときの処理
 void Bomb::DamageMotion()
 {
-	if (isTrigger == true)
+	if (isTrigger == true)		//爆破してる状態
 	{
 		AnimationFlg = true;
 		isTrigger = false;
 	}
 }
 
+//更新
 void Bomb::Update(BasePlayer* player)
 {
-	pType = player->Get_AbilityType();
+	pType = player->Get_AbilityType();			//プレイヤタイプを受け取る
 
-	isPAbility = player->Get_isAbility();
+	isPAbility = player->Get_isAbility();		//時止めの発動してるかを受け取る
 
 	//プレイヤーに当たったら消える
 	if (isHit == true)
@@ -33,6 +35,7 @@ void Bomb::Update(BasePlayer* player)
 		isXplosion = false;
 		isActive = false;
 	}
+	//プレイヤーに当たってないとき
 	else
 	{
 		if (type == bomb)
@@ -40,7 +43,7 @@ void Bomb::Update(BasePlayer* player)
 			SpawnBomb();
 		}
 
-		if (isPAbility == false)
+		if (isPAbility == false)		//スキルが発動してないとき
 		{
 			Move();
 		}
@@ -56,62 +59,66 @@ void Bomb::Update(BasePlayer* player)
 	}
 }
 
+//描画
 void Bomb::Draw()
 {
-	if (isSpawn == true)
+	if (isSpawn == true)			//生成開始
 	{
-		DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 0), TRUE);
+		DrawGraphF(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb, 0), TRUE);
 	}
 
-	if (isCount == true)
+	if (isCount == true)			//通常カウント
 	{
 		JudgeTrigger();
 	}
 
-	if (isStopCount == true)
+	if (isStopCount == true)		//時止めカウント
 	{
 		SkillStop();
 	}
 
-	if (AnimationFlg == true)
+	if (AnimationFlg == true)		//アニメーション開始
 	{
 		Animation();
 	}
 }
 
+//アニメーション
 void Bomb::Animation()
 {
 	m_frameIndex++;
+
 	if (bomb_Animation[m_frameIndex] == 0)
 	{
-		DrawGraph(x -20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 0), TRUE);
+		DrawGraphF(x - 20.0f, y - 20.0f, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 0), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 1)
 	{
-		DrawGraph(x - 20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 1), TRUE);
+		DrawGraphF(x - 20.0f, y - 20.0f, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 1), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 2)
 	{
-		DrawGraph(x - 20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 2), TRUE);
+		DrawGraphF(x - 20.0f, y - 20.0f, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 2), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 3)
 	{
-		DrawGraph(x - 20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 3), TRUE);
+		DrawGraphF(x - 20.0f, y - 20.0f, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 3), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 4)
 	{
-		DrawGraph(x - 20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 4), TRUE);
+		DrawGraphF(x - 20.0f, y - 20.0f, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 4), TRUE);
 	}
 
 	if (bomb_Animation[m_frameIndex] == 5)
 	{
-		DrawGraph(x - 20, y - 20, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 5), TRUE);
+		DrawGraphF(x - 20.0f, y - 20.0f, Image::Instance()->GetGraph(eImageType::Gpicture_Explosion, 5), TRUE);
 	}
 
+	//爆破アニメーション終了
 	if (bomb_Animation[m_frameIndex] == 6)
 	{
 		AnimationFlg = false;
