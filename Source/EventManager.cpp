@@ -76,7 +76,7 @@ void EventManager::SpawnEvent() {
 }
 
 void EventManager::Update(EnemyManager* enemyManager, BasePlayer* basePlayer) {
-	if(basePlayer->Get_isAbility() == false && basePlayer->Get_AbilityType() == SAKUYA_Ability){
+	if(basePlayer->Get_AbilityType() == FRAN_Ability || basePlayer->Get_isAbility() == false && basePlayer->Get_AbilityType() == SAKUYA_Ability){
 		SpawnEvent();			//ê∂ê¨
 		SpawnSukima();			//ÉXÉLÉ}ê∂ê¨
 }

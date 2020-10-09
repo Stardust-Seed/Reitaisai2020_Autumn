@@ -14,7 +14,7 @@ DarknessEvent::~DarknessEvent() {
 }
 
 void DarknessEvent::Update(BasePlayer* basePlayer) {
-	if (basePlayer->Get_isAbility() == false && basePlayer->Get_AbilityType() == SAKUYA_Ability) {
+	if (basePlayer->Get_AbilityType() == FRAN_Ability || basePlayer->Get_isAbility() == false && basePlayer->Get_AbilityType() == SAKUYA_Ability) {
 
 		if (nowPhase == PHASE_START && opacity <= MAX_OPACITY) {	//開始フェーズ　不透明度を上げる
 			if (opacity == 0) {
