@@ -26,5 +26,5 @@ void Item_S::Update(BasePlayer* _player) {
 }
 
 void Item_S::Draw() {
-	DrawGraph(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Item, 1), TRUE);
+	DrawGraphF(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Item, 1), TRUE);
 }
