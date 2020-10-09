@@ -42,8 +42,9 @@ EnemyManager::~EnemyManager() {
 }
 
 void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManager *_bulletManager,ItemManager *_itemManager){
-	SpawnEnemy(_castle);						//¶¬ŒÄ‚Ño‚µ
-
+	if (_player->Get_isAbility() == false && _player->Get_AbilityType() == SAKUYA_Ability) {
+		SpawnEnemy(_castle);						//¶¬ŒÄ‚Ño‚µ
+	}
 	for (int num = 0; num < enemyNum + addEnemyNum; num++) {
 
 		if (Enemys[num] != NULL) {		//NULL‚Å‚È‚¢ê‡
@@ -270,6 +271,13 @@ eAttackType EnemyManager::Get_AttackType(int num) {
 		return Enemys[num]->GetAttackType();
 	}
 	return eAttackType::None;
+}
+
+eInactiveType EnemyManager::Get_InactiveType(int num) {
+	if (Enemys[num] != NULL) {
+		return Enemys[num]->GetInactiveType();
+	}
+	return eInactiveType::None;
 }
 
 eDirection EnemyManager::Get_direction(int num) {
