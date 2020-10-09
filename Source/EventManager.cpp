@@ -2,6 +2,8 @@
 #include "EventManager.h"
 #include "SE.h"
 
+#include "BasePlayer.h"
+
 
 EventManager::EventManager(int level) {
 
@@ -46,13 +48,13 @@ void EventManager::SpawnEvent() {
 		if (Event == NULL && sBomb == NULL) {//NULL(何もイベントが発生していない)時に生成
 
 			eventType = GetRand(EVENT_TYPES - 1);		//乱数で生成するイベントを選択
-
+			
 			if (seCount == 0) {
 				SE::Instance()->PlaySE(SE_EventAlarm);
 			}
 			seCount++;		//鳴らした後数秒したらイベント生成
 
-			if(seCount >= FRAME * 3){
+			if (seCount >= FRAME * 3) {
 
 				if (eventType == 0) {
 					Event = new DarknessEvent();	//生成
@@ -73,12 +75,14 @@ void EventManager::SpawnEvent() {
 	}
 }
 
-void EventManager::Update(EnemyManager* enemyManager,BasePlayer* basePlayer) {
-	SpawnEvent();			//生成
-	SpawnSukima();			//スキマ生成
+void EventManager::Update(EnemyManager* enemyManager, BasePlayer* basePlayer) {
+	if(basePlayer->Get_isAbility() == false && basePlayer->Get_AbilityType() == SAKUYA_Ability){
+		SpawnEvent();			//生成
+		SpawnSukima();			//スキマ生成
+}
 
 	if (Event != NULL) {	//何かしらイベントが行われている場合
-		Event->Update();	//更新
+		Event->Update(basePlayer);	//更新
 
 		if (Event->GetIsActive() == false) {//イベントのアクティブ状態がfalseの場合
 
@@ -90,7 +94,7 @@ void EventManager::Update(EnemyManager* enemyManager,BasePlayer* basePlayer) {
 	}
 
 	if (Sukima != NULL) {	//スキマ用
-		Sukima->Update(enemyManager);	//更新
+		Sukima->Update(enemyManager,basePlayer);	//更新
 
 		if (Sukima->GetIsActive() == false) { //削除、初期化処理
 
