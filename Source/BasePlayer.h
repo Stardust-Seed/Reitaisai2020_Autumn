@@ -100,6 +100,7 @@ protected:
 
 	bool isMove;                   //現在移動中のフラグ
 
+	bool isDraw;                    //プレイヤー描画フラグ
 	bool isAttack;                  //攻撃フラグ
 	bool isStan;                    //スタン中かどうかのフラグ
 	bool isStan_Next;               //スタンが起こる状態かどうかのフラグ
