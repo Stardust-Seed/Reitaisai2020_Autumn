@@ -1,7 +1,6 @@
 #include "DxLib.h"
 #include "SukimaEvent.h"
 #include "EnemyManager.h"
-#include "BasePlayer.h"
 
 //コンストラクタ
 SukimaEvent::SukimaEvent() {
