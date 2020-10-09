@@ -13,40 +13,42 @@ DarknessEvent::~DarknessEvent() {
 
 }
 
-void DarknessEvent::Update() {
+void DarknessEvent::Update(BasePlayer* basePlayer) {
+	if (basePlayer->Get_isAbility() == false && basePlayer->Get_AbilityType() == SAKUYA_Ability) {
 
-	if (nowPhase == PHASE_START && opacity <= MAX_OPACITY) {	//開始フェーズ　不透明度を上げる
-		if (opacity == 0) {
-			SE::Instance()->PlaySE(SE_DarknessStart);
+		if (nowPhase == PHASE_START && opacity <= MAX_OPACITY) {	//開始フェーズ　不透明度を上げる
+			if (opacity == 0) {
+				SE::Instance()->PlaySE(SE_DarknessStart);
+			}
+			opacity += 2;	//不透明度加算
 		}
-		opacity += 2;	//不透明度加算
-	}
-	else if (nowPhase == PHASE_START && opacity >= MAX_OPACITY) {
-		opacity = MAX_OPACITY;	//超過しててもここで合わせる
-		nowPhase = PHASE_DARK;		//次のフェーズ
-	}
+		else if (nowPhase == PHASE_START && opacity >= MAX_OPACITY) {
+			opacity = MAX_OPACITY;	//超過しててもここで合わせる
+			nowPhase = PHASE_DARK;		//次のフェーズ
+		}
 
-	if (nowPhase == PHASE_DARK) {								//維持フェーズ
-		if (darkCount <= MAX_DARKNESSTIME) {
-			darkCount++;									//カウント加算
+		if (nowPhase == PHASE_DARK) {								//維持フェーズ
+			if (darkCount <= MAX_DARKNESSTIME) {
+				darkCount++;									//カウント加算
 
-			if (darkCount == MAX_DARKNESSTIME - FRAME) {	//維持フェーズ終了一秒前にSEが鳴るように(SEのタイミング調整)
-				SE::Instance()->PlaySE(SE_DarknessEnd);
+				if (darkCount == MAX_DARKNESSTIME - FRAME) {	//維持フェーズ終了一秒前にSEが鳴るように(SEのタイミング調整)
+					SE::Instance()->PlaySE(SE_DarknessEnd);
+				}
+			}
+			else if (darkCount > MAX_DARKNESSTIME) {
+				nowPhase = PHASE_END;								//次のフェーズ
 			}
 		}
-		else if (darkCount > MAX_DARKNESSTIME) {
-			nowPhase = PHASE_END;								//次のフェーズ
+
+		if (nowPhase == PHASE_END && opacity > 0) {
+			opacity -= 2;		//不透明度減算
 		}
-	}
+		else if (nowPhase == PHASE_END && opacity <= 0) {
+			opacity = 0;		//合わせる
+			isActive = false;
+		}
 
-	if (nowPhase == PHASE_END && opacity > 0) {
-		opacity -= 2;		//不透明度減算
 	}
-	else if (nowPhase == PHASE_END && opacity <= 0) {
-		opacity = 0;		//合わせる
-		isActive = false;
-	}
-
 }
 
 void DarknessEvent::Draw() {

@@ -5,7 +5,6 @@
 #include "BaseEvent.h"
 #include "Define.h"
 
-
 class DarknessEvent : public virtual BaseEvent {
 private:
 
@@ -30,7 +29,7 @@ public:
 
 	~DarknessEvent();	//デストラクタ
 
-	void Update();		//更新
+	void Update(BasePlayer*);		//更新
 
 	void Draw();		//描画
 };
