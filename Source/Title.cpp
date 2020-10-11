@@ -10,7 +10,7 @@ Title::Title(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	alpha = 0;
 
 	type = GetRand(3);
-	BGM::Instance()->PlayBGM(BGM_title);
+	BGM::Instance()->PlayBGM(BGM_title, DX_PLAYTYPE_LOOP);
 }
 
 void Title::Update()
@@ -49,6 +49,7 @@ void Title::Draw()
 	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10+2, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad + 1.5f) * 11+2), "               A    ", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10+2, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad + 1) * 11+2),    "                 C  ", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10+2, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad + 0.5f) * 11+2), "                   E", GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	
 	//本体
 	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 6, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad + 5) * 11),     "P                   ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 6, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad + 4.5f) * 11),  "  R                 ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
@@ -60,6 +61,7 @@ void Title::Draw()
 	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad + 1.5f) * 11), "               A    ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad + 1) * 11),    "                 C  ", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
 	DrawStringFToHandle(GAME_WIDTH / 2 - 19 * 9 - 10, static_cast<float>(GAME_HEIHGT / 2 + 175 - sin(rad + 0.5f) * 11), "                   E", GetColor(255, 128, 0), FontHandle::Instance()->Get_natumemozi_48_8());
+	
 	//ブレンドモードを通常に戻す
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, alpha);
 	//DrawLine(GAME_WIDTH / 2, 0, GAME_WIDTH / 2, GAME_HEIHGT, GetColor(0,0,0));    // 線を描画
