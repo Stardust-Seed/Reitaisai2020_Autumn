@@ -219,7 +219,7 @@ void BasePlayer::Stan(BuffManager* _bManager)
 {
 
 	//バフダウン
-	if (stanTime == 1)
+	if (stanTime == 0)
 	{
 		SE::Instance()->PlaySE(SE_Stan, DX_PLAYTYPE_BACK);
 		_bManager->DownBuffLevel();  //バフレベルダウン
