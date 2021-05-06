@@ -4,6 +4,9 @@
 #include "Fairy_Endurance.h"
 #include "Fairy_Speed.h"
 #include "Fairy_Power.h"
+#include "Fairy_Bomb.h"
+#include "Boss.h"
+#include "EnemyBomb.h"
 #include "CastleManager.h"
 #include "ItemManager.h"
 #include "Direction.h"
@@ -21,21 +24,23 @@ private:
 
 	static const int MAX_ENEMY_NUM = POPENEMY_HARD + POPENEMY_ADD;			//エネミーの最大生成数分の要素数
 
-	static const int ENEMY_TYPES = 3;		//現在のエネミーの種類
+	static const int ENEMY_TYPES = 5;		//現在のエネミーの種類
 
 	/*******************************************************************
 		各エネミーのステータス
 
-		左からスピード/体力/パワーの順
+		左からスピード/体力/パワー/ボム/ボス
 	*******************************************************************/
 
-	const float SPEED[ENEMY_TYPES] = { 1.5f, 0.8f, 0.8f};	//各エネミーの速度
+	const float SPEED[ENEMY_TYPES] = { 1.5f, 0.8f, 0.8f,0.8f,15.0f};	//各エネミーの速度
 
-	const float POWER[ENEMY_TYPES] = { 5.0f, 8.0f, 10.0f};	//各エネミーのパワー
+	const float POWER[ENEMY_TYPES] = { 5.0f, 8.0f, 10.0f, 8.0f, 30.0f};	//各エネミーのパワー
 
-	const int DURABILITY[ENEMY_TYPES] = { 25, 125, 75};	//各エネミーの体力
+	const int DURABILITY[ENEMY_TYPES] = { 40, 160, 80, 120, 800};		//各エネミーの体力
 
 	BaseEnemy* Enemys[MAX_ENEMY_NUM];			//エネミーオブジェクト配列
+
+	EnemyBomb* eBombs[MAX_ENEMY_NUM];			//エネミーボムを格納する配列
 
 	eDirection direction;						//方向の列挙クラス
 
@@ -56,13 +61,17 @@ private:
 public:
 	EnemyManager(int);					//コンストラクタ
 
-	~EnemyManager();				//デストラクタ
+	~EnemyManager();					//デストラクタ
 
 	void Update(CastleManager*,BasePlayer*,BulletManager*,ItemManager*);					//更新処理
 
 	void Draw();									//描画処理
 
 	void SpawnEnemy(CastleManager*);				//エネミー生成処理
+
+	void SpawnBomb(int _eNum,int _bNum,float _x,float _y,eExType);	//ボム生成
+
+	void DamageSend(int, int);						//ダメージ
 
 	void Set_IsActive(int, bool);			//アクティブフラグのセッター
 

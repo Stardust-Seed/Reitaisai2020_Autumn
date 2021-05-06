@@ -14,6 +14,7 @@ EnemyManager::EnemyManager(int level) {
 
 	for (int num = 0; num < MAX_ENEMY_NUM; num++) {//配列初期化
 		Enemys[num] = NULL;		
+		eBombs[num] = NULL;
 	}
 
 	switch (level)				//引数(0～2)で難易度別の生成数を設定
@@ -62,6 +63,14 @@ void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManag
 
 			}
 		}
+
+		if (eBombs[num] != NULL) {
+		//	eBombs[num]->Update(_player,_castle,this);
+			if (eBombs[num]->Get_IsActive() == false) {
+				delete eBombs[num];
+				eBombs[num] = NULL;
+			}
+		}
 	}
 	/*********************************************************
 		フランのスキル使用時の処理
@@ -89,6 +98,9 @@ void EnemyManager::Draw() {
 			Enemys[num]->Draw();	//描画
 			
 		}
+		if (eBombs[num] != NULL) {
+			eBombs[num]->Draw();
+		}
 	}
 }
 
@@ -103,7 +115,11 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 			_direction = 0;			//方向初期化
 
-			enemyType = GetRand(ENEMY_TYPES - 1);	//ランダムな敵の種類
+			enemyType = GetRand(ENEMY_TYPES - 2);		//ランダムな敵の種類 -2なのは最後の値がボスのためランダムで出ないようにしている
+
+			//if (条件) {	//条件達成時に確定でボスを出現させる
+			//	enemyType = ENEMY_TYPES - 1;
+			//}
 
 			for (int num = 0; num < enemyNum; num++) {	//エネミーの数だけ動かす
 
@@ -120,15 +136,15 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						Enemys[num] = new Fairy_Speed(SPEED[enemyType] + addSpeed, POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
 
 						waitCount = 0;
-						break;								//一体生成したら抜ける
+						break;							//一体生成したら抜ける
 					}
 
 					if (enemyType == 1) {				//体力型
 
-						Enemys[num] = new Fairy_Endurance(SPEED[enemyType] + addSpeed, POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
+						Enemys[num] = new Fairy_Endurance(SPEED[enemyType] + addSpeed, POWER[enemyType], DURABILITY[enemyType], direction);    //生成処理
 
 						waitCount = 0;
-						break;								//一体生成したら抜ける
+						break;							//一体生成したら抜ける
 					}
 
 					if (enemyType == 2) {				//パワー型
@@ -136,9 +152,24 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 						Enemys[num] = new Fairy_Power(SPEED[enemyType] + addSpeed, POWER[enemyType], DURABILITY[enemyType], direction);        //生成処理
 
 						waitCount = 0;
-						break;								//一体生成したら抜ける
+						break;							//一体生成したら抜ける
 					}
 
+					if (enemyType == 3) {				//ボム型
+
+						Enemys[num] = new Fairy_Bomb(SPEED[enemyType] + addSpeed, POWER[enemyType], DURABILITY[enemyType], direction);         //生成処理
+
+						waitCount = 0;
+						break;							//一体生成したら抜ける
+					}
+
+					if (enemyType == 4) {				//ボス
+
+						Enemys[num] = new Boss(SPEED[enemyType] + addSpeed, POWER[enemyType], DURABILITY[enemyType], direction);			   //生成処理
+
+						waitCount = 0;
+						break;							//一体生成したら抜ける
+					}
 				}
 			}
 		}
@@ -201,6 +232,26 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 
 	}
 }
+
+void EnemyManager::SpawnBomb(int eNum,int bNum,float _x,float _y,eExType _exType) {
+	for (eNum = 0; eNum < enemyNum + addEnemyNum; eNum++) {
+		if (Enemys[eNum] != NULL) {
+
+			for (bNum = 0; bNum < enemyNum; bNum++) {
+				if (eBombs[bNum] == NULL) {
+					eBombs[bNum] = new EnemyBomb(_x, _y, _exType);
+				}
+			}
+		}
+	}
+
+}
+
+//void EnemyManager::DamageSend(int num,int _damage) {
+//	if (Enemys[num] != NULL) {
+//		Enemys[num]->DamageProc(_damage);
+//	}
+//}
 
 void EnemyManager::Set_IsActive(int num, bool _isActive) {
 	if (Enemys[num] != NULL) {
