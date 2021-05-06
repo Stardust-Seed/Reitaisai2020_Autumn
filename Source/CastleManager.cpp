@@ -1,8 +1,11 @@
 #include <DxLib.h>
 #include "CastleManager.h"
 
+
 CastleManager::CastleManager() {
 
+	cnt = 1;
+	number = 1;
 	for (int i = 0; i < POPCASTLE; i++)
 	{
 		Castles[i] = NULL;		   //CastleのポインタにNULL
@@ -16,13 +19,8 @@ CastleManager::CastleManager() {
 			{
 				durability = 100;
 				Castles[i] = new MainCastle(durability);     //生成処理
+				activeCountFlg[i] = true;
 			}
-			else                   //サブ拠点
-			{
-				durability = 25;
-				Castles[i] = new SubCastle(durability, i);   //生成処理
-			}
-			activeCountFlg[i] = true;
 		}
 	}
 
@@ -40,6 +38,71 @@ CastleManager::~CastleManager() {
 //更新処理
 void CastleManager::Update(EnemyManager*_enemy,EventManager* _event)
 {
+	//数字キーでの番号指定時の処理
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_1) == 1))
+	{
+		number = 1;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_2) == 1))
+	{
+		number = 2;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_3) == 1))
+	{
+		number = 3;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_4) == 1))
+	{
+		number = 4;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_5) == 1))
+	{
+		number = 5;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_6) == 1))
+	{
+		number = 6;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_7) == 1))
+	{
+		number = 7;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_8) == 1))
+	{
+		number = 8;
+	}
+
+
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_V) == 1))
+	{
+		number--;
+
+		if (number < 1)
+		{
+			number = 8;
+		}
+	}
+
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_B) == 1))
+	{
+		number++;
+
+		if (number > 8)
+		{
+			number = 1;
+		}
+	}
+
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_C) == 1))
+	{
+		if (cnt < POPCASTLE)
+		{
+			durability = 25;
+			Castles[cnt] = new SubCastle(durability, cnt, number);   //生成処理
+			activeCountFlg[cnt] = true;
+			cnt++;
+		}
+	}
 
 	for (int i = 0; i < POPCASTLE; i++)
 	{
@@ -78,6 +141,20 @@ void CastleManager::Draw()
 			Castles[i]->Draw();
 		}
 	}
+
+	//DrawFormatString(120, 120, GetColor(255, 255, 255), "%d", cnt);
+	//DrawFormatString(100, 100, GetColor(255, 255, 255), "%d", number);
+
+	//設置できる場所の表示
+	DrawGraphF(SubCastle::COORDINATE_X_ONE - 4 - 48, SubCastle::COORDINATE_Y_ONE - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
+	DrawGraphF(SubCastle::COORDINATE_X_TWO - 4 - 48, SubCastle::COORDINATE_Y_TWO + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
+	DrawGraphF(SubCastle::COORDINATE_X_THREE + 32 - 4, SubCastle::COORDINATE_Y_THREE - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
+	DrawGraphF(SubCastle::COORDINATE_X_FOUR - 80 - 4, SubCastle::COORDINATE_Y_FOUR - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
+	DrawGraphF(SubCastle::COORDINATE_X_FIVE + 48 - 4, SubCastle::COORDINATE_Y_FIVE + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
+	DrawGraphF(SubCastle::COORDINATE_X_SIX + 48 - 4, SubCastle::COORDINATE_Y_SIX - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
+	DrawGraphF(SubCastle::COORDINATE_X_SEVEN - 80 - 4, SubCastle::COORDINATE_Y_SEVEN + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
+	DrawGraphF(SubCastle::COORDINATE_X_EIGHT + 32 - 4, SubCastle::COORDINATE_Y_EIGHT + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
+	
 }
 
 //i番目の拠点の生存しているかを受け取る

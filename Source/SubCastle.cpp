@@ -3,7 +3,7 @@
 #include "EnemyManager.h"
 
 //コンストラクタ
-SubCastle::SubCastle(int _durability,int _type)
+SubCastle::SubCastle(int _durability,int _type,int _num)
 	:BaseCastle(_durability) {
 	durability = _durability;
 
@@ -13,119 +13,137 @@ SubCastle::SubCastle(int _durability,int _type)
 	addPosY = 0;
 	addSize = 8;
 
-	int posType = GetRand(1);
-
 	//座標設定
-	switch (_type)
+	switch (_num)
 	{
 	case 1:    //左側
 
 		//座標設定
-		x = GAME_WIDTH / 2 - width / 2 - 225 - GetRand(30);
-		y = GAME_HEIHGT / 2 - height / 2;
+		x = COORDINATE_X_ONE;
+		y = COORDINATE_Y_ONE;
 
-		//追加の座標設定
-		if (posType == 0)    //上
-		{
-			addPosX = -48;
-			addPosY = -65;
-
-		}
-		else                 //下
-		{
-			addPosX = -48;
-			addPosY = 53;
-		}
+		addPosX = -48;
+		addPosY = -80;
 
 		//占領された時の敵の生成座標設定
 		popPosX = x + addPosX;
-		popPosY = y;
+		popPosY = y + addPosY;
 
 		direction = eDirection::Left;
-
 		break;
+	case 2:    //左側
 
-	case 2:    //右側
+        //座標設定
+		x = COORDINATE_X_TWO;
+		y = COORDINATE_Y_TWO;
 
-		//座標設定
-		x = GAME_WIDTH / 2 - width / 2 + 225 + GetRand(30);
-		y = GAME_HEIHGT / 2 - height / 2;
-
-		//追加の座標設定
-		if (posType == 0)    //上
-		{
-			addPosX = 48;
-			addPosY = -65;
-		}
-		else                 //下
-		{
-			addPosX = 48;
-			addPosY = 53;
-		}
+		addPosX = -48;
+		addPosY = 32;
 
 		//占領された時の敵の生成座標設定
 		popPosX = x + addPosX;
-		popPosY = y;
+		popPosY = y + addPosY;
 
-		direction = eDirection::Right;
-
+		direction = eDirection::Left;
 		break;
 
-	case 3:    //上側
+	case 3:    //右側
 
 		//座標設定
-		x = GAME_WIDTH / 2 - width / 2;
-		y = GAME_HEIHGT / 2 - height / 2 - 225 - GetRand(30);
+		x = COORDINATE_X_THREE;
+		y = COORDINATE_Y_THREE;
 
-		//追加の座標設定
-		if (posType == 0)    //左
-		{
-			addPosY = -48;
-			addPosX = -54;
-		}
-		else                 //右
-		{
-			addPosY = -48;
-			addPosX = 55;
-		}
+		addPosX = 32;
+		addPosY = -48;
 
 		//占領された時の敵の生成座標設定
-		popPosX = x;
+		popPosX = x + addPosX;
 		popPosY = y + addPosY;
 
 		direction = eDirection::Up;
-
 		break;
 
-	case 4:    //下側
+	case 4:    //上側
 
 		//座標設定
-		x = GAME_WIDTH / 2 - width / 2;
-		y = GAME_HEIHGT / 2 - height / 2 + 225 + GetRand(30);
+		x = COORDINATE_X_FOUR;
+		y = COORDINATE_Y_FOUR;
 
-		//追加の座標設定
-		if (posType == 0)    //左
-		{
-			addPosY = 48;
-			addPosX = -54;
-		}
-		else                 //右
-		{
-			addPosY = 48;
-			addPosX = 55;
-		}
+		addPosX = -80;
+		addPosY = -48;
 
 		//占領された時の敵の生成座標設定
-		popPosX = x;
+		popPosX = x + addPosX;
+		popPosY = y + addPosY;
+
+		direction = eDirection::Up;
+		break;
+
+	case 5:    //下側
+
+		//座標設定
+		x = COORDINATE_X_FIVE;
+		y = COORDINATE_Y_FIVE;
+
+		addPosX = 48;
+		addPosY = 32;
+
+		//占領された時の敵の生成座標設定
+		popPosX = x + addPosX;
+		popPosY = y + addPosY;
+
+		direction = eDirection::Right;
+		break;
+		
+	case 6:    //下側
+
+        //座標設定
+		x = COORDINATE_X_SIX;
+		y = COORDINATE_Y_SIX;
+
+		addPosX = 48;
+		addPosY = -80;
+
+		//占領された時の敵の生成座標設定
+		popPosX = x + addPosX;
+		popPosY = y + addPosY;
+
+		direction = eDirection::Right;
+		break;
+	case 7:    //下側
+
+        //座標設定
+		x = COORDINATE_X_SEVEN;
+		y = COORDINATE_Y_SEVEN;
+
+		addPosX = -80;
+		addPosY = 48;
+
+		//占領された時の敵の生成座標設定
+		popPosX = x + addPosX;
 		popPosY = y + addPosY;
 
 		direction = eDirection::Down;
-
 		break;
+	case 8:    //下側
 
+        //座標設定
+		x = COORDINATE_X_EIGHT;
+		y = COORDINATE_Y_EIGHT;
+
+		addPosX = 32;
+		addPosY = 48;
+
+		//占領された時の敵の生成座標設定
+		popPosX = x + addPosX;
+		popPosY = y + addPosY;
+
+		direction = eDirection::Down;
+		break;
 	default:
 		break;
 	}
+
 	//サブ拠点の表示場所の座標設定
 	drawPosX = x + addPosX - addSize / 2;
 	drawPosY = y + addPosY - addSize / 2;

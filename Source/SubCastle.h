@@ -20,7 +20,32 @@ private:
 	int posType;                   //サブ拠点の場所
 
 public:
-	SubCastle(int,int);
+	//サブ拠点の設置場所の座標
+	static const int COORDINATE_X_ONE = GAME_WIDTH / 2 - 375 + 80;
+	static const int COORDINATE_Y_ONE = GAME_HEIHGT / 2;
+
+	static const int COORDINATE_X_TWO = GAME_WIDTH / 2 - 225 + 48;
+	static const int COORDINATE_Y_TWO = GAME_HEIHGT / 2;
+
+	static const int COORDINATE_X_THREE = GAME_WIDTH / 2 ;
+	static const int COORDINATE_Y_THREE = GAME_HEIHGT / 2 - 350 + 48;
+
+	static const int COORDINATE_X_FOUR = GAME_WIDTH / 2;
+	static const int COORDINATE_Y_FOUR = GAME_HEIHGT / 2 - 225 + 48;
+
+	static const int COORDINATE_X_FIVE = GAME_WIDTH / 2 + 300 - 48;
+	static const int COORDINATE_Y_FIVE = GAME_HEIHGT / 2;
+
+	static const int COORDINATE_X_SIX = GAME_WIDTH / 2 + 175 - 48;
+	static const int COORDINATE_Y_SIX = GAME_HEIHGT / 2 ;
+
+	static const int COORDINATE_X_SEVEN = GAME_WIDTH / 2;
+	static const int COORDINATE_Y_SEVEN = GAME_HEIHGT / 2 + 300 - 48;
+
+	static const int COORDINATE_X_EIGHT = GAME_WIDTH / 2 ;
+	static const int COORDINATE_Y_EIGHT = GAME_HEIHGT / 2 + 175 - 48;
+
+	SubCastle(int,int,int);
 
 	void Update(EnemyManager*);    //更新処理
 	void Draw();                   //描画処理
