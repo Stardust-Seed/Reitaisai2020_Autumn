@@ -5,7 +5,7 @@
 #include"BaseEnemy.h"
 #include"EnemyManager.h"
 
-Bullet::Bullet(VECTOR& position, int pl_type,int pl_pos, bool pl_attack)
+Bullet::Bullet(VECTOR& position, int pl_type,eDirection pl_direction, bool pl_attack,int pl_power,int shotpower)
 {
 	//弾の発生位置
 	pos.x = position.x + 12;
@@ -13,10 +13,17 @@ Bullet::Bullet(VECTOR& position, int pl_type,int pl_pos, bool pl_attack)
 	pos.y = position.y + 12;
 
 	//進む方向
-	Bullet_Move = pl_pos;
+	bullet_Move = pl_direction;
 
 	//発射中かどうか
 	isActive = pl_attack;
+
+
+	//攻撃力
+	power = pl_power;
+
+	//チャージゲージ
+	shotPower = shotpower;
 
 	//画像
 	bulletGraph = pl_type;
@@ -58,32 +65,48 @@ void Bullet::Draw()
 	DrawRotaGraph(pos.x+12, pos.y+12, 1.0,  PI * graphAngle, Image::Instance()->GetGraph(eImageType::Gpicture_Bullet, bulletGraph), TRUE); //画像の描画
 
 }
-void Bullet::Update(EnemyManager* _eManager)
+void Bullet::Update(EnemyManager* _eManager,BasePlayer* _basePlayer)
 {
 
 	if (isActive == true) {
-		if (Bullet_Move == 0)
+		//チャージゲージがMAXなら攻撃力UP
+		if (shotPower == 100)
+		{
+			if (_basePlayer->Get_AbilityType() == FRAN) {
+				power = power + 100;
+				
+			}
+			else
+			{
+				power = power + 100;
+			}
+		}
+		if (bullet_Move == eDirection::Left)
 		{
 			//弾の角度を変える
 			graphAngle = 2.0;
+			//左方向へ飛んでいく
 			pos.x -= 3.0f;
 		}
-		if (Bullet_Move == 1)
+		if (bullet_Move == eDirection::Up)
 		{
 			//弾の角度を変える
 			graphAngle = 2.5;
+			//上方向へ飛んでいく
 			pos.y -= 3.0f;
 		}
-		if (Bullet_Move == 2)
+		if (bullet_Move == eDirection::Right)
 		{
 			//弾の角度を変える
 			graphAngle = 3.0;
+			//右方向へ飛んでいく
 			pos.x += 3.0f;
 		}
-		if (Bullet_Move == 3)
+		if (bullet_Move == eDirection::Down)
 		{
 			//弾の角度を変える
 			graphAngle = 3.5;
+			//下方向へ飛んでいく
 			pos.y += 3.0f;
 		}
 	}

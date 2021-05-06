@@ -4,6 +4,8 @@
 #include "Object.h"
 #include "DxLib.h"
 #include "Image.h"
+#include "Direction.h"
+#include "BasePlayer.h"
 
 class BaseEnemy;
 class EnemyManager;
@@ -26,10 +28,16 @@ private:
 	VECTOR pos;
 
 	//弾の進む方向
-	int Bullet_Move;
+	eDirection bullet_Move;
 
 	//発射されてるかどうか
 	bool isActive;
+
+	//攻撃力
+	int power;
+
+	//チャージゲージ
+	int shotPower;
 
 	//画像
 	int bulletGraph;
@@ -43,15 +51,16 @@ public:
 		float ox, float oy, float ow, float oh);
 
 	//コンストラクタ時に弾の発生位置と、進む方向を引数で持たせる
-	Bullet(VECTOR& position, int pl_type,int pl_pos, bool pl_attack);        //コンストラクタ
+	Bullet(VECTOR& position, int pl_type,eDirection pl_direction, bool pl_attack,int pl_power,int shotpower);        //コンストラクタ
 	~Bullet();       //デストラクタ
 	void Draw();     //描画
-	void Update(EnemyManager* _eManager);   //更新
+	void Update(EnemyManager* _eManager,BasePlayer* _basePlayer);   //更新
 
 	float Get_x() { return pos.x; }           //x座標ゲッター
 	float Get_y() { return pos.y; }			  //y座標ゲッター
 	float Get_width() { return width; }       //widthゲッター
 	float Get_height() { return height; }     //heightゲッター
+	int Get_power() { return power; }         //powerゲッター
 
 	bool Get_isActive() { return isActive; } //弾が攻撃中かどうかのゲッター
 	bool Get_isHit() { return isHit; }       //弾の当たり判定のゲッター

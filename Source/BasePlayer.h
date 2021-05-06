@@ -4,6 +4,8 @@
 #include"Object.h"
 #include"DxLib.h"
 #include "FontHandle.h"
+#include "Direction.h"
+#include "Image.h"
 
 class BulletManager;
 class BuffManager;
@@ -25,6 +27,16 @@ enum AbilityType
 	FRAN_Ability            //フランのスキル
 };
 
+/*
+enum PlayerDirection
+{
+	LEFT,  //←
+	UP,    //↑
+	RIGHT, //→
+	DOWN   //↓
+};
+*/
+
 class BasePlayer :public virtual Object
 {
 	//弾管理のポインタ変数
@@ -36,8 +48,13 @@ class BasePlayer :public virtual Object
 	//エネミーのポインタ変数
 	BaseEnemy* baseEnemy;
 
+	eDirection direction;
+
 	//キャラクター選択
 	int playerType;
+
+	//最大CHARGE
+	int maxCharge;
 
 
 protected:
@@ -59,6 +76,10 @@ protected:
 	const int ANIMETION_MAX = 3;            //アニメーションの最大数
 	const int ANIMETION_SPEED = 10;         //アニメーションのスピード
 
+	const int MAX_CHAGE_FRAN = 100; //フラン最大CHARGEゲージ
+	const int MAX_CHAGE_SAKUYA = 80;//咲夜最大チャージゲージ
+	const int LOW_CHAGE = 0;                //最低チャージ
+
 	//咲夜スキル用
 	const int STOPTIME = 5;         //時止めスキルの時間
 	int abilityTimer;               //スキル発動時間
@@ -75,6 +96,7 @@ protected:
 
 	int speed;		                //プレイヤーの移動速度
 	int power;		                //プレイヤーの攻撃力
+	int shotPower;                  //チャージショットのゲージ
 	int stanTime;	                //プレイヤーのスタンタイム
 	int stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
 	int attackTime;                 //攻撃間隔
@@ -94,9 +116,6 @@ protected:
 	bool isAbility;                 //スキルが発動している状態かどうか
 	int  abilityCount;              //スキル回数
 	int  bulletCount;               //弾のカウント
-
-	int playerDirection;                  //プレイヤーの向き
-	// 0 = 左         1 = 上        2 = 右         3 = 下
 
 	bool isMove;                   //現在移動中のフラグ
 
@@ -145,7 +164,7 @@ public:
 	void Set_height(float _height) { height = _height; }    //セッター
 	void Set_isAbility(bool _isAbility) { isAbility = _isAbility; } //スキルのActiveセッター
 	void Set_abilityCount(int _abilityCount) { abilityCount = _abilityCount; }  //スキル回数のセッター      
-
+	void Set_power(int _power, BuffManager* _bManager);        //セッター
 	float Get_x() { return pos.x; }                         //x座標ゲッター
 	float Get_y() { return pos.y; }                         //y座標ゲッター
 	float Get_cx() { return pos.x + 24; }                   //cx座標ゲッター
@@ -154,6 +173,10 @@ public:
 	float Get_height() { return height; }                   //heightゲッター
 
 	int  Get_power() { return power; }                      //攻撃力ゲッター
+
+	int Get_chageGauge() { return shotPower; }             //チャージパワーのゲッター
+	int  Get_maxChage() { return maxCharge; }      //MAXチャージゲッター
+	
 
 	bool Get_isStan() { return isStan; }                    //スタン状態ゲッター
 	bool Get_isAbility() { return isAbility; }              //スキルのActiveのゲッター
@@ -165,6 +188,10 @@ public:
 	bool Get_FranAbility(){ return franAbility; }          //フランアビリティのゲッター
 	int Get_AbilityCount() { return abilityCount; }         //スキル回数のゲッター
 	int Get_AbilityClock() { return abilityTimer; }        //スキル時間のゲッター
+	
+	void Set_speed(int _speed) { speed = _speed; }        //スピードのセッター
+	void Set_chageGauge(int _chage) { shotPower = _chage; }
+
 };
 
 
