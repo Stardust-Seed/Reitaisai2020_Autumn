@@ -154,7 +154,7 @@ void BaseEnemy::Update(CastleManager* _castleManager, BasePlayer* _player,
 				_bulletManager->Get_Width(i), _bulletManager->Get_Height(i))) {
 				if (attackType != eAttackType::Invasion) {
 					_bulletManager->Set_isActive(i, false);
-					DamageProc(_bulletManager.Get_Power(i));
+					DamageProc(_bulletManager->Get_Power(i));
 				}
 			}
 		}
