@@ -19,6 +19,30 @@ Fairy_Endurance::Fairy_Endurance(float _x, float _y, float _speed, float _power,
 
 void Fairy_Endurance::Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager) {
 	BaseEnemy::Update(_castleManager, _player, _bulletManager);
+
+	if (isHitCastle) {
+		isAttack = true;
+		inactiveType = eInactiveType::Invasion;
+		attackType = eAttackType::Invasion;
+		animationCnt = 0;
+	}
+
+	/*------------------------------------------------------------------------------
+	移動処理
+	------------------------------------------------------------------------------*/
+	Move(_player->Get_isAbility(), _player->Get_AbilityType());
+
+	/*------------------------------------------------------------------------------
+	アニメーション処理
+	------------------------------------------------------------------------------*/
+	Animation(_player->Get_isAbility(), _player->Get_AbilityType());
+
+	/*------------------------------------------------------------------------------
+	攻撃処理
+	------------------------------------------------------------------------------*/
+	if (isAttack == true) {
+		AttackProc(_player->Get_cx(), _player->Get_cy());
+	}
 }
 
 void Fairy_Endurance::Draw() {
