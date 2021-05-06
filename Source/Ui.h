@@ -5,11 +5,13 @@
 #include "ItemManager.h"
 #include "BuffManager.h"
 #include "BasePlayer.h"
+#include "BulletManager.h"
 #include "TimeLimit.h"
 
 class CastleManager;
 class ItemManager;
 class BuffManager;
+class BuletManager;
 class BasePlayer;
 class TimeLimit;
 
@@ -30,7 +32,8 @@ private:
 	static const int HPGAUGE_Y1 = 80;	
 	static const int REDGAUGE = 10;             //エネミーの最大攻撃力が一発殴ったら0になる値
 	static const int MAX_DURABILTY = 100;		//メイン拠点最大体力
-	static const int MAX_SABDURABILTY = 25;		//サブ拠点最大体力
+	static const int MAX_SABDURABILTY = 25;		//サブ拠点最大体
+	
 
 	static const int PMOJI_X = 1700;			//文字のｘ
 	static const int PMOJI_Y = 800;
@@ -69,6 +72,11 @@ private:
 	static const int SKILLGAUGE_X1 = 0;			//バーのｘ終点
 	static const int SKILLGAUGE_Y1 = 160;
 
+	static const int CHARGEGAUGE_X = 25;        //チャージゲージの始点
+	static const int CHARGEGAUGE_Y = 1000;
+	static const int CHARGEGAUGE_X2 = 350;     //チャージゲージの終点
+	static const int CHARGEGAUGE_Y2 = 1040;
+
 	const int MAX_SAKUYATIME = 5;				//咲夜さんの時止め最大タイム
 	const int MAX_FRANTIME = 3;					//フランさんの殲滅最大タイム
 
@@ -97,15 +105,21 @@ private:
 	bool skillActive;				//スキルが発動してるか
 	bool skillFran;					//フランさんのすきるが発動してるか
 
+	int maxGauge;                   //最大ゲージ
+	int chageGauge;                 //チャージゲージ
+	int playerPower;                //キャラパワー
+
 
 public:
 	void Get_CastleDurability();		//メイン拠点の体力UI
 	void Get_BuffPoint();				//アイテムポイントのUI
 	void Get_SubCastleDurability();		//サブ拠点の体力UI 
 	void AbilityUi();					//アビリティのUI
+	void ChargeGage();                  //チャージゲージ
 	void TimeLimitUi();					//タイムリミットUI
-	void Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer, TimeLimit* _timelimit);		//更新処理
+	void Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer,BulletManager* _bulletManager, TimeLimit* _timelimit);		//更新処理
 	void Draw();						//描画処理
+
 };
 
 #endif 

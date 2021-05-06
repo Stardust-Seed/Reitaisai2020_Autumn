@@ -65,7 +65,7 @@ void UI::Get_BuffPoint()
 	//Pアイテム
 	DrawBox(PMOJI_X, PMOJI_Y + 5, PMOJI_X1, PMOJI_Y1, GetColor(0, 0, 0), FALSE);										//文字
 
-	DrawFormatStringToHandle(PMOJI_X + 5, PMOJI_Y - 45, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "P");
+	DrawFormatStringToHandle(PMOJI_X + 5, PMOJI_Y - 45, GetColor(255, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "P");
 
 	DrawBox(PBAR_X, PBAR_Y + 1, PBAR_X1, PBAR_Y1, GetColor(0, 0, 0), FALSE);							//枠
 	DrawBox(PBAR_X, PBAR_Y, PBAR_X1, PBAR_Y1, GetColor(190, 255, 190), TRUE);
@@ -74,18 +74,18 @@ void UI::Get_BuffPoint()
 	{
 		pBuffPoint = 15;
 		DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1, PGAUGE_Y1 - 250 * pBuffPoint / MAX_BUFF, GetColor(255, 0, 0), TRUE);		//ゲージ
-		DrawFormatStringToHandle(1500, 900, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "PLvMAX");
+		DrawFormatStringToHandle(1500, 900, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "Power LvMAX");
 	}
 	else
 	{
 		DrawBox(PGAUGE_X, PGAUGE_Y, PGAUGE_X1, PGAUGE_Y1 - 250 * pBuffPoint / MAX_BUFF, GetColor(255, 0, 0), TRUE);		//ゲージ
-		DrawFormatStringToHandle(1500, 900, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "PLv%d", pBuffLevel);
+		DrawFormatStringToHandle(1500, 900, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "Power Lv%d", pBuffLevel);
 	}
 
 	//Sアイテム
 	DrawBox(SMOJI_X, SMOJI_Y + 5, SMOJI_X1, SMOJI_Y1, GetColor(0, 0, 0), FALSE);										//文字
 
-	DrawFormatStringToHandle(SMOJI_X + 5, SMOJI_Y - 45, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "S");
+	DrawFormatStringToHandle(SMOJI_X + 5, SMOJI_Y - 45, GetColor(0, 0, 255), FontHandle::Instance()->Get_natumemozi_38_8(), "S");
 
 	DrawBox(SBAR_X, SBAR_Y + 1, SBAR_X1, SBAR_Y1, GetColor(0, 0, 0), FALSE);											//枠
 	DrawBox(SBAR_X, SBAR_Y, SBAR_X1, SBAR_Y1, GetColor(190, 255, 190), TRUE);											//塗りつぶし
@@ -94,12 +94,12 @@ void UI::Get_BuffPoint()
 	{
 		sBuffPoint = 15;
 		DrawBox(SGAUGE_X, SGAUGE_Y, SGAUGE_X1, SGAUGE_Y1 - 250 * sBuffPoint / MAX_BUFF, GetColor(0, 0, 255), TRUE);		//ゲージ
-		DrawFormatStringToHandle(1500, 1000, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "SLvMAX");
+		DrawFormatStringToHandle(1500, 1000, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "Speed LvMAX");
 	}
 	else
 	{
 		DrawBox(SGAUGE_X, SGAUGE_Y, SGAUGE_X1, SGAUGE_Y1 - 250 * sBuffPoint / MAX_BUFF, GetColor(0, 0, 255), TRUE);		//ゲージ
-		DrawFormatStringToHandle(1500, 1000, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "SLv%d", sBuffLevel);
+		DrawFormatStringToHandle(1500, 1000, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "Speed Lv%d", sBuffLevel);
 	}
 }
 
@@ -129,8 +129,22 @@ void UI::TimeLimitUi()
 	DrawFormatStringToHandle(10, 80, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "TIME %d%d%d", hundredsTime, tensTime, onesTime);
 }
 
+void UI::ChargeGage()
+{
+	DrawBox(10, 950, 380, 1050, GetColor(200, 200, 200), TRUE);		//後ろに敷く
+	DrawFormatStringToHandle(15, 950, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "チャージゲージ");
+	DrawFormatStringToHandle(15, 750, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "%d",chageGauge);
+	DrawFormatStringToHandle(15, 550, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", playerPower);
+
+	//チャージゲージの枠
+	DrawBox(CHARGEGAUGE_X-1, CHARGEGAUGE_Y-1,CHARGEGAUGE_X2+1, CHARGEGAUGE_Y2+1, GetColor(0, 0, 0), FALSE);	
+
+	//チャージゲージ
+	DrawBox(CHARGEGAUGE_X, CHARGEGAUGE_Y, CHARGEGAUGE_X + 325 * chageGauge / maxGauge, CHARGEGAUGE_Y2, GetColor(0, 255, 255), TRUE);
+}
+
 //更新
-void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer, TimeLimit* _timelimit)
+void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer,BulletManager* _bulletManager, TimeLimit* _timelimit)
 {
 	//バフ関連
 	pBuffPoint = _itemmanager->Get_P_Count();
@@ -148,7 +162,10 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 		castleX[i] = _castlemanager->Get_DrawPosX(i);		
 		castleY[i] = _castlemanager->Get_DrawPosY(i);			
 	}
-
+	//チャージゲージ関連
+	maxGauge = _baseplayer->Get_maxChage();
+	chageGauge = _baseplayer->Get_chageGauge();
+	
 	//スキル関連
 	skillCount = _baseplayer->Get_AbilityCount();
 	skillClock = _baseplayer->Get_AbilityClock();
@@ -173,6 +190,7 @@ void UI::Draw()
 	Get_SubCastleDurability();
 	Get_BuffPoint();
 	AbilityUi();
+	ChargeGage();
 	TimeLimitUi();
 }
 

@@ -33,14 +33,14 @@ void GameScene::Update()
 	//表示するのが中間の奴ら
 	enemyManager->Update(castleManager, player, bulletManager, itemManager);
 	player->Update(enemyManager,buffManager);
-	bulletManager->Update(enemyManager);
+	bulletManager->Update(enemyManager,player,buffManager);
 
 	//表示するのが前の方の奴ら
 	itemManager->Update(player, buffManager);
 	eventManager->Update(enemyManager,player);
 	buffManager->Update(itemManager,enemyManager);
 	timeLimit->Update();
-	ui->Update(castleManager, itemManager, buffManager,player,timeLimit);
+	ui->Update(castleManager, itemManager, buffManager,player,bulletManager,timeLimit);
 
 	//ゲームシーンのシーン処理
 	ChangeScene();

@@ -27,8 +27,8 @@ BasePlayer::BasePlayer(int _pType)
 		graphNo = 2;
 		animNo = 2;
 		attackTime = 10;
-		//咲夜用
-		abilityTimer = STOPTIME;    //スキル時間タイマー
+		abilityTimer = STOPTIME;    //咲夜用スキル時間タイマー
+		maxCharge = MAX_CHAGE_SAKUYA;
 	}
 	if (playerType == FRAN)
 	{
@@ -41,6 +41,7 @@ BasePlayer::BasePlayer(int _pType)
 		abilityTimer = FRANTIME;
 		franAbility = false;
 		franTimer = 0;
+		maxCharge = MAX_CHAGE_FRAN;
 	}
 
 	star01X = pos.x - 5;                      //スタン時の☆のx座標
@@ -50,7 +51,7 @@ BasePlayer::BasePlayer(int _pType)
 	stanTime = 0;				//スタンタイム
 	stanTime_stay = 0;		    //スタン再発動までの時間
 
-	playerDirection = 0;	    //プレイヤーの向き。最初は左
+	direction = eDirection::Left;	    //プレイヤーの向き。最初は左
 
 	isDraw = true;              //true:描画ON false:描画OFF
 	isMove = false;				//移動している：true  移動していない：false
@@ -67,11 +68,10 @@ BasePlayer::BasePlayer(int _pType)
 
 	drawAngle = 0;              //描画の角度
 	drawZoom = 1.0;             //描画の拡大率
-}
-BasePlayer::~BasePlayer()
-{
 
+	shotPower = 0;              //チャージゲージ
 }
+
 void BasePlayer::Draw()
 {
 
@@ -109,27 +109,29 @@ void BasePlayer::Draw_Ability()
 	{
 		//魔法陣ブワァァァ
 		DrawRotaGraph(pos.x + 24, pos.y + 24, drawZoom, PI * drawAngle, Image::Instance()->GetGraph(eImageType::Gpicture_Magic), TRUE);
+		int test = LoadGraph("./res/Image/Timer.png");
+		Image::Instance()->TransparentGraph(800, 300, test, 80, true);
 	}
 
 }
 void BasePlayer::Draw_Arow()
 {
-	if (playerDirection == 0)
+	if (direction == eDirection::Left)
 	{
 		//左向き矢印
 		DrawTriangle(pos.x - 30, pos.y + 24, pos.x - 5, pos.y + 32, pos.x - 5, pos.y + 16, GetColor(255, 255, 255), TRUE);
 	}
-	if (playerDirection == 1)
+	if (direction == eDirection::Up)
 	{
 		//上向き矢印
 		DrawTriangle(pos.x + 24, pos.y - 30, pos.x + 16, pos.y - 5, pos.x + 32, pos.y - 5, GetColor(255, 255, 255), TRUE);
 	}
-	if (playerDirection == 2)
+	if (direction == eDirection::Right)
 	{
 		//右向き矢印
 		DrawTriangle(pos.x + 78, pos.y + 24, pos.x + 53, pos.y + 16, pos.x + 53, pos.y + 32, GetColor(255, 255, 255), TRUE);
 	}
-	if (playerDirection == 3)
+	if (direction == eDirection::Down)
 	{
 		//下向き矢印
 		DrawTriangle(pos.x + 24, pos.y + 78, pos.x + 16, pos.y + 53, pos.x + 32, pos.y + 53, GetColor(255, 255, 255), TRUE);
@@ -142,11 +144,13 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 	{
 		power = 40 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
 		speed = 5 * _bManager->GetSpeedBuff();   //バフによるスピード増加
+
 	}
 	if (playerType == FRAN)
 	{
 		power = 80 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
 		speed = 3 * _bManager->GetSpeedBuff();   //バフによるスピード増加
+
 	}
 	//スタン状態でない時
 	if (isStan == false) {
@@ -272,6 +276,7 @@ void BasePlayer::Stan(BuffManager* _bManager)
 		SE::Instance()->StopSE(SE_Stan);
 	}
 }
+
 //当たり判定
 bool BasePlayer::ClisionHit(float mx, float my, float mw, float mh,
 	float ox, float oy, float ow, float oh)
@@ -300,7 +305,7 @@ void BasePlayer::Attack()
 			//攻撃flagをtrueにする
 			isAttack = true;
 			//弾を飛ばす
-			bulletManager->Shot(pos, playerType, playerDirection, isAttack);
+			bulletManager->Shot(pos, playerType, direction, isAttack, power,shotPower);
 			if (playerType == SAKUYA)
 			{
 				//SEを鳴らす
@@ -313,15 +318,52 @@ void BasePlayer::Attack()
 			}
 			if (playerType == FRAN)
 			{
+				//攻撃感覚 フランは遅い
 				attackTime = 5;
 			}
 			else
 			{
+				//攻撃間隔 咲夜は早い
 				attackTime = 10;
 			}
 
 		}
+
+		//チャージショット
+		if (shotPower == maxCharge) {
+			if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 0))
+			{
+				//弾を飛ばす
+				bulletManager->Shot(pos, playerType, direction, isAttack,power,shotPower);
+				//チャージゲージリセット
+				Set_chageGauge(0);
+				if (playerType == SAKUYA)
+				{
+					//SEを鳴らす
+					SE::Instance()->PlaySE(SE_SakuyaAttack, DX_PLAYTYPE_BACK);
+					
+				}
+				else
+				{
+					//SEを鳴らす
+					SE::Instance()->PlaySE(SE_FranAttack, DX_PLAYTYPE_BACK);
+				}
+			}
+		}
 	}
+
+	//チャージショツトpowerチャージ
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) >= 1) && shotPower < maxCharge)
+	{
+		//押してる間パワーチャージ
+		shotPower += 1;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) <= 0) && shotPower > LOW_CHAGE)
+	{
+		//押してない間パワーダウン
+		shotPower -= 1;
+	}
+
 
 }
 //アニメーション処理
@@ -405,7 +447,6 @@ void BasePlayer::CharaAbility()
 		}
 		drawAngle += 0.02;
 		if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
-
 			abilityTimer -= 1;
 			countDown = FRAME;
 		}
@@ -450,7 +491,7 @@ void BasePlayer::Move()
 
 		Move_LEFT();    //←移動
 		isMove = true;
-		playerDirection = 0;  //←向き状態
+		direction = eDirection::Left;  //←向き状態
 		animLR = true;
 
 	}
@@ -459,7 +500,7 @@ void BasePlayer::Move()
 
 		Move_UP();      //↑移動
 		isMove = true;
-		playerDirection = 1;  //↑向き状態
+		direction = eDirection::Up;  //↑向き状態
 
 	}
 	//→キーを押したとき
@@ -467,7 +508,7 @@ void BasePlayer::Move()
 
 		Move_RIGHT();   //→移動
 		isMove = true;
-		playerDirection = 2;  //→向き状態
+		direction = eDirection::Right;  //→向き状態
 		animLR = false;
 
 	}
@@ -476,7 +517,7 @@ void BasePlayer::Move()
 
 		Move_DOWN();    //↓移動
 		isMove = true;
-		playerDirection = 3;  //↓向き状態
+		direction = eDirection::Down;  //↓向き状態
 
 	}
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_DOWN) <= 0) && (Input::Instance()->GetPressCount(KEY_INPUT_UP) <= 0) &&
@@ -525,3 +566,9 @@ void BasePlayer::Move_RIGHT()
 		Animation();
 	}
 }
+
+void BasePlayer::Set_power(int _power, BuffManager* _bManager)
+{
+	power = _power * _bManager->GetPowerBuff();
+}
+
