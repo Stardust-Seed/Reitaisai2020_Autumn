@@ -70,6 +70,9 @@
    あんずいろapricot×color 様
    http://www8.plala.or.jp/p_dolce/
 
+   ぴぽや倉庫 様
+   https://pipoya.net/sozai/
+
 　 制作するに当たって参考にしたサイト
 
 　 龍神録プログラミングの館 様

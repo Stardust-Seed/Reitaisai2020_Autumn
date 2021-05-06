@@ -23,14 +23,16 @@ enum class eImageType {
 	Spicture_SelectPlayer	= 16,	//立ち絵 選択されたプレイヤー
 	Gpicture_Player			= 18,	//ゲームの素材 プレイヤー
 	Gpicture_Enemy			= 22,	//ゲームの素材 エネミー
-	Gpicture_SubCastle		= 28,	//ゲームの素材 サブ拠点
-	Gpicture_Sukima			= 30,	//ゲームの素材 スキマ
-	Gpicture_Explosion		= 34,	//ゲームの素材 爆破エフェクト
-	Gpicture_Bomb			= 40,	//ゲームの素材 爆弾
-	Gpicture_FakeBomb		= 42,	//ゲームの素材 爆弾(偽物)
-	Gpicture_Bullet			= 45,	//ゲームの素材 弾
-	Gpicture_Item			= 47,	//ゲームの素材 アイテム
-	UI_CursorFrame			= 49,	//UIの素材 カーソルのフレーム
+	Gpicture_SubCastle		= 32,	//ゲームの素材 サブ拠点
+	Gpicture_Sukima			= 34,	//ゲームの素材 スキマ
+	Gpicture_Explosion		= 38,	//ゲームの素材 爆破エフェクト
+	Gpicture_Bomb			= 44,	//ゲームの素材 爆弾
+	Gpicture_FakeBomb		= 46,	//ゲームの素材 爆弾(偽物)
+	Gpicture_Bullet			= 49,	//ゲームの素材 弾
+	Gpicture_Item			= 51,	//ゲームの素材 アイテム
+	Effect_Slashing			= 53,	//エフェクト素材 斬撃
+	Effect_Explosion2		= 61,	//エフェクト素材 爆破
+	UI_CursorFrame			= 69,	//UIの素材 カーソルのフレーム
 };
 
 /// <summary>

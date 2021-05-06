@@ -102,6 +102,7 @@ void BaseEnemy::Init(float _speed, float _power, int _durability,
 	isAttack = false;
 	isCoolDown = false;
 	isHit = false;
+	isHitCastle = false;
 
 	if (direction == eDirection::Left) {
 		isTurn = true;
@@ -153,7 +154,7 @@ void BaseEnemy::Update(CastleManager* _castleManager, BasePlayer* _player,
 				_bulletManager->Get_Width(i), _bulletManager->Get_Height(i))) {
 				if (attackType != eAttackType::Invasion) {
 					_bulletManager->Set_isActive(i, false);
-					DamageProc(_player->Get_power());
+					DamageProc(_bulletManager.Get_Power(i));
 				}
 			}
 		}
@@ -174,30 +175,18 @@ void BaseEnemy::Update(CastleManager* _castleManager, BasePlayer* _player,
 
 	//拠点のサーチ処理
 	for (int i = 0; i < _castleManager->Get_CastleNum(); i++) {
-		SearchCastle(_castleManager->Get_X(i), _castleManager->Get_Y(i),
-			_castleManager->Get_Width(i), _castleManager->Get_Height(i), _castleManager->Get_IsActive(i));
+		isHitCastle = SearchCastle(_castleManager->Get_X(i), _castleManager->Get_Y(i),
+			_castleManager->Get_Width(i), _castleManager->Get_Height(i),
+			_castleManager->Get_IsActive(i));
+
+		if (isHitCastle) {
+			break;
+		}
 	}
 
 	//プレイヤーのサーチ処理
 	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
 		_player);
-
-/*------------------------------------------------------------------------------
-攻撃処理
-------------------------------------------------------------------------------*/
-	if (isAttack == true) {
-		AttackProc(_player->Get_cx(), _player->Get_cy());
-	}
-
-/*------------------------------------------------------------------------------
-移動処理
-------------------------------------------------------------------------------*/
-	Move(_player->Get_isAbility(), _player->Get_AbilityType());
-
-/*------------------------------------------------------------------------------
-アニメーション処理
-------------------------------------------------------------------------------*/
-	Animation(_player->Get_isAbility(), _player->Get_AbilityType());
 }
 
 /// <summary>
@@ -460,21 +449,20 @@ void BaseEnemy::SearchPlayer(float _px, float _py, float _pw, float _ph, BasePla
 /// <param name="_ow">拠点の縦幅</param>
 /// <param name="_oh">拠点の縦幅</param>
 /// <param name="_isActive">拠点のアクティブフラグ</param>
-void BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _isActive) {
+bool BaseEnemy::SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _isActive) {
 
 	//非アクティブタイプが侵入の場合処理を行わない
 	if (inactiveType == eInactiveType::Invasion || attackType == eAttackType::Player) {
-		return;
+		return false;
 	}
 
 	//城があった場合
 	if ((x + width >= _ox && x <= _ox + _ow && y + height >= _oy && y <= _oy + _oh)
 		&& _isActive == true) {
-		isAttack = true;
-		inactiveType = eInactiveType::Invasion;
-		attackType = eAttackType::Invasion;
-		animationCnt = 0;
+		return true;
 	}
+
+	return false;
 }
 
 /// <summary>

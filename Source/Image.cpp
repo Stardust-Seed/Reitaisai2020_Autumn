@@ -19,7 +19,7 @@ Image::Image() {
 	MyLoadDivGraph("./res/Image/tatie_Fran.png", 3, 3, 1, 486, 864);
 	MyLoadDivGraph("./res/Image/select_Player.png", 2, 2, 1, 275, 399);
 	MyLoadDivGraph("./res/Image/player.png", 4, 2, 2, 48, 48);
-	MyLoadDivGraph("./res/Image/enemy.png", 6, 2, 3, 48, 48);
+	MyLoadDivGraph("./res/Image/enemy.png", 10, 2, 5, 48, 48);
 	MyLoadDivGraph("./res/Image/SubCastle.png", 2, 2, 1, 55, 55);
 	MyLoadDivGraph("./res/Image/sukima.png", 4, 4, 1, 48, 48);
 	MyLoadDivGraph("./res/Image/ex.png", 6, 6, 1, 100, 100);
@@ -27,6 +27,8 @@ Image::Image() {
 	MyLoadDivGraph("./res/Image/fake.png", 3, 3, 1, 50, 50);
 	MyLoadDivGraph("./res/Image/Attack.png", 2, 2, 1, 25, 25);
 	MyLoadDivGraph("./res/Image/Item.png", 2, 2, 1, 16, 16);
+	MyLoadDivGraph("./res/Image/effect_slashing.png", 8, 8, 1, 120, 120);
+	MyLoadDivGraph("./res/Image/effect_ex2.png", 8, 8, 1, 120, 120);
 	MyLoadDivGraph("./res/Image/CursorFrame.png", 4, 4, 1, 650, 250);
 }
 
