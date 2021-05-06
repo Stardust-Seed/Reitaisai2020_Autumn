@@ -36,3 +36,15 @@ bool BaseCastle::ClisionHit(float ox, float oy, float ow, float oh,
 
     return isHit;
 }
+
+void BaseCastle::Damage_Proc(int _damage)
+{
+    SE::Instance()->PlaySE(SE_CastleDamage);
+    durability -= _damage;
+
+    if (durability <= maxDurabiliy / 3 && dyingFlg == false)
+    {
+        SE::Instance()->PlaySE(SE_warning);
+        dyingFlg = true;
+    }
+}

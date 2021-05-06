@@ -4,6 +4,8 @@
 #include "MainCastle.h"
 #include "SubCastle.h"
 #include "Direction.h"
+#include "Input.h"
+
 class BaseCastle;
 class MainCastle;
 class SubCastle;
@@ -19,7 +21,8 @@ private:
 
 	int durability;                    //耐久
 	int occupiedNum;                   //占領数
-
+	int cnt;                           //拠点数のカウント
+	int number;                           //生成場所の番号
 	bool activeCountFlg[POPCASTLE];    //アクティブな数を数えるフラグ
 
 public:

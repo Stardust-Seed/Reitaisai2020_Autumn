@@ -36,6 +36,7 @@ protected:
 
 	float drawPosX;                         //表示部分の座標X
 	float drawPosY;                         //表示部分の座標Y
+
 public:
 	BaseCastle(int);                        //コンストラクタ
 
@@ -53,6 +54,8 @@ public:
 	//こっち使う
 	bool ClisionHit(float ox, float oy, float ow, float oh,
 		int pow, int num, bool attackFlg, bool activeFlg);
+
+	void Damage_Proc(int);
 
 	//ゲッター
 	//拠点関連
