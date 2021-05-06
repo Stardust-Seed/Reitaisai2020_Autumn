@@ -84,6 +84,9 @@ protected:
 	const int STOPTIME = 5;         //時止めスキルの時間
 	int abilityTimer;               //スキル発動時間
 	int countDown;                  //スキルタイマーのカウントダウンに使用
+	int fadeCount;                  //スキルカットインのカウント
+	int catX;                       //カットイン用
+	int catY;
 
 	//フランスキル用
 	const int FRANTIME = 3;

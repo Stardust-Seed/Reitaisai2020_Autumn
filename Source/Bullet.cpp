@@ -72,14 +72,11 @@ void Bullet::Update(EnemyManager* _eManager,BasePlayer* _basePlayer)
 		//チャージゲージがMAXなら攻撃力UP
 		if (shotPower == 100)
 		{
-			if (_basePlayer->Get_AbilityType() == FRAN) {
-				power = power + 100;
-				
-			}
-			else
-			{
-				power = power + 100;
-			}
+			power = 200;
+		}
+		else
+		{
+			power = _basePlayer->Get_power();
 		}
 		if (bullet_Move == eDirection::Left)
 		{

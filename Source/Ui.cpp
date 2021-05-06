@@ -133,9 +133,6 @@ void UI::ChargeGage()
 {
 	DrawBox(10, 950, 380, 1050, GetColor(200, 200, 200), TRUE);		//後ろに敷く
 	DrawFormatStringToHandle(15, 950, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "チャージゲージ");
-	DrawFormatStringToHandle(15, 750, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "%d",chageGauge);
-	DrawFormatStringToHandle(15, 550, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "%d", playerPower);
-
 	//チャージゲージの枠
 	DrawBox(CHARGEGAUGE_X-1, CHARGEGAUGE_Y-1,CHARGEGAUGE_X2+1, CHARGEGAUGE_Y2+1, GetColor(0, 0, 0), FALSE);	
 

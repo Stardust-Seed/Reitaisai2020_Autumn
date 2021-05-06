@@ -22,7 +22,7 @@ BasePlayer::BasePlayer(int _pType)
 	if (playerType == SAKUYA)
 	{
 		speed = 8;					//移動速度
-		power = 40;					//攻撃力
+		power = 30;					//攻撃力
 		abilityCount = 3;		    //スキル回数
 		graphNo = 2;
 		animNo = 2;
@@ -33,7 +33,7 @@ BasePlayer::BasePlayer(int _pType)
 	if (playerType == FRAN)
 	{
 		speed = 3;					//移動速度
-		power = 80;			        //攻撃力
+		power = 50;			        //攻撃力
 		abilityCount = 2;		    //スキル回数
 		graphNo = 0;
 		animNo = 0;
@@ -70,6 +70,10 @@ BasePlayer::BasePlayer(int _pType)
 	drawZoom = 1.0;             //描画の拡大率
 
 	shotPower = 0;              //チャージゲージ
+	fadeCount = 0;              //カットインカウント
+
+	catX = 400;
+	catY = 850;
 }
 
 void BasePlayer::Draw()
@@ -109,8 +113,21 @@ void BasePlayer::Draw_Ability()
 	{
 		//魔法陣ブワァァァ
 		DrawRotaGraph(pos.x + 24, pos.y + 24, drawZoom, PI * drawAngle, Image::Instance()->GetGraph(eImageType::Gpicture_Magic), TRUE);
-		int test = LoadGraph("./res/Image/Timer.png");
-		Image::Instance()->TransparentGraph(800, 300, test, 80, true);
+
+		if (playerType == SAKUYA) {
+			//カットイン(白目)
+			//クソ地味だからカットインの左側にセリフでも入れようかな。後効果音
+			fadeCount = Image::Instance()->FadeInGraph(catX, catY, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 0), fadeCount, 250);
+		}
+		else
+		{
+			//カットイン(白目)
+			fadeCount = Image::Instance()->FadeInGraph(catX, catY, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 1), fadeCount, 250);
+		}
+
+		//下からカットイン
+		catY--;
+		
 	}
 
 }
@@ -142,13 +159,13 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 
 	if (playerType == SAKUYA)
 	{
-		power = 40 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
+		power = power * _bManager->GetPowerBuff();   //バフによる攻撃力増加
 		speed = 5 * _bManager->GetSpeedBuff();   //バフによるスピード増加
 
 	}
 	if (playerType == FRAN)
 	{
-		power = 80 * _bManager->GetPowerBuff();   //バフによる攻撃力増加
+		power = power * _bManager->GetPowerBuff();   //バフによる攻撃力増加
 		speed = 3 * _bManager->GetSpeedBuff();   //バフによるスピード増加
 
 	}
