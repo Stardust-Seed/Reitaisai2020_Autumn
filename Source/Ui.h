@@ -83,6 +83,8 @@ private:
 	int percent;					//パーセント
 	int CastleDurability;			//拠点の体力
 	int SubCastleDurability[5];		//拠点の数
+	int castleNum;                  //設置できるサブ拠点の数
+	int castleNumber;               //選択中の設置予定サブ拠点番号
 	int i;
 	
 	int pBuffPoint;					//pアイテムのゲージ上昇用

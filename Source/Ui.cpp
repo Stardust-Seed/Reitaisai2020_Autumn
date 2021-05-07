@@ -4,7 +4,7 @@
 //HPバーの表示と中身の処理(MainCastle)
 void UI::Get_CastleDurability()
 {
-	DrawBox(10, 5, 380, 120, GetColor(200, 200, 200), TRUE);		//後ろに敷く用
+	DrawBox(10, 5, 470, 200, GetColor(200, 200, 200), TRUE);		//後ろに敷く用
 
 	DrawFormatStringToHandle(HPMOJI_X, HPMOJI_Y, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "HP");						//HPという文字を表示するため
 
@@ -34,6 +34,21 @@ void UI::Get_CastleDurability()
 //HPバーの表示と中身の処理(SubCastle)
 void UI::Get_SubCastleDurability()
 {
+	DrawFormatStringToHandle(10, 85, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "設置可能サブ拠点数　：%d", castleNum);
+	DrawFormatStringToHandle(12, 125, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "選択中のサブ拠点番号：%d", castleNumber);
+
+	//座標補正
+	int xa = 12, yb = 38;
+
+	DrawString(SubCastle::COORDINATE_X_ONE - 48 - 4 + xa, SubCastle::COORDINATE_Y_ONE - 80 - 4 + yb, "1", GetColor(0, 0, 0));
+	DrawString(SubCastle::COORDINATE_X_TWO - 48 - 4 + xa, SubCastle::COORDINATE_Y_TWO + 32 - 4 + yb, "2", GetColor(0, 0, 0));
+	DrawString(SubCastle::COORDINATE_X_THREE + 32 - 4 + xa, SubCastle::COORDINATE_Y_THREE - 48 - 4 + yb, "3", GetColor(0, 0, 0));
+	DrawString(SubCastle::COORDINATE_X_FOUR - 80 - 4 + xa, SubCastle::COORDINATE_Y_FOUR - 48 - 4 + yb, "4", GetColor(0, 0, 0));
+	DrawString(SubCastle::COORDINATE_X_FIVE + 48 - 4 + xa, SubCastle::COORDINATE_Y_FIVE + 32 - 4 + yb, "5", GetColor(0, 0, 0));
+	DrawString(SubCastle::COORDINATE_X_SIX + 48 - 4 + xa, SubCastle::COORDINATE_Y_SIX - 80 - 4 + yb, "6", GetColor(0, 0, 0));
+	DrawString(SubCastle::COORDINATE_X_SEVEN - 80 - 4 + xa, SubCastle::COORDINATE_Y_SEVEN + 48 - 4 + yb, "7", GetColor(0, 0, 0));
+	DrawString(SubCastle::COORDINATE_X_EIGHT + 32 - 4 + xa, SubCastle::COORDINATE_Y_EIGHT + 48 - 4 + yb, "8", GetColor(0, 0, 0));
+	
 	for (i = 1; i < 5; i++)
 	{
 		if (SubCastleDurability[i] <= 0)					//HPゲージが0以下になってもゲージは0で止める
@@ -126,7 +141,7 @@ void UI::AbilityUi()
 //制限時間のUI
 void UI::TimeLimitUi()
 {
-	DrawFormatStringToHandle(10, 80, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "TIME %d%d%d", hundredsTime, tensTime, onesTime);
+	DrawFormatStringToHandle(10, 160, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "TIME %d%d%d", hundredsTime, tensTime, onesTime);
 }
 
 void UI::ChargeGage()
@@ -151,6 +166,8 @@ void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffMa
 
 	//拠点関連
 	CastleDurability = _castlemanager->Get_Durability(0);		//拠点の体力をセットする
+	castleNum = _castlemanager->Get_installCastle();
+	castleNumber = _castlemanager->Get_installNum();
 
 	for (i = 1; i < 5; i++)
 	{
