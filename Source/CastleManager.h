@@ -21,8 +21,10 @@ private:
 
 	int durability;                    //耐久
 	int occupiedNum;                   //占領数
-	int cnt;                           //拠点数のカウント
-	int number;                           //生成場所の番号
+	int cnt;                           //拠点数のカウント(というか番号)
+	int installCnt;                    //サブ拠点を設置した数
+	int number;                        //生成場所の番号
+	bool numberFlg[8];                 //番号別の生成しているかどうかのフラグ
 	bool activeCountFlg[POPCASTLE];    //アクティブな数を数えるフラグ
 
 public:
@@ -34,6 +36,8 @@ public:
 	void Draw();
 
 	int Get_CastleNum();                    //拠点の数を返す
+	int Get_installCastle();                //残りの設置できるサブ拠点の数を返す
+	int Get_installNum();                   //選択中の設置予定場所番号
 
 	float Get_X(int);				        //i番目の拠点のx座標を受け取る
 	float Get_Y(int);				        //i番目の拠点のy座標を受け取る

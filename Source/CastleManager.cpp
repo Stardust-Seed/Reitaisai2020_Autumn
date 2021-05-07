@@ -6,6 +6,13 @@ CastleManager::CastleManager() {
 
 	cnt = 1;
 	number = 1;
+	installCnt = 0;
+
+	for (int i = 0; i < 8; i++)
+	{
+		numberFlg[i] = false;
+	}
+
 	for (int i = 0; i < POPCASTLE; i++)
 	{
 		Castles[i] = NULL;		   //CastleのポインタにNULL
@@ -93,10 +100,12 @@ void CastleManager::Update(EnemyManager*_enemy,EventManager* _event)
 		}
 	}
 
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_C) == 1))
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_C) == 1) && numberFlg[number - 1] == false)
 	{
 		if (cnt < POPCASTLE)
 		{
+			numberFlg[number - 1] = true;
+			installCnt++;
 			durability = 25;
 			Castles[cnt] = new SubCastle(durability, cnt, number);   //生成処理
 			activeCountFlg[cnt] = true;
@@ -146,14 +155,14 @@ void CastleManager::Draw()
 	//DrawFormatString(100, 100, GetColor(255, 255, 255), "%d", number);
 
 	//設置できる場所の表示
-	DrawGraphF(SubCastle::COORDINATE_X_ONE - 4 - 48, SubCastle::COORDINATE_Y_ONE - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
-	DrawGraphF(SubCastle::COORDINATE_X_TWO - 4 - 48, SubCastle::COORDINATE_Y_TWO + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
-	DrawGraphF(SubCastle::COORDINATE_X_THREE + 32 - 4, SubCastle::COORDINATE_Y_THREE - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
-	DrawGraphF(SubCastle::COORDINATE_X_FOUR - 80 - 4, SubCastle::COORDINATE_Y_FOUR - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
-	DrawGraphF(SubCastle::COORDINATE_X_FIVE + 48 - 4, SubCastle::COORDINATE_Y_FIVE + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
-	DrawGraphF(SubCastle::COORDINATE_X_SIX + 48 - 4, SubCastle::COORDINATE_Y_SIX - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
-	DrawGraphF(SubCastle::COORDINATE_X_SEVEN - 80 - 4, SubCastle::COORDINATE_Y_SEVEN + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
-	DrawGraphF(SubCastle::COORDINATE_X_EIGHT + 32 - 4, SubCastle::COORDINATE_Y_EIGHT + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 1), TRUE);
+	if(!numberFlg[0])DrawGraphF(SubCastle::COORDINATE_X_ONE - 4 - 48, SubCastle::COORDINATE_Y_ONE - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+	if (!numberFlg[1])DrawGraphF(SubCastle::COORDINATE_X_TWO - 4 - 48, SubCastle::COORDINATE_Y_TWO + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+	if (!numberFlg[2])DrawGraphF(SubCastle::COORDINATE_X_THREE + 32 - 4, SubCastle::COORDINATE_Y_THREE - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+	if (!numberFlg[3])DrawGraphF(SubCastle::COORDINATE_X_FOUR - 80 - 4, SubCastle::COORDINATE_Y_FOUR - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+	if (!numberFlg[4])DrawGraphF(SubCastle::COORDINATE_X_FIVE + 48 - 4, SubCastle::COORDINATE_Y_FIVE + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+	if (!numberFlg[5])DrawGraphF(SubCastle::COORDINATE_X_SIX + 48 - 4, SubCastle::COORDINATE_Y_SIX - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+	if (!numberFlg[6])DrawGraphF(SubCastle::COORDINATE_X_SEVEN - 80 - 4, SubCastle::COORDINATE_Y_SEVEN + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+	if (!numberFlg[7])DrawGraphF(SubCastle::COORDINATE_X_EIGHT + 32 - 4, SubCastle::COORDINATE_Y_EIGHT + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
 	
 }
 
@@ -187,6 +196,18 @@ int CastleManager::Get_Durability(int num)
 int CastleManager::Get_CastleNum()
 {
 	return POPCASTLE;
+}
+
+//設置できるサブ拠点の数を返す
+int CastleManager::Get_installCastle()
+{
+	return POPCASTLE - 1 - installCnt;
+}
+
+//設置予定のサブ拠点番号を返す
+int CastleManager::Get_installNum()
+{
+	return number;
 }
 
 //占領されたサブ拠点の数を受け取る
