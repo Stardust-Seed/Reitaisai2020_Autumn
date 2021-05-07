@@ -20,7 +20,7 @@ Image::Image() {
 	MyLoadDivGraph("./res/Image/select_Player.png", 2, 2, 1, 275, 399);
 	MyLoadDivGraph("./res/Image/player.png", 4, 2, 2, 48, 48);
 	MyLoadDivGraph("./res/Image/enemy.png", 10, 2, 5, 48, 48);
-	MyLoadDivGraph("./res/Image/SubCastle.png", 2, 2, 1, 55, 55);
+	MyLoadDivGraph("./res/Image/SubCastle.png", 3, 3, 1, 55, 55);
 	MyLoadDivGraph("./res/Image/sukima.png", 4, 4, 1, 48, 48);
 	MyLoadDivGraph("./res/Image/ex.png", 6, 6, 1, 100, 100);
 	MyLoadDivGraph("./res/Image/bomb.png", 2, 2, 1, 50, 50);
