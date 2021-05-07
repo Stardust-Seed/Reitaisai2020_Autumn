@@ -122,12 +122,6 @@ protected:
 	void AttackMotion(float* _move, float* _jump, float _addMove, float _addJump);
 
 	/// <summary>
-	/// ダメージ処理
-	/// </summary>
-	/// <param name="_damage">ダメージ量</param>
-	void DamageProc(int _damage);
-
-	/// <summary>
 	/// 移動処理
 	/// </summary>
 	/// <param name="_isAbility">プレイヤーのアビリティフラグ</param>
@@ -201,6 +195,12 @@ public:
 	/// <param name="_bulletManager">弾の管理クラス</param>
 	virtual void Update(CastleManager* _castleManager, BasePlayer* _player,
 		BulletManager* _bulletManager);
+
+	/// <summary>
+	/// ダメージ処理
+	/// </summary>
+	/// <param name="_damage">ダメージ量</param>
+	void DamageProc(int _damage);
 
 	/// <summary>
 	/// 描画処理

@@ -50,7 +50,7 @@ void EnemyBomb::Update(Player* _player, CastleManager* _castleManager,
 			}
 
 			//敵と爆弾の当たり判定
-			for (int i = 0; i < _enemyManager->Get_ActiveCount(); i++) {
+			for (int i = 0; i < _enemyManager->Get_enemyNum(); i++) {
 				//敵がアクティブな場合
 				if (_enemyManager->Get_ActiveFlg(i)) {
 					//当たった場合
