@@ -56,12 +56,12 @@ public:
 	/// <summary>
 	/// XVˆ—
 	/// </summary>
-	void Update();
+	void Update(GameResource* _gameRes);
 
 	/// <summary>
 	/// •`‰æˆ—
 	/// </summary>
-	void Draw();
+	void Draw(GameResource* _gameRes);
 };
 
 #endif

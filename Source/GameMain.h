@@ -2,9 +2,11 @@
 #define AR_GAMEMAIN_H
 
 #include "SceneManager.h"
+#include "GameResource.h"
 
 class GameMain {
-	SceneManager sManager;	//シーンマネージャー
+	SceneManager* sManager;	//シーンマネージャー
+	GameResource gameRes;	//ゲームリソース
 
 	eScene nowScene;
 	int fadeCnt;

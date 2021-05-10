@@ -54,8 +54,8 @@ private:
 	SelectOptionType selectType;	//現在選択してるタイプ
 public:
 	Option(ISceneChanger* _sceneChanger, Parameter* _parameter);
-	void Update();
-	void Draw();
+	void Update(GameResource* _gameRes);
+	void Draw(GameResource* _gameRes);
 };
 
 #endif // !_OPTION_H

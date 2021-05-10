@@ -22,7 +22,7 @@ CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter) :B
 }
 
 /*更新処理*/
-void CharaSelect::Update()
+void CharaSelect::Update(GameResource* _gameRes)
 {
 	if (Input::Instance()->GetPressCount(KEY_INPUT_RIGHT) % 16 == 1 &&
 		Input::Instance()->GetPressCount(KEY_INPUT_LEFT) == 0)
@@ -132,7 +132,7 @@ void CharaSelect::Select_Push(int _changeType)
 }
 
 /*描画処理*/
-void CharaSelect::Draw()
+void CharaSelect::Draw(GameResource* _gameRes)
 {
 	Draw_CharaWaku();    //キャラ画像の枠
 	Draw_CharaGraph();   //キャラ画像

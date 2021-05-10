@@ -14,8 +14,9 @@
 #include "Title.h"
 
 /*コンストラクタ*/
-SceneManager::SceneManager() {
+SceneManager::SceneManager(GameResource* _gameRes) {
 	scenes.push(std::make_shared<Title>(this, &parameter));
+	gameRes = _gameRes;
 	nowScene = eScene_TITLE;
 	frontScene = eScene_TITLE;
 	scenes.top()->Init();
@@ -30,7 +31,7 @@ void SceneManager::Update() {
 		return;
 	}
 
-	scenes.top()->Update();
+	scenes.top()->Update(gameRes);
 }
 
 /*描画処理*/
@@ -41,7 +42,7 @@ void SceneManager::Draw() {
 		return;
 	}
 
-	scenes.top()->Draw();
+	scenes.top()->Draw(gameRes);
 }
 
 /*シーン切り替え処理*/
@@ -74,7 +75,7 @@ void SceneManager::SceneChange(eScene _nextScene, Parameter* _parameter,
 		nowScene = eScene_MENU;
 		break;
 	case eScene_GAME:
-		scenes.push(std::make_shared<GameScene>(this, _parameter));
+		scenes.push(std::make_shared<GameScene>(this, _parameter, gameRes));
 		nowScene = eScene_GAME;
 		break;
 	case eScene_CLAER:

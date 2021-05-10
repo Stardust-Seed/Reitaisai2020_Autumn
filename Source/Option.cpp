@@ -52,7 +52,7 @@ Option::Option(ISceneChanger* _sceneChanger, Parameter* _parameter)
 }
 
 /*XVˆ—*/
-void Option::Update() {
+void Option::Update(GameResource* _gameRes) {
 	//Ý’è‚µ‚½€–Ú‚Ì•Û‘¶ˆ—
 	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) {
 		File::Instance()->SetFileData(eFileType::Config, 0, bgmVolume);
@@ -131,7 +131,7 @@ void Option::Update() {
 }
 
 /*•`‰æˆ—*/
-void Option::Draw() {
+void Option::Draw(GameResource* _gameRes) {
 	//DrawBoxAA(UIAREA_X1, UIAREA_Y1BGM, UIAREA_X2, UIAREA_Y2BGM, GetColor(255, 255, 255), TRUE);
 	DrawExtendGraph(UIAREA_X1 - 50, UIAREA_Y1BGM - 50, UIAREA_X2 + 50, UIAREA_Y2BGM + 50, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, cNum[0]), TRUE);
 	DrawStringToHandle(STRING_XBGM+3, STRING_YBGM+3, "BGM Volume", GetColor(0,0,0), FontHandle::Instance()->Get_natumemozi_48_8());

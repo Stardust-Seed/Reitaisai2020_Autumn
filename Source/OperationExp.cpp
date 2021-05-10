@@ -19,7 +19,7 @@ OperationExp::OperationExp(ISceneChanger* _sceneChanger, Parameter* _parameter) 
 /// <summary>
 /// 更新処理
 /// </summary>
-void OperationExp::Update() {
+void OperationExp::Update(GameResource* _gameRes) {
 	//xキーが入力されたとき
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
 		//キャンセルSEを鳴らす
@@ -33,7 +33,7 @@ void OperationExp::Update() {
 /// <summary>
 /// 描画処理
 /// </summary>
-void OperationExp::Draw() {
+void OperationExp::Draw(GameResource* _gameRes) {
 	//説明を描画する領域の描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255 / 2);
 	DrawBoxAA(100, 100, GAME_WIDTH - 100, GAME_HEIHGT - 100, GetColor(255, 255, 255), TRUE);

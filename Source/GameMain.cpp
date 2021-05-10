@@ -9,6 +9,7 @@
 GameMain::GameMain() {
 	Image::Instance()->Load();
 	File::Instance()->Load();
+	sManager = new SceneManager(&gameRes);
 }
 
 GameMain::~GameMain() {
@@ -29,13 +30,13 @@ void GameMain::Init() {
 bool GameMain::GameLoop() {
 
 	Input::Instance()->UpdateKey();
-	nowScene = sManager.GetNowScene();
+	nowScene = sManager->GetNowScene();
 
 	if (nowScene == eScene_TITLE && fadeCnt != 0) {
 		fadeCnt = 0;
 	}
 
-	sManager.Update();
+	sManager->Update();
 
 	if (nowScene == eScene_TITLE || nowScene == eScene_MENU || nowScene == eScene_CHARASELECT ||
 		nowScene == eScene_LEVELSELECT || nowScene == eScene_PAUSEMENU ||
@@ -62,7 +63,7 @@ bool GameMain::GameLoop() {
 		DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Game), TRUE);
 	}
 
-	sManager.Draw();
+	sManager->Draw();
 
 	return true;
 }
