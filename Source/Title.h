@@ -19,8 +19,8 @@ private:
 public:
 	Title(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	~Title() = default;
-	void Update();				//更新処理
-	void Draw();				//描画処理
+	void Update(GameResource* _gameRes);				//更新処理
+	void Draw(GameResource* _gameRes);				//描画処理
 	void Move();                //移動処理
 };
 

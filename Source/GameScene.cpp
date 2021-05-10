@@ -5,7 +5,9 @@
 #include "BGM.h"
 
 //コンストラクタ
-GameScene::GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseScene(_sceneChanger, _parameter)
+GameScene::GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter,
+	GameResource* _gameRes)
+	:BaseScene(_sceneChanger, _parameter)
 {
 	timeLimit = new TimeLimit();
 	player = new BasePlayer(_parameter->Get(BaseScene::CharaSelectTag));
@@ -20,11 +22,21 @@ GameScene::GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseS
 	//弾管理のアドレスを取得
 	player->SetBulletManager(bulletManager);
 
+	//ゲームリソースに各オブジェクトを追加
+	_gameRes->buffManager = buffManager;
+	_gameRes->bulletManager = bulletManager;
+	_gameRes->castleManager = castleManager;
+	_gameRes->eventManager = eventManager;
+	_gameRes->enemyManager = enemyManager;
+	_gameRes->itemManager = itemManager;
+	_gameRes->player = player;
+	_gameRes->timeLimit = timeLimit;
+
 	BGM::Instance()->PlayBGM(BGM_gameScene, DX_PLAYTYPE_LOOP);
 }
 
 //更新
-void GameScene::Update()
+void GameScene::Update(GameResource* _gameRes)
 {
 
 	//表示するのが奥の方の奴ら
@@ -47,7 +59,7 @@ void GameScene::Update()
 }
 
 //描画
-void GameScene::Draw()
+void GameScene::Draw(GameResource* _gameRes)
 {
 	//表示するのが奥の方の奴ら
 	castleManager->Draw();

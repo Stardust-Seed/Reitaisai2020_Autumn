@@ -39,7 +39,7 @@ Menu::Menu(ISceneChanger* _sceneChanger, Parameter* _parameter)
 /// <summary>
 /// 更新処理
 /// </summary>
-void Menu::Update() {
+void Menu::Update(GameResource* _gameRes) {
 	//↓キーが入力された場合
 	if (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) % 16 == 1 &&
 		Input::Instance()->GetPressCount(KEY_INPUT_UP) == 0) {
@@ -98,7 +98,7 @@ void Menu::Update() {
 /// <summary>
 /// 描画処理
 /// </summary>
-void Menu::Draw() {
+void Menu::Draw(GameResource* _gameRes) {
 /*------------------------------------------------------------------------------
 UIの描画
 ------------------------------------------------------------------------------*/

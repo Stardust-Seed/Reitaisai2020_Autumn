@@ -14,7 +14,7 @@ GameOver::GameOver(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseSce
 }
 
 //更新
-void GameOver::Update()
+void GameOver::Update(GameResource* _gameRes)
 {
 	if (waitTimer < 150)
 	{
@@ -25,7 +25,7 @@ void GameOver::Update()
 }
 
 //描画
-void GameOver::Draw()
+void GameOver::Draw(GameResource* _gameRes)
 {
 	//キャラの表示
 	switch (charaType)

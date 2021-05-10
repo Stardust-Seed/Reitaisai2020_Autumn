@@ -39,9 +39,9 @@ private:
 
 public:
 	CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter);
-	void Update();
+	void Update(GameResource* _gameRes);
 	void Select_Push(int _changeType);
-	void Draw();
+	void Draw(GameResource* _gameRes);
 	void Draw_CharaWaku();
 	void Draw_CharaName();
 	void Draw_CharaAbility();

@@ -13,7 +13,7 @@ Title::Title(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	BGM::Instance()->PlayBGM(BGM_title, DX_PLAYTYPE_LOOP);
 }
 
-void Title::Update()
+void Title::Update(GameResource* _gameRes)
 {
 	Move();
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
@@ -29,7 +29,7 @@ void Title::Update()
 	}
 }
 
-void Title::Draw()
+void Title::Draw(GameResource* _gameRes)
 {
 	//タイトル表示
 	DrawGraph(GAME_WIDTH / 4 - 25, GAME_HEIHGT / 13, Image::Instance()->GetGraph(eImageType::Title_Logo, 0), TRUE);

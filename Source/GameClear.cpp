@@ -19,7 +19,7 @@ GameClear::GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter)
 }
 
 /*更新処理*/
-void GameClear::Update() {
+void GameClear::Update(GameResource* _gameRes) {
 
 	if (waitTimer < 150)
 	{
@@ -30,7 +30,7 @@ void GameClear::Update() {
 }
 
 /*描画処理*/
-void GameClear::Draw() {
+void GameClear::Draw(GameResource* _gameRes) {
 
 	//キャラの表示
 	switch (charaType)

@@ -3,6 +3,7 @@
 
 #include "ISceneChanger.h"
 #include "Parameter.h"
+#include "GameResource.h"
 
 class ISceneChanger;
 
@@ -31,8 +32,8 @@ public:
 	BaseScene(ISceneChanger* _sceneChanger, Parameter* _parameter);
 	virtual ~BaseScene() = default;
 	void Init();
-	virtual void Draw() = 0;		//描画処理
-	virtual void Update() = 0;		//更新処理
+	virtual void Draw(GameResource* _gameRes) = 0;		//描画処理
+	virtual void Update(GameResource* _gameRes) = 0;		//更新処理
 };
 
 

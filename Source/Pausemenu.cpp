@@ -47,7 +47,7 @@ void Pausemenu::PauseAll()
 }
 
 //更新
-void Pausemenu::Update()
+void Pausemenu::Update(GameResource* _gameRes)
 {
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) % 16 == 1)		        //下キーが押されていたら
@@ -91,7 +91,7 @@ void Pausemenu::Update()
 }
 
 //描画
-void Pausemenu::Draw()
+void Pausemenu::Draw(GameResource* _gameRes)
 {
 	PauseAll();
 

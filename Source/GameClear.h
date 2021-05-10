@@ -30,8 +30,8 @@ private:
 	int waitTimer;              //シーン切り替え後少しの間操作を受け付けないようにする
 public:
 	GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter);
-	void Update();				//更新処理
-	void Draw();				//描画処理
+	void Update(GameResource* _gameRes);				//更新処理
+	void Draw(GameResource* _gameRes);				//描画処理
 	void Select();              //選択処理
 	void Move();                //動きの処理
 };

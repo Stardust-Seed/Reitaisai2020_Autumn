@@ -32,9 +32,10 @@ private:
 	UI* ui;
 
 public:
-	GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter);
-	void Update();				//更新処理
-	void Draw();				//描画処理
+	GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter,
+		GameResource* _gameRes);
+	void Update(GameResource* _gameRes);				//更新処理
+	void Draw(GameResource* _gameRes);				//描画処理
 	void ChangeScene();         //シーン変更処理
 };
 

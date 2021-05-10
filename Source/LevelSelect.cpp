@@ -41,7 +41,7 @@ LevelSelect::LevelSelect(ISceneChanger* _sceneChanger, Parameter* _parameter)
 /// <summary>
 /// 更新処理
 /// </summary>
-void LevelSelect::Update() {
+void LevelSelect::Update(GameResource* _gameRes) {
 	//選択された項目に色を付けて、それ以外は灰色に設定する
 	if (isChange == true) {
 		switch (selectLevel) {
@@ -114,7 +114,7 @@ void LevelSelect::Update() {
 /// <summary>
 /// 描画処理
 /// </summary>
-void LevelSelect::Draw() {
+void LevelSelect::Draw(GameResource* _gameRes) {
 /*------------------------------------------------------------------------------
 UIの描画
 ------------------------------------------------------------------------------*/
