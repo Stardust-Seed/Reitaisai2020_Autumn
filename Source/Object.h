@@ -18,8 +18,9 @@ public:
 		float ox, float oy, float ow, float oh) = 0;
 	// m = my ©•ª   o = opnet ‘Šè
 
-	virtual void Draw() = 0;   //•`‰æˆ—
-	
+	virtual void Update(GameResource* _gameRes) {}	//XVˆ—
+	virtual void Draw(GameResource* _gameRes) {}	//•`‰æˆ—
+
 };
 
 #endif //
