@@ -1,6 +1,8 @@
 #include <DxLib.h>
 #include "EnemyManager.h"
 #include "BasePlayer.h"
+#include "CastleManager.h"
+#include "ItemManager.h"
 
 EnemyManager::EnemyManager(int level) {
 	
@@ -42,17 +44,19 @@ EnemyManager::~EnemyManager() {
 	}
 }
 
-void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManager *_bulletManager,ItemManager *_itemManager){
-	if (_player->Get_AbilityType() == FRAN_Ability || _player->Get_isAbility() == false && _player->Get_AbilityType() == SAKUYA_Ability) {
-		SpawnEnemy(_castle);						//生成呼び出し
+void EnemyManager::Update(GameResource* _gameRes){
+	if (_gameRes->player->Get_AbilityType() == FRAN_Ability ||
+		_gameRes->player->Get_isAbility() == false &&
+		_gameRes->player->Get_AbilityType() == SAKUYA_Ability) {
+		SpawnEnemy(_gameRes->castleManager);					//生成呼び出し
 	}
 	for (int num = 0; num < enemyNum + addEnemyNum; num++) {
 
 		if (Enemys[num] != NULL) {		//NULLでない場合
-			Enemys[num]->Update(_castle, _player, _bulletManager);		//更新処理
+			Enemys[num]->Update(_gameRes);		//更新処理
 
 			if (Enemys[num]->GetInactiveType() == eInactiveType::Defeat) {
-				_itemManager->SpawnItem(Enemys[num]->Get_CX(), Enemys[num]->Get_CY());	//アイテム生成
+				_gameRes->itemManager->SpawnItem(Enemys[num]->Get_CX(), Enemys[num]->Get_CY());	//アイテム生成
 			}
 
 			if (Enemys[num]->GetIsActive() == false) {
@@ -76,11 +80,12 @@ void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManag
 		フランのスキル使用時の処理
 		エネミーが全滅します
 	*********************************************************/
-	if (_player->Get_isAbility() == true && _player->Get_AbilityType() == FRAN_Ability) {
+	if (_gameRes->player->Get_isAbility() == true && 
+		_gameRes->player->Get_AbilityType() == FRAN_Ability) {
 
 		for (int num = 0; num < MAX_ENEMY_NUM; num++) {		
 			if (Enemys[num] != NULL) {					//何か入ってる場合
-				_itemManager->SpawnItem(Enemys[num]->Get_CX(), Enemys[num]->Get_CY());	//アイテム生成
+				_gameRes->itemManager->SpawnItem(Enemys[num]->Get_CX(), Enemys[num]->Get_CY());	//アイテム生成
 
 				delete Enemys[num];						//デリートして
 				Enemys[num] = NULL;						//NULLを入れる
@@ -92,14 +97,14 @@ void EnemyManager::Update(CastleManager *_castle,BasePlayer *_player,BulletManag
 
 }
 
-void EnemyManager::Draw() {
+void EnemyManager::Draw(GameResource* _gameRes) {
 	for (int num = 0; num < enemyNum + addEnemyNum; num++) {
 		if (Enemys[num] != NULL) {
-			Enemys[num]->Draw();	//描画
+			Enemys[num]->Draw(_gameRes);	//描画
 			
 		}
 		if (eBombs[num] != NULL) {
-			eBombs[num]->Draw();
+			eBombs[num]->Draw(_gameRes);
 		}
 	}
 }
@@ -247,11 +252,11 @@ void EnemyManager::SpawnBomb(int eNum,int bNum,float _x,float _y,eExType _exType
 
 }
 
-//void EnemyManager::DamageSend(int num,int _damage) {
-//	if (Enemys[num] != NULL) {
-//		Enemys[num]->DamageProc(_damage);
-//	}
-//}
+void EnemyManager::DamageSend(int num,int _damage) {
+	if (Enemys[num] != NULL) {
+		Enemys[num]->DamageProc(_damage);
+	}
+}
 
 void EnemyManager::Set_IsActive(int num, bool _isActive) {
 	if (Enemys[num] != NULL) {

@@ -27,8 +27,7 @@ EnemyBomb::EnemyBomb(float _x, float _y, eExType _exType) {
 	}
 }
 
-void EnemyBomb::Update(Player* _player, CastleManager* _castleManager,
-	EnemyManager* _enemyManager) {
+void EnemyBomb::Update(GameResource* _gameRes) {
 	//爆破カウントが爆発までのタイムのとき
 	if (exCnt == EXTIME)isExplosion = true;
 
@@ -37,26 +36,36 @@ void EnemyBomb::Update(Player* _player, CastleManager* _castleManager,
 
 		if (effectIndex == 0) {
 			//城と爆弾の当たり判定
-			for (int i = 0; i < _castleManager->Get_CastleNum(); i++) {
+			for (int i = 0; i < _gameRes->castleManager->Get_CastleNum(); i++) {
 				//城がアクティブな場合
-				if (_castleManager->Get_IsActive(i)) {
+				if (_gameRes->castleManager->Get_IsActive(i)) {
+
+					float castleX = _gameRes->castleManager->Get_X(i);
+					float castleY = _gameRes->castleManager->Get_Y(i);
+					float castleW = _gameRes->castleManager->Get_Width(i);
+					float castleH = _gameRes->castleManager->Get_Height(i);
+
 					//当たった場合
 					if (ClisionHit(cx - (exAreaSize / 2), cy - (exAreaSize / 2), width, height,
-						_castleManager->Get_X(i), _castleManager->Get_Y(i),
-						_castleManager->Get_Width(i), _castleManager->Get_Height(i))) {
+						castleX, castleY, castleW, castleH)) {
 						//ここにダメージの処理
 					}
 				}
 			}
 
 			//敵と爆弾の当たり判定
-			for (int i = 0; i < _enemyManager->Get_enemyNum(); i++) {
+			for (int i = 0; i < _gameRes->enemyManager->Get_enemyNum(); i++) {
 				//敵がアクティブな場合
-				if (_enemyManager->Get_ActiveFlg(i)) {
+				if (_gameRes->enemyManager->Get_ActiveFlg(i)) {
+
+					float enemyX = _gameRes->enemyManager->Get_x(i);
+					float enemyY = _gameRes->enemyManager->Get_y(i);
+					float enemyW = _gameRes->enemyManager->Get_width(i);
+					float enemyH = _gameRes->enemyManager->Get_height(i);
+
 					//当たった場合
 					if (ClisionHit(cx - (exAreaSize / 2), cy - (exAreaSize / 2), width, height,
-						_enemyManager->Get_x(i), _enemyManager->Get_y(i),
-						_enemyManager->Get_width(i), _enemyManager->Get_height(i))) {
+						enemyX, enemyY, enemyW, enemyH)) {
 						//ここにダメージの処理
 					}
 				}
@@ -76,7 +85,7 @@ void EnemyBomb::Update(Player* _player, CastleManager* _castleManager,
 	exCnt++;
 }
 
-void EnemyBomb::Draw() {
+void EnemyBomb::Draw(GameResource* _gameRes) {
 	//爆破中の描画(爆破エフェクトの描画)
 	if (isExplosion) {
 		DrawGraphF(x, y, Image::Instance()->GetGraph(eImageType::Effect_Explosion2,

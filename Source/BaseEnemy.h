@@ -193,8 +193,7 @@ public:
 	/// <param name="_castleManager">拠点の管理クラス</param>
 	/// <param name="_player">プレイヤークラス</param>
 	/// <param name="_bulletManager">弾の管理クラス</param>
-	virtual void Update(CastleManager* _castleManager, BasePlayer* _player,
-		BulletManager* _bulletManager);
+	virtual void Update(GameResource* _gameRes);
 
 	/// <summary>
 	/// ダメージ処理
@@ -205,7 +204,7 @@ public:
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	virtual void Draw();
+	virtual void Draw(GameResource* _gameRes);
 
 	/// <summary>
 	/// x座標を設定する

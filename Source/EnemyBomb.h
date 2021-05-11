@@ -34,11 +34,10 @@ public:
 	//コンストラクタ
 	EnemyBomb(float _x, float _y, eExType _exType);
 
-	void Update(Player* _player, CastleManager* _castleManager,
-		EnemyManager* _enemyManager);
+	void Update(GameResource* _gameRes);
 
 	//描画処理
-	void Draw();
+	void Draw(GameResource* _gameRes);
 
 	//アクティブフラグを取得する
 	bool Get_IsActive() { return isActive; }

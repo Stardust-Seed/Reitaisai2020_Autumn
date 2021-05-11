@@ -17,8 +17,8 @@ Fairy_Speed::Fairy_Speed(float _x, float _y, float _speed, float _power, int _du
 
 }
 
-void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager) {
-	BaseEnemy::Update(_castleManager, _player, _bulletManager);
+void Fairy_Speed::Update(GameResource* _gameRes) {
+	BaseEnemy::Update(_gameRes);
 
 	if (isHitCastle) {
 		isAttack = true;
@@ -27,24 +27,21 @@ void Fairy_Speed::Update(CastleManager* _castleManager, BasePlayer* _player, Bul
 		animationCnt = 0;
 	}
 
-	/*------------------------------------------------------------------------------
-	移動処理
-	------------------------------------------------------------------------------*/
-	Move(_player->Get_isAbility(), _player->Get_AbilityType());
+	bool pIsAbility = _gameRes->player->Get_isAbility();
+	int pAbilityType = _gameRes->player->Get_AbilityType();
 
-	/*------------------------------------------------------------------------------
-	アニメーション処理
-	------------------------------------------------------------------------------*/
-	Animation(_player->Get_isAbility(), _player->Get_AbilityType());
+	//移動処理
+	Move(pIsAbility, pAbilityType);
 
-	/*------------------------------------------------------------------------------
-	攻撃処理
-	------------------------------------------------------------------------------*/
+	//アニメーション処理
+	Animation(pIsAbility, pAbilityType);
+
+	//攻撃処理
 	if (isAttack == true) {
-		AttackProc(_player->Get_cx(), _player->Get_cy());
+		AttackProc(_gameRes->player->Get_cx(), _gameRes->player->Get_cy());
 	}
 }
 
-void Fairy_Speed::Draw() {
-	BaseEnemy::Draw();
+void Fairy_Speed::Draw(GameResource* _gameRes) {
+	BaseEnemy::Draw(_gameRes);
 }

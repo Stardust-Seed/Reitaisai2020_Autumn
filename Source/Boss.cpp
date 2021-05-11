@@ -25,9 +25,9 @@ Boss::~Boss() {
 }
 
 //更新処理
-void Boss::Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager) {
+void Boss::Update(GameResource* _gameRes) {
 	//BaseEnemyの更新処理
-	BaseEnemy::Update(_castleManager, _player, _bulletManager);
+	BaseEnemy::Update(_gameRes);
 
 	if (isHitCastle) {
 		isAttack = true;
@@ -52,7 +52,7 @@ void Boss::Update(CastleManager* _castleManager, BasePlayer* _player, BulletMana
 	//カウントが0の場合
 	if (stopCnt == 0 && !isHitCastle) {
 		//移動処理
-		Move(_player->Get_isAbility(), _player->Get_AbilityType());
+		Move(_gameRes->player->Get_isAbility(), _gameRes->player->Get_AbilityType());
 
 		//移動する際に画像を切り替える
 		if (imageIndex == static_cast<int>(eEnemyType::Boss)) {
@@ -70,13 +70,13 @@ void Boss::Update(CastleManager* _castleManager, BasePlayer* _player, BulletMana
 			isAttack = false;
 			attackCnt = 0;
 
-			for (int i = 0; i < _castleManager->Get_CastleNum(); i++) {
-				if (direction == _castleManager->Get_CastleDirection(i) &&
-					_castleManager->Get_IsActive(i)) {
+			for (int i = 0; i < _gameRes->castleManager->Get_CastleNum(); i++) {
+				if (direction == _gameRes->castleManager->Get_CastleDirection(i) &&
+					_gameRes->castleManager->Get_IsActive(i)) {
 					//ここにダメージ処理を入れられると助かる
 
-					effectDrawX = _castleManager->Get_DrawPosX(i);
-					effectDrawY = _castleManager->Get_DrawPosY(i);
+					effectDrawX = _gameRes->castleManager->Get_DrawPosX(i);
+					effectDrawY = _gameRes->castleManager->Get_DrawPosY(i);
 
 					isEffect = true;
 					break;
@@ -93,7 +93,7 @@ void Boss::Update(CastleManager* _castleManager, BasePlayer* _player, BulletMana
 }
 
 //描画処理
-void Boss::Draw() {
+void Boss::Draw(GameResource* _gameRes) {
 	//描画処理
 	Image::Instance()->TransparentGraph(x, y,
 		Image::Instance()->GetGraph(eImageType::Gpicture_Enemy,imageIndex),
@@ -105,11 +105,4 @@ void Boss::Draw() {
 			effectDrawX + 120 * 0.45833f, effectDrawY + 120 * 0.45833f,
 			Image::Instance()->GetGraph(eImageType::Effect_Slashing, effectArray[effectIndex]), TRUE);
 	}
-
-	DrawFormatString(0, 325, GetColor(255, 255, 255), "stopCnt     = %d", stopCnt);
-	DrawFormatString(0, 350, GetColor(255, 255, 255), "imageIndex  = %d", imageIndex);
-	DrawFormatString(0, 375, GetColor(255, 255, 255), "durability  = %d", durability);
-	DrawFormatString(0, 400, GetColor(255, 255, 255), "effectArray = %d", effectArray[effectIndex]);
-	DrawFormatString(0, 425, GetColor(255, 255, 255), "effectIndex = %d", effectIndex);
-	DrawFormatString(0, 450, GetColor(255, 255, 255), "isEffect    = %d", isEffect);
 }

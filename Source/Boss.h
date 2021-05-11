@@ -30,10 +30,9 @@ public:
 		eDirection _direction, eEnemyType _enemyType = eEnemyType::Boss);
 
 	//XVˆ—
-	void Update(CastleManager * _castleManager, BasePlayer * _player, 
-		BulletManager * _bulletManager);
+	void Update(GameResource* _gameRes);
 	//•`‰æˆ—
-	void Draw();
+	void Draw(GameResource* _gameRes);
 };
 
 #endif // !_BOSS_H

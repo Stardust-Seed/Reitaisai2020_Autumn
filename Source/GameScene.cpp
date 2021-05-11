@@ -43,7 +43,7 @@ void GameScene::Update(GameResource* _gameRes)
 	castleManager->Update(enemyManager,eventManager);
 
 	//•\Ž¦‚·‚é‚Ì‚ª’†ŠÔ‚Ì“z‚ç
-	enemyManager->Update(castleManager, player, bulletManager, itemManager);
+	enemyManager->Update(_gameRes);
 	player->Update(enemyManager,buffManager);
 	bulletManager->Update(enemyManager,player,buffManager);
 
@@ -66,7 +66,7 @@ void GameScene::Draw(GameResource* _gameRes)
 
 	//•\Ž¦‚·‚é‚Ì‚ª’†ŠÔ‚Ì“z‚ç
 	player->Draw();
-	enemyManager->Draw();
+	enemyManager->Draw(_gameRes);
 	bulletManager->Draw();
 
 

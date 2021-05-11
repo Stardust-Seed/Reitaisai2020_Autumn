@@ -12,8 +12,8 @@ public:
 	Fairy_Power(float _x, float _y, float _speed, float _power, int _durability,
 		eDirection _direction, eEnemyType _enemyType = eEnemyType::Power);
 
-	void Update(CastleManager* _castleManager, BasePlayer* _player, BulletManager* _bulletManager);
-	void Draw();
+	void Update(GameResource* _gameRes);
+	void Draw(GameResource* _gameRes);
 };
 
 #endif // !_FAIRY_POWER_H

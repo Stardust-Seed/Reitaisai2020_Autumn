@@ -7,8 +7,7 @@
 #include "Fairy_Bomb.h"
 #include "Boss.h"
 #include "EnemyBomb.h"
-#include "CastleManager.h"
-#include "ItemManager.h"
+#include "GameResource.h"
 #include "Direction.h"
 
 
@@ -63,9 +62,9 @@ public:
 
 	~EnemyManager();					//デストラクタ
 
-	void Update(CastleManager*,BasePlayer*,BulletManager*,ItemManager*);					//更新処理
+	void Update(GameResource* _gameRes);	//更新処理
 
-	void Draw();									//描画処理
+	void Draw(GameResource* _gameRes);		//描画処理
 
 	void SpawnEnemy(CastleManager*);				//エネミー生成処理
 

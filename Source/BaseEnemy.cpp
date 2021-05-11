@@ -130,43 +130,39 @@ void BaseEnemy::Init(float _speed, float _power, int _durability,
 /// <param name="_castleManager">拠点の管理クラス</param>
 /// <param name="_player">プレイヤークラス</param>
 /// <param name="_bulletManager">弾の管理クラス</param>
-void BaseEnemy::Update(CastleManager* _castleManager, BasePlayer* _player,
-	BulletManager* _bulletManager) {
-/*------------------------------------------------------------------------------
-センター座標の再計算
-------------------------------------------------------------------------------*/
+void BaseEnemy::Update(GameResource* _gameRes) {
+	//中心座標を再計算
 	cx = x + (width / 2);
 	cy = y + (height / 2);
 
-/*------------------------------------------------------------------------------
-攻撃タイプが侵入の際攻撃フラグをfalseに
-------------------------------------------------------------------------------*/
+	//攻撃タイプが侵入の際攻撃フラグをfalseに
 	if (isAttack == true && attackType == eAttackType::Invasion) {
 		isAttack = false;
 	}
 
-/*------------------------------------------------------------------------------
-ダメージ処理
-------------------------------------------------------------------------------*/
-	for (int i = 0; i < _bulletManager->Get_MaxBullet(); i++) {
-		if (_bulletManager->Get_IsActive(i) == true) {
-			if (ClisionHit(x, y, width, height, _bulletManager->Get_X(i), _bulletManager->Get_Y(i),
-				_bulletManager->Get_Width(i), _bulletManager->Get_Height(i))) {
+	//ダメージ処理
+	for (int i = 0; i < _gameRes->bulletManager->Get_MaxBullet(); i++) {
+		if (_gameRes->bulletManager->Get_IsActive(i) == true) {
+
+			//座標、横幅、高さを一度変数に格納
+			float bx = _gameRes->bulletManager->Get_X(i);
+			float by = _gameRes->bulletManager->Get_Y(i);
+			float bw = _gameRes->bulletManager->Get_Width(i);
+			float bh = _gameRes->bulletManager->Get_Height(i);
+
+			if (ClisionHit(x, y, width, height, bx, by, bw, bh)) {
 				if (attackType != eAttackType::Invasion) {
-					_bulletManager->Set_isActive(i, false);
-					DamageProc(_bulletManager->Get_Power(i));
+					_gameRes->bulletManager->Set_isActive(i, false);
+					DamageProc(_gameRes->bulletManager->Get_Power(i));
 				}
 			}
 		}
 	}
-/*------------------------------------------------------------------------------
-生存判定処理
-------------------------------------------------------------------------------*/
+
+	//生存判定処理
 	JudgeActive();
 
-/*------------------------------------------------------------------------------
-サーチ関連処理
-------------------------------------------------------------------------------*/
+	/*以下サーチ関連の処理*/
 
 	//クールダウンの処理
 	if (isCoolDown == true) {
@@ -174,10 +170,16 @@ void BaseEnemy::Update(CastleManager* _castleManager, BasePlayer* _player,
 	}
 
 	//拠点のサーチ処理
-	for (int i = 0; i < _castleManager->Get_CastleNum(); i++) {
-		isHitCastle = SearchCastle(_castleManager->Get_X(i), _castleManager->Get_Y(i),
-			_castleManager->Get_Width(i), _castleManager->Get_Height(i),
-			_castleManager->Get_IsActive(i));
+	for (int i = 0; i < _gameRes->castleManager->Get_CastleNum(); i++) {
+
+		//座標、横幅、高さを一度変数に格納
+		float cx = _gameRes->castleManager->Get_X(i);
+		float cy = _gameRes->castleManager->Get_Y(i);
+		float cw = _gameRes->castleManager->Get_Width(i);
+		float ch = _gameRes->castleManager->Get_Height(i);
+		bool cIsActive = _gameRes->castleManager->Get_IsActive(i);
+
+		isHitCastle = SearchCastle(cx, cy, cw, ch, cIsActive);
 
 		if (isHitCastle) {
 			break;
@@ -185,24 +187,25 @@ void BaseEnemy::Update(CastleManager* _castleManager, BasePlayer* _player,
 	}
 
 	//プレイヤーのサーチ処理
-	SearchPlayer(_player->Get_x(), _player->Get_y(), _player->Get_width(), _player->Get_height(),
-		_player);
+	SearchPlayer(_gameRes->player->Get_x(), _gameRes->player->Get_y(),
+		_gameRes->player->Get_width(), _gameRes->player->Get_height(),
+		_gameRes->player);
 }
 
 /// <summary>
 /// 描画処理
 /// </summary>
-void BaseEnemy::Draw() {
-/*------------------------------------------------------------------------------
-通常時＆攻撃時の描画処理
-------------------------------------------------------------------------------*/
+void BaseEnemy::Draw(GameResource* _gameRes) {
+	/*------------------------------------------------------------------------------
+	通常時＆攻撃時の描画処理
+	------------------------------------------------------------------------------*/
 	if (inactiveType == eInactiveType::None) {
 		Image::Instance()->TransparentGraph(x, y, Image::Instance()->GetGraph(
 			eImageType::Gpicture_Enemy, imageIndex), 255, isTurn);
 	}
-/*------------------------------------------------------------------------------
-拠点侵入時の描画処理
-------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------
+	拠点侵入時の描画処理
+	------------------------------------------------------------------------------*/
 	else if (inactiveType == eInactiveType::Invasion) {
 		animationCnt = Image::Instance()->FadeOutGraph(x, y, Image::Instance()->GetGraph(
 			eImageType::Gpicture_Enemy, imageIndex), animationCnt, 60, isTurn);

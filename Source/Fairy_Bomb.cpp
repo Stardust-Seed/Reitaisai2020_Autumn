@@ -19,11 +19,10 @@ Fairy_Bomb::Fairy_Bomb(float _x, float _y, float _speed, float _power, int _dura
 }
 
 //更新処理
-void Fairy_Bomb::Update(CastleManager* _castleManager, BasePlayer* _player,
-	BulletManager* _bulletManager){
+void Fairy_Bomb::Update(GameResource* _gameRes){
 
 	//更新処理
-	BaseEnemy::Update(_castleManager, _player, _bulletManager);
+	BaseEnemy::Update(_gameRes);
 
 	//城発見時
 	if (isHitCastle) {
@@ -41,19 +40,22 @@ void Fairy_Bomb::Update(CastleManager* _castleManager, BasePlayer* _player,
 		//ここに爆弾を生成する処理を加える
 	}
 
+	bool pIsAbility = _gameRes->player->Get_isAbility();
+	int pAbilityType = _gameRes->player->Get_AbilityType();
+
 	//移動処理
-	Move(_player->Get_isAbility(), _player->Get_AbilityType());
+	Move(pIsAbility, pAbilityType);
 
 	//アニメーション処理
-	Animation(_player->Get_isAbility(), _player->Get_AbilityType());
+	Animation(pIsAbility, pAbilityType);
 
 	//攻撃処理
-	if (isAttack) {
-		AttackProc(_player->Get_cx(), _player->Get_cy());
+	if (isAttack == true) {
+		AttackProc(_gameRes->player->Get_cx(), _gameRes->player->Get_cy());
 	}
 }
 
 //描画処理
-void Fairy_Bomb::Draw() {
-	BaseEnemy::Draw();
+void Fairy_Bomb::Draw(GameResource* _gameRes) {
+	BaseEnemy::Draw(_gameRes);
 }
