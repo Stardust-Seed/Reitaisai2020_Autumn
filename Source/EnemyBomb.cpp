@@ -4,10 +4,11 @@
 #include "Image.h"
 #include "EnemyManager.h"
 #include "CastleManager.h"
+#include "BasePlayer.h"
 
 //コンストラクタ
 EnemyBomb::EnemyBomb(float _x, float _y, eExType _exType) {
-	exAreaSize = 360.0f;
+	exAreaSize = 240.0f;
 	x = _x - ((exAreaSize - 32) / 2);
 	y = _y - ((exAreaSize - 32) / 2);
 	width = exAreaSize;
@@ -49,6 +50,7 @@ void EnemyBomb::Update(GameResource* _gameRes) {
 					if (ClisionHit(x, y, width, height,
 						castleX, castleY, castleW, castleH)) {
 						//ここにダメージの処理
+						_gameRes->castleManager->Damage_Proc(i, 10);
 					}
 				}
 			}
@@ -83,7 +85,8 @@ void EnemyBomb::Update(GameResource* _gameRes) {
 	}
 
 	//爆破カウントを加算する
-	exCnt++;
+	if (_gameRes->player->Get_isAbility() &&
+		_gameRes->player->Get_AbilityType() == SAKUYA_Ability)exCnt++;
 }
 
 void EnemyBomb::Draw(GameResource* _gameRes) {
