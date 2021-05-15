@@ -5,6 +5,7 @@
 #include "SubCastle.h"
 #include "Direction.h"
 #include "Input.h"
+#include "GameResource.h"
 
 class BaseCastle;
 class MainCastle;
@@ -32,8 +33,10 @@ public:
 
 	~CastleManager();
 
-	void Update(EnemyManager*,EventManager*);
+	void Update(GameResource*);
 	void Draw();
+
+	void Damage_Proc(int,int);
 
 	int Get_CastleNum();                    //拠点の数を返す
 	int Get_installCastle();                //残りの設置できるサブ拠点の数を返す

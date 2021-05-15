@@ -1,7 +1,6 @@
 #include <DxLib.h>
 #include "CastleManager.h"
 
-
 CastleManager::CastleManager() {
 
 	cnt = 1;
@@ -43,7 +42,7 @@ CastleManager::~CastleManager() {
 }
 
 //更新処理
-void CastleManager::Update(EnemyManager*_enemy,EventManager* _event)
+void CastleManager::Update(GameResource* _gameRes)
 {
 	//数字キーでの番号指定時の処理
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_1) == 1))
@@ -119,11 +118,11 @@ void CastleManager::Update(EnemyManager*_enemy,EventManager* _event)
 		{
 			if (i == 0)
 			{
-				Castles[i]->Update(_enemy,_event);
+				Castles[i]->Update(_gameRes->enemyManager, _gameRes->eventManager);
 			}
 			else
 			{
-				Castles[i]->Update(_enemy);
+				Castles[i]->Update(_gameRes->enemyManager);
 			}
 
 			if (Castles[i]->GetIsActive() == false && i != 0)
@@ -330,5 +329,13 @@ eDirection CastleManager::Get_CastleDirection(int num)
 	else
 	{
 		return eDirection::None;
+	}
+}
+
+void CastleManager::Damage_Proc(int num, int _damage)
+{
+	if (Castles[num] != NULL)
+	{
+		Castles[num]->Damage_Proc(_damage);
 	}
 }
