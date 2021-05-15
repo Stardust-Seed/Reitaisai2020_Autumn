@@ -13,6 +13,8 @@ Image::Image() {
 	MyLoadGraph("./res/Image/magic.png");
 	MyLoadGraph("./res/Image/hosi.png");
 	MyLoadGraph("./res/Image/mes.png");
+	MyLoadGraph("./res/Image/Timer.png");
+	MyLoadGraph("./res/Image/Mentama.png");
 
 	//‰æ‘œ‚ğ•ªŠ„‚µ‚Ä“Ç‚İ‚İ
 	MyLoadDivGraph("./res/Image/tatie_Sakuya.png", 3, 3, 1, 486, 864);
