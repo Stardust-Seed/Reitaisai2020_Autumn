@@ -1,16 +1,21 @@
 #include <DxLib.h>
 #include "Input.h"
 #include "Charaselect.h"
+#include "Parameter.h"
+#include "SceneManager.h"
 
 /*コンストラクタ*/
-CharaSelect::CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseScene(_sceneChanger, _parameter) {
+CharaSelect::CharaSelect() {
 
+}
+
+void CharaSelect::Init(GameResource* _gameRes) {
 	//最初は咲夜が選択されている状態
 	charaSelect = select_SAKUYA;
 
 	selectChara = SelectCharacter::select_SAKUYA;
 
-	color = GetColor(128,128,128); //灰色
+	color = GetColor(128, 128, 128); //灰色
 	color_Sakuya = GetColor(255, 64, 0); //白
 	color_Fran = GetColor(128, 128, 128);   //灰色
 
@@ -43,13 +48,13 @@ void CharaSelect::Update(GameResource* _gameRes)
 		switch (charaSelect) {
 		case select_SAKUYA:   //咲夜を選択
 			SE::Instance()->PlaySE(SE_Enter, DX_PLAYTYPE_BACK);
-			parameter->Set(BaseScene::CharaSelectTag, selectChara);
-			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
+			_gameRes->parameter->Set("CharaSelect", selectChara);
+			_gameRes->sceneManager->SceneChange("LevelSelect", true, false, _gameRes);
 			break;
 		case select_FRAN:     //フランを選択
 			SE::Instance()->PlaySE(SE_Enter, DX_PLAYTYPE_BACK);
-			parameter->Set(BaseScene::CharaSelectTag, selectChara);
-			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
+			_gameRes->parameter->Set("CharaSelect", selectChara);
+			_gameRes->sceneManager->SceneChange("LevelSelect", true, false, _gameRes);
 			break;
 		}
 	}
@@ -57,7 +62,7 @@ void CharaSelect::Update(GameResource* _gameRes)
 	if ((Input::Instance()->GetPressCount(KEY_INPUT_X) == 1))
 	{
 		SE::Instance()->PlaySE(SE_Cancel, DX_PLAYTYPE_BACK);
-		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
+		_gameRes->sceneManager->SceneChange("Menu", false, true, _gameRes);
 	}
 }
 void CharaSelect::Select_Push(int _changeType)
@@ -103,32 +108,6 @@ void CharaSelect::Select_Push(int _changeType)
 
 	//現在選択されてる項目のカーソルフレームを青色に
 	charaCursor[static_cast<int>(selectChara)] = Cursor::Cursor_3;
-
-	/****決定****/
-/************/
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1))
-	{
-		switch (charaSelect) {
-		case select_SAKUYA:   //咲夜を選択
-			SE::Instance()->PlaySE(SE_Enter, DX_PLAYTYPE_NORMAL);
-			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
-			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
-			break;
-		case select_FRAN:     //フランを選択
-			SE::Instance()->PlaySE(SE_Enter, DX_PLAYTYPE_NORMAL);
-			parameter->Set(BaseScene::CharaSelectTag, charaSelect);
-			sceneChanger->SceneChange(eScene_LEVELSELECT, parameter, true, false);
-			break;
-		}
-	}
-	//過去へ戻る
-	if ((Input::Instance()->GetPressCount(KEY_INPUT_X) == 1))
-	{
-		//SEを鳴らす
-		SE::Instance()->PlaySE(SE_Cancel, DX_PLAYTYPE_NORMAL);
-		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
-	}
-
 }
 
 /*描画処理*/

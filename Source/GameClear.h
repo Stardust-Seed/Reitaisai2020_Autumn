@@ -1,7 +1,7 @@
 #ifndef _GAMECLEAR_H
 #define _GAMECLEAR_H
 
-#include "BaseScene.h"
+#include "Scene.h"
 #include "Input.h"
 #include "Image.h"
 #include "BGM.h"
@@ -11,7 +11,7 @@
 #include "Cursor.h"
 #include "File.h"
 
-class GameClear final :public BaseScene {
+class GameClear final :public Scene {
 private:
 	const static int GAME_X;   //「ゲームに戻る」テキスト表示のX座標
 	const static int TITLE_X;     //「タイトルに戻る」テキスト表示のX座標
@@ -29,10 +29,11 @@ private:
 	int charaType;              //キャラタイプ
 	int waitTimer;              //シーン切り替え後少しの間操作を受け付けないようにする
 public:
-	GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter);
+	GameClear();
+	void Init(GameResource* _gameRes);				//初期化処理
 	void Update(GameResource* _gameRes);				//更新処理
 	void Draw(GameResource* _gameRes);				//描画処理
-	void Select();              //選択処理
+	void Select(GameResource* _gameRes);              //選択処理
 	void Move();                //動きの処理
 };
 

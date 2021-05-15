@@ -1,15 +1,23 @@
 ﻿#include "DxLib.h"
 #include "GameOver.h"
+#include "Parameter.h"
+#include "SceneManager.h"
+
+
 const int GameOver::GAME_X = GAME_WIDTH / 5 + 32;    //コンティニューすると表示するテキストのY座標
 const int GameOver::MENU_X = GAME_WIDTH / 2 - 23;    //コンティニューしないと表示するテキストのY座標
 //コンストラクタ
-GameOver::GameOver(ISceneChanger* _sceneChanger, Parameter* _parameter) :BaseScene(_sceneChanger, _parameter)
+GameOver::GameOver()
 {
+
+}
+
+void GameOver::Init(GameResource* _gameRes) {
 	nowCursor = Cursor::Cursor_0;
 	x = 0;
 	alpha = 0;
 	waitTimer = 0;
-	charaType = _parameter->Get(BaseScene::CharaSelectTag);
+	charaType = _gameRes->parameter->Get("CharaSelect");
 	BGM::Instance()->PlayBGM(BGM_result, DX_PLAYTYPE_LOOP);
 }
 
@@ -21,7 +29,7 @@ void GameOver::Update(GameResource* _gameRes)
 		waitTimer++;
 	}
 	Move();
-	Select();
+	Select(_gameRes);
 }
 
 //描画
@@ -115,7 +123,7 @@ void GameOver::Move()
 }
 
 //選択
-void GameOver::Select()
+void GameOver::Select(GameResource* _gameRes)
 {
 	//nowCursorの番号をx座標と合わせる
 	{
@@ -176,11 +184,11 @@ void GameOver::Select()
 			switch (nowCursor)
 			{
 			case Cursor::Cursor_0:    //コンティニューする
-				sceneChanger->SceneChange(eScene_GAME, parameter, false, false);
+				_gameRes->sceneManager->SceneChange("InGame", false, false, _gameRes);
 				break;
 
 			case Cursor::Cursor_1:    //コンティニューしない
-				sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
+				_gameRes->sceneManager->SceneChange("Menu", false, false, _gameRes);
 				break;
 
 			default:

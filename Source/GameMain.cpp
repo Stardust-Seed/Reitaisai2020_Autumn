@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "GameMain.h"
+
 #include "Input.h"
 #include "SE.h"
 #include "BGM.h"
@@ -9,7 +10,26 @@
 GameMain::GameMain() {
 	Image::Instance()->Load();
 	File::Instance()->Load();
-	sManager = new SceneManager(&gameRes);
+
+	sManager = new SceneManager();
+	parameter = new Parameter();
+
+	gameRes.sceneManager = sManager;
+	gameRes.parameter = parameter;
+
+	//シーンを設定する
+	sManager->SetScene("Title", &title);
+	sManager->SetScene("Menu", &menu);
+	sManager->SetScene("CharaSelect", &cSelect);
+	sManager->SetScene("Option", &option);
+	sManager->SetScene("OperationExp", &opExp);
+	sManager->SetScene("LevelSelect", &levelSelect);
+	sManager->SetScene("InGame", &inGame);
+	sManager->SetScene("Clear", &gameClear);
+	sManager->SetScene("GameOver", &gameOver);
+	sManager->SetScene("PauseMenu", &pauseMenu);
+	sManager->Init(&gameRes);
+	sManager->SceneChange("Title", false, false, &gameRes);
 }
 
 GameMain::~GameMain() {
@@ -30,25 +50,25 @@ void GameMain::Init() {
 bool GameMain::GameLoop() {
 
 	Input::Instance()->UpdateKey();
-	nowScene = sManager->GetNowScene();
+	std::string nowScene = sManager->GetNowScene();
 
-	if (nowScene == eScene_TITLE && fadeCnt != 0) {
+	if (nowScene == "Title" && fadeCnt != 0) {
 		fadeCnt = 0;
 	}
 
-	sManager->Update();
+	sManager->Update(&gameRes);
 
-	if (nowScene == eScene_TITLE || nowScene == eScene_MENU || nowScene == eScene_CHARASELECT ||
-		nowScene == eScene_LEVELSELECT || nowScene == eScene_PAUSEMENU ||
-		nowScene == eScene_CLAER || nowScene == eScene_GAMEOVER || nowScene == eScene_OPTION ||
-		nowScene == eScene_OPERATIONEXP) {
+	if (nowScene == "Title" || nowScene == "Menu" || nowScene == "CharaSelect" ||
+		nowScene == "LevelSelect" || nowScene == "PauseMenu" ||
+		nowScene == "Clear" || nowScene == "GameOver" || nowScene == "Option" ||
+		nowScene == "OperationExp") {
 		DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Title), TRUE);
 	}
 
-	if (nowScene == eScene_MENU || nowScene == eScene_CHARASELECT ||
-		nowScene == eScene_LEVELSELECT || nowScene == eScene_PAUSEMENU ||
-		nowScene == eScene_CLAER || nowScene == eScene_GAMEOVER || nowScene == eScene_OPTION ||
-		nowScene == eScene_OPERATIONEXP) {
+	if (nowScene == "Menu" || nowScene == "CharaSelect" ||
+		nowScene == "LevelSelect" || nowScene == "PauseMenu" ||
+		nowScene == "Clear" || nowScene == "GameOver" || nowScene == "Option" ||
+		nowScene == "OperationExp") {
 		//シーンに入った際だけフェードイン処理を行う
 		if (fadeCnt != 60 + 1) {
 			fadeCnt = Image::Instance()->FadeInGraph(0.0f, 0.0f,
@@ -59,11 +79,11 @@ bool GameMain::GameLoop() {
 		}
 	}
 
-	if (nowScene == eScene_GAME) {
+	if (nowScene == "InGame") {
 		DrawGraph(0, 0, Image::Instance()->GetGraph(eImageType::Background_Game), TRUE);
 	}
 
-	sManager->Draw();
+	sManager->Draw(&gameRes);
 
 	return true;
 }

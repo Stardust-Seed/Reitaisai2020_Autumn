@@ -1,9 +1,9 @@
 #ifndef _OPERATIONEXP_H
 #define _OPERATIONEXP_H
 
-#include "BaseScene.h"
+#include "Scene.h"
 
-class OperationExp final :public BaseScene {
+class OperationExp final :public Scene {
 private:
 	const char* text[12]{			//表示するテキスト
 		"◆操作説明◆",
@@ -25,18 +25,14 @@ public:
 	/// </summary>
 	/// <param name="_sceneChanger">シーン切り替えクラス</param>
 	/// <param name="_parameter">パラメータ</param>
-	OperationExp(ISceneChanger* _sceneChanger, Parameter* _parameter);
+	OperationExp();
 
 	~OperationExp() = default;
 
-	/// <summary>
-	/// 更新処理
-	/// </summary>
+	//更新処理
 	void Update(GameResource* _gameRes);
 
-	/// <summary>
-	/// 描画処理
-	/// </summary>
+	//描画処理
 	void Draw(GameResource* _gameRes);
 };
 

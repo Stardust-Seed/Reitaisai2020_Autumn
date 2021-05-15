@@ -16,6 +16,7 @@ protected:
 	bool isHit;     //“–‚½‚è”»’è‚Ìƒtƒ‰ƒO
 
 public:
+	virtual ~Object() {}
 	virtual bool ClisionHit(float mx, float my, float mw, float mh,
 		float ox, float oy, float ow, float oh) = 0;
 	// m = my Ž©•ª   o = opnet ‘ŠŽè

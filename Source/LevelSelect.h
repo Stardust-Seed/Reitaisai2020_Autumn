@@ -2,7 +2,8 @@
 #define _LEVELSELECT_H
 
 #include <string>
-#include "BaseScene.h"
+
+#include "Scene.h"
 #include "Cursor.h"
 #include "Define.h"
 using namespace std;
@@ -19,7 +20,7 @@ enum class eLevelType {
 /// <summary>
 /// 難易度選択クラス
 /// </summary>
-class LevelSelect final :public BaseScene {
+class LevelSelect final :public Scene {
 private:
 	const float UI_X = (GAME_WIDTH / 2);	//UIのx座標
 	const float UI_Y[3] = {					//UIのy座標
@@ -77,12 +78,14 @@ public:
 	/// </summary>
 	/// <param name="_sceneChanger">シーン切り替えクラス</param>
 	/// <param name="_parameter">パラメータ</param>
-	LevelSelect(ISceneChanger* _sceneChanger, Parameter* _parameter);
+	LevelSelect();
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>	
 	~LevelSelect() = default;
+
+	void Init(GameResource* _gameRes);
 
 	/// <summary>
 	/// 更新処理

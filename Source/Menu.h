@@ -1,9 +1,9 @@
 #ifndef _MENU_H_
 #define _MENU_H_
 
-#include "BaseScene.h"
-
+#include "Scene.h"
 #include "Define.h"
+#include "Cursor.h"
 
 /// <summary>
 /// メニュータイプ
@@ -19,15 +19,15 @@ enum class  eMenuType {
 /// <summary>
 /// メニュークラス
 /// </summary>
-class Menu :public BaseScene {
+class Menu final :public Scene {
 private:
 	const float UI_X = (GAME_WIDTH / 2);	//UIのx座標
 	const float UI_Y[5]{					//UIのy座標
-		(GAME_HEIHGT / 2) - 400,	//プレイ
-		(GAME_HEIHGT / 2) - 200,	//オプション
+		(GAME_HEIHGT / 2) - 400,			//プレイ
+		(GAME_HEIHGT / 2) - 200,			//オプション
 		(GAME_HEIHGT / 2),
-		(GAME_HEIHGT / 2) + 200,	//タイトルへ戻る
-		(GAME_HEIHGT / 2) + 400		//ゲーム終了
+		(GAME_HEIHGT / 2) + 200,			//タイトルへ戻る
+		(GAME_HEIHGT / 2) + 400				//ゲーム終了
 	};
 	const double UI_EXT[2]{					//UIの拡大率
 		1.5,	//x
@@ -40,27 +40,24 @@ private:
 	Cursor cursor[5];		//カーソルの色
 	unsigned int color[5];	//文字の色
 
-	/// <summary>
-	/// 選択メニューを切り替える
-	/// </summary>
-	/// <param name="_changeMode">切り替えモード</param>
+
+	//選択メニューを切り替える
 	void SelectMenu(int _changeMode);
 public:
-	/// <summary>
-	/// コンストラクタ
-	/// </summary>
-	/// <param name="_sceneChanger">シーンチェンジャー</param>
-	/// <param name="_parameter">パラメータ</param>
-	Menu(ISceneChanger* _sceneChanger, Parameter* _parameter);
 
-	/// <summary>
-	/// 更新処理
-	/// </summary>
+	//コンストラクタ
+	Menu();
+
+	//デストラクタ
+	~Menu() = default;
+
+	//初期化処理
+	void Init(GameResource* _gameRes);
+
+	//更新処理
 	void Update(GameResource* _gameRes);
 
-	/// <summary>
-	/// 描画処理
-	/// </summary>
+	//描画処理
 	void Draw(GameResource* _gameRes);
 };
 

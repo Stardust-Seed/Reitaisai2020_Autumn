@@ -2,7 +2,8 @@
 #define _CHARASELECT_H
 
 #include <DxLib.h>
-#include"BaseScene.h"
+#include "Scene.h"
+
 #include "FontHandle.h"
 #include"Image.h"
 #include"SE.h"
@@ -22,7 +23,7 @@ struct SelectMenu{
 	float rx, ry; //円の大きさ
 };
 
-class CharaSelect :public BaseScene {
+class CharaSelect :public Scene {
 private:
 
 	int charaSelect;                    //選択したキャラタイプ
@@ -38,7 +39,8 @@ private:
 	int color_Fran;   //フランカラー
 
 public:
-	CharaSelect(ISceneChanger* _sceneChanger, Parameter* _parameter);
+	CharaSelect();
+	void Init(GameResource* _gameRes);
 	void Update(GameResource* _gameRes);
 	void Select_Push(int _changeType);
 	void Draw(GameResource* _gameRes);
