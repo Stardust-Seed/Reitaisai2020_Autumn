@@ -69,7 +69,7 @@ void EnemyManager::Update(GameResource* _gameRes){
 		}
 
 		if (eBombs[num] != NULL) {
-		//	eBombs[num]->Update(_player,_castle,this);
+			eBombs[num]->Update(_gameRes);
 			if (eBombs[num]->Get_IsActive() == false) {
 				delete eBombs[num];
 				eBombs[num] = NULL;
@@ -238,18 +238,14 @@ void EnemyManager::SpawnEnemy(CastleManager* _castle) {
 	}
 }
 
-void EnemyManager::SpawnBomb(int eNum,int bNum,float _x,float _y,eExType _exType) {
-	for (eNum = 0; eNum < enemyNum + addEnemyNum; eNum++) {
-		if (Enemys[eNum] != NULL) {
+void EnemyManager::SpawnBomb(float _x,float _y,eExType _exType) {
 
-			for (bNum = 0; bNum < enemyNum; bNum++) {
-				if (eBombs[bNum] == NULL) {
-					eBombs[bNum] = new EnemyBomb(_x, _y, _exType);
-				}
-			}
+	for (int i = 0; i < MAX_ENEMY_NUM; i++) {
+		if (eBombs[i] == NULL) {
+			eBombs[i] = new EnemyBomb(_x, _y, _exType);
+			break;
 		}
 	}
-
 }
 
 void EnemyManager::DamageSend(int num,int _damage) {

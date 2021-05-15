@@ -7,9 +7,9 @@
 
 //コンストラクタ
 EnemyBomb::EnemyBomb(float _x, float _y, eExType _exType) {
-	x = _x;
-	y = _y;
-	exAreaSize = 120.0f;
+	exAreaSize = 360.0f;
+	x = _x - ((exAreaSize - 32) / 2);
+	y = _y - ((exAreaSize - 32) / 2);
 	width = exAreaSize;
 	height = exAreaSize;
 	cx = x + (width / 2);
@@ -46,7 +46,7 @@ void EnemyBomb::Update(GameResource* _gameRes) {
 					float castleH = _gameRes->castleManager->Get_Height(i);
 
 					//当たった場合
-					if (ClisionHit(cx - (exAreaSize / 2), cy - (exAreaSize / 2), width, height,
+					if (ClisionHit(x, y, width, height,
 						castleX, castleY, castleW, castleH)) {
 						//ここにダメージの処理
 					}
@@ -64,14 +64,15 @@ void EnemyBomb::Update(GameResource* _gameRes) {
 					float enemyH = _gameRes->enemyManager->Get_height(i);
 
 					//当たった場合
-					if (ClisionHit(cx - (exAreaSize / 2), cy - (exAreaSize / 2), width, height,
+					if (ClisionHit(x, y, width, height,
 						enemyX, enemyY, enemyW, enemyH)) {
-						//ここにダメージの処理
+						_gameRes->enemyManager->DamageSend(i, 10000);
 					}
 				}
 			}
 		}
-		else if (effectIndex == EFFECT_MAX_NUM - 1) {
+
+		if (effectIndex == EFFECT_MAX_NUM - 1) {
 			isActive = false;
 			isExplosion = false;
 			effectIndex = 0;
@@ -88,12 +89,14 @@ void EnemyBomb::Update(GameResource* _gameRes) {
 void EnemyBomb::Draw(GameResource* _gameRes) {
 	//爆破中の描画(爆破エフェクトの描画)
 	if (isExplosion) {
-		DrawGraphF(x, y, Image::Instance()->GetGraph(eImageType::Effect_Explosion2,
-			effectArray[effectIndex]), TRUE);
+		DrawExtendGraphF(x, y, x + width, y + width,
+			Image::Instance()->GetGraph(eImageType::Effect_Explosion2,
+				effectArray[effectIndex]), TRUE);
 	}
 	//爆破前の描画(爆弾を表示する)
 	else {
-		DrawGraphF(x, y, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb), TRUE);
+		DrawGraphF(x + ((exAreaSize - 32) / 2), y + ((exAreaSize - 32) / 2),
+			Image::Instance()->GetGraph(eImageType::Gpicture_Bomb), TRUE);
 	}
 }
 

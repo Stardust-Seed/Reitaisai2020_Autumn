@@ -68,7 +68,7 @@ public:
 
 	void SpawnEnemy(CastleManager*);				//エネミー生成処理
 
-	void SpawnBomb(int _eNum,int _bNum,float _x,float _y,eExType);	//ボム生成
+	void SpawnBomb(float _x, float _y, eExType _exType);	//ボム生成
 
 	void DamageSend(int, int);						//ダメージ
 

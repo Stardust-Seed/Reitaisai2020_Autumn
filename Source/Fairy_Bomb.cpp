@@ -3,6 +3,7 @@
 #include "BasePlayer.h"
 #include "BulletManager.h"
 #include "CastleManager.h"
+#include "EnemyManager.h"
 
 //初期スポーン位置からの生成用コンストラクタ
 Fairy_Bomb::Fairy_Bomb(float _speed, float _power, int _durability,
@@ -34,10 +35,10 @@ void Fairy_Bomb::Update(GameResource* _gameRes){
 
 	//非アクティブになった場合
 	if (!isActive && inactiveType == eInactiveType::Defeat) {
-		//ここに爆弾を生成する処理を加える
+		_gameRes->enemyManager->SpawnBomb(x, y, eExType::Immediately);
 	}
-	else if (!isActive && inactiveType == eInactiveType::Invasion) {
-		//ここに爆弾を生成する処理を加える
+	else if (inactiveType == eInactiveType::Invasion) {
+		_gameRes->enemyManager->SpawnBomb(x, y, eExType::Installation);
 	}
 
 	bool pIsAbility = _gameRes->player->Get_isAbility();
