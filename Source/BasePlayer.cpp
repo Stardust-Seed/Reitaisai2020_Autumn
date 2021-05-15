@@ -80,7 +80,7 @@ BasePlayer::BasePlayer(int _pType)
 	catY = 850;                 //スキルカットイン_Y
 }
 
-void BasePlayer::Draw(GameResorce* _gameRes)
+void BasePlayer::Draw(GameResource* _gameRes)
 {
 
 	Draw_Ability(); //スキル演出
@@ -172,20 +172,20 @@ void BasePlayer::Draw_Arow()
 		DrawTriangle(pos.x + 24, pos.y + 78, pos.x + 16, pos.y + 53, pos.x + 32, pos.y + 53, GetColor(255, 255, 255), TRUE);
 	}
 }
-void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager, GameResorce* _gameRes)
+void BasePlayer::Update(GameResource* _gameRes)
 {
 
 	
 	if (playerType == SAKUYA)
 	{
-		power = power * _bManager->GetPowerBuff();   //バフによる攻撃力増加
-		speed = 5 * _bManager->GetSpeedBuff();   //バフによるスピード増加
+		power = power * _gameRes->buffManager->GetPowerBuff();   //バフによる攻撃力増加
+		speed = 5 * _gameRes->buffManager->GetSpeedBuff();   //バフによるスピード増加
 
 	}
 	if (playerType == FRAN)
 	{
-		power = power * _bManager->GetPowerBuff();   //バフによる攻撃力増加
-		speed = 3 * _bManager->GetSpeedBuff();   //バフによるスピード増加
+		power = power * _gameRes->buffManager->GetPowerBuff();   //バフによる攻撃力増加
+		speed = 3 * _gameRes->buffManager->GetSpeedBuff();   //バフによるスピード増加
 
 	}
 	//スタン状態でない時
@@ -196,13 +196,15 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager, GameRes
 		onAbility();   //スキル発動処理
 		CharaAbility();//スキル処理
 
-		for (int i = 0; i < _eManager->Get_enemyNum(); i++) {
+		for (int i = 0; i < _gameRes->enemyManager->Get_enemyNum(); i++) {
 
 			//プレイヤーが敵に当たったらisStanをtrueにする
 			if (ClisionHit(Get_x() + 6, Get_y(), Get_width() - 6, Get_height(),
-				_eManager->Get_x(i), _eManager->Get_y(i), _eManager->Get_width(i), _eManager->Get_height(i)))
+				_gameRes->enemyManager->Get_x(i), _gameRes->enemyManager->Get_y(i),
+				_gameRes->enemyManager->Get_width(i), _gameRes->enemyManager->Get_height(i)))
 			{
-				if (_eManager->Get_AttackType(i) != eAttackType::Invasion && _eManager->Get_InactiveType(i) != eInactiveType::Invasion )
+				if (_gameRes->enemyManager->Get_AttackType(i) != eAttackType::Invasion &&
+					_gameRes->enemyManager->Get_InactiveType(i) != eInactiveType::Invasion )
 				{
 					if (isStan_Next == true) {
 						isStan = true;   //スタンは少ししてから解除されるので
@@ -214,7 +216,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager, GameRes
 	//スタン処理
 	if (isStan == true)
 	{
-		Stan(_bManager);
+		Stan(_gameRes->buffManager);
 	}
 	if (isStan_Next == true)
 	{

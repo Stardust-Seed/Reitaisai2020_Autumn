@@ -140,7 +140,7 @@ void CastleManager::Update(GameResource* _gameRes)
 }
 
 //•`‰æ
-void CastleManager::Draw()
+void CastleManager::Draw(GameResource* _gameRes)
 {
 	for (int i = 0; i < POPCASTLE; i++)
 	{

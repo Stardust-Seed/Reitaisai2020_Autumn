@@ -37,12 +37,12 @@ public:
 	/// </summary>
 	/// <param name="_player">プレイヤー情報</param>
 	/// <param name="_buffManager">バフマネージャー情報</param>
-	void Update(BasePlayer* _player, BuffManager* _buffManger);
+	void Update(GameResource* _gameRes);
 
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw();
+	void Draw(GameResource* _gameRes);
 
 	/// <summary>
 	/// アイテムの生成処理

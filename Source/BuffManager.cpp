@@ -18,7 +18,7 @@ BuffManager::BuffManager() {
 	speedBuff = SPEEDBUFF_LV0;
 }
 
-void BuffManager::Update(ItemManager* _itemManager, EnemyManager* _enemyManager) {
+void BuffManager::Update(GameResource* _gameRes) {
 	//レベルダウンフラグが有効なとき、無効状態へ
 	if (isLevelDown == true) {
 		isLevelDown = false;

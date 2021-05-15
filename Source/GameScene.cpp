@@ -40,19 +40,19 @@ void GameScene::Update(GameResource* _gameRes)
 {
 
 	//表示するのが奥の方の奴ら
-	castleManager->Update(enemyManager,eventManager);
+	castleManager->Update(_gameRes);
 
 	//表示するのが中間の奴ら
 	enemyManager->Update(_gameRes);
-	player->Update(enemyManager,buffManager);
-	bulletManager->Update(enemyManager,player,buffManager);
+	player->Update(_gameRes);
+	bulletManager->Update(_gameRes);
 
 	//表示するのが前の方の奴ら
-	itemManager->Update(player, buffManager);
-	eventManager->Update(enemyManager,player);
-	buffManager->Update(itemManager,enemyManager);
+	itemManager->Update(_gameRes);
+	eventManager->Update(_gameRes);
+	buffManager->Update(_gameRes);
 	timeLimit->Update();
-	ui->Update(castleManager, itemManager, buffManager,player,bulletManager,timeLimit);
+	ui->Update(_gameRes);
 
 	//ゲームシーンのシーン処理
 	ChangeScene();
@@ -62,23 +62,23 @@ void GameScene::Update(GameResource* _gameRes)
 void GameScene::Draw(GameResource* _gameRes)
 {
 	//表示するのが奥の方の奴ら
-	castleManager->Draw();
+	castleManager->Draw(_gameRes);
 
 	//表示するのが中間の奴ら
-	player->Draw();
+	player->Draw(_gameRes);
 	enemyManager->Draw(_gameRes);
-	bulletManager->Draw();
+	bulletManager->Draw(_gameRes);
 
 
 	//表示するのが前の方の奴ら
-	itemManager->Draw();
+	itemManager->Draw(_gameRes);
 
 	//森表示
 	DrawTurnGraph(0, GAME_HEIHGT / 2 - 220, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
 	DrawGraph(GAME_WIDTH - 465, GAME_HEIHGT / 2 - 220, Image::Instance()->GetGraph(eImageType::Gpicture_Forest), TRUE);
 
-	eventManager->Draw();
-	ui->Draw();
+	eventManager->Draw(_gameRes);
+	ui->Draw(_gameRes);
 }
 
 //シーン変更

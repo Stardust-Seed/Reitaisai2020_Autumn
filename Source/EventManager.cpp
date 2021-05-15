@@ -119,7 +119,7 @@ void EventManager::Update(GameResource* gameRes) {
 
 }
 
-void EventManager::Draw() {
+void EventManager::Draw(GameResource* gameRes) {
 
 	if (Sukima != NULL) {	//ƒXƒLƒ}‚ª¶¬‚³‚ê‚Ä‚¢‚éê‡
 		Sukima->Draw();		//•`‰æ

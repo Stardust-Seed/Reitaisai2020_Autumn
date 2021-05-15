@@ -30,9 +30,9 @@ public:
 	//’e‚ğ”­Ë‚·‚éŠÖ”
 	void Shot(VECTOR& pos,int pl_type,eDirection pl_direction, bool pl_attack,int pl_power,int shotpower);
 	//XV
-	void Update(EnemyManager* _enemyManager, BasePlayer* _basePlayer,BuffManager* _bManager);
+	void Update(GameResource* _gameRes);
 	//•`‰æ
-	void Draw();
+	void Draw(GameResource* _gameRes);
 
 	bool Get_IsActive(int i); //’e‚ªUŒ‚’†‚©‚Ç‚¤‚©‚ÌƒQƒbƒ^[
 	bool Get_IsHit(int i);    //’e‚ª“–‚½‚Á‚½‚©‚Ç‚¤‚©‚ÌƒQƒbƒ^[

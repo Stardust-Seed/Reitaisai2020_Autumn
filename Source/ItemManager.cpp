@@ -21,7 +21,7 @@ ItemManager::~ItemManager() {
 	}
 }
 
-void ItemManager::Update(BasePlayer* _player, BuffManager* _buffManger) {
+void ItemManager::Update(GameResource* _gameRes) {
 	for (int i = 0; i < MAX_ITEM_NUM; i++) {
 
 		//items[i]が空でない場合
@@ -35,7 +35,7 @@ void ItemManager::Update(BasePlayer* _player, BuffManager* _buffManger) {
 			}
 
 			//items[i]の更新処理
-			items[i]->Update(_player);
+			items[i]->Update(_gameRes->player);
 
 			//items[i]がプレイヤーと当たってた場合
 			if (items[i]->Get_IsHit() == true) {
@@ -44,13 +44,13 @@ void ItemManager::Update(BasePlayer* _player, BuffManager* _buffManger) {
 				switch (items[i]->Get_ItemType()) {
 				case eItem::Power:
 					//パワーバフレベルが最大でないとき
-					if (_buffManger->GetIsPowerLevelMax() == false) {
+					if (_gameRes->buffManager->GetIsPowerLevelMax() == false) {
 						p_Count++;
 					}
 					break;
 				case eItem::Speed:
 					//スピードバフレベルが最大でないとき
-					if (_buffManger->GetIsSpeedLevelMax() == false) {
+					if (_gameRes->buffManager->GetIsSpeedLevelMax() == false) {
 						s_Count++;
 					}
 					break;
@@ -60,17 +60,17 @@ void ItemManager::Update(BasePlayer* _player, BuffManager* _buffManger) {
 	}
 
 	//バフレベルが下がったとき
-	if (_buffManger->GetIsLevelDown() == true) {
+	if (_gameRes->buffManager->GetIsLevelDown() == true) {
 		p_Count = 0;
 		s_Count = 0;
 	}
 
 	//バフマネージャーにてレベルが上昇するか処理をおこなう
-	p_Count = _buffManger->PowerBuff_LevelUpCheck(p_Count);
-	s_Count = _buffManger->SpeedBuff_LevelUpCheck(s_Count);
+	p_Count = _gameRes->buffManager->PowerBuff_LevelUpCheck(p_Count);
+	s_Count = _gameRes->buffManager->SpeedBuff_LevelUpCheck(s_Count);
 }
 
-void ItemManager::Draw() {
+void ItemManager::Draw(GameResource* _gameRes) {
 	for (int i = 0; i < MAX_ITEM_NUM; i++) {
 		//items[i]が空ではない場合
 		if (items[i] != nullptr) {

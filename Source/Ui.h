@@ -119,8 +119,8 @@ public:
 	void AbilityUi();					//アビリティのUI
 	void ChargeGage();                  //チャージゲージ
 	void TimeLimitUi();					//タイムリミットUI
-	void Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer,BulletManager* _bulletManager, TimeLimit* _timelimit);		//更新処理
-	void Draw();						//描画処理
+	void Update(GameResource* _gameRes);		//更新処理
+	void Draw(GameResource* _gameRes);						//描画処理
 
 };
 

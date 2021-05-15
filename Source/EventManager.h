@@ -53,7 +53,7 @@ public:
 
 	void Update(GameResource* gameRes);	//更新
 
-	void Draw();				//描画
+	void Draw(GameResource* gameRes);				//描画
 
 	void SpawnSukima();			//スキマの生成
 

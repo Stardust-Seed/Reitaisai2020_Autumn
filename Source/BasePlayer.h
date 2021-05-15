@@ -6,12 +6,12 @@
 #include "FontHandle.h"
 #include "Direction.h"
 #include "Image.h"
+#include "GameResource.h"
 
 class BulletManager;
 class BuffManager;
 class EnemyManager;
 class BaseEnemy;
-class GameResorce;
 
 enum PlayerType
 {
@@ -132,12 +132,12 @@ public:
 	BasePlayer() {}
 	BasePlayer( int _pType);		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
-	void Draw(GameResorce* _gameRes);           //描画処理
+	void Draw(GameResource* _gameRes);           //描画処理
 	void Draw_Arow();      //矢印描画
 	void Draw_Ability();   //スキルエフェクト描画
 
 	//更新処理
-	void Update(EnemyManager* _eManager,BuffManager* _bManager, GameResorce* _gameRes);
+	void Update(GameResource* _gameRes);
 
 	void Move();           //移動処理
 	void Move_UP();        //↑移動処理

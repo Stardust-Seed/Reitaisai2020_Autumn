@@ -34,7 +34,7 @@ public:
 	~CastleManager();
 
 	void Update(GameResource*);
-	void Draw();
+	void Draw(GameResource*);
 
 	void Damage_Proc(int,int);
 

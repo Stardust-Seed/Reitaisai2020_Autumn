@@ -40,14 +40,14 @@ void BulletManager::Shot(VECTOR& pos, int pl_type,eDirection pl_direction, bool 
 	}
 }
 //XVˆ—
-void BulletManager::Update(EnemyManager* _enemyManager,BasePlayer* _basePlayer,BuffManager* _bManager)
+void BulletManager::Update(GameResource* _gameRes)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		//NULL‚Å‚È‚¢ê‡,Bullet‚ÌUpdateŠÖ”‚ğs‚¤
 		if (bullet[i] != NULL)
 		{
-			bullet[i]->Update(_enemyManager,_basePlayer);
+			bullet[i]->Update(_gameRes->enemyManager,_gameRes->player);
 
 			//’e‚ª‰æ–ÊŠO‚Éo‚Ä‚¢‚½ê‡‚©’e‚ª“G‚É“–‚½‚Á‚½ê‡
 			if (bullet[i]->Get_isActive() == false)
@@ -63,7 +63,7 @@ void BulletManager::Update(EnemyManager* _enemyManager,BasePlayer* _basePlayer,B
 
 }
 //•`‰æˆ—
-void BulletManager::Draw()
+void BulletManager::Draw(GameResource* _gameRes)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{

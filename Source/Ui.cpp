@@ -156,48 +156,48 @@ void UI::ChargeGage()
 }
 
 //更新
-void UI::Update(CastleManager* _castlemanager, ItemManager* _itemmanager, BuffManager* _buffmanager, BasePlayer* _baseplayer,BulletManager* _bulletManager, TimeLimit* _timelimit)
+void UI::Update(GameResource* _gameRes)
 {
 	//バフ関連
-	pBuffPoint = _itemmanager->Get_P_Count();
-	sBuffPoint = _itemmanager->Get_S_Count();
-	pBuffLevel = _buffmanager->GetPowerLevel();
-	sBuffLevel = _buffmanager->GetSpeedLevel();
+	pBuffPoint = _gameRes->itemManager->Get_P_Count();
+	sBuffPoint = _gameRes->itemManager->Get_S_Count();
+	pBuffLevel = _gameRes->buffManager->GetPowerLevel();
+	sBuffLevel = _gameRes->buffManager->GetSpeedLevel();
 
 	//拠点関連
-	CastleDurability = _castlemanager->Get_Durability(0);		//拠点の体力をセットする
-	castleNum = _castlemanager->Get_installCastle();
-	castleNumber = _castlemanager->Get_installNum();
+	CastleDurability = _gameRes->castleManager->Get_Durability(0);		//拠点の体力をセットする
+	castleNum = _gameRes->castleManager->Get_installCastle();
+	castleNumber = _gameRes->castleManager->Get_installNum();
 
 	for (i = 1; i < 5; i++)
 	{
-		SubCastleDurability[i] = _castlemanager->Get_Durability(i);
-		isActive[i] = _castlemanager->Get_IsActive(i);
-		castleX[i] = _castlemanager->Get_DrawPosX(i);		
-		castleY[i] = _castlemanager->Get_DrawPosY(i);			
+		SubCastleDurability[i] = _gameRes->castleManager->Get_Durability(i);
+		isActive[i] = _gameRes->castleManager->Get_IsActive(i);
+		castleX[i] = _gameRes->castleManager->Get_DrawPosX(i);		
+		castleY[i] = _gameRes->castleManager->Get_DrawPosY(i);			
 	}
 	//チャージゲージ関連
-	maxGauge = _baseplayer->Get_maxChage();
-	chageGauge = _baseplayer->Get_chageGauge();
+	maxGauge = _gameRes->player->Get_maxChage();
+	chageGauge = _gameRes->player->Get_chageGauge();
 	
 	//スキル関連
-	skillCount = _baseplayer->Get_AbilityCount();
-	skillClock = _baseplayer->Get_AbilityClock();
-	skillActive = _baseplayer->Get_isAbility();
-	skillType = _baseplayer->Get_AbilityType();
-	skillFran = _baseplayer->Get_FranAbility();
+	skillCount = _gameRes->player->Get_AbilityCount();
+	skillClock = _gameRes->player->Get_AbilityClock();
+	skillActive = _gameRes->player->Get_isAbility();
+	skillType = _gameRes->player->Get_AbilityType();
+	skillFran = _gameRes->player->Get_FranAbility();
 
-	pX = _baseplayer->Get_x();
-	pY = _baseplayer->Get_y();
+	pX = _gameRes->player->Get_x();
+	pY = _gameRes->player->Get_y();
 
 	//タイム関連
-	hundredsTime = _timelimit->Get_hundredsPlace();
-	tensTime = _timelimit->Get_tensPlace();
-	onesTime = _timelimit->Get_onesPlace();
+	hundredsTime = _gameRes->timeLimit->Get_hundredsPlace();
+	tensTime = _gameRes->timeLimit->Get_tensPlace();
+	onesTime = _gameRes->timeLimit->Get_onesPlace();
 }
 
 //描画処理
-void UI::Draw()
+void UI::Draw(GameResource* _gameRes)
 {
 	DrawBox(1450, 730, 1920, 1080, GetColor(200, 200, 200), TRUE);
 	Get_CastleDurability();
