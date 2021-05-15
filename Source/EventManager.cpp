@@ -75,14 +75,14 @@ void EventManager::SpawnEvent() {
 	}
 }
 
-void EventManager::Update(EnemyManager* enemyManager, BasePlayer* basePlayer) {
-	if(basePlayer->Get_AbilityType() == FRAN_Ability || basePlayer->Get_isAbility() == false && basePlayer->Get_AbilityType() == SAKUYA_Ability){
+void EventManager::Update(GameResource* gameRes) {
+	if(gameRes->player->Get_AbilityType() == FRAN_Ability || gameRes->player->Get_isAbility() == false && gameRes->player->Get_AbilityType() == SAKUYA_Ability){
 		SpawnEvent();			//生成
 		SpawnSukima();			//スキマ生成
 }
 
 	if (Event != NULL) {	//何かしらイベントが行われている場合
-		Event->Update(basePlayer);	//更新
+		Event->Update(gameRes->player);	//更新
 
 		if (Event->GetIsActive() == false) {//イベントのアクティブ状態がfalseの場合
 
@@ -94,7 +94,7 @@ void EventManager::Update(EnemyManager* enemyManager, BasePlayer* basePlayer) {
 	}
 
 	if (Sukima != NULL) {	//スキマ用
-		Sukima->Update(enemyManager,basePlayer);	//更新
+		Sukima->Update(gameRes->enemyManager, gameRes->player);	//更新
 
 		if (Sukima->GetIsActive() == false) { //削除、初期化処理
 
@@ -107,7 +107,7 @@ void EventManager::Update(EnemyManager* enemyManager, BasePlayer* basePlayer) {
 
 	if (sBomb != NULL) {		//NULLでない場合
 
-		sBomb->Update(basePlayer);  //更新
+		sBomb->Update(gameRes->player);  //更新
 
 		if (sBomb->GetIsActive() == false)	 //初期化
 		{
