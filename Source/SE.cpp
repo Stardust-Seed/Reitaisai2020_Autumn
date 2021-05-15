@@ -50,6 +50,8 @@ void SE::Load()
 	seNum[SE_Enter] = LoadSE("./res/Sound/SE/decision48.wav");
 	seNum[SE_Stan] = LoadSE("./res/Sound/SE/piyopiyo.wav");
 	seNum[SE_Fake] = LoadSE("./res/Sound/SE/train-steam1.wav");
+	seNum[SE_Skil] = LoadSE("./res/Sound/SE/skil.wav");
+	seNum[SE_Hart] = LoadSE("./res/Sound/SE/sinzou.wav");
 }
 
 //SE‚ğÄ¶

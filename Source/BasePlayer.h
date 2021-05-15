@@ -11,6 +11,7 @@ class BulletManager;
 class BuffManager;
 class EnemyManager;
 class BaseEnemy;
+class GameResorce;
 
 enum PlayerType
 {
@@ -26,16 +27,6 @@ enum AbilityType
 	SAKUYA_Ability,         //咲夜のスキル
 	FRAN_Ability            //フランのスキル
 };
-
-/*
-enum PlayerDirection
-{
-	LEFT,  //←
-	UP,    //↑
-	RIGHT, //→
-	DOWN   //↓
-};
-*/
 
 class BasePlayer :public virtual Object
 {
@@ -58,7 +49,7 @@ class BasePlayer :public virtual Object
 
 
 protected:
-	const float PI = 3.141592654;
+	const float PI = 3.141592654;           //円周率
 
 	const float PLAYER_SPOWNPOSX = 841;	    //プレイヤーの初期位置_X
 	const float PLAYER_SPOWNPOSY = 516;	    //プレイヤーの初期位置_Y
@@ -76,8 +67,8 @@ protected:
 	const int ANIMETION_MAX = 3;            //アニメーションの最大数
 	const int ANIMETION_SPEED = 10;         //アニメーションのスピード
 
-	const int MAX_CHAGE_FRAN = 100; //フラン最大CHARGEゲージ
-	const int MAX_CHAGE_SAKUYA = 80;//咲夜最大チャージゲージ
+	const int MAX_CHAGE_FRAN = 100;			//フラン最大CHARGEゲージ
+	const int MAX_CHAGE_SAKUYA = 80;		//咲夜最大チャージゲージ
 	const int LOW_CHAGE = 0;                //最低チャージ
 
 	//咲夜スキル用
@@ -89,9 +80,9 @@ protected:
 	int catY;
 
 	//フランスキル用
-	const int FRANTIME = 3;
-	int franTimer;
-	bool franAbility;
+	const int FRANTIME = 3;		    //フランのスキル発動までの待機時間
+	int franTimer;					//フランのスキルの発動までのカウント
+	bool franAbility;				//フランのスキルが発動してるかのフラグ
 
 	int drawCount;                  //描画カウント
 	double drawAngle;               //描画角度
@@ -141,12 +132,12 @@ public:
 	BasePlayer() {}
 	BasePlayer( int _pType);		   //コンストラクタ
 	~BasePlayer();         //デストラクタ
-	void Draw();           //描画処理
+	void Draw(GameResorce* _gameRes);           //描画処理
 	void Draw_Arow();      //矢印描画
 	void Draw_Ability();   //スキルエフェクト描画
 
 	//更新処理
-	void Update(EnemyManager* _eManager,BuffManager* _bManager);
+	void Update(EnemyManager* _eManager,BuffManager* _bManager, GameResorce* _gameRes);
 
 	void Move();           //移動処理
 	void Move_UP();        //↑移動処理
@@ -188,12 +179,12 @@ public:
 
 	int Get_AbilityType() { return playerType; }            //スキルタイプのゲッター
 
-	bool Get_FranAbility(){ return franAbility; }          //フランアビリティのゲッター
+	bool Get_FranAbility(){ return franAbility; }           //フランアビリティのゲッター
 	int Get_AbilityCount() { return abilityCount; }         //スキル回数のゲッター
-	int Get_AbilityClock() { return abilityTimer; }        //スキル時間のゲッター
+	int Get_AbilityClock() { return abilityTimer; }         //スキル時間のゲッター
 	
-	void Set_speed(int _speed) { speed = _speed; }        //スピードのセッター
-	void Set_chageGauge(int _chage) { shotPower = _chage; }
+	void Set_speed(int _speed) { speed = _speed; }          //スピードのセッター
+	void Set_chageGauge(int _chage) { shotPower = _chage; } //チャージショットのセッター
 
 };
 

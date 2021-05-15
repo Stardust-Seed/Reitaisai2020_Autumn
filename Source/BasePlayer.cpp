@@ -8,50 +8,54 @@
 #include"EnemyManager.h"
 #include "Direction.h"
 #include"Image.h"
+#include"SE.h"
 
 BasePlayer::BasePlayer(int _pType)
 {
 	pos = VGet(PLAYER_LEFTPOS, PLAYER_LEFTRIGHTPOS, 0);
 	vPos = VGet(0, 0, 0);
 
-	width = 48;
-	height = 48;
+	width = 48;				      //プレイヤー横幅
+	height = 48;                  //プレイヤー縦幅
 
-	playerType = _pType;       //使用してるキャラクタータイプ
+	playerType = _pType;          //使用してるキャラクタータイプ
 
+
+	/***咲夜ステータス***/
 	if (playerType == SAKUYA)
 	{
 		speed = 8;					//移動速度
 		power = 30;					//攻撃力
 		abilityCount = 3;		    //スキル回数
-		graphNo = 2;
-		animNo = 2;
-		attackTime = 10;
+		graphNo = 2;                //画像ナンバー
+		animNo = 2;                 //アニメーションナンバー
+		attackTime = 10;            //攻撃間隔
 		abilityTimer = STOPTIME;    //咲夜用スキル時間タイマー
-		maxCharge = MAX_CHAGE_SAKUYA;
+		maxCharge = MAX_CHAGE_SAKUYA; //チャージゲージの最大値
 	}
+	/***フランステータス***/
 	if (playerType == FRAN)
 	{
 		speed = 3;					//移動速度
 		power = 50;			        //攻撃力
 		abilityCount = 2;		    //スキル回数
-		graphNo = 0;
-		animNo = 0;
-		attackTime = 5;
-		abilityTimer = FRANTIME;
-		franAbility = false;
-		franTimer = 0;
-		maxCharge = MAX_CHAGE_FRAN;
+		graphNo = 0;                //画像ナンバー
+		animNo = 0;                 //アニメーションナンバー
+		attackTime = 5;             //攻撃間隔
+		abilityTimer = FRANTIME;    //フランスキル発動までの待機時間
+		franAbility = false;        //フランスキルの発動フラグ
+		franTimer = 0;              //スキル発動までのカウント
+		maxCharge = MAX_CHAGE_FRAN; //チャージゲージ最大値
 	}
 
-	star01X = pos.x - 5;                      //スタン時の☆のx座標
-	star01Y = pos.y - 10;                      //スタン時の☆のy座標
-	star02X = pos.x + 35;                      //スタン時の☆のx座標
-	star02Y = pos.y - 10;                      //スタン時の☆のy座標
-	stanTime = 0;				//スタンタイム
-	stanTime_stay = 0;		    //スタン再発動までの時間
+	star01X = pos.x - 5;             //スタン時の☆のx座標
+	star01Y = pos.y - 10;            //スタン時の☆のy座標
+	star02X = pos.x + 35;            //スタン時の☆のx座標
+	star02Y = pos.y - 10;            //スタン時の☆のy座標
+	stanTime = 0;					 //スタンタイム
+	stanTime_stay = 0;			     //スタン再発動までの時間
 
-	direction = eDirection::Left;	    //プレイヤーの向き。最初は左
+	direction = eDirection::Left;	 //プレイヤーの向き。最初は左
 
 	isDraw = true;              //true:描画ON false:描画OFF
 	isMove = false;				//移動している：true  移動していない：false
@@ -72,11 +76,11 @@ BasePlayer::BasePlayer(int _pType)
 	shotPower = 0;              //チャージゲージ
 	fadeCount = 0;              //カットインカウント
 
-	catX = 400;
-	catY = 850;
+	catX = 400;                 //スキルカットイン_X
+	catY = 850;                 //スキルカットイン_Y
 }
 
-void BasePlayer::Draw()
+void BasePlayer::Draw(GameResorce* _gameRes)
 {
 
 	Draw_Ability(); //スキル演出
@@ -107,32 +111,46 @@ void BasePlayer::Draw()
 void BasePlayer::Draw_Ability()
 {
 
-	//幻世「ザ・ワールド」
-
+	//スキル時の演出
 	if ((Get_isAbility() == true && playerType == SAKUYA) || Get_FranAbility() == true)
 	{
 		//魔法陣ブワァァァ
 		DrawRotaGraph(pos.x + 24, pos.y + 24, drawZoom, PI * drawAngle, Image::Instance()->GetGraph(eImageType::Gpicture_Magic), TRUE);
-
+		
 		if (playerType == SAKUYA) {
 			//カットイン(白目)
 			//クソ地味だからカットインの左側にセリフでも入れようかな。後効果音
-			fadeCount = Image::Instance()->FadeInGraph(catX, catY, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 0), fadeCount, 250);
+			fadeCount = Image::Instance()->FadeInGraph(catX, catY, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 0), fadeCount, 50);
+
+			//時計
+			Image::Instance()->FadeInGraph(550, 150, Image::Instance()->GetGraph(eImageType::Skil_Sakuya), fadeCount, 250);
 		}
 		else
 		{
 			//カットイン(白目)
-			fadeCount = Image::Instance()->FadeInGraph(catX, catY, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 1), fadeCount, 250);
+			fadeCount = Image::Instance()->FadeInGraph(catX, catY, Image::Instance()->GetGraph(eImageType::Spicture_SelectPlayer, 1), fadeCount, 50);
+
+			//目
+			Image::Instance()->FadeInGraph(550, 200, Image::Instance()->GetGraph(eImageType::Skil_Fran), fadeCount, 250);
 		}
 
-		//下からカットイン
-		catY--;
+		if (catY >= 700)
+		{
+			//下からカットイン
+			catY -= 10;
+		}
 		
+	}
+	else
+	{
+		catY = 850; //カットインを初期位置に
+		fadeCount = 0;
 	}
 
 }
 void BasePlayer::Draw_Arow()
 {
+
 	if (direction == eDirection::Left)
 	{
 		//左向き矢印
@@ -154,9 +172,10 @@ void BasePlayer::Draw_Arow()
 		DrawTriangle(pos.x + 24, pos.y + 78, pos.x + 16, pos.y + 53, pos.x + 32, pos.y + 53, GetColor(255, 255, 255), TRUE);
 	}
 }
-void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
+void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager, GameResorce* _gameRes)
 {
 
+	
 	if (playerType == SAKUYA)
 	{
 		power = power * _bManager->GetPowerBuff();   //バフによる攻撃力増加
@@ -232,6 +251,7 @@ void BasePlayer::Update(EnemyManager* _eManager, BuffManager* _bManager)
 		SE::Instance()->StopSE(SE_Stan);
 		SE::Instance()->StopSE(SE_SakuyaAbility);
 		SE::Instance()->StopSE(SE_FranAbility);
+		SE::Instance()->StopSE(SE_Skil);
 
 	}
 }
@@ -412,20 +432,26 @@ void BasePlayer::onAbility()
 {
 	//スキル回数がまだ残っている時
 	if (abilityCount > 0 && Get_isAbility() == false) {
-		//スペースキーを押すとスキル発動
+		//Xキーを押すとスキル発動
 		if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1)
 		{
+			//SEを鳴らす
+			SE::Instance()->PlaySE(SE_Skil, DX_PLAYTYPE_BACK);
 			if (playerType == SAKUYA)
 			{
 				//SEを鳴らす
 				SE::Instance()->PlaySE(SE_SakuyaAbility, DX_PLAYTYPE_BACK);
+				
+				//スキル処理の為のフラグを切り替える
 				isAbility = true;
 				abilityCount -= 1;
 			}
 			if (playerType == FRAN && franAbility == false)
 			{
+				//心臓の音
+				SE::Instance()->PlaySE(SE_Hart, DX_PLAYTYPE_BACK);
 
-				//フランのスキル処理の為のフラグ
+				//スキル処理の為のフラグを切り替える
 				franAbility = true;
 				abilityCount -= 1;
 			}
@@ -433,6 +459,7 @@ void BasePlayer::onAbility()
 	}
 	if (franAbility == true)
 	{
+
 		if (drawZoom <= 3)
 		{
 			drawZoom += 0.02;
@@ -448,6 +475,10 @@ void BasePlayer::onAbility()
 			isAbility = true;
 			franAbility = false;
 			abilityTimer = FRANTIME;
+			//SEを止める 心臓
+			SE::Instance()->StopSE(SE_Hart);
+			//SEを鳴らす 爆発
+			SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
 
 		}
 		countDown -= 1;
@@ -460,7 +491,7 @@ void BasePlayer::CharaAbility()
 
 		if (drawZoom <= 3)
 		{
-			drawZoom += 0.02;
+			drawZoom += 0.02; //スキル発動中の魔法陣をズームさせる
 		}
 		drawAngle += 0.02;
 		if (abilityTimer >= 0 && countDown <= 0) {	    //表示されているタイマーを0にしたいのでカウントダウン自体は0になるまで動かす
@@ -469,12 +500,13 @@ void BasePlayer::CharaAbility()
 		}
 		if (abilityTimer <= 0)
 		{
-			isAbility = false;
-			abilityTimer = STOPTIME;
+			
+			abilityTimer = STOPTIME;    //時止めスキルの時間を代入
 			drawAngle = 0;              //描画の角度
 			drawZoom = 1.0;             //描画の拡大率
 			//再生を止めるとき
 			SE::Instance()->StopSE(SE_SakuyaAbility);
+			isAbility = false;
 		}
 		countDown -= 1;
 	}
@@ -483,20 +515,16 @@ void BasePlayer::CharaAbility()
 	/***フランスキル処理***/
 	if (Get_isAbility() == true && playerType == FRAN) {
 
+		franTimer += 1;
 
-		if (franTimer == 1) {    //フランのスキルは発動したらすぐ終了する
-			//SEを鳴らす
-			SE::Instance()->PlaySE(SE_FranAbility, DX_PLAYTYPE_BACK);
-			isAbility = false;
+		if (Get_isAbility() == true && franTimer >= 3) {    //フランのスキルは発動したらすぐ終了する
+
 			franTimer = 0;
 			drawAngle = 0;
 			drawZoom = 1.0;
-		}
-		if (Get_isAbility() == true && franTimer < 1)
-		{
-			franTimer += 1;
-		}
+			isAbility = false;
 
+		}
 	}
 	/***********************/
 }
@@ -583,7 +611,7 @@ void BasePlayer::Move_RIGHT()
 		Animation();
 	}
 }
-
+//攻撃力のセッター
 void BasePlayer::Set_power(int _power, BuffManager* _bManager)
 {
 	power = _power * _bManager->GetPowerBuff();
