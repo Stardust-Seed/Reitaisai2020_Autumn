@@ -40,15 +40,18 @@ void UI::Get_SubCastleDurability()
 	//座標補正
 	int xa = 12, yb = 38;
 
-	DrawString(SubCastle::COORDINATE_X_ONE - 48 - 4 + xa, SubCastle::COORDINATE_Y_ONE - 80 - 4 + yb, "1", GetColor(0, 0, 0));
-	DrawString(SubCastle::COORDINATE_X_TWO - 48 - 4 + xa, SubCastle::COORDINATE_Y_TWO + 32 - 4 + yb, "2", GetColor(0, 0, 0));
-	DrawString(SubCastle::COORDINATE_X_THREE + 32 - 4 + xa, SubCastle::COORDINATE_Y_THREE - 48 - 4 + yb, "3", GetColor(0, 0, 0));
-	DrawString(SubCastle::COORDINATE_X_FOUR - 80 - 4 + xa, SubCastle::COORDINATE_Y_FOUR - 48 - 4 + yb, "4", GetColor(0, 0, 0));
-	DrawString(SubCastle::COORDINATE_X_FIVE + 48 - 4 + xa, SubCastle::COORDINATE_Y_FIVE + 32 - 4 + yb, "5", GetColor(0, 0, 0));
-	DrawString(SubCastle::COORDINATE_X_SIX + 48 - 4 + xa, SubCastle::COORDINATE_Y_SIX - 80 - 4 + yb, "6", GetColor(0, 0, 0));
-	DrawString(SubCastle::COORDINATE_X_SEVEN - 80 - 4 + xa, SubCastle::COORDINATE_Y_SEVEN + 48 - 4 + yb, "7", GetColor(0, 0, 0));
-	DrawString(SubCastle::COORDINATE_X_EIGHT + 32 - 4 + xa, SubCastle::COORDINATE_Y_EIGHT + 48 - 4 + yb, "8", GetColor(0, 0, 0));
-	
+	if (castleNum != 0)
+	{
+		DrawString(SubCastle::COORDINATE_X_ONE - 48 - 4 + xa, SubCastle::COORDINATE_Y_ONE - 80 - 4 + yb, "1", GetColor(0, 0, 0));
+		DrawString(SubCastle::COORDINATE_X_TWO - 48 - 4 + xa, SubCastle::COORDINATE_Y_TWO + 32 - 4 + yb, "2", GetColor(0, 0, 0));
+		DrawString(SubCastle::COORDINATE_X_THREE + 32 - 4 + xa, SubCastle::COORDINATE_Y_THREE - 48 - 4 + yb, "3", GetColor(0, 0, 0));
+		DrawString(SubCastle::COORDINATE_X_FOUR - 80 - 4 + xa, SubCastle::COORDINATE_Y_FOUR - 48 - 4 + yb, "4", GetColor(0, 0, 0));
+		DrawString(SubCastle::COORDINATE_X_FIVE + 48 - 4 + xa, SubCastle::COORDINATE_Y_FIVE + 32 - 4 + yb, "5", GetColor(0, 0, 0));
+		DrawString(SubCastle::COORDINATE_X_SIX + 48 - 4 + xa, SubCastle::COORDINATE_Y_SIX - 80 - 4 + yb, "6", GetColor(0, 0, 0));
+		DrawString(SubCastle::COORDINATE_X_SEVEN - 80 - 4 + xa, SubCastle::COORDINATE_Y_SEVEN + 48 - 4 + yb, "7", GetColor(0, 0, 0));
+		DrawString(SubCastle::COORDINATE_X_EIGHT + 32 - 4 + xa, SubCastle::COORDINATE_Y_EIGHT + 48 - 4 + yb, "8", GetColor(0, 0, 0));
+	}
+
 	for (i = 1; i < 5; i++)
 	{
 		if (SubCastleDurability[i] <= 0)					//HPゲージが0以下になってもゲージは0で止める
@@ -149,12 +152,12 @@ void UI::ChargeGage()
 	DrawBox(10, 950, 380, 1050, GetColor(200, 200, 200), TRUE);		//後ろに敷く
 	DrawFormatStringToHandle(15, 950, GetColor(0, 0, 0), FontHandle::Instance()->Get_natumemozi_38_8(), "チャージゲージ");
 	//チャージゲージの枠
-	DrawBoxAA(CHARGEGAUGE_X-1, CHARGEGAUGE_Y-1,CHARGEGAUGE_X2+1, CHARGEGAUGE_Y2+1, GetColor(0, 0, 0), FALSE);	
+	DrawBox(CHARGEGAUGE_X-1, CHARGEGAUGE_Y-1,CHARGEGAUGE_X2+1, CHARGEGAUGE_Y2+1, GetColor(0, 0, 0), FALSE);	
 
 	//チャージゲージ
 	DrawBox(CHARGEGAUGE_X, CHARGEGAUGE_Y,
-		CHARGEGAUGE_X + 325 * ((float)chageGauge / maxGauge), CHARGEGAUGE_Y2,
-		GetColor(0, 255, 255), TRUE);
+		CHARGEGAUGE_X + 325 * ((float)chageGauge / maxGauge),
+		CHARGEGAUGE_Y2, GetColor(0, 255, 255), TRUE);
 }
 
 //更新

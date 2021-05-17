@@ -153,16 +153,18 @@ void CastleManager::Draw(GameResource* _gameRes)
 	//DrawFormatString(120, 120, GetColor(255, 255, 255), "%d", cnt);
 	//DrawFormatString(100, 100, GetColor(255, 255, 255), "%d", number);
 
-	//設置できる場所の表示
-	if(!numberFlg[0])DrawGraphF(SubCastle::COORDINATE_X_ONE - 4 - 48, SubCastle::COORDINATE_Y_ONE - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
-	if (!numberFlg[1])DrawGraphF(SubCastle::COORDINATE_X_TWO - 4 - 48, SubCastle::COORDINATE_Y_TWO + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
-	if (!numberFlg[2])DrawGraphF(SubCastle::COORDINATE_X_THREE + 32 - 4, SubCastle::COORDINATE_Y_THREE - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
-	if (!numberFlg[3])DrawGraphF(SubCastle::COORDINATE_X_FOUR - 80 - 4, SubCastle::COORDINATE_Y_FOUR - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
-	if (!numberFlg[4])DrawGraphF(SubCastle::COORDINATE_X_FIVE + 48 - 4, SubCastle::COORDINATE_Y_FIVE + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
-	if (!numberFlg[5])DrawGraphF(SubCastle::COORDINATE_X_SIX + 48 - 4, SubCastle::COORDINATE_Y_SIX - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
-	if (!numberFlg[6])DrawGraphF(SubCastle::COORDINATE_X_SEVEN - 80 - 4, SubCastle::COORDINATE_Y_SEVEN + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
-	if (!numberFlg[7])DrawGraphF(SubCastle::COORDINATE_X_EIGHT + 32 - 4, SubCastle::COORDINATE_Y_EIGHT + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
-	
+	if (Get_installCastle() != 0)
+	{
+		//設置できる場所の表示
+		if (!numberFlg[0])DrawGraphF(SubCastle::COORDINATE_X_ONE - 4 - 48, SubCastle::COORDINATE_Y_ONE - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[1])DrawGraphF(SubCastle::COORDINATE_X_TWO - 4 - 48, SubCastle::COORDINATE_Y_TWO + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[2])DrawGraphF(SubCastle::COORDINATE_X_THREE + 32 - 4, SubCastle::COORDINATE_Y_THREE - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[3])DrawGraphF(SubCastle::COORDINATE_X_FOUR - 80 - 4, SubCastle::COORDINATE_Y_FOUR - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[4])DrawGraphF(SubCastle::COORDINATE_X_FIVE + 48 - 4, SubCastle::COORDINATE_Y_FIVE + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[5])DrawGraphF(SubCastle::COORDINATE_X_SIX + 48 - 4, SubCastle::COORDINATE_Y_SIX - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[6])DrawGraphF(SubCastle::COORDINATE_X_SEVEN - 80 - 4, SubCastle::COORDINATE_Y_SEVEN + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[7])DrawGraphF(SubCastle::COORDINATE_X_EIGHT + 32 - 4, SubCastle::COORDINATE_Y_EIGHT + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+	}
 }
 
 //i番目の拠点の生存しているかを受け取る
