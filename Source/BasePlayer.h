@@ -136,7 +136,7 @@ public:
 		float ox, float oy, float ow, float oh);
 	BasePlayer() {}
 	BasePlayer( int _pType);		   //コンストラクタ
-	~BasePlayer();         //デストラクタ
+	~BasePlayer() = default;		//デストラクタ
 	void Draw(GameResource* _gameRes);           //描画処理
 	void Draw_Arow();      //矢印描画
 	void Draw_Ability();   //スキルエフェクト描画
