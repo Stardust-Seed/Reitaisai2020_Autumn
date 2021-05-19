@@ -1,7 +1,7 @@
 #ifndef _GAMEOVER_H_
 #define _GAMEOVER_H_
 
-#include "BaseScene.h"
+#include "Scene.h"
 #include "Input.h"
 #include "Image.h"
 #include "BGM.h"
@@ -10,7 +10,7 @@
 #include "FontHandle.h"
 #include "Cursor.h"
 
-class GameOver :public virtual BaseScene{
+class GameOver :public virtual Scene{
 
 private:
 	const static int GAME_X;    //コンティニューすると表示するテキストのY座標
@@ -28,10 +28,11 @@ private:
 	int charaType;              //キャラタイプ
 	int waitTimer;              //シーン切り替え後少しの間操作を受け付けないようにする
 public:
-	GameOver(ISceneChanger* _sceneChanger, Parameter* _parameter);
+	GameOver();
+	void Init(GameResource* _gameRes);				//初期化処理
 	void Update(GameResource* _gameRes);				//更新処理
 	void Draw(GameResource* _gameRes);				//描画処理
-	void Select();              //選択処理
+	void Select(GameResource* _gameRes);              //選択処理
 	void Move();                //動きの処理
 };
 

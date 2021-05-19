@@ -5,9 +5,12 @@
 #include "SE.h"
 #include "FontHandle.h"
 #include "Image.h"
-Pausemenu::Pausemenu(ISceneChanger* _sceneChanger, Parameter* _parameter)
-	:BaseScene(_sceneChanger, _parameter) {
+#include "SceneManager.h"
 
+Pausemenu::Pausemenu() {
+}
+
+void Pausemenu::Init(GameResource* _gameRes) {
 	if (BGM::Instance()->Get_Volume() >= 5)
 	{
 		BGM::Instance()->VolumeBGM(4);
@@ -66,7 +69,7 @@ void Pausemenu::Update(GameResource* _gameRes)
 	{
 		SE::Instance()->PlaySE(SE_Cancel);
 		BGM::Instance()->VolumeBGM(BGM::Instance()->Get_Volume());
-		sceneChanger->SceneChange(eScene_GAME, parameter, false, true);
+		_gameRes->sceneManager->SceneChange("InGame", false, true, _gameRes);
 	}
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1)				        //Zキーが押された場所の処理
@@ -76,16 +79,16 @@ void Pausemenu::Update(GameResource* _gameRes)
 		switch (NowSelect)
 		{
 		case 0:													//ゲーム画面に戻る項目
-			sceneChanger->SceneChange(eScene_GAME, parameter, false, true);
+			_gameRes->sceneManager->SceneChange("InGame", false, true, _gameRes);
 			break;
 
 		case 1:													//操作説明の項目
-			sceneChanger->SceneChange(eScene_OPERATIONEXP, parameter, true, false);
+			_gameRes->sceneManager->SceneChange("OperationExp", true, false, _gameRes);
 			break;
 
 		case 2:													//ゲーム終了の項目
 			BGM::Instance()->StopBGM(BGM_gameScene);
-			sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
+			_gameRes->sceneManager->SceneChange("Menu", false, false, _gameRes);
 		}
 	}
 }

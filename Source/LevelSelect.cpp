@@ -8,14 +8,19 @@
 #include "Image.h"
 #include "Input.h"
 #include "SE.h"
+#include "Parameter.h"
+#include "SceneManager.h"
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 /// <param name="_sceneChanger">シーン切り替えクラス</param>
 /// <param name="_parameter">パラメータ</param>
-LevelSelect::LevelSelect(ISceneChanger* _sceneChanger, Parameter* _parameter)
-	:BaseScene(_sceneChanger, _parameter) {
+LevelSelect::LevelSelect() {
+
+}
+
+void LevelSelect::Init(GameResource* _gameRes) {
 	//初期化処理
 	selectLevel = eLevelType::Easy;
 
@@ -80,13 +85,13 @@ void LevelSelect::Update(GameResource* _gameRes) {
 		//選択されたレベルに従ってパラメータに数値をセット
 		switch (selectLevel) {
 		case eLevelType::Easy:
-			parameter->Set(BaseScene::LevelSelectTag, 0);
+			_gameRes->parameter->Set("LevelSelect", 0);
 			break;
 		case eLevelType::Normal:
-			parameter->Set(BaseScene::LevelSelectTag, 1);
+			_gameRes->parameter->Set("LevelSelect", 1);
 			break;
 		case eLevelType::Hard:
-			parameter->Set(BaseScene::LevelSelectTag, 2);
+			_gameRes->parameter->Set("LevelSelect", 2);
 			break;
 		}
 
@@ -97,7 +102,7 @@ void LevelSelect::Update(GameResource* _gameRes) {
 		SE::Instance()->PlaySE(SE_Enter);
 
 		//シーンをゲームシーンに切り替える
-		sceneChanger->SceneChange(eScene_GAME, parameter, false, false);
+		_gameRes->sceneManager->SceneChange("InGame", false, false, _gameRes);
 	}
 
 	//xキーが押されたとき
@@ -107,7 +112,7 @@ void LevelSelect::Update(GameResource* _gameRes) {
 		SE::Instance()->PlaySE(SE_Cancel);
 
 		//シーンをキャラセレクトに切り替える
-		sceneChanger->SceneChange(eScene_CHARASELECT, parameter, false, true);
+		_gameRes->sceneManager->SceneChange("CharaSelect", false, true, _gameRes);
 	}
 }
 

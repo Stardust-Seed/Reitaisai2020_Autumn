@@ -37,7 +37,9 @@ void Fairy_Bomb::Update(GameResource* _gameRes){
 	if (!isActive && inactiveType == eInactiveType::Defeat) {
 		_gameRes->enemyManager->SpawnBomb(x, y, eExType::Immediately);
 	}
-	else if (inactiveType == eInactiveType::Invasion) {
+	
+	if (inactiveType == eInactiveType::Invasion &&
+		animationCnt == 0) {
 		_gameRes->enemyManager->SpawnBomb(x, y, eExType::Installation);
 	}
 
@@ -59,4 +61,12 @@ void Fairy_Bomb::Update(GameResource* _gameRes){
 //•`‰æˆ—
 void Fairy_Bomb::Draw(GameResource* _gameRes) {
 	BaseEnemy::Draw(_gameRes);
+
+	if (inactiveType == eInactiveType::Invasion) {
+		Image::Instance()->FadeOutGraph(
+			x, y - 32, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb), animationCnt, 60);
+		return;
+	}
+
+	DrawGraph(x, y - 32, Image::Instance()->GetGraph(eImageType::Gpicture_Bomb), TRUE);
 }

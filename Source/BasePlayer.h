@@ -72,51 +72,56 @@ protected:
 	const int LOW_CHAGE = 0;                //最低チャージ
 
 	//咲夜スキル用
-	const int STOPTIME = 5;         //時止めスキルの時間
-	int abilityTimer;               //スキル発動時間
-	int countDown;                  //スキルタイマーのカウントダウンに使用
-	int fadeCount;                  //スキルカットインのカウント
-	int catX;                       //カットイン用
-	int catY;
+	const int BP_STOPTIME = 5;         //時止めスキルの時間
+
+	/***********************
+	ベースプレイヤーの変数には「BP_」をつける
+	***********************/
+
+	int BP_abilityTimer;               //スキル発動時間
+	int BP_countDown;                  //スキルタイマーのカウントダウンに使用
+	int BP_fadeCount;                  //スキルカットインのカウント
+	int BP_catX;                       //カットイン用
+	int BP_catY;
 
 	//フランスキル用
-	const int FRANTIME = 3;		    //フランのスキル発動までの待機時間
-	int franTimer;					//フランのスキルの発動までのカウント
-	bool franAbility;				//フランのスキルが発動してるかのフラグ
+	const int BP_FRANTIME = 3;		    //フランのスキル発動までの待機時間
+	int BP_franTimer;					//フランのスキルの発動までのカウント
+	bool BP_franAbility;				//フランのスキルが発動してるかのフラグ
 
-	int drawCount;                  //描画カウント
-	double drawAngle;               //描画角度
-	double drawZoom;                //描画拡大率
+	int BP_drawCount;                  //描画カウント
+	double BP_drawAngle;               //描画角度
+	double BP_drawZoom;                //描画拡大率
 
-	int speed;		                //プレイヤーの移動速度
-	int power;		                //プレイヤーの攻撃力
-	int shotPower;                  //チャージショットのゲージ
-	int stanTime;	                //プレイヤーのスタンタイム
-	int stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
-	int attackTime;                 //攻撃間隔
-	int star01X;                    //スタンスター①のx座標
-	int star01Y;                    //スタンスター①のy座標
-	int star02X;                    //スタンスター②のx座標
-	int star02Y;                    //スタンスター②のy座標
+	int BP_speed;		                //プレイヤーの移動速度
+	int BP_power;		                //プレイヤーの攻撃力
+	int BP_shotPower;                  //チャージショットのゲージ
+	int BP_stanTime;	                //プレイヤーのスタンタイム
+	int BP_stanTime_stay;              //一度スタンしてから次にまたスタンするまでの時間
+	int BP_attackTime;                 //攻撃間隔
+	int BP_star01X;                    //スタンスター①のx座標
+	int BP_star01Y;                    //スタンスター①のy座標
+	int BP_star02X;                    //スタンスター②のx座標
+	int BP_star02Y;                    //スタンスター②のy座標
 
-	int graphNo;                    //画像番号                0,1:咲夜 2,3:フラン
-	int sakuyaAnim[4] = {2,2,3,3 }; //咲夜アニメーション順番
-	int franAnim[4] = { 0,0,1,1 };  //フランアニメーション番号
-	int animNo;                     //アニメーション番号
-	int animWait;                   //アニメーション待機時間
+	int BP_graphNo;                    //画像番号                0,1:咲夜 2,3:フラン
+	int BP_sakuyaAnim[4] = {2,2,3,3 }; //咲夜アニメーション順番
+	int BP_franAnim[4] = { 0,0,1,1 };  //フランアニメーション番号
+	int BP_animNo;                     //アニメーション番号
+	int BP_animWait;                   //アニメーション待機時間
 
-	bool animLR;                    //アニメーションの左右 true :← false :→
+	bool BP_animLR;                    //アニメーションの左右 true :← false :→
 
-	bool isAbility;                 //スキルが発動している状態かどうか
-	int  abilityCount;              //スキル回数
+	bool BP_isAbility;                 //スキルが発動している状態かどうか
+	int  BP_abilityCount;              //スキル回数
 	int  bulletCount;               //弾のカウント
 
-	bool isMove;                   //現在移動中のフラグ
+	bool BP_isMove;                   //現在移動中のフラグ
 
-	bool isDraw;                    //プレイヤー描画フラグ
-	bool isAttack;                  //攻撃フラグ
-	bool isStan;                    //スタン中かどうかのフラグ
-	bool isStan_Next;               //スタンが起こる状態かどうかのフラグ
+	bool BP_isDraw;                    //プレイヤー描画フラグ
+	bool BP_isAttack;                  //攻撃フラグ
+	bool BP_isStan;                    //スタン中かどうかのフラグ
+	bool BP_isStan_Next;               //スタンが起こる状態かどうかのフラグ
 
 public:
 
@@ -131,7 +136,7 @@ public:
 		float ox, float oy, float ow, float oh);
 	BasePlayer() {}
 	BasePlayer( int _pType);		   //コンストラクタ
-	~BasePlayer();         //デストラクタ
+	~BasePlayer() = default;		//デストラクタ
 	void Draw(GameResource* _gameRes);           //描画処理
 	void Draw_Arow();      //矢印描画
 	void Draw_Ability();   //スキルエフェクト描画
@@ -156,8 +161,8 @@ public:
 	void Set_y(float _y) { pos.y = _y; }                    //セッター
 	void Set_width(float _width) { width = _width; }        //セッター
 	void Set_height(float _height) { height = _height; }    //セッター
-	void Set_isAbility(bool _isAbility) { isAbility = _isAbility; } //スキルのActiveセッター
-	void Set_abilityCount(int _abilityCount) { abilityCount = _abilityCount; }  //スキル回数のセッター      
+	void Set_isAbility(bool _isAbility) { BP_isAbility = _isAbility; } //スキルのActiveセッター
+	void Set_abilityCount(int _abilityCount) { BP_abilityCount = _abilityCount; }  //スキル回数のセッター      
 	void Set_power(int _power, BuffManager* _bManager);        //セッター
 	float Get_x() { return pos.x; }                         //x座標ゲッター
 	float Get_y() { return pos.y; }                         //y座標ゲッター
@@ -166,25 +171,25 @@ public:
 	float Get_width() { return width; }                     //widthゲッター
 	float Get_height() { return height; }                   //heightゲッター
 
-	int  Get_power() { return power; }                      //攻撃力ゲッター
+	int  Get_power() { return BP_power; }                      //攻撃力ゲッター
 
-	int Get_chageGauge() { return shotPower; }             //チャージパワーのゲッター
+	int Get_chageGauge() { return BP_shotPower; }             //チャージパワーのゲッター
 	int  Get_maxChage() { return maxCharge; }      //MAXチャージゲッター
 	
 
-	bool Get_isStan() { return isStan; }                    //スタン状態ゲッター
-	bool Get_isAbility() { return isAbility; }              //スキルのActiveのゲッター
+	bool Get_isStan() { return BP_isStan; }                    //スタン状態ゲッター
+	bool Get_isAbility() { return BP_isAbility; }              //スキルのActiveのゲッター
 	
 	void SetBulletManager(BulletManager* bullet) { bulletManager = bullet; }//bulletManagerのアドレスを取得
 
 	int Get_AbilityType() { return playerType; }            //スキルタイプのゲッター
 
-	bool Get_FranAbility(){ return franAbility; }           //フランアビリティのゲッター
-	int Get_AbilityCount() { return abilityCount; }         //スキル回数のゲッター
-	int Get_AbilityClock() { return abilityTimer; }         //スキル時間のゲッター
+	bool Get_FranAbility(){ return BP_franAbility; }           //フランアビリティのゲッター
+	int Get_AbilityCount() { return BP_abilityCount; }         //スキル回数のゲッター
+	int Get_AbilityClock() { return BP_abilityTimer; }         //スキル時間のゲッター
 	
-	void Set_speed(int _speed) { speed = _speed; }          //スピードのセッター
-	void Set_chageGauge(int _chage) { shotPower = _chage; } //チャージショットのセッター
+	void Set_speed(int _speed) { BP_speed = _speed; }          //スピードのセッター
+	void Set_chageGauge(int _chage) { BP_shotPower = _chage; } //チャージショットのセッター
 
 };
 

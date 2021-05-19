@@ -3,7 +3,7 @@
 
 //インクルードするやつが多いのでグループ分けして間を分けてる
 #include "Define.h"
-#include "BaseScene.h"
+#include "Scene.h"
 
 #include "EnemyManager.h"
 #include "EventManager.h"
@@ -17,7 +17,7 @@
 #include "TimeLimit.h"
 #include "Ui.h"
 
-class GameScene :public virtual BaseScene {
+class GameScene :public virtual Scene {
 
 private:
 	//それぞれの処理を呼び出すための奴
@@ -32,11 +32,13 @@ private:
 	UI* ui;
 
 public:
-	GameScene(ISceneChanger* _sceneChanger, Parameter* _parameter,
-		GameResource* _gameRes);
-	void Update(GameResource* _gameRes);				//更新処理
+	GameScene();
+	~GameScene();
+	void Init(GameResource* _gameRes);				//初期化処理
+	void Final();									//終了処理
+	void Update(GameResource* _gameRes);			//更新処理
 	void Draw(GameResource* _gameRes);				//描画処理
-	void ChangeScene();         //シーン変更処理
+	void ChangeScene(GameResource* _gameRes);       //シーン変更処理
 };
 
 #endif //GAMESCENE_H_

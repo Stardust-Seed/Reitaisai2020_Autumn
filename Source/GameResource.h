@@ -8,7 +8,9 @@ class CastleManager;
 class EnemyManager;
 class EventManager;
 class ItemManager;
+class SceneManager;
 class TimeLimit;
+class Parameter;
 
 //ゲームリソース構造体
 typedef struct {
@@ -19,7 +21,9 @@ typedef struct {
 	EnemyManager*		enemyManager;	//敵管理クラス
 	EventManager*		eventManager;	//イベント管理クラス
 	ItemManager*		itemManager;	//アイテム管理クラス
+	SceneManager*		sceneManager;	//シーン管理クラス
 	TimeLimit*			timeLimit;		//制限時間クラス
+	Parameter*			parameter;		//パラメータクラス
 }GameResource;
 
 #endif // !_GAMERESOURCE_H

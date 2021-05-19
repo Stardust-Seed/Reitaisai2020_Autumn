@@ -5,14 +5,14 @@
 #include "FontHandle.h"
 #include "Input.h"
 #include "SE.h"
+#include "SceneManager.h"
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 /// <param name="_sceneChanger">シーン切り替えクラス</param>
 /// <param name="_parameter">パラメータ</param>
-OperationExp::OperationExp(ISceneChanger* _sceneChanger, Parameter* _parameter) :
-	BaseScene(_sceneChanger, _parameter) {
+OperationExp::OperationExp() {
 
 }
 
@@ -26,7 +26,7 @@ void OperationExp::Update(GameResource* _gameRes) {
 		SE::Instance()->PlaySE(SE_Cancel);
 
 		//メニューシーンに戻る
-		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
+		_gameRes->sceneManager->SceneChange("Menu", false, true, _gameRes);
 	}
 }
 

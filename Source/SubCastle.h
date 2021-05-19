@@ -19,6 +19,18 @@ class SubCastle :public virtual BaseCastle {
 private:
 	int posType;                   //サブ拠点の場所
 
+	int bx;                        //弾のX座標
+	int by;                        //弾のY座標
+	int bheight;                   //弾の高さ
+	int bwidth;                    //弾の幅
+
+	int cnt;                       //弾発射のカウント
+	int alpha;                     //弾の透明度
+	int directionMove;             //弾の進行方向
+
+	bool bflg;                     //弾の表示フラグ
+	bool discoveryFlg;             //発見フラグ
+
 public:
 	//サブ拠点の設置場所の座標
 	static const int COORDINATE_X_ONE = GAME_WIDTH / 2 - 375 + 80;

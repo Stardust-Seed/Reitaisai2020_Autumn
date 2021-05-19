@@ -7,6 +7,7 @@
 #include "Image.h"
 #include "FontHandle.h"
 #include "File.h"
+#include "SceneManager.h"
 
 const float Option::BGMBAR_WIDTH = 76.9f;
 const float Option::BGMBAR_HEIGHT = 17.9f;
@@ -39,9 +40,11 @@ const int Option::BUF_SIZE = 256;
 const int Option::CONFIGFILE_NUM = 2;
 
 /*コンストラクタ*/
-Option::Option(ISceneChanger* _sceneChanger, Parameter* _parameter)
-	:BaseScene(_sceneChanger, _parameter) {
+Option::Option() {
 
+}
+
+void Option::Init(GameResource* _gameRes) {
 	bgmVolume = File::Instance()->GetFileData(eFileType::Config, 0);
 	seVolume = File::Instance()->GetFileData(eFileType::Config, 1);
 
@@ -66,7 +69,7 @@ void Option::Update(GameResource* _gameRes) {
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
 		SE::Instance()->PlaySE(SE_Cancel);
-		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
+		_gameRes->sceneManager->SceneChange("Menu", false, true, _gameRes);
 	}
 
 	//変更項目の変更処理
