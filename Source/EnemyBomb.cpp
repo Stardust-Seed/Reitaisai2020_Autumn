@@ -85,7 +85,7 @@ void EnemyBomb::Update(GameResource* _gameRes) {
 	}
 
 	//”š”jƒJƒEƒ“ƒg‚ð‰ÁŽZ‚·‚é
-	if (_gameRes->player->Get_isAbility() &&
+	if (!_gameRes->player->Get_isAbility() &&
 		_gameRes->player->Get_AbilityType() == SAKUYA_Ability)exCnt++;
 }
 
