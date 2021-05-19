@@ -1,8 +1,7 @@
 #ifndef _BUFFMANAGER_H
 #define _BUFFMANAGER_H
 
-class EnemyManager;
-class ItemManager;
+#include "GameResource.h"
 
 /// <summary>
 /// BuffManager class
@@ -41,7 +40,7 @@ public:
 	/// </summary>
 	/// <param name="_itemManager">アイテムマネージャーの情報</param>
 	/// <param name="_enemyManager">エネミーマネージャーの情報</param>
-	void Update(ItemManager* _itemManager, EnemyManager* _enemyManager);
+	void Update(GameResource* _gameRes);
 
 	/// <summary>
 	/// レベルダウンの処理

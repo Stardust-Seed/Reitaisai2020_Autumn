@@ -3,6 +3,15 @@
 
 CastleManager::CastleManager() {
 
+	cnt = 1;
+	number = 1;
+	installCnt = 0;
+
+	for (int i = 0; i < 8; i++)
+	{
+		numberFlg[i] = false;
+	}
+
 	for (int i = 0; i < POPCASTLE; i++)
 	{
 		Castles[i] = NULL;		   //CastleのポインタにNULL
@@ -16,13 +25,8 @@ CastleManager::CastleManager() {
 			{
 				durability = 100;
 				Castles[i] = new MainCastle(durability);     //生成処理
+				activeCountFlg[i] = true;
 			}
-			else                   //サブ拠点
-			{
-				durability = 25;
-				Castles[i] = new SubCastle(durability, i);   //生成処理
-			}
-			activeCountFlg[i] = true;
 		}
 	}
 
@@ -38,8 +42,75 @@ CastleManager::~CastleManager() {
 }
 
 //更新処理
-void CastleManager::Update(EnemyManager*_enemy,EventManager* _event)
+void CastleManager::Update(GameResource* _gameRes)
 {
+	//数字キーでの番号指定時の処理
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_1) == 1))
+	{
+		number = 1;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_2) == 1))
+	{
+		number = 2;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_3) == 1))
+	{
+		number = 3;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_4) == 1))
+	{
+		number = 4;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_5) == 1))
+	{
+		number = 5;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_6) == 1))
+	{
+		number = 6;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_7) == 1))
+	{
+		number = 7;
+	}
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_8) == 1))
+	{
+		number = 8;
+	}
+
+
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_V) == 1))
+	{
+		number--;
+
+		if (number < 1)
+		{
+			number = 8;
+		}
+	}
+
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_B) == 1))
+	{
+		number++;
+
+		if (number > 8)
+		{
+			number = 1;
+		}
+	}
+
+	if ((Input::Instance()->GetPressCount(KEY_INPUT_C) == 1) && numberFlg[number - 1] == false)
+	{
+		if (cnt < POPCASTLE)
+		{
+			numberFlg[number - 1] = true;
+			installCnt++;
+			durability = 25;
+			Castles[cnt] = new SubCastle(durability, cnt, number);   //生成処理
+			activeCountFlg[cnt] = true;
+			cnt++;
+		}
+	}
 
 	for (int i = 0; i < POPCASTLE; i++)
 	{
@@ -47,11 +118,11 @@ void CastleManager::Update(EnemyManager*_enemy,EventManager* _event)
 		{
 			if (i == 0)
 			{
-				Castles[i]->Update(_enemy,_event);
+				Castles[i]->Update(_gameRes->enemyManager, _gameRes->eventManager);
 			}
 			else
 			{
-				Castles[i]->Update(_enemy);
+				Castles[i]->Update(_gameRes->enemyManager);
 			}
 
 			if (Castles[i]->GetIsActive() == false && i != 0)
@@ -69,7 +140,7 @@ void CastleManager::Update(EnemyManager*_enemy,EventManager* _event)
 }
 
 //描画
-void CastleManager::Draw()
+void CastleManager::Draw(GameResource* _gameRes)
 {
 	for (int i = 0; i < POPCASTLE; i++)
 	{
@@ -77,6 +148,22 @@ void CastleManager::Draw()
 		{
 			Castles[i]->Draw();
 		}
+	}
+
+	//DrawFormatString(120, 120, GetColor(255, 255, 255), "%d", cnt);
+	//DrawFormatString(100, 100, GetColor(255, 255, 255), "%d", number);
+
+	if (Get_installCastle() != 0)
+	{
+		//設置できる場所の表示
+		if (!numberFlg[0])DrawGraphF(SubCastle::COORDINATE_X_ONE - 4 - 48, SubCastle::COORDINATE_Y_ONE - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[1])DrawGraphF(SubCastle::COORDINATE_X_TWO - 4 - 48, SubCastle::COORDINATE_Y_TWO + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[2])DrawGraphF(SubCastle::COORDINATE_X_THREE + 32 - 4, SubCastle::COORDINATE_Y_THREE - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[3])DrawGraphF(SubCastle::COORDINATE_X_FOUR - 80 - 4, SubCastle::COORDINATE_Y_FOUR - 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[4])DrawGraphF(SubCastle::COORDINATE_X_FIVE + 48 - 4, SubCastle::COORDINATE_Y_FIVE + 32 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[5])DrawGraphF(SubCastle::COORDINATE_X_SIX + 48 - 4, SubCastle::COORDINATE_Y_SIX - 80 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[6])DrawGraphF(SubCastle::COORDINATE_X_SEVEN - 80 - 4, SubCastle::COORDINATE_Y_SEVEN + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
+		if (!numberFlg[7])DrawGraphF(SubCastle::COORDINATE_X_EIGHT + 32 - 4, SubCastle::COORDINATE_Y_EIGHT + 48 - 4, Image::Instance()->GetGraph(eImageType::Gpicture_SubCastle, 2), TRUE);
 	}
 }
 
@@ -110,6 +197,18 @@ int CastleManager::Get_Durability(int num)
 int CastleManager::Get_CastleNum()
 {
 	return POPCASTLE;
+}
+
+//設置できるサブ拠点の数を返す
+int CastleManager::Get_installCastle()
+{
+	return POPCASTLE - 1 - installCnt;
+}
+
+//設置予定のサブ拠点番号を返す
+int CastleManager::Get_installNum()
+{
+	return number;
 }
 
 //占領されたサブ拠点の数を受け取る
@@ -232,5 +331,13 @@ eDirection CastleManager::Get_CastleDirection(int num)
 	else
 	{
 		return eDirection::None;
+	}
+}
+
+void CastleManager::Damage_Proc(int num, int _damage)
+{
+	if (Castles[num] != NULL)
+	{
+		Castles[num]->Damage_Proc(_damage);
 	}
 }

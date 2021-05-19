@@ -7,14 +7,15 @@
 #include "Input.h"
 #include "Menu.h"
 #include "SE.h"
+#include "SceneManager.h"
 
-/// <summary>
-/// コンストラクタ
-/// </summary>
-/// <param name="_sceneChanger">シーンチェンジャー</param>
-/// <param name="_parameter">パラメータ</param>
-Menu::Menu(ISceneChanger* _sceneChanger, Parameter* _parameter)
-	:BaseScene(_sceneChanger, _parameter) {
+//コンストラクタ
+Menu::Menu() {
+
+}
+
+//初期化処理
+void Menu::Init(GameResource* _gameRes) {
 	//BGMを再生する
 	BGM::Instance()->PlayBGM(BGM_menu, DX_PLAYTYPE_LOOP);
 
@@ -36,10 +37,9 @@ Menu::Menu(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	color[static_cast<int>(eMenuType::GameExit)] = GetColor(125, 125, 125);
 }
 
-/// <summary>
-/// 更新処理
-/// </summary>
-void Menu::Update() {
+
+//更新処理
+void Menu::Update(GameResource* _gameRes) {
 	//↓キーが入力された場合
 	if (Input::Instance()->GetPressCount(KEY_INPUT_DOWN) % 16 == 1 &&
 		Input::Instance()->GetPressCount(KEY_INPUT_UP) == 0) {
@@ -61,21 +61,21 @@ void Menu::Update() {
 			SE::Instance()->PlaySE(SE_Enter);
 
 			//キャラ選択画面へ
-			sceneChanger->SceneChange(eScene_CHARASELECT, parameter, true, false);
+			_gameRes->sceneManager->SceneChange("CharaSelect", true, false, _gameRes);
 			break;
 		case eMenuType::Option:
 			//決定SEを鳴らす
 			SE::Instance()->PlaySE(SE_Enter);
 
 			//オプション画面へ
-			sceneChanger->SceneChange(eScene_OPTION, parameter, true, false);
+			_gameRes->sceneManager->SceneChange("Option", true, false, _gameRes);
 			break;
 		case eMenuType::OperationExp:
 			//決定SEを鳴らす
 			SE::Instance()->PlaySE(SE_Enter);
 
 			//操作説明画面へ
-			sceneChanger->SceneChange(eScene_OPERATIONEXP, parameter, true, false);
+			_gameRes->sceneManager->SceneChange("OperationExp", true, false, _gameRes);
 			break;
 		case eMenuType::Title:
 			//BGMを止める
@@ -85,7 +85,7 @@ void Menu::Update() {
 			SE::Instance()->PlaySE(SE_Cancel);
 
 			//タイトル画面へ
-			sceneChanger->SceneChange(eScene_TITLE, parameter, false, false);
+			_gameRes->sceneManager->SceneChange("Title", false, false, _gameRes);
 			break;
 		case eMenuType::GameExit:
 			//ゲームを終了する
@@ -95,10 +95,8 @@ void Menu::Update() {
 	}
 }
 
-/// <summary>
-/// 描画処理
-/// </summary>
-void Menu::Draw() {
+// 描画処理
+void Menu::Draw(GameResource* _gameRes) {
 /*------------------------------------------------------------------------------
 UIの描画
 ------------------------------------------------------------------------------*/
@@ -134,10 +132,7 @@ UIの描画
 		FontHandle::Instance()->Get_natumemozi_100_3(), UI_FONTSIZE, "ゲーム終了");
 }
 
-/// <summary>
-/// 選択メニューを切り替える
-/// </summary>
-/// <param name="_changeMode">切り替えモード</param>
+//選択メニューを切り替える
 void Menu::SelectMenu(int _changeMode) {
 
 	//SEを鳴らす

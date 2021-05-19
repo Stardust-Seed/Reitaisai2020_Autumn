@@ -1,36 +1,40 @@
 #include <DxLib.h>
 #include "GameClear.h"
+#include "Parameter.h"
+#include "SceneManager.h"
 
 const int GameClear::GAME_X = GAME_WIDTH / 5 + 30;   //「もう一度挑戦」テキスト表示のX座標
 const int GameClear::TITLE_X = GAME_WIDTH / 2 - 20;     //「メニューに戻る」テキスト表示のX座標
 
-GameClear::GameClear(ISceneChanger* _sceneChanger, Parameter* _parameter)
-	:BaseScene(_sceneChanger, _parameter) {
+GameClear::GameClear() {
 
+}
+
+void GameClear::Init(GameResource* _gameRes) {
 	nowCursor = Cursor::Cursor_0;
 	x = 0;
 	alpha = 0;
 	waitTimer = 0;
-	charaType = _parameter->Get(BaseScene::CharaSelectTag);
+	charaType = _gameRes->parameter->Get("CharaSelect");
 	BGM::Instance()->PlayBGM(BGM_result, DX_PLAYTYPE_LOOP);
 
-	File::Instance()->SetFileData(eFileType::Clear, _parameter->Get(BaseScene::LevelSelectTag), 1);
+	File::Instance()->SetFileData(eFileType::Clear, _gameRes->parameter->Get("LevelSelect"), 1);
 
 }
 
 /*更新処理*/
-void GameClear::Update() {
+void GameClear::Update(GameResource* _gameRes) {
 
 	if (waitTimer < 150)
 	{
 		waitTimer++;
 	}
 	Move();
-	Select();
+	Select(_gameRes);
 }
 
 /*描画処理*/
-void GameClear::Draw() {
+void GameClear::Draw(GameResource* _gameRes) {
 
 	//キャラの表示
 	switch (charaType)
@@ -130,7 +134,7 @@ void GameClear::Move()
 }
 
 //選択
-void GameClear::Select()
+void GameClear::Select(GameResource* _gameRes)
 {
 	//nowCursorの番号をx座標と合わせる
 	{
@@ -192,11 +196,11 @@ void GameClear::Select()
 			switch (nowCursor)
 			{
 			case Cursor::Cursor_0:    //コンティニューする
-				sceneChanger->SceneChange(eScene_GAME, parameter, false, false);
+				_gameRes->sceneManager->SceneChange("InGame", false, false, _gameRes);
 				break;
 
 			case Cursor::Cursor_1:    //タイトルに戻る
-				sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
+				_gameRes->sceneManager->SceneChange("Menu", false, false, _gameRes);
 				break;
 
 			default:

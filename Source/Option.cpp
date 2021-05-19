@@ -7,6 +7,7 @@
 #include "Image.h"
 #include "FontHandle.h"
 #include "File.h"
+#include "SceneManager.h"
 
 const float Option::BGMBAR_WIDTH = 76.9f;
 const float Option::BGMBAR_HEIGHT = 17.9f;
@@ -39,9 +40,11 @@ const int Option::BUF_SIZE = 256;
 const int Option::CONFIGFILE_NUM = 2;
 
 /*コンストラクタ*/
-Option::Option(ISceneChanger* _sceneChanger, Parameter* _parameter)
-	:BaseScene(_sceneChanger, _parameter) {
+Option::Option() {
 
+}
+
+void Option::Init(GameResource* _gameRes) {
 	bgmVolume = File::Instance()->GetFileData(eFileType::Config, 0);
 	seVolume = File::Instance()->GetFileData(eFileType::Config, 1);
 
@@ -52,7 +55,7 @@ Option::Option(ISceneChanger* _sceneChanger, Parameter* _parameter)
 }
 
 /*更新処理*/
-void Option::Update() {
+void Option::Update(GameResource* _gameRes) {
 	//設定した項目の保存処理
 	if (Input::Instance()->GetPressCount(KEY_INPUT_Z) == 1) {
 		File::Instance()->SetFileData(eFileType::Config, 0, bgmVolume);
@@ -66,7 +69,7 @@ void Option::Update() {
 
 	if (Input::Instance()->GetPressCount(KEY_INPUT_X) == 1) {
 		SE::Instance()->PlaySE(SE_Cancel);
-		sceneChanger->SceneChange(eScene_MENU, parameter, false, true);
+		_gameRes->sceneManager->SceneChange("Menu", false, true, _gameRes);
 	}
 
 	//変更項目の変更処理
@@ -131,7 +134,7 @@ void Option::Update() {
 }
 
 /*描画処理*/
-void Option::Draw() {
+void Option::Draw(GameResource* _gameRes) {
 	//DrawBoxAA(UIAREA_X1, UIAREA_Y1BGM, UIAREA_X2, UIAREA_Y2BGM, GetColor(255, 255, 255), TRUE);
 	DrawExtendGraph(UIAREA_X1 - 50, UIAREA_Y1BGM - 50, UIAREA_X2 + 50, UIAREA_Y2BGM + 50, Image::Instance()->GetGraph(eImageType::UI_CursorFrame, cNum[0]), TRUE);
 	DrawStringToHandle(STRING_XBGM+3, STRING_YBGM+3, "BGM Volume", GetColor(0,0,0), FontHandle::Instance()->Get_natumemozi_48_8());

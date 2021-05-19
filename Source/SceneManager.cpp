@@ -1,111 +1,79 @@
-#include <DxLib.h>
 #include "SceneManager.h"
-#include "CharaSelect.h"
-#include "GameClear.h"
-#include "GameOver.h"
-#include "GameScene.h"
-#include "Image.h"
-#include "LevelSelect.h"
-#include "Menu.h"
-#include "OperationExp.h"
-#include "Option.h"
-#include "Parameter.h"
-#include "Pausemenu.h"
-#include "Title.h"
+#include "Scene.h"
 
-/*コンストラクタ*/
 SceneManager::SceneManager() {
-	scenes.push(std::make_shared<Title>(this, &parameter));
-	nowScene = eScene_TITLE;
-	frontScene = eScene_TITLE;
-	scenes.top()->Init();
-	isChange = false;
+
 }
 
-/*更新処理*/
-void SceneManager::Update() {
-
-	if (isChange == true) {
-		isChange = false;
-		return;
-	}
-
-	scenes.top()->Update();
+//初期化処理
+void SceneManager::Init(GameResource* _gameRes) {
+	nowScene = "";
 }
 
-/*描画処理*/
-void SceneManager::Draw() {
-
-	if (isChange == true) {
-		isChange = false;
-		return;
-	}
-
-	scenes.top()->Draw();
+//終了処理
+void SceneManager::Final() {
+	//登録しておいたシーンを空にする
+	scenes.clear();
 }
 
-/*シーン切り替え処理*/
-void SceneManager::SceneChange(eScene _nextScene, Parameter* _parameter,
-	const bool _isStack, const bool _isBack) {
-	//一つ前のシーンにする処理
+//更新処理
+void SceneManager::Update(GameResource* _gameRes) {
+	stackScene.top()->Update(_gameRes);
+}
+
+//描画処理
+void SceneManager::Draw(GameResource* _gameRes) {
+	stackScene.top()->Draw(_gameRes);
+}
+
+//シーン切り替え処理
+void SceneManager::SceneChange(std::string _nextSceneName, bool _isStack, bool _isBack,
+	GameResource* _gameRes) {
+	//次のシーンを現在のシーンに
+	nowScene = _nextSceneName;
+
+	//一つ前のシーンに戻る
 	if (_isBack) {
-		scenes.pop();
-		nowScene = _nextScene;
+		stackScene.top()->Final();
+		stackScene.pop();
 		return;
 	}
 
-	//scenesの中身をすべて削除する
+	//stackSceneの中身を全て削除する
 	if (!_isStack) {
-		while (!scenes.empty()) {
-			scenes.pop();
+		while (!stackScene.empty()) {
+			stackScene.pop();
 		}
 	}
 
-	//現在のシーンを以前のシーン
-	frontScene = nowScene;
+	//次のシーンを取得する
+	Scene* scene = GetScene(_nextSceneName);
 
-	switch (_nextScene) {
-	case eScene_TITLE:
-		scenes.push(std::make_shared<Title>(this, _parameter));
-		nowScene = eScene_TITLE;
-		break;
-	case eScene_MENU:
-		scenes.push(std::make_shared<Menu>(this, _parameter));
-		nowScene = eScene_MENU;
-		break;
-	case eScene_GAME:
-		scenes.push(std::make_shared<GameScene>(this, _parameter));
-		nowScene = eScene_GAME;
-		break;
-	case eScene_CLAER:
-		scenes.push(std::make_shared<GameClear>(this, _parameter));
-		nowScene = eScene_CLAER;
-		break;
-	case eScene_GAMEOVER:
-		scenes.push(std::make_shared<GameOver>(this, _parameter));
-		nowScene = eScene_GAMEOVER;
-		break;
-	case eScene_OPTION:
-		scenes.push(std::make_shared<Option>(this, _parameter));
-		nowScene = eScene_OPTION;
-		break;
-	case eScene_PAUSEMENU:
-		scenes.push(std::make_shared<Pausemenu>(this, _parameter));
-		nowScene = eScene_PAUSEMENU;
-		break;
-	case eScene_CHARASELECT:
-		scenes.push(std::make_shared<CharaSelect>(this, _parameter));
-		nowScene = eScene_CHARASELECT;
-		break;
-	case eScene_LEVELSELECT:
-		scenes.push(std::make_shared<LevelSelect>(this, _parameter));
-		nowScene = eScene_LEVELSELECT;
-		break;
-	case eScene_OPERATIONEXP:
-		scenes.push(std::make_shared<OperationExp>(this, _parameter));
-		nowScene = eScene_OPERATIONEXP;
-		break;
+	//シーンが空の場合強制終了する
+	if (scene == nullptr)exit(EXIT_FAILURE);
+
+	//stackSceneに次のシーンを格納する
+	stackScene.push(scene);
+
+	//次のシーンを初期化する
+	stackScene.top()->Init(_gameRes);
+}
+
+//シーンを登録
+void SceneManager::SetScene(std::string _nextSceneName, Scene* _sceneClass) {
+	scenes[_nextSceneName] = _sceneClass;
+}
+
+//シーンを取得
+Scene* SceneManager::GetScene(std::string _nextSceneName)const {
+	auto it = scenes.find(_nextSceneName);		//指定キーを取得
+
+	//指定のキーが存在しない場合
+	if (scenes.end() == it) {
+		return nullptr;
 	}
-
-	isChange = true;
+	//存在した場合
+	else {
+		return it->second;
+	}
 }

@@ -14,7 +14,9 @@ class BulletManager;
 enum class eEnemyType {
 	Speed		= 0,	//速度型
 	Power		= 2,	//パワー型
-	Endurance	= 4		//体力型
+	Endurance	= 4,	//体力型
+	Bomb		= 6,	//爆破兵
+	Boss		= 8		//ボス
 };
 
 /// <summary>
@@ -68,6 +70,7 @@ protected:
 
 	bool isActive;		//エネミーの生存フラグ
 	bool isAttack;		//エネミーの攻撃フラグ
+	bool isHitCastle;	//城発見フラグ
 	bool isCoolDown;	//クールダウンフラグ
 
 	float addX;			//攻撃モーション用の加算x
@@ -119,12 +122,6 @@ protected:
 	void AttackMotion(float* _move, float* _jump, float _addMove, float _addJump);
 
 	/// <summary>
-	/// ダメージ処理
-	/// </summary>
-	/// <param name="_damage">ダメージ量</param>
-	void DamageProc(int _damage);
-
-	/// <summary>
 	/// 移動処理
 	/// </summary>
 	/// <param name="_isAbility">プレイヤーのアビリティフラグ</param>
@@ -154,7 +151,7 @@ protected:
 	/// <param name="_ow">拠点の縦幅</param>
 	/// <param name="_oh">拠点の縦幅</param>
 	/// <param name="_isActive">拠点のアクティブフラグ</param>
-	void SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _isActive);
+	bool SearchCastle(float _ox, float _oy, float _ow, float _oh, bool _isActive);
 public:
 	/// <summary>
 	/// デフォルトコンストラクタ
@@ -196,13 +193,18 @@ public:
 	/// <param name="_castleManager">拠点の管理クラス</param>
 	/// <param name="_player">プレイヤークラス</param>
 	/// <param name="_bulletManager">弾の管理クラス</param>
-	virtual void Update(CastleManager* _castleManager, BasePlayer* _player,
-		BulletManager* _bulletManager);
+	virtual void Update(GameResource* _gameRes);
+
+	/// <summary>
+	/// ダメージ処理
+	/// </summary>
+	/// <param name="_damage">ダメージ量</param>
+	void DamageProc(int _damage);
 
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	virtual void Draw();
+	virtual void Draw(GameResource* _gameRes);
 
 	/// <summary>
 	/// x座標を設定する

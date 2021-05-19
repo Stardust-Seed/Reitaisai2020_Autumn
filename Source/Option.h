@@ -1,14 +1,14 @@
 #ifndef _OPTION_H
 #define _OPTION_H
 
-#include "BaseScene.h"
+#include "Scene.h"
 
 enum SelectOptionType {
 	select_BGM,
 	select_SE
 };
 
-class Option :public BaseScene {
+class Option :public Scene {
 private:
 	static const float BGMBAR_WIDTH;
 	static const float BGMBAR_HEIGHT;
@@ -53,9 +53,10 @@ private:
 
 	SelectOptionType selectType;	//現在選択してるタイプ
 public:
-	Option(ISceneChanger* _sceneChanger, Parameter* _parameter);
-	void Update();
-	void Draw();
+	Option();
+	void Init(GameResource* _gameRes);
+	void Update(GameResource* _gameRes);
+	void Draw(GameResource* _gameRes);
 };
 
 #endif // !_OPTION_H

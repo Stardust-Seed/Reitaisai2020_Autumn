@@ -1,9 +1,13 @@
 #include "Dxlib.h"
 #include "Title.h"
+#include "SceneManager.h"
 
 /*コンストラクタ*/
-Title::Title(ISceneChanger* _sceneChanger, Parameter* _parameter)
-	:BaseScene(_sceneChanger, _parameter) {
+Title::Title() {
+
+}
+
+void Title::Init(GameResource* _gameRes) {
 	deg = 0;
 	rad = 0;
 	cnt = 0;
@@ -13,14 +17,14 @@ Title::Title(ISceneChanger* _sceneChanger, Parameter* _parameter)
 	BGM::Instance()->PlayBGM(BGM_title, DX_PLAYTYPE_LOOP);
 }
 
-void Title::Update()
+void Title::Update(GameResource* _gameRes)
 {
 	Move();
 	if (Input::Instance()->GetPressCount(KEY_INPUT_SPACE) == 1)
 	{
 		SE::Instance()->PlaySE(SE_Enter);
 		BGM::Instance()->StopBGM(BGM_title);
-		sceneChanger->SceneChange(eScene_MENU, parameter, false, false);
+		_gameRes->sceneManager->SceneChange("Menu", false, false, _gameRes);
 	}
 	if (Input::Instance()->GetPressCount(KEY_INPUT_ESCAPE) == 1) 
 	{
@@ -29,7 +33,7 @@ void Title::Update()
 	}
 }
 
-void Title::Draw()
+void Title::Draw(GameResource* _gameRes)
 {
 	//タイトル表示
 	DrawGraph(GAME_WIDTH / 4 - 25, GAME_HEIHGT / 13, Image::Instance()->GetGraph(eImageType::Title_Logo, 0), TRUE);

@@ -25,7 +25,7 @@ BulletManager::~BulletManager()
 
 }
 //’e‚ğ”­Ë‚·‚éŠÖ”
-void BulletManager::Shot(VECTOR& pos, int pl_type,int pl_pos, bool pl_attack)
+void BulletManager::Shot(VECTOR& pos, int pl_type,eDirection pl_direction, bool pl_attack,int pl_power,int shotpower)
 {
 
 	for (int i = 0; i < MAX_BULLET; i++)
@@ -33,21 +33,21 @@ void BulletManager::Shot(VECTOR& pos, int pl_type,int pl_pos, bool pl_attack)
 		//NULL‚Ì•¨‚ğ’T‚µ‚Ä,“®“IŠm•Û‚·‚é‚Ì‚İ
 		if (bullet[i] == NULL)
 		{
-			bullet[i] = new Bullet(pos,pl_type, pl_pos, pl_attack);
+			bullet[i] = new Bullet(pos,pl_type, pl_direction, pl_attack,pl_power,shotpower);
 			activeBullet++;
 			break;
 		}
 	}
 }
 //XVˆ—
-void BulletManager::Update(EnemyManager* _enemyManager)
+void BulletManager::Update(GameResource* _gameRes)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		//NULL‚Å‚È‚¢ê‡,Bullet‚ÌUpdateŠÖ”‚ğs‚¤
 		if (bullet[i] != NULL)
 		{
-			bullet[i]->Update(_enemyManager);
+			bullet[i]->Update(_gameRes->enemyManager,_gameRes->player);
 
 			//’e‚ª‰æ–ÊŠO‚Éo‚Ä‚¢‚½ê‡‚©’e‚ª“G‚É“–‚½‚Á‚½ê‡
 			if (bullet[i]->Get_isActive() == false)
@@ -56,13 +56,14 @@ void BulletManager::Update(EnemyManager* _enemyManager)
 				delete bullet[i];
 				bullet[i] = NULL;
 				activeBullet--;
+				
 			}
 		}
 	}
 
 }
 //•`‰æˆ—
-void BulletManager::Draw()
+void BulletManager::Draw(GameResource* _gameRes)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
@@ -114,6 +115,13 @@ int BulletManager::Get_ActiveBullet() {
 //’e‚ÌÅ‘å”‚ÌƒQƒbƒ^[
 int BulletManager::Get_MaxBullet() {
 	return MAX_BULLET;
+}
+//’e‚ÌUŒ‚—Í‚ÌƒQƒbƒ^[
+int BulletManager::Get_Power(int i)
+{
+	if (bullet[i] != NULL) {
+		return bullet[i]->Get_power();
+	}
 }
 bool BulletManager::Get_IsHit(int i) {
 	if (bullet[i] != NULL) {
